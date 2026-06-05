@@ -1,0 +1,24 @@
+"I need to refine the UI/UX of the hero section for my agency website, Credlyr. Use 'image_a72986.jpg' as the definitive visual reference for the 'Duna' aesthetic I am emulating.
+
+Please apply the following refinements to the current implementation:
+
+Visual Fidelity: Match the exact gradient fade intensity from the bottom of the painterly image to the white background (as seen in 'image_a72986.jpg'). The transition needs to be buttery smooth.
+
+Typography Hierarchy: Ensure the 'Inter' font is optimized for web. The headline should have high contrast (Black/Dark Slate) with precise line-height, and the sub-headline should use a slightly lighter font weight (e.g., 400-500) to create clear depth.
+
+Padding & Spacing: Audit the 'pill' navigation bar and the CTA button. Add generous, balanced whitespace (padding) inside these elements so they feel 'expensive' and 'breathable,' rather than cramped.
+
+Micro-interactions: Add a subtle transition effect on the 'Book a demo' CTA button (e.g., a slight scale up or background darkening on hover).
+
+Alignment: Ensure the alignment of the logo on the far left and the navigation menu on the far right matches the alignment of the hero content below, creating a perfect vertical grid.
+
+Please refactor the current CSS/Tailwind classes to achieve this professional 'agency-grade' finish."
+
+Tips to elevate the "Credlyr" UI further
+Beyond the code structure, here are three design principles to keep in mind as you iterate, based on the high-end aesthetic you are aiming for:
+
+The "Luxury" Whitespace Rule: In high-end design, whitespace is not "empty" space; it is a design element. If you feel the UI is cluttered, increase your margin and padding values by 25%. It will immediately make the site feel more premium.
+
+Typography Scale: Ensure that your headline (The new standard in conversion) significantly dwarfs the sub-headline. Using a 3:1 or 4:1 size ratio (e.g., 64px headline to 16px or 18px body) creates an instant professional hierarchy.
+
+Consistent Color Palette: Since you are using a painterly image, use a color picker to grab the exact hex code from the dominant color in the landscape (the flowers or the sky) and use that as an accent for your primary button hover states or link highlights. It creates a subtle, subconscious visual harmony that users perceive as "good design."
