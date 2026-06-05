@@ -175,21 +175,14 @@ function Hero() {
         src="/hero-landscape.png"
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ objectPosition: "center 58%" }}
+        className="absolute inset-0 w-full h-full object-cover object-[center_58%]"
       />
 
-      {/* Gradient scrim — painting clear for top 68%, white sweep only at bottom */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 68%, rgba(255,255,255,0.22) 76%, rgba(255,255,255,0.60) 84%, rgba(255,255,255,0.90) 91%, #ffffff 97%)",
-        }}
-      />
+      {/* Gradient overlay — bottom-up white fade, painting visible for top ~80% */}
+      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent pointer-events-none" />
 
       {/* Overlay text — centered, anchored toward bottom */}
-      <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6">
+      <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6 z-10">
         {/* Announcement pill */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
