@@ -24,3 +24,9 @@ id = "YiRHBaLKhYYdbtrDmFU1W"
 uri = "file://artifacts/credlyr/public/mockup-crm.png"
 type = "image"
 title = "crm pipeline mockup"
+
+[[generated]]
+id = "ClVi7rnHxMxrv96hNyCI9"
+uri = "file://attached_assets/generated_images/a_wide_painterly_landscape_2778.png"
+type = "image"
+title = "generated_image"
