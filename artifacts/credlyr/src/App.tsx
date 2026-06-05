@@ -2,12 +2,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-// ─── Nav data ────────────────────────────────────────────────────────────────
+// ─── Nav data ─────────────────────────────────────────────────────────────────
 
 const NAV_LINKS = [
   {
     label: "Platform",
-    active: true,
     dropdown: [
       { label: "Instant Response", sub: "Reply to every lead in under 60 seconds" },
       { label: "Smart Qualification", sub: "Automated lead scoring and routing" },
@@ -21,14 +20,23 @@ const NAV_LINKS = [
   { label: "Resources" },
 ];
 
-// ─── Navigation ──────────────────────────────────────────────────────────────
+const TRUSTED_LOGOS = [
+  "Apex Dental",
+  "NovaSpa",
+  "Shield Brokers",
+  "HomeServ",
+  "PrecisionMed",
+  "TrueRealty",
+];
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
 
 function Navigation() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [activeDropdownItem, setActiveDropdownItem] = useState("Instant Response");
+  const [activeItem, setActiveItem] = useState("Instant Response");
 
   const activeLink = NAV_LINKS.find((l) => l.label === openDropdown);
-  const previewItem = activeLink?.dropdown?.find((d) => d.label === activeDropdownItem);
+  const previewItem = activeLink?.dropdown?.find((d) => d.label === activeItem);
 
   return (
     <header
@@ -36,107 +44,107 @@ function Navigation() {
       data-testid="navigation"
       onMouseLeave={() => setOpenDropdown(null)}
     >
-      {/* Main nav bar */}
-      <div className="flex items-center justify-between px-8 py-4">
+      {/* Main bar */}
+      <div className="flex items-center justify-between px-10 py-5">
         {/* Logo */}
         <a
           href="/"
-          className="flex items-center gap-2 text-[15px] font-semibold text-gray-900 tracking-tight"
+          className="flex items-center gap-[7px] text-[15px] font-semibold text-gray-950 tracking-tight select-none"
           data-testid="link-logo"
         >
-          <span className="text-[18px] leading-none">✦</span>
+          <span className="text-[17px] leading-none translate-y-[-1px]">✦</span>
           <span>Credlyr</span>
         </a>
 
-        {/* Center nav pill */}
-        <nav className="hidden md:flex items-center">
-          <div className="flex items-center gap-1 bg-white/80 backdrop-blur-md rounded-full px-2 py-1.5 shadow-sm border border-black/[0.06]">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.label}
-                onMouseEnter={() => {
-                  if (link.dropdown) {
-                    setOpenDropdown(link.label);
-                    setActiveDropdownItem(link.dropdown[0].label);
-                  } else {
-                    setOpenDropdown(null);
-                  }
-                }}
-                className={`flex items-center gap-1 px-4 py-1.5 rounded-full text-[14px] font-medium transition-all duration-150 cursor-pointer ${
-                  openDropdown === link.label
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-700 hover:text-gray-900 hover:bg-black/[0.05]"
-                }`}
-                data-testid={`nav-link-${link.label.toLowerCase()}`}
-              >
-                {link.label}
-                {link.dropdown && (
-                  <ChevronDown
-                    size={13}
-                    className={`transition-transform duration-150 ${openDropdown === link.label ? "rotate-180" : ""}`}
-                  />
-                )}
-              </button>
-            ))}
-          </div>
+        {/* Center plain-text links */}
+        <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+          {NAV_LINKS.map((link) => (
+            <button
+              key={link.label}
+              onMouseEnter={() => {
+                if (link.dropdown) {
+                  setOpenDropdown(link.label);
+                  setActiveItem(link.dropdown[0].label);
+                } else {
+                  setOpenDropdown(null);
+                }
+              }}
+              className={`inline-flex items-center gap-[3px] px-4 py-2 rounded-full text-[14px] font-medium transition-colors duration-150 cursor-pointer select-none ${
+                openDropdown === link.label
+                  ? "text-gray-950"
+                  : "text-gray-600 hover:text-gray-950"
+              }`}
+              data-testid={`nav-link-${link.label.toLowerCase()}`}
+            >
+              {link.label}
+              {link.dropdown && (
+                <ChevronDown
+                  size={13}
+                  className={`text-gray-400 transition-transform duration-200 ${
+                    openDropdown === link.label ? "rotate-180 text-gray-700" : ""
+                  }`}
+                />
+              )}
+            </button>
+          ))}
         </nav>
 
-        {/* CTA */}
+        {/* CTA pill */}
         <a
           href="#book"
-          className="hidden md:inline-flex items-center px-5 py-2 bg-gray-900 text-white text-[14px] font-medium rounded-full hover:bg-gray-800 transition-colors"
+          className="hidden md:inline-flex items-center px-5 py-[9px] bg-gray-950 text-white text-[14px] font-medium rounded-full transition-all duration-200 hover:bg-gray-700 hover:scale-[1.03] active:scale-[0.99]"
           data-testid="button-book-demo"
         >
           Book a demo
         </a>
       </div>
 
-      {/* Dropdown panel */}
+      {/* Dropdown */}
       <AnimatePresence>
         {openDropdown && activeLink?.dropdown && (
           <motion.div
             key={openDropdown}
-            initial={{ opacity: 0, y: -6 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute left-1/2 -translate-x-1/2 mt-1 w-[540px]"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-1/2 -translate-x-1/2 top-[68px] w-[520px]"
           >
-            <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex">
-              {/* Left: link list */}
-              <div className="flex-1 py-4 px-2">
+            <div className="flex bg-gray-950/96 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/[0.08] overflow-hidden">
+              {/* Link list */}
+              <div className="flex-1 py-3 px-2">
                 {activeLink.dropdown.map((item) => (
                   <button
                     key={item.label}
-                    onMouseEnter={() => setActiveDropdownItem(item.label)}
-                    className={`w-full text-left px-4 py-3 rounded-xl transition-colors duration-100 cursor-pointer ${
-                      activeDropdownItem === item.label ? "bg-white/10" : "hover:bg-white/5"
+                    onMouseEnter={() => setActiveItem(item.label)}
+                    className={`w-full text-left px-4 py-[11px] rounded-xl transition-colors duration-100 cursor-pointer ${
+                      activeItem === item.label ? "bg-white/10" : "hover:bg-white/[0.05]"
                     }`}
                     data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
-                    <div className="text-[14px] font-medium text-white leading-snug">{item.label}</div>
-                    <div className="text-[12px] text-white/50 mt-0.5">{item.sub}</div>
+                    <div className="text-[13.5px] font-semibold text-white leading-snug">{item.label}</div>
+                    <div className="text-[12px] text-white/40 mt-[2px]">{item.sub}</div>
                   </button>
                 ))}
               </div>
 
-              {/* Right: preview card */}
+              {/* Preview card */}
               {previewItem && (
                 <motion.div
-                  key={activeDropdownItem}
+                  key={activeItem}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.15 }}
-                  className="w-[200px] m-3 bg-white rounded-xl flex flex-col"
+                  transition={{ duration: 0.12 }}
+                  className="w-[188px] m-[10px] bg-white rounded-xl flex flex-col overflow-hidden"
                 >
-                  <div className="flex-1 flex items-center justify-center p-6">
-                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                      <span className="text-lg">✦</span>
+                  <div className="flex-1 flex items-center justify-center p-6 bg-gray-50">
+                    <div className="w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-gray-100">
+                      <span className="text-base leading-none">✦</span>
                     </div>
                   </div>
-                  <div className="p-4 border-t border-gray-100">
-                    <div className="text-[13px] font-semibold text-gray-900 mb-1">{previewItem.label}</div>
-                    <div className="text-[12px] text-gray-500 leading-snug">{previewItem.sub}</div>
+                  <div className="px-4 py-3 border-t border-gray-100">
+                    <div className="text-[13px] font-semibold text-gray-900 mb-[3px]">{previewItem.label}</div>
+                    <div className="text-[11.5px] text-gray-400 leading-snug">{previewItem.sub}</div>
                   </div>
                 </motion.div>
               )}
@@ -148,40 +156,37 @@ function Navigation() {
   );
 }
 
-// ─── Hero ────────────────────────────────────────────────────────────────────
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 
 function Hero() {
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ height: "100svh", minHeight: 600 }}
-      data-testid="hero-section"
-    >
-      {/* Full-bleed landscape painting */}
-      <div className="absolute inset-0">
+    <section data-testid="hero-section" className="w-full bg-white">
+      {/* Painting — anchored at top, fades to white */}
+      <div className="relative w-full" style={{ height: "58vh", minHeight: 340, maxHeight: 560 }}>
         <img
           src="/hero-landscape.png"
           alt=""
-          className="w-full h-full object-cover object-center"
           aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: "center 60%" }}
         />
-        {/* Fade to white at the bottom */}
+        {/* Buttery multi-stop gradient to white */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(255,255,255,0.55) 62%, rgba(255,255,255,0.92) 78%, #ffffff 92%)",
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 28%, rgba(255,255,255,0.18) 42%, rgba(255,255,255,0.52) 56%, rgba(255,255,255,0.82) 70%, rgba(255,255,255,0.96) 84%, #ffffff 96%)",
           }}
         />
       </div>
 
-      {/* Hero text — centered, lower portion */}
-      <div className="relative z-10 flex flex-col items-center justify-end h-full pb-20 px-6 text-center">
+      {/* Text content — on white, below the fade */}
+      <div className="flex flex-col items-center text-center px-6 pt-6 pb-16">
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="text-[52px] md:text-[68px] font-bold leading-[1.08] tracking-[-0.03em] text-gray-950 mb-5"
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="text-[64px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 mb-5 max-w-[640px]"
         >
           The new standard
           <br />
@@ -189,23 +194,23 @@ function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
-          className="text-[17px] text-gray-500 max-w-[460px] leading-relaxed mb-8"
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.22 }}
+          className="text-[18px] font-normal text-gray-500 max-w-[440px] leading-[1.6] mb-9"
         >
           Meet the platform that turns online attention into booked
           appointments, automates follow-up, and grows revenue.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.33 }}
         >
           <a
             href="#book"
-            className="inline-flex items-center px-7 py-3 bg-gray-900 text-white text-[15px] font-medium rounded-full hover:bg-gray-800 transition-colors shadow-lg"
+            className="inline-flex items-center px-8 py-[13px] bg-gray-950 text-white text-[15px] font-medium rounded-full transition-all duration-200 hover:bg-gray-700 hover:scale-[1.03] active:scale-[0.99] shadow-sm"
             data-testid="button-hero-cta"
           >
             Get started
@@ -216,14 +221,43 @@ function Hero() {
   );
 }
 
-// ─── App ─────────────────────────────────────────────────────────────────────
+// ─── Logo strip ───────────────────────────────────────────────────────────────
+
+function TrustedBy() {
+  return (
+    <section
+      data-testid="trusted-by-section"
+      className="w-full bg-white pb-20 px-10"
+    >
+      <p className="text-center text-[13px] text-gray-400 font-medium tracking-[0.04em] uppercase mb-8">
+        Trusted by service businesses
+      </p>
+      <div className="flex items-center justify-center gap-10 flex-wrap">
+        {TRUSTED_LOGOS.map((name) => (
+          <span
+            key={name}
+            className="text-[17px] font-semibold text-gray-300 tracking-tight select-none"
+            data-testid={`logo-${name.toLowerCase().replace(/\s+/g, "-")}`}
+          >
+            {name}
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <Hero />
-      {/* More sections coming next */}
+      {/* Push content below fixed nav */}
+      <div className="pt-[72px]">
+        <Hero />
+        <TrustedBy />
+      </div>
     </div>
   );
 }
