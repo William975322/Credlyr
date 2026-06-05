@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Lock, MinusCircle } from "lucide-react";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -299,6 +299,78 @@ function Stats() {
   );
 }
 
+// ─── Value Proposition ────────────────────────────────────────────────────────
+
+const VALUE_PROPS = [
+  {
+    Icon: ArrowUpRight,
+    heading: "Drive revenue",
+    body: "Credlyr's system responds to every lead in under 60 seconds — closing the gap between interest and conversation that costs service businesses bookings every day.",
+  },
+  {
+    Icon: Lock,
+    heading: "Book more appointments",
+    body: "Automated qualification and scheduling moves leads from form fill to confirmed appointment without a single manual step — no phone tag, no back-and-forth.",
+  },
+  {
+    Icon: MinusCircle,
+    heading: "Reduce overhead",
+    body: "Replace manual follow-up, chaser emails, and missed calls with automated sequences that run around the clock — without hiring extra staff.",
+  },
+];
+
+function ValueProposition() {
+  return (
+    <section
+      data-testid="value-proposition-section"
+      className="w-full bg-white py-20 px-10"
+    >
+      {/* H2 heading */}
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+        className="text-[38px] font-bold tracking-[-0.025em] text-gray-950 leading-[1.1] mb-14 max-w-[640px]"
+      >
+        Designed to convert. Built to scale.
+      </motion.h2>
+
+      {/* 3-column grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {VALUE_PROPS.map(({ Icon, heading, body }, i) => (
+          <motion.div
+            key={heading}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+            data-testid={`value-card-${i}`}
+          >
+            {/* Icon — thin stroke, consistent weight */}
+            <Icon
+              size={22}
+              strokeWidth={1.5}
+              className="text-gray-900 mb-5"
+              aria-hidden="true"
+            />
+
+            {/* Heading */}
+            <h3 className="text-[16px] font-semibold text-gray-950 mb-3 tracking-[-0.01em]">
+              {heading}
+            </h3>
+
+            {/* Body */}
+            <p className="text-[14.5px] text-gray-400 leading-[1.65] font-normal">
+              {body}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -309,6 +381,7 @@ export default function App() {
       <Hero />
       <TrustedBy />
       <Stats />
+      <ValueProposition />
     </div>
   );
 }
