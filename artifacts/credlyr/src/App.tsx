@@ -166,53 +166,70 @@ function Navigation() {
 
 function Hero() {
   return (
-    <section data-testid="hero-section" className="w-full bg-white">
-      {/* Painting — anchored at top, fades to white */}
-      <div className="relative w-full" style={{ height: "58vh", minHeight: 340, maxHeight: 560 }}>
-        <img
-          src="/hero-landscape.png"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center 60%" }}
-        />
-        {/* Buttery multi-stop gradient to white */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0.20) 36%, rgba(255,255,255,0.58) 50%, rgba(255,255,255,0.86) 63%, rgba(255,255,255,0.97) 73%, #ffffff 80%)",
-          }}
-        />
-      </div>
+    <section
+      data-testid="hero-section"
+      className="relative w-full h-screen overflow-hidden"
+    >
+      {/* Full-bleed painting */}
+      <img
+        src="/hero-landscape.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition: "center 58%" }}
+      />
 
-      {/* Text content — left-aligned, px-10 matches nav logo grid column */}
-      <div className="px-10 pt-6 pb-16 max-w-[720px]">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+      {/* Buttery fade: transparent → white at 90% */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0.18) 52%, rgba(255,255,255,0.55) 64%, rgba(255,255,255,0.85) 76%, rgba(255,255,255,0.97) 86%, #ffffff 92%)",
+        }}
+      />
+
+      {/* Overlay text — centered, anchored toward bottom */}
+      <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6">
+        {/* Announcement pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="text-[68px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 mb-5"
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+          className="mb-5"
+        >
+          <span className="inline-flex items-center gap-1.5 bg-gray-900/90 text-white text-xs font-medium px-4 py-1.5 rounded-full tracking-wide backdrop-blur-sm">
+            New&nbsp;→&nbsp;Credlyr for service businesses
+          </span>
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          className="text-[56px] md:text-[68px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 text-center mb-5 max-w-[800px]"
         >
           The new standard
           <br />
           in conversion
         </motion.h1>
 
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.22 }}
-          className="text-[18px] font-normal text-gray-500 max-w-[440px] leading-[1.6] mb-9"
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
+          className="text-[17px] font-normal text-gray-600 max-w-[460px] leading-[1.65] text-center mb-9"
         >
           Meet the platform that turns online attention into booked
           appointments, automates follow-up, and grows revenue.
         </motion.p>
 
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.33 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.36 }}
         >
           <a
             href="#book"

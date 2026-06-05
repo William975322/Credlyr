@@ -1,0 +1,20 @@
+"I need to overhaul the Hero section to match an immersive, full-viewport 'Duna' aesthetic. Please perform the following refactor:
+
+Full-Viewport Layout: Set the hero section container to h-screen (100vh). Remove any existing fixed heights or separate white content divs.
+
+Absolute Positioning: The background image must be absolute, covering the full container (absolute inset-0 w-full h-full object-cover). Use object-position: center 58% to anchor it on the landscape.
+
+The 'Buttery' Fade: Instead of a hard cut, add a bottom gradient overlay that is transparent at the top and pure white at the bottom (reaching white at ~90% height). This should provide a clean surface for text legibility while keeping the painting atmospheric.
+
+Text Overlay: Position the text (Headline, Subtitle, CTA) absolutely, centered at the bottom of the viewport (flex flex-col items-center justify-end pb-24).
+
+Announcement Pill: Add a small bg-gray-900 pill badge above the main headline: text-white text-xs px-4 py-1.5 rounded-full mb-5. Label it: 'New → Credlyr for service businesses'.
+
+Clean Grid: Ensure the headline is text-gray-950 and the subtitle is text-gray-600. Remove any residual white padding or borders that were forcing the 'dead white space' block."
+
+The "Fine Art" Image Fix
+The current images (like image_a5b949.jpg) look playful because the AI is defaulting to "digital illustration" style. You need to regenerate the background image with a "Fine Art" bias.
+
+When you ask Replit (or your image generator) to create the new background, use this specific prompt:
+
+"A wide, cinematic, atmospheric oil painting of a peaceful meadow landscape with rolling hills and a distant lake. Style: Fine art, gallery-quality, soft impressionistic brushstrokes, muted and sophisticated color palette (sage greens, slate blues, warm creams). Cinematic lighting, ethereal, professional SaaS hero aesthetic. Avoid high-saturation, cartoonish, or 'digital illustration' styles. Should look like an expensive, high-end landscape painting."
