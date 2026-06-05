@@ -179,12 +179,12 @@ function Hero() {
         style={{ objectPosition: "center 58%" }}
       />
 
-      {/* Buttery fade: transparent → white at 90% */}
+      {/* Gradient scrim — painting clear for top 68%, white sweep only at bottom */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0.18) 52%, rgba(255,255,255,0.55) 64%, rgba(255,255,255,0.85) 76%, rgba(255,255,255,0.97) 86%, #ffffff 92%)",
+            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 68%, rgba(255,255,255,0.22) 76%, rgba(255,255,255,0.60) 84%, rgba(255,255,255,0.90) 91%, #ffffff 97%)",
         }}
       />
 
@@ -208,6 +208,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="text-[56px] md:text-[68px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 text-center mb-5 max-w-[800px]"
+          style={{ textShadow: "0 1px 24px rgba(255,255,255,0.7), 0 0px 8px rgba(255,255,255,0.5)" }}
         >
           The new standard
           <br />
@@ -219,7 +220,8 @@ function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
-          className="text-[17px] font-normal text-gray-600 max-w-[460px] leading-[1.65] text-center mb-9"
+          className="text-[17px] font-normal text-gray-700 max-w-[460px] leading-[1.65] text-center mb-9"
+          style={{ textShadow: "0 1px 16px rgba(255,255,255,0.9), 0 0px 6px rgba(255,255,255,0.8)" }}
         >
           Meet the platform that turns online attention into booked
           appointments, automates follow-up, and grows revenue.
