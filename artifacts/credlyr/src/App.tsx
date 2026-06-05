@@ -20,6 +20,12 @@ const NAV_LINKS = [
   { label: "Resources" },
 ];
 
+const STATS = [
+  { value: "10.6x", label: "Faster lead response" },
+  { value: "37%", label: "Conversion increase" },
+  { value: "4.8x", label: "More booked appointments" },
+];
+
 const TRUSTED_LOGOS = [
   "Apex Dental",
   "NovaSpa",
@@ -247,6 +253,52 @@ function TrustedBy() {
   );
 }
 
+// ─── Stats ────────────────────────────────────────────────────────────────────
+
+function Stats() {
+  return (
+    <section
+      data-testid="stats-section"
+      className="w-full bg-white border-t border-gray-100 py-16 px-10"
+    >
+      <div className="flex items-stretch">
+        {STATS.map((stat, i) => (
+          <div key={stat.value} className="flex flex-1 items-stretch">
+            {/* Stat block */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+              className="flex flex-col justify-center pr-12"
+            >
+              <span
+                className="text-[42px] font-bold tracking-[-0.04em] text-gray-950 leading-none mb-2"
+                data-testid={`stat-value-${i}`}
+              >
+                {stat.value}
+              </span>
+              <span
+                className="text-[14px] font-normal text-gray-400 leading-snug"
+                data-testid={`stat-label-${i}`}
+              >
+                {stat.label}
+              </span>
+            </motion.div>
+
+            {/* Vertical divider — hidden after last item, hidden on mobile */}
+            {i < STATS.length - 1 && (
+              <div className="hidden md:block self-stretch mr-12 flex-shrink-0">
+                <div className="w-px bg-gray-200 h-full" style={{ transform: "scaleY(0.6)", transformOrigin: "center" }} />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -256,6 +308,7 @@ export default function App() {
       {/* Nav is fixed/transparent — hero image bleeds to page top */}
       <Hero />
       <TrustedBy />
+      <Stats />
     </div>
   );
 }
