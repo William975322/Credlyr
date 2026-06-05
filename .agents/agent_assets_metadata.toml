@@ -1,0 +1,26 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "fxMG7l3FbBUwpdJBSJ_DD"
+uri = "file://artifacts/credlyr/public/credlyr-hero.png"
+type = "image"
+title = "premium landscape background"
+
+[[generated]]
+id = "vPocIHTgWp1Unv2yfWIs3"
+uri = "file://artifacts/credlyr/public/mockup-chat.png"
+type = "image"
+title = "chat interface mockup"
+
+[[generated]]
+id = "tcc22R-gxPH4I6C4jogVV"
+uri = "file://artifacts/credlyr/public/mockup-calendar.png"
+type = "image"
+title = "calendar interface mockup"
+
+[[generated]]
+id = "YiRHBaLKhYYdbtrDmFU1W"
+uri = "file://artifacts/credlyr/public/mockup-crm.png"
+type = "image"
+title = "crm pipeline mockup"
