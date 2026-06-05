@@ -175,13 +175,13 @@ function Hero() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 28%, rgba(255,255,255,0.18) 42%, rgba(255,255,255,0.52) 56%, rgba(255,255,255,0.82) 70%, rgba(255,255,255,0.96) 84%, #ffffff 96%)",
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0.20) 36%, rgba(255,255,255,0.58) 50%, rgba(255,255,255,0.86) 63%, rgba(255,255,255,0.97) 73%, #ffffff 80%)",
           }}
         />
       </div>
 
-      {/* Text content — on white, below the fade */}
-      <div className="flex flex-col items-center text-center px-6 pt-6 pb-16">
+      {/* Text content — on white, below the fade — px-10 matches nav grid */}
+      <div className="flex flex-col items-center text-center px-10 pt-6 pb-16">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -253,11 +253,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      {/* Push content below fixed nav */}
-      <div className="pt-[72px]">
-        <Hero />
-        <TrustedBy />
-      </div>
+      {/* Nav is fixed/transparent — hero image bleeds to page top */}
+      <Hero />
+      <TrustedBy />
     </div>
   );
 }
