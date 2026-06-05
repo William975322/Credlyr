@@ -180,13 +180,13 @@ function Hero() {
         />
       </div>
 
-      {/* Text content — on white, below the fade — px-10 matches nav grid */}
-      <div className="flex flex-col items-center text-center px-10 pt-6 pb-16">
+      {/* Text content — left-aligned, px-10 matches nav logo grid column */}
+      <div className="px-10 pt-6 pb-16 max-w-[720px]">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="text-[64px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 mb-5 max-w-[640px]"
+          className="text-[68px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 mb-5"
         >
           The new standard
           <br />
