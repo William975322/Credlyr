@@ -702,6 +702,177 @@ function TrustedByLeaders() {
   );
 }
 
+// ─── Infrastructure Hub ───────────────────────────────────────────────────────
+
+function SpokeNode({ label }: { label: string }) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }}
+      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      className="bg-white border border-gray-200 rounded-full px-6 py-2.5 text-[14px] text-gray-700 font-medium cursor-default whitespace-nowrap shadow-sm select-none"
+    >
+      {label}
+    </motion.div>
+  );
+}
+
+function HubDesktop() {
+  return (
+    <div className="relative w-full h-[460px]">
+      {/* SVG connector lines */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        {/* top */}
+        <line x1="50%" y1="20%" x2="50%" y2="33%" stroke="#d1d5db" strokeWidth="1" />
+        {/* bottom */}
+        <line x1="50%" y1="67%" x2="50%" y2="80%" stroke="#d1d5db" strokeWidth="1" />
+        {/* left */}
+        <line x1="21%" y1="50%" x2="31.5%" y2="50%" stroke="#d1d5db" strokeWidth="1" />
+        {/* right */}
+        <line x1="68.5%" y1="50%" x2="79%" y2="50%" stroke="#d1d5db" strokeWidth="1" />
+      </svg>
+
+      {/* Center hub */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        {/* Concentric rings */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[192px] rounded-[124px] border border-gray-200/60 pointer-events-none" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[390px] h-[210px] rounded-[133px] border border-gray-200/40 pointer-events-none" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[228px] rounded-[142px] border border-gray-200/20 pointer-events-none" />
+        {/* Hub pill */}
+        <motion.div
+          whileHover={{ scale: 1.02, boxShadow: "0 12px 48px rgba(0,0,0,0.14)" }}
+          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-80 h-40 rounded-[100px] overflow-hidden border-2 border-gray-100 cursor-default"
+        >
+          <img
+            src="/hero-landscape.png"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-[center_60%]"
+          />
+          <div className="absolute inset-0 bg-black/25" />
+          <span className="absolute inset-0 flex items-center justify-center text-[22px] font-bold text-white tracking-[-0.025em] select-none">
+            Credlyr Engine
+          </span>
+        </motion.div>
+      </div>
+
+      {/* Top: Decide */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-12">
+        <SpokeNode label="Decide" />
+      </div>
+
+      {/* Bottom: Data Platform */}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-12">
+        <SpokeNode label="Data Platform" />
+      </div>
+
+      {/* Left: Onboard */}
+      <div className="absolute left-14 top-1/2 -translate-y-1/2">
+        <SpokeNode label="Onboard" />
+      </div>
+
+      {/* Right: Lifecycle */}
+      <div className="absolute right-14 top-1/2 -translate-y-1/2">
+        <SpokeNode label="Lifecycle" />
+      </div>
+    </div>
+  );
+}
+
+function HubMobile() {
+  return (
+    <div className="flex flex-col items-center gap-0 py-8">
+      <SpokeNode label="Decide" />
+      <div className="w-px h-8 bg-gray-200" />
+      {/* Hub */}
+      <motion.div
+        whileHover={{ scale: 1.02, boxShadow: "0 12px 48px rgba(0,0,0,0.14)" }}
+        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-72 h-36 rounded-[100px] overflow-hidden border-2 border-gray-100 cursor-default"
+      >
+        <img
+          src="/hero-landscape.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-[center_60%]"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+        <span className="absolute inset-0 flex items-center justify-center text-[18px] font-bold text-white tracking-[-0.025em] select-none">
+          Credlyr Engine
+        </span>
+      </motion.div>
+      <div className="w-px h-8 bg-gray-200" />
+      <SpokeNode label="Data Platform" />
+      <div className="flex gap-4 mt-6">
+        <SpokeNode label="Onboard" />
+        <SpokeNode label="Lifecycle" />
+      </div>
+    </div>
+  );
+}
+
+function InfrastructureHub() {
+  return (
+    <section
+      data-testid="infrastructure-hub-section"
+      className="w-full bg-[#f5f4f2] py-20 px-10"
+    >
+      {/* Section header */}
+      <div className="flex items-start justify-between mb-12">
+        <div className="max-w-sm">
+          <motion.h2
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[38px] md:text-[46px] font-bold tracking-[-0.03em] text-gray-950 leading-[1.08] mb-4"
+          >
+            The infrastructure<br />behind every booking.
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+            className="text-[14px] text-gray-500 leading-relaxed"
+          >
+            At the heart of Credlyr is a powerful conversion engine driving action
+            across the full customer lifecycle.
+          </motion.p>
+        </div>
+        <motion.a
+          href="#"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.12 }}
+          className="hidden md:flex items-center gap-1.5 border border-gray-300 rounded-full px-4 py-2 text-[13px] text-gray-600 hover:bg-white/80 transition-colors whitespace-nowrap mt-1 shrink-0"
+        >
+          Explore <ArrowUpRight size={12} strokeWidth={1.5} />
+        </motion.a>
+      </div>
+
+      {/* Diagram */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        className="w-full max-w-4xl mx-auto"
+      >
+        <div className="hidden md:block">
+          <HubDesktop />
+        </div>
+        <div className="md:hidden">
+          <HubMobile />
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -714,6 +885,7 @@ export default function App() {
       <Stats />
       <ValueProposition />
       <TrustedByLeaders />
+      <InfrastructureHub />
     </div>
   );
 }
