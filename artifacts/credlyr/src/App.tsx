@@ -178,8 +178,14 @@ function Hero() {
         className="absolute inset-0 w-full h-full object-cover object-[center_58%]"
       />
 
-      {/* Gradient overlay — bottom-up white fade, painting visible for top ~80% */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent pointer-events-none" />
+      {/* Gradient scrim — keeps top 55% fully clear, subtle legibility scrim below */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, transparent 55%, rgba(255,255,255,0.15) 70%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0.80) 92%, #ffffff 100%)",
+        }}
+      />
 
       {/* Overlay text — centered, anchored toward bottom */}
       <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6 z-10">
@@ -201,7 +207,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="text-[56px] md:text-[68px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 text-center mb-5 max-w-[800px]"
-          style={{ textShadow: "0 1px 24px rgba(255,255,255,0.7), 0 0px 8px rgba(255,255,255,0.5)" }}
+          style={{ textShadow: "0 0 20px rgba(255,255,255,0.85), 0 0 40px rgba(255,255,255,0.5)" }}
         >
           The new standard
           <br />
