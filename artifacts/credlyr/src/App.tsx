@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ArrowUpRight, Lock, MinusCircle, X, Quote } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Lock, MinusCircle, X, Quote, CheckSquare, Zap, MessageSquare, SlidersHorizontal, LayoutList } from "lucide-react";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -873,6 +873,237 @@ function InfrastructureHub() {
   );
 }
 
+// ─── Feature Highlight ────────────────────────────────────────────────────────
+
+type FeatureItem = {
+  id: string;
+  icon: React.ElementType;
+  title: string;
+  description: string;
+};
+
+const FEATURE_ITEMS: FeatureItem[] = [
+  {
+    id: "automated",
+    icon: CheckSquare,
+    title: "Automated lead response",
+    description:
+      "Convert enquiries into booked appointments using AI-powered sequences that trigger within 60 seconds — before a competitor picks up the phone.",
+  },
+  {
+    id: "efficiency",
+    icon: Zap,
+    title: "Increased team efficiency",
+    description:
+      "Assign, escalate, and resolve leads with built-in prioritisation so your team focuses on closing, not chasing.",
+  },
+  {
+    id: "messaging",
+    icon: MessageSquare,
+    title: "In-platform messaging",
+    description:
+      "Centralised inbox for every lead conversation — no more scattered threads across email, SMS, and DMs.",
+  },
+  {
+    id: "audit",
+    icon: SlidersHorizontal,
+    title: "Full audit trail",
+    description:
+      "Every lead interaction is automatically logged — timestamped, attributed, and exportable.",
+  },
+];
+
+const DASHBOARD_ITEMS = [
+  { label: "New leads", count: 2, active: true },
+  { label: "My open leads", count: 3, active: false },
+  { label: "My follow-ups", count: 4, active: false },
+  { label: "Escalations", count: 3, active: false },
+  { label: "All leads", count: null, active: false },
+];
+
+function FeatureHighlight() {
+  const [activeId, setActiveId] = useState<string>("automated");
+
+  return (
+    <section
+      data-testid="feature-highlight-section"
+      className="w-full bg-white py-20 px-10"
+    >
+      {/* Header row */}
+      <div className="flex items-start justify-between mb-10">
+        <div>
+          {/* Pill label */}
+          <motion.span
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-block border border-gray-200 rounded-full px-3 py-1 text-[12px] text-gray-600 font-medium mb-5"
+          >
+            Decide
+          </motion.span>
+
+          {/* H2 */}
+          <motion.h2
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+            className="text-[38px] md:text-[46px] font-bold tracking-[-0.03em] text-gray-950 leading-[1.08] max-w-lg"
+          >
+            Save time with automated lead management
+          </motion.h2>
+
+          {/* Sub-headline */}
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="text-[15px] text-gray-500 mt-4 leading-relaxed max-w-md"
+          >
+            Increase booking quality and cut costs — by removing manual follow-up from your team's plate.
+          </motion.p>
+        </div>
+
+        {/* Explore link */}
+        <motion.a
+          href="#"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+          className="hidden md:flex items-center gap-1.5 border border-gray-300 rounded-full px-4 py-2 text-[13px] text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap shrink-0 mt-1"
+        >
+          Explore <ArrowUpRight size={12} strokeWidth={1.5} />
+        </motion.a>
+      </div>
+
+      {/* Two-column body */}
+      <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start">
+
+        {/* Left — feature list */}
+        <div className="flex-1 flex flex-col gap-1">
+          {FEATURE_ITEMS.map((item, i) => {
+            const Icon = item.icon;
+            const isActive = activeId === item.id;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{
+                  duration: 0.5,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: i * 0.07,
+                }}
+                onClick={() => setActiveId(item.id)}
+                className={`rounded-xl px-4 py-4 cursor-pointer transition-colors duration-200 ${
+                  isActive ? "bg-gray-50" : "hover:bg-gray-50/60"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon
+                    size={16}
+                    strokeWidth={1.5}
+                    className={isActive ? "text-gray-800" : "text-gray-400"}
+                  />
+                  <span
+                    className={`text-[15px] font-semibold ${
+                      isActive ? "text-gray-950" : "text-gray-500"
+                    }`}
+                  >
+                    {item.title}
+                  </span>
+                </div>
+                <AnimatePresence initial={false}>
+                  {isActive && (
+                    <motion.p
+                      key="desc"
+                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                      animate={{ opacity: 1, height: "auto", marginTop: 8 }}
+                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-[13px] text-gray-500 leading-[1.65] pl-7 overflow-hidden"
+                    >
+                      {item.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+
+          {/* Bottom explore link — mobile only */}
+          <a
+            href="#"
+            className="md:hidden flex items-center gap-1.5 text-[13px] text-gray-500 mt-4 pl-4 hover:text-gray-800 transition-colors"
+          >
+            Explore <ArrowUpRight size={12} strokeWidth={1.5} />
+          </a>
+        </div>
+
+        {/* Right — dashboard card */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="flex-1 md:flex-[1.1]"
+        >
+          {/* Outer wrapper — off-white tray */}
+          <div className="bg-[#f5f4f2] rounded-2xl p-6 shadow-inner">
+            {/* White dashboard card */}
+            <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
+              {/* Card header */}
+              <div className="flex items-center gap-2 px-5 py-4 border-b border-gray-100">
+                <LayoutList size={14} strokeWidth={1.5} className="text-gray-400" />
+                <span className="text-[14px] font-semibold text-gray-800">Leads</span>
+              </div>
+
+              {/* List */}
+              <div className="divide-y divide-gray-50">
+                {DASHBOARD_ITEMS.map((item) => (
+                  <div
+                    key={item.label}
+                    className={`flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors cursor-default ${
+                      item.active ? "bg-gray-50" : ""
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                          item.active ? "bg-gray-500" : "bg-gray-300"
+                        }`}
+                      />
+                      <span
+                        className={`text-[13px] ${
+                          item.active
+                            ? "text-gray-900 font-medium"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                    </div>
+                    {item.count !== null && (
+                      <span className="text-[12px] text-gray-400 tabular-nums">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -886,6 +1117,7 @@ export default function App() {
       <ValueProposition />
       <TrustedByLeaders />
       <InfrastructureHub />
+      <FeatureHighlight />
     </div>
   );
 }
