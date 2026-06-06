@@ -1104,6 +1104,163 @@ function FeatureHighlight() {
   );
 }
 
+// ─── News ─────────────────────────────────────────────────────────────────────
+
+type NewsCardData = {
+  id: string;
+  variant: "text-bg" | "logo-bg" | "portrait";
+  title: string;
+  category: string;
+  readTime: string;
+};
+
+const NEWS_CARDS: NewsCardData[] = [
+  {
+    id: "founding",
+    variant: "text-bg",
+    title: "A note from our founding team",
+    category: "Company",
+    readTime: "4 min read",
+  },
+  {
+    id: "conversation",
+    variant: "logo-bg",
+    title: "Credlyr in conversation with HomeServ CEO Sarah Chen",
+    category: "Conversations",
+    readTime: "12 min watch",
+  },
+  {
+    id: "casestudy",
+    variant: "portrait",
+    title: "How Apex Dental doubled bookings in 30 days",
+    category: "Case Study",
+    readTime: "8 min read",
+  },
+];
+
+function NewsCardImage({ card }: { card: NewsCardData }) {
+  if (card.variant === "text-bg") {
+    return (
+      <div className="absolute inset-0 bg-gradient-to-b from-sky-200 via-blue-300 to-blue-400 flex items-center justify-center p-8">
+        {/* Cloud shapes */}
+        <div className="absolute bottom-[30%] left-[8%] w-24 h-10 bg-white/50 rounded-full blur-sm" />
+        <div className="absolute bottom-[24%] left-[16%] w-32 h-8 bg-white/40 rounded-full blur-sm" />
+        <div className="absolute top-[18%] right-[10%] w-20 h-8 bg-white/35 rounded-full blur-sm" />
+        <p className="relative text-[17px] font-semibold text-white text-center leading-snug">
+          {card.title}
+        </p>
+      </div>
+    );
+  }
+
+  if (card.variant === "logo-bg") {
+    return (
+      <div className="absolute inset-0">
+        <img
+          src="/hero-landscape.png"
+          alt=""
+          className="w-full h-full object-cover object-[center_45%]"
+        />
+        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <span className="text-[36px] text-white font-bold leading-none select-none">✦</span>
+            <p className="text-[15px] text-white/90 font-semibold tracking-wide mt-1 select-none">
+              Credlyr
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // portrait
+  return (
+    <div
+      className="absolute inset-0 flex items-end"
+      style={{
+        background: "linear-gradient(135deg, #e8e0d8 0%, #d6ccbf 100%)",
+      }}
+    >
+      {/* Silhouette placeholder — large initials */}
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 w-28 h-28 rounded-full bg-stone-300/60 flex items-center justify-center">
+        <span className="text-[28px] font-bold text-stone-500 select-none">AD</span>
+      </div>
+      {/* Name bar at bottom */}
+      <div className="w-full px-5 pb-5 bg-gradient-to-t from-stone-200/80 to-transparent pt-12">
+        <p className="text-[13px] font-semibold text-stone-700">Apex Dental</p>
+        <p className="text-[11px] text-stone-500">Multi-location dental group</p>
+      </div>
+    </div>
+  );
+}
+
+function NewsCard({ card, delay }: { card: NewsCardData; delay: number }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay }}
+      className="flex flex-col cursor-pointer group"
+    >
+      {/* Image container */}
+      <div className="aspect-[4/5] rounded-3xl overflow-hidden relative mb-4 shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
+        <NewsCardImage card={card} />
+      </div>
+
+      {/* Text */}
+      <p className="text-[15px] font-semibold text-gray-950 leading-snug mb-2">
+        {card.title}
+      </p>
+      <p className="text-sm text-gray-400 flex items-center gap-1.5">
+        <span>{card.category}</span>
+        <span className="text-gray-200">—</span>
+        <span>{card.readTime}</span>
+      </p>
+    </motion.article>
+  );
+}
+
+function NewsSection() {
+  return (
+    <section
+      data-testid="news-section"
+      className="w-full bg-white py-20 px-10"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between mb-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="text-[28px] font-semibold tracking-[-0.025em] text-gray-950"
+        >
+          News
+        </motion.h2>
+        <motion.a
+          href="#"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="text-[14px] text-gray-500 hover:text-gray-900 transition-colors"
+        >
+          See more
+        </motion.a>
+      </div>
+
+      {/* Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {NEWS_CARDS.map((card, i) => (
+          <NewsCard key={card.id} card={card} delay={i * 0.08} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -1118,6 +1275,7 @@ export default function App() {
       <TrustedByLeaders />
       <InfrastructureHub />
       <FeatureHighlight />
+      <NewsSection />
     </div>
   );
 }
