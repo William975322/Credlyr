@@ -1261,6 +1261,96 @@ function NewsSection() {
   );
 }
 
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+const FOOTER_COLS = [
+  {
+    heading: "Product",
+    links: ["Automation", "Lead Nurturing", "Booking Engine", "Analytics", "Integrations"],
+  },
+  {
+    heading: "Industries",
+    links: ["Dental Practices", "Medical Clinics", "Spas & Wellness", "Real Estate", "Home Services"],
+  },
+  {
+    heading: "Customers",
+    links: ["Case Studies", "Reviews", "Partners", "Community"],
+  },
+  {
+    heading: "Company",
+    links: ["About", "News", "Careers", "Contact"],
+  },
+  {
+    heading: "Resources",
+    links: ["Blog", "Documentation", "Trust", "Security", "Status"],
+  },
+];
+
+function SiteFooter() {
+  return (
+    <footer
+      data-testid="site-footer"
+      className="relative w-full overflow-hidden"
+      style={{ minHeight: "60vh" }}
+    >
+      {/* Painterly background */}
+      <img
+        src="/hero-landscape.png"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover object-[center_42%] pointer-events-none select-none"
+      />
+      {/* Dark teal overlay */}
+      <div className="absolute inset-0 bg-teal-900/82 pointer-events-none" />
+
+      {/* Content layer */}
+      <div className="relative z-10 flex flex-col justify-between px-10 pt-14 pb-10 min-h-[inherit]" style={{ minHeight: "60vh" }}>
+
+        {/* Logo mark */}
+        <div>
+          <p className="text-[16px] font-bold text-white/90 tracking-[-0.01em] mb-10 select-none">
+            ✦ Credlyr
+          </p>
+
+          {/* Link columns — 2-col on mobile, 5-col on md+ */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-10">
+            {FOOTER_COLS.map((col) => (
+              <div key={col.heading}>
+                <p className="text-[13px] font-semibold text-gray-100 mb-4 tracking-wide">
+                  {col.heading}
+                </p>
+                <ul className="flex flex-col gap-2.5">
+                  {col.links.map((link) => (
+                    <li key={link}>
+                      <a
+                        href="#"
+                        className="text-sm text-gray-300/80 hover:text-white transition-colors duration-150"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Legal strip */}
+        <div className="flex items-center gap-5 mt-16 flex-wrap">
+          <span className="text-[12px] text-gray-400">© Credlyr 2026</span>
+          <a href="#" className="text-[12px] text-gray-400 hover:text-white transition-colors">
+            Privacy Policy
+          </a>
+          <a href="#" className="text-[12px] text-gray-400 hover:text-white transition-colors">
+            Security
+          </a>
+        </div>
+
+      </div>
+    </footer>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -1276,6 +1366,7 @@ export default function App() {
       <InfrastructureHub />
       <FeatureHighlight />
       <NewsSection />
+      <SiteFooter />
     </div>
   );
 }
