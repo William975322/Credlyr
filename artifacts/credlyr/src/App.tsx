@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ArrowUpRight, Lock, MinusCircle } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Lock, MinusCircle, X, Quote } from "lucide-react";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -389,6 +389,319 @@ function ValueProposition() {
   );
 }
 
+// ─── Trusted By Leaders ───────────────────────────────────────────────────────
+
+type LeaderCardVariant = "logo" | "portrait" | "testimonial";
+
+interface LeaderCard {
+  id: string;
+  variant: LeaderCardVariant;
+  colSpan?: 2;
+  // logo
+  company?: string;
+  tagline?: string;
+  // portrait
+  name?: string;
+  title?: string;
+  initials?: string;
+  gradient?: string;
+  // testimonial
+  quote?: string;
+  author?: string;
+  role?: string;
+  dark?: boolean;
+}
+
+const LEADER_CARDS: LeaderCard[] = [
+  {
+    id: "logo-apex",
+    variant: "logo",
+    company: "Apex Dental",
+    tagline: "Multi-location dental group",
+  },
+  {
+    id: "portrait-sarah",
+    variant: "portrait",
+    name: "Sarah Chen",
+    title: "CEO, HomeServ",
+    initials: "SC",
+    gradient: "linear-gradient(135deg, #c8a97e 0%, #a07850 100%)",
+    quote: "Every lead gets a response within 60 seconds. Our close rate tripled in the first month.",
+  },
+  {
+    id: "testimonial-nova",
+    variant: "testimonial",
+    quote: "We stopped losing clients to faster competitors. Credlyr gave our front desk an unfair advantage.",
+    author: "Lena Park",
+    role: "Founder, NovaSpa",
+    dark: true,
+  },
+  {
+    id: "testimonial-reid",
+    variant: "testimonial",
+    colSpan: 2,
+    quote: "Before Credlyr, half our leads went cold before anyone called them back. Now every enquiry gets a personalised response in under a minute — and our appointment book stays full.",
+    author: "Dr. Marcus Reid",
+    role: "Director, PrecisionMed",
+    dark: false,
+  },
+  {
+    id: "logo-shield",
+    variant: "logo",
+    company: "Shield Brokers",
+    tagline: "Insurance & risk advisory",
+  },
+  {
+    id: "portrait-emma",
+    variant: "portrait",
+    name: "Emma Walsh",
+    title: "Operations Director, TrueRealty",
+    initials: "EW",
+    gradient: "linear-gradient(135deg, #7c9e8f 0%, #4a7265 100%)",
+    quote: "Our agents now spend time closing deals, not chasing cold leads that went quiet.",
+  },
+  {
+    id: "logo-homeserv",
+    variant: "logo",
+    company: "HomeServ Pro",
+    tagline: "Home services network",
+  },
+  {
+    id: "testimonial-james",
+    variant: "testimonial",
+    quote: "The ROI showed up in the first week. I genuinely wish we'd found this two years ago.",
+    author: "James Okafor",
+    role: "CEO, TrueRealty",
+    dark: true,
+  },
+];
+
+function LogoCard({ card, onClick }: { card: LeaderCard; onClick: () => void }) {
+  return (
+    <motion.div
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      className="rounded-3xl border border-gray-150 bg-white shadow-sm cursor-pointer flex flex-col items-center justify-center p-8 h-64"
+      data-testid={`leader-card-${card.id}`}
+    >
+      <span className="text-[22px] font-bold tracking-[-0.02em] text-gray-900 mb-2">
+        {card.company}
+      </span>
+      <span className="text-[13px] text-gray-400 font-normal">{card.tagline}</span>
+    </motion.div>
+  );
+}
+
+function PortraitCard({ card, onClick }: { card: LeaderCard; onClick: () => void }) {
+  return (
+    <motion.div
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      className="rounded-3xl shadow-sm cursor-pointer relative overflow-hidden h-64"
+      style={{ background: card.gradient }}
+      data-testid={`leader-card-${card.id}`}
+    >
+      {/* Large initial */}
+      <span
+        className="absolute top-6 left-6 text-[80px] font-bold leading-none select-none"
+        style={{ color: "rgba(255,255,255,0.18)" }}
+      >
+        {card.initials?.[0]}
+      </span>
+
+      {/* Bottom overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 px-6 pb-5">
+        <p className="text-[14px] font-semibold text-white leading-snug mb-0.5">{card.name}</p>
+        <p className="text-[12px] text-white/60">{card.title}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+function TestimonialCard({ card, onClick }: { card: LeaderCard; onClick: () => void }) {
+  const isWide = card.colSpan === 2;
+  return (
+    <motion.div
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      className={`rounded-3xl shadow-sm cursor-pointer flex flex-col justify-between p-7 h-64 ${
+        card.dark ? "bg-gray-950" : "bg-stone-100"
+      } ${isWide ? "col-span-2" : ""}`}
+      data-testid={`leader-card-${card.id}`}
+    >
+      <Quote
+        size={20}
+        strokeWidth={1.5}
+        className={card.dark ? "text-white/30" : "text-gray-300"}
+      />
+      <p
+        className={`text-[14px] leading-[1.6] font-normal mt-4 ${
+          isWide ? "text-[15px]" : ""
+        } ${card.dark ? "text-white/80" : "text-gray-700"}`}
+      >
+        {card.quote}
+      </p>
+      <div className="mt-5">
+        <p className={`text-[13px] font-semibold ${card.dark ? "text-white" : "text-gray-900"}`}>
+          {card.author}
+        </p>
+        <p className={`text-[12px] mt-0.5 ${card.dark ? "text-white/40" : "text-gray-400"}`}>
+          {card.role}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+function TrustedByLeaders() {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = LEADER_CARDS.find((c) => c.id === selectedId) ?? null;
+
+  return (
+    <section
+      data-testid="trusted-by-leaders-section"
+      className="w-full bg-white py-20 px-10"
+    >
+      <motion.p
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="text-center text-[13px] text-gray-400 font-medium tracking-[0.04em] uppercase mb-10"
+      >
+        Trusted by leaders
+      </motion.p>
+
+      {/* Mosaic grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-min gap-4 [grid-auto-flow:dense]">
+        {LEADER_CARDS.map((card, i) => (
+          <motion.div
+            key={card.id}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: (i % 3) * 0.07 }}
+            className={card.colSpan === 2 ? "md:col-span-2" : ""}
+          >
+            {card.variant === "logo" && (
+              <LogoCard card={card} onClick={() => setSelectedId(card.id)} />
+            )}
+            {card.variant === "portrait" && (
+              <PortraitCard card={card} onClick={() => setSelectedId(card.id)} />
+            )}
+            {card.variant === "testimonial" && (
+              <TestimonialCard card={card} onClick={() => setSelectedId(card.id)} />
+            )}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {selected && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60]"
+              onClick={() => setSelectedId(null)}
+            />
+
+            {/* Modal panel */}
+            <motion.div
+              key="modal"
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] w-full max-w-[480px] mx-4"
+              data-testid="leader-modal"
+            >
+              <div
+                className={`rounded-3xl shadow-2xl p-8 relative ${
+                  selected.dark ?? selected.variant === "portrait"
+                    ? "bg-gray-950 text-white"
+                    : "bg-white text-gray-950"
+                }`}
+              >
+                {/* Close */}
+                <button
+                  onClick={() => setSelectedId(null)}
+                  className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-white/10 transition-colors"
+                  data-testid="modal-close"
+                  aria-label="Close"
+                >
+                  <X
+                    size={16}
+                    className={selected.dark ?? selected.variant === "portrait" ? "text-white/60" : "text-gray-400"}
+                  />
+                </button>
+
+                {/* Content */}
+                {selected.variant === "logo" && (
+                  <div className="text-center py-4">
+                    <span className="text-[28px] font-bold tracking-[-0.02em] text-gray-900 block mb-2">
+                      {selected.company}
+                    </span>
+                    <span className="text-[14px] text-gray-400">{selected.tagline}</span>
+                  </div>
+                )}
+
+                {(selected.variant === "portrait" || selected.variant === "testimonial") && (
+                  <>
+                    <Quote size={24} strokeWidth={1.5} className="mb-5 opacity-30" />
+                    <p
+                      className={`text-[17px] leading-[1.65] font-normal mb-8 ${
+                        selected.dark ?? selected.variant === "portrait" ? "text-white/85" : "text-gray-700"
+                      }`}
+                    >
+                      {selected.quote ?? selected.quote}
+                    </p>
+                    <div className="flex items-center gap-3">
+                      {selected.variant === "portrait" && (
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white flex-shrink-0"
+                          style={{ background: selected.gradient }}
+                        >
+                          {selected.initials}
+                        </div>
+                      )}
+                      <div>
+                        <p
+                          className={`text-[14px] font-semibold ${
+                            selected.dark ?? selected.variant === "portrait" ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          {selected.name ?? selected.author}
+                        </p>
+                        <p
+                          className={`text-[12px] ${
+                            selected.dark ?? selected.variant === "portrait" ? "text-white/40" : "text-gray-400"
+                          }`}
+                        >
+                          {selected.title ?? selected.role}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -400,6 +713,7 @@ export default function App() {
       <TrustedBy />
       <Stats />
       <ValueProposition />
+      <TrustedByLeaders />
     </div>
   );
 }
