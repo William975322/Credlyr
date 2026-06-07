@@ -114,7 +114,7 @@ html, body {
   --chart-4: 0 0% 80%;
   --chart-5: 0 0% 90%;
 
-  --app-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --app-font-sans: "GT America", "Inter", "Geist", "Helvetica Neue", "Arial", sans-serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.5rem;
 

@@ -1,29 +1,88 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ArrowUpRight, Lock, MinusCircle, X, Quote, CheckSquare, Zap, MessageSquare, SlidersHorizontal, LayoutList } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Lock, MinusCircle, X, Quote, CheckSquare, Zap, MessageSquare, SlidersHorizontal, LayoutList, Menu, ChevronRight, TrendingUp, ShieldCheck, LineChart } from "lucide-react";
+import { Link, Route, Switch } from "wouter";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
-const NAV_LINKS = [
+interface NavDropdownColumn {
+  title?: string;
+  items: { label: string; sub: string }[];
+}
+
+interface NavItem {
+  label: string;
+  dropdown?: {
+    variant: "two-column" | "split-preview";
+    left: NavDropdownColumn;
+    right?: NavDropdownColumn;
+  };
+}
+
+const NAV_LINKS: NavItem[] = [
   {
-    label: "Platform",
-    dropdown: [
-      { label: "Instant Response", sub: "Reply to every lead in under 60 seconds" },
-      { label: "Smart Qualification", sub: "Automated lead scoring and routing" },
-      { label: "Appointment Booking", sub: "Frictionless scheduling, zero back-and-forth" },
-      { label: "Follow-up Engine", sub: "Automated sequences that re-engage leads" },
-      { label: "CRM Sync", sub: "Keep every contact up to date, automatically" },
-    ],
+    label: "Product",
+    dropdown: {
+      variant: "two-column",
+      left: {
+        title: "Platform",
+        items: [
+          { label: "Instant Response", sub: "Reply to every lead in under 60 seconds" },
+          { label: "Smart Qualification", sub: "Automated lead scoring and routing" },
+          { label: "Appointment Booking", sub: "Frictionless scheduling, zero back-and-forth" },
+        ],
+      },
+      right: {
+        title: "Solutions",
+        items: [
+          { label: "Follow-up Engine", sub: "Automated sequences that re-engage leads" },
+          { label: "CRM Sync", sub: "Keep every contact up to date, automatically" },
+        ],
+      },
+    },
   },
-  { label: "Solutions" },
-  { label: "Company" },
+  {
+    label: "Customers",
+    dropdown: {
+      variant: "two-column",
+      left: {
+        title: "Industries",
+        items: [
+          { label: "E-commerce", sub: "Webshops and online retail" },
+          { label: "Local Business", sub: "Services, hospitality, trade" },
+          { label: "Tech Startups", sub: "SaaS and digital platforms" },
+        ],
+      },
+      right: {
+        title: "Teams",
+        items: [
+          { label: "Sales", sub: "Lead gen and conversion strategy" },
+          { label: "Marketing", sub: "Brand development and content" },
+          { label: "Operations", sub: "CRM and workflow automation" },
+        ],
+      },
+    },
+  },
+  {
+    label: "Company",
+    dropdown: {
+      variant: "split-preview",
+      left: {
+        items: [
+          { label: "About", sub: "Our story" },
+          { label: "News", sub: "Press and insights" },
+          { label: "Careers", sub: "We're hiring" },
+        ],
+      },
+    },
+  },
   { label: "Resources" },
 ];
 
 const STATS = [
-  { value: "10.6x", label: "Faster lead response" },
+  { value: "10.6x", label: "Faster onboarding" },
   { value: "37%", label: "Conversion increase" },
-  { value: "4.8x", label: "More booked appointments" },
+  { value: "4.8x", label: "Analyst efficiency" },
 ];
 
 const TRUSTED_LOGOS = [
@@ -39,26 +98,39 @@ const TRUSTED_LOGOS = [
 
 function Navigation() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [activeItem, setActiveItem] = useState("Instant Response");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const activeLink = NAV_LINKS.find((l) => l.label === openDropdown);
-  const previewItem = activeLink?.dropdown?.find((d) => d.label === activeItem);
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out ${
+        scrolled
+          ? "bg-white/80 backdrop-blur-md border-b border-neutral-100"
+          : "bg-transparent border-b border-transparent"
+      }`}
       data-testid="navigation"
       onMouseLeave={() => setOpenDropdown(null)}
     >
       {/* Main bar */}
-      <div className="flex items-center justify-between px-10 py-5">
+      <div className="flex items-center justify-between px-10 py-8">
         {/* Logo */}
         <a
           href="/"
-          className="flex items-center gap-[7px] text-[15px] font-semibold text-gray-950 tracking-tight select-none"
+          className="flex items-center gap-[10px] text-2xl md:text-3xl font-bold text-gray-950 tracking-tighter select-none"
           data-testid="link-logo"
         >
-          <span className="text-[17px] leading-none translate-y-[-1px]">✦</span>
+          <span className="text-2xl md:text-3xl leading-none translate-y-[-1px]">✦</span>
           <span>Credlyr</span>
         </a>
 
@@ -70,15 +142,14 @@ function Navigation() {
               onMouseEnter={() => {
                 if (link.dropdown) {
                   setOpenDropdown(link.label);
-                  setActiveItem(link.dropdown[0].label);
                 } else {
                   setOpenDropdown(null);
                 }
               }}
-              className={`inline-flex items-center gap-[3px] px-4 py-2 rounded-full text-[14px] font-medium transition-colors duration-150 cursor-pointer select-none ${
+              className={`group inline-flex items-center gap-[3px] px-4 py-2 rounded-full text-[14px] font-medium transition-all duration-150 cursor-pointer select-none ${
                 openDropdown === link.label
-                  ? "text-gray-950"
-                  : "text-gray-600 hover:text-gray-950"
+                  ? "bg-neutral-800/50 text-white backdrop-blur-md"
+                  : "text-gray-600 hover:bg-neutral-800/50 hover:text-white hover:backdrop-blur-md"
               }`}
               data-testid={`nav-link-${link.label.toLowerCase()}`}
             >
@@ -86,8 +157,8 @@ function Navigation() {
               {link.dropdown && (
                 <ChevronDown
                   size={13}
-                  className={`text-gray-400 transition-transform duration-200 ${
-                    openDropdown === link.label ? "rotate-180 text-gray-700" : ""
+                  className={`text-gray-400 transition-transform duration-200 group-hover:text-white ${
+                    openDropdown === link.label ? "rotate-180 text-white" : ""
                   }`}
                 />
               )}
@@ -96,13 +167,23 @@ function Navigation() {
         </nav>
 
         {/* CTA pill */}
-        <a
-          href="#book"
-          className="hidden md:inline-flex items-center px-5 py-[9px] bg-gray-950 text-white text-[14px] font-medium rounded-full transition-all duration-200 hover:bg-gray-700 hover:scale-[1.03] active:scale-[0.99]"
-          data-testid="button-book-demo"
+        <Link href="/get-started">
+          <a
+            className="hidden md:inline-flex items-center px-[18px] py-[8px] bg-black text-white text-[13.5px] font-semibold rounded-full transition-colors duration-150 hover:bg-neutral-800 active:scale-[0.98] cursor-pointer"
+            data-testid="button-book-demo"
+          >
+            Schedule a call
+          </a>
+        </Link>
+
+        {/* Mobile menu trigger */}
+        <button
+          onClick={() => setIsMobileMenuOpen(true)}
+          className="flex md:hidden items-center justify-center p-1.5 text-gray-950 hover:text-gray-700 transition-colors cursor-pointer select-none"
+          aria-label="Open menu"
         >
-          Book a demo
-        </a>
+          <Menu size={24} strokeWidth={1.5} />
+        </button>
       </div>
 
       {/* Dropdown */}
@@ -114,46 +195,168 @@ function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-1/2 -translate-x-1/2 top-[68px] w-[520px]"
+            className="absolute left-1/2 -translate-x-1/2 top-[68px] w-[560px]"
           >
-            <div className="flex bg-gray-950/96 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/[0.08] overflow-hidden">
-              {/* Link list */}
-              <div className="flex-1 py-3 px-2">
-                {activeLink.dropdown.map((item) => (
-                  <button
-                    key={item.label}
-                    onMouseEnter={() => setActiveItem(item.label)}
-                    className={`w-full text-left px-4 py-[11px] rounded-xl transition-colors duration-100 cursor-pointer ${
-                      activeItem === item.label ? "bg-white/10" : "hover:bg-white/[0.05]"
-                    }`}
-                    data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    <div className="text-[13.5px] font-semibold text-white leading-snug">{item.label}</div>
-                    <div className="text-[12px] text-white/40 mt-[2px]">{item.sub}</div>
-                  </button>
-                ))}
-              </div>
-
-              {/* Preview card */}
-              {previewItem && (
-                <motion.div
-                  key={activeItem}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.12 }}
-                  className="w-[188px] m-[10px] bg-white rounded-xl flex flex-col overflow-hidden"
-                >
-                  <div className="flex-1 flex items-center justify-center p-6 bg-gray-50">
-                    <div className="w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-gray-100">
-                      <span className="text-base leading-none">✦</span>
+            <div className="grid grid-cols-2 gap-6 bg-neutral-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-neutral-700/50 p-6">
+              {activeLink.dropdown.variant === "two-column" ? (
+                <>
+                  {/* Left Column */}
+                  <div>
+                    {activeLink.dropdown.left.title && (
+                      <div className="text-neutral-400 text-[11px] font-semibold tracking-wider uppercase mb-3 px-3">
+                        {activeLink.dropdown.left.title}
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1">
+                      {activeLink.dropdown.left.items.map((item) => (
+                        <Link key={item.label} href="/get-started">
+                          <a
+                            className="block text-left px-3 py-2 rounded-xl transition-colors duration-100 cursor-pointer hover:bg-neutral-800/50"
+                            data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            <div className="text-[13.5px] font-semibold text-white leading-snug">{item.label}</div>
+                            <div className="text-neutral-500 text-sm mt-[2px] font-normal leading-normal">{item.sub}</div>
+                          </a>
+                        </Link>
+                      ))}
                     </div>
                   </div>
-                  <div className="px-4 py-3 border-t border-gray-100">
-                    <div className="text-[13px] font-semibold text-gray-900 mb-[3px]">{previewItem.label}</div>
-                    <div className="text-[11.5px] text-gray-400 leading-snug">{previewItem.sub}</div>
+
+                  {/* Right Column */}
+                  <div>
+                    {activeLink.dropdown.right?.title && (
+                      <div className="text-neutral-400 text-[11px] font-semibold tracking-wider uppercase mb-3 px-3">
+                        {activeLink.dropdown.right.title}
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1">
+                      {activeLink.dropdown.right?.items.map((item) => (
+                        <Link key={item.label} href="/get-started">
+                          <a
+                            className="block text-left px-3 py-2 rounded-xl transition-colors duration-100 cursor-pointer hover:bg-neutral-800/50"
+                            data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            <div className="text-[13.5px] font-semibold text-white leading-snug">{item.label}</div>
+                            <div className="text-neutral-500 text-sm mt-[2px] font-normal leading-normal">{item.sub}</div>
+                          </a>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </motion.div>
+                </>
+              ) : (
+                <>
+                  {/* Left Column (No Header, padded items) */}
+                  <div className="flex flex-col justify-center gap-1">
+                    {activeLink.dropdown.left.items.map((item) => (
+                      <Link key={item.label} href="/get-started">
+                        <a
+                          className="block text-left px-3 py-2 rounded-xl transition-colors duration-100 cursor-pointer hover:bg-neutral-800/50"
+                          data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          <div className="text-[13.5px] font-semibold text-white leading-snug">{item.label}</div>
+                          <div className="text-neutral-500 text-sm mt-[2px] font-normal leading-normal">{item.sub}</div>
+                        </a>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Right Column (Visual Card Placeholder - bg-neutral-800) */}
+                  <div className="flex items-center justify-center">
+                    <div className="w-full aspect-square bg-neutral-800 rounded-xl flex items-center justify-center border border-neutral-700/30 overflow-hidden relative group/visual">
+                      {/* Premium design gesture placeholder */}
+                      <svg
+                        viewBox="0 0 100 100"
+                        className="w-20 h-20 text-neutral-400 group-hover/visual:scale-105 transition-transform duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        {/* Elegant finger-heart gesture art */}
+                        <path
+                          d="M50 35 C48 31, 44 31, 42 33 C40 35, 40 39, 44 43 L50 49 L56 43 C60 39, 60 35, 58 33 C56 31, 52 31, 50 35 Z"
+                          fill="currentColor"
+                          fillOpacity="0.15"
+                        />
+                        
+                        <path d="M35 85 C35 75, 40 70, 45 70" />
+                        <path d="M65 85 C65 75, 60 70, 55 70" />
+                        
+                        <path d="M42 70 C40 68, 40 64, 43 62 C46 60, 49 62, 49 65" />
+                        <path d="M44 62 C42 60, 42 56, 45 54 C48 52, 51 54, 51 57" />
+                        <path d="M46 54 C44 52, 44 48, 47 46 C50 44, 53 46, 53 49" />
+                        
+                        <path d="M58 70 C60 65, 61 54, 51 45" />
+                        
+                        <path d="M47 70 C46 65, 45 51, 49 44 C51 41, 54 41, 56 44 C58 47, 56 51, 52 55" />
+                      </svg>
+                    </div>
+                  </div>
+                </>
               )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-neutral-950/98 backdrop-blur-xl z-[100] flex flex-col p-6 md:hidden"
+          >
+            {/* Header row */}
+            <div className="flex items-center justify-between pb-6 border-b border-neutral-900">
+              <a
+                href="/"
+                className="flex items-center gap-[10px] text-2xl font-bold text-white tracking-tighter select-none"
+              >
+                <span className="text-2xl leading-none translate-y-[-1px]">✦</span>
+                <span>Credlyr</span>
+              </a>
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 rounded-lg border border-neutral-800 hover:bg-neutral-800/50 text-white transition-colors"
+                aria-label="Close menu"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Links vertical list */}
+            <div className="flex-1 py-8 flex flex-col gap-1">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={`#${link.label.toLowerCase()}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between text-[18px] font-medium text-white py-4 border-b border-neutral-900 hover:text-neutral-300 transition-colors"
+                >
+                  <span>{link.label}</span>
+                  <ChevronRight size={16} className="text-neutral-500" />
+                </a>
+              ))}
+            </div>
+
+            {/* Bottom section */}
+            <div className="pt-6 border-t border-neutral-900 flex flex-col gap-4">
+              <Link href="/get-started">
+                <a
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full inline-flex items-center justify-center py-3.5 bg-white text-black text-[15px] font-semibold rounded-full hover:bg-neutral-200 active:scale-[0.98] transition-all cursor-pointer"
+                >
+                  Schedule a call
+                </a>
+              </Link>
+              <span className="text-center text-[12px] text-neutral-500 mt-2">
+                Built for service businesses
+              </span>
             </div>
           </motion.div>
         )}
@@ -168,37 +371,48 @@ function Hero() {
   return (
     <section
       data-testid="hero-section"
-      className="relative w-full h-screen overflow-hidden"
+      className="relative w-full h-screen overflow-hidden p-0 m-0"
+      style={{ height: "100vh", width: "100vw" }}
     >
       {/* Full-bleed painting */}
       <img
-        src="/hero-landscape.png"
+        src="/hero-landscape.png?v=2"
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover object-[center_58%]"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center 58%",
+          maxWidth: "none",
+          display: "block",
+          margin: 0,
+          padding: 0,
+          filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)"
+        }}
       />
 
-      {/* Gradient scrim — keeps top 55% fully clear, subtle legibility scrim below */}
+      {/* Gradient scrim — keeps top 60% fully clear, subtle legibility scrim below */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to bottom, transparent 0%, transparent 55%, rgba(255,255,255,0.15) 70%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0.80) 92%, #ffffff 100%)",
+            "linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(255,255,255,0.1) 75%, rgba(255,255,255,0.3) 85%, rgba(255,255,255,0.55) 93%, rgba(255,255,255,0.75) 100%)",
         }}
       />
 
-      {/* Overlay text — centered, anchored toward bottom */}
-      <div className="absolute inset-0 flex flex-col items-center justify-end pb-24 px-6 z-10">
+      <div className="absolute inset-0 flex flex-col items-center justify-end pb-16 z-10 text-center px-6">
         {/* Announcement pill */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-          className="mb-5"
+          className="px-4 py-1.5 rounded-full bg-gray-950 text-white text-xs font-medium tracking-wide mb-6"
         >
-          <span className="inline-flex items-center gap-1.5 bg-gray-900/90 text-white text-xs font-medium px-4 py-1.5 rounded-full tracking-wide backdrop-blur-sm">
-            New&nbsp;→&nbsp;Credlyr for service businesses
-          </span>
+          New → Credlyr for service businesses
         </motion.div>
 
         {/* Headline */}
@@ -206,8 +420,7 @@ function Hero() {
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="text-[56px] md:text-[68px] font-bold leading-[1.07] tracking-[-0.03em] text-gray-950 text-center mb-5 max-w-[800px]"
-          style={{ textShadow: "0 0 20px rgba(255,255,255,0.85), 0 0 40px rgba(255,255,255,0.5)" }}
+          className="max-w-4xl text-balance text-[clamp(56px,7vw,92px)] leading-[0.95] tracking-[-0.055em] font-normal text-gray-950"
         >
           The new standard
           <br />
@@ -219,8 +432,7 @@ function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
-          className="text-[17px] font-normal text-gray-700 max-w-[460px] leading-[1.65] text-center mb-9"
-          style={{ textShadow: "0 1px 16px rgba(255,255,255,0.9), 0 0px 6px rgba(255,255,255,0.8)" }}
+          className="mt-8 max-w-2xl text-balance text-[24px] leading-[1.35] text-neutral-700 font-normal mb-8"
         >
           Meet the platform that turns online attention into booked
           appointments, automates follow-up, and grows revenue.
@@ -232,13 +444,14 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.36 }}
         >
-          <a
-            href="#book"
-            className="inline-flex items-center px-8 py-[13px] bg-gray-950 text-white text-[15px] font-medium rounded-full transition-all duration-200 hover:bg-gray-700 hover:scale-[1.03] active:scale-[0.99] shadow-sm"
-            data-testid="button-hero-cta"
-          >
-            Get started
-          </a>
+          <Link href="/get-started">
+            <a
+              className="inline-flex items-center px-8 py-3 bg-black text-white rounded-full font-semibold text-lg hover:bg-gray-800 transition-all cursor-pointer"
+              data-testid="button-hero-cta"
+            >
+              Get started
+            </a>
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -247,71 +460,96 @@ function Hero() {
 
 // ─── Logo strip ───────────────────────────────────────────────────────────────
 
-function TrustedBy() {
+function SocialProof() {
   return (
     <section
-      data-testid="trusted-by-section"
-      className="w-full bg-white pb-20 px-10"
+      data-testid="social-proof-section"
+      className="w-full bg-white py-24 px-10 border-y border-gray-100"
     >
-      <p className="text-center text-[13px] text-gray-400 font-medium tracking-[0.04em] uppercase mb-8">
-        Trusted by service businesses
-      </p>
-      <div className="flex items-center justify-center gap-10 flex-wrap">
-        {TRUSTED_LOGOS.map((name) => (
-          <span
-            key={name}
-            className="text-[17px] font-semibold text-gray-300 tracking-tight select-none"
-            data-testid={`logo-${name.toLowerCase().replace(/\s+/g, "-")}`}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+        <p className="text-center text-[13px] text-gray-400 font-medium tracking-[0.04em] uppercase mb-8">
+          Trusted by service businesses
+        </p>
+        
+        {/* Infinite marquee */}
+        <div className="w-full overflow-hidden flex relative py-2 select-none pointer-events-none">
+          {/* Gradient fade borders */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
+          
+          <motion.div
+            className="flex gap-20 whitespace-nowrap"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              ease: "linear",
+              duration: 35,
+              repeat: Infinity,
+            }}
           >
-            {name}
-          </span>
-        ))}
+            {/* Duplicated multiple times to guarantee seamless scrolling */}
+            {Array(4).fill(TRUSTED_LOGOS).flat().map((name, i) => (
+              <span
+                key={i}
+                className="text-[17px] font-semibold text-gray-300 tracking-tight"
+                data-testid={`logo-${name.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                {name}
+              </span>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-// ─── Stats ────────────────────────────────────────────────────────────────────
-
-function Stats() {
+function StatsSection() {
   return (
     <section
       data-testid="stats-section"
-      className="w-full bg-white border-t border-gray-100 py-16 px-10"
+      className="w-full bg-white pt-24 pb-12 px-10"
     >
-      <div className="flex items-stretch">
-        {STATS.map((stat, i) => (
-          <div key={stat.value} className="flex flex-1 items-stretch">
-            {/* Stat block */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-left flex flex-col items-start">
+        {/* H2 heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="text-4xl font-medium tracking-[-0.025em] text-gray-950 leading-tight mb-0 max-w-[640px]"
+        >
+          Designed to convert.
+          <br />
+          Built to scale.
+        </motion.h2>
+
+        {/* Stats Row */}
+        <div className="flex flex-row flex-wrap justify-start items-start gap-12 mt-8 w-full">
+          {STATS.map((stat, i) => (
             <motion.div
+              key={stat.value}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
-              className="flex flex-col justify-center pr-12"
+              className="flex flex-col items-start text-left"
+              data-testid={`stat-block-${i}`}
             >
               <span
-                className="text-[42px] font-bold tracking-[-0.04em] text-gray-950 leading-none mb-2"
+                className="text-6xl md:text-7xl font-bold tracking-tighter text-gray-950 leading-none"
                 data-testid={`stat-value-${i}`}
               >
                 {stat.value}
               </span>
               <span
-                className="text-[14px] font-normal text-gray-400 leading-snug"
+                className="text-sm font-normal text-neutral-500 mt-2 leading-tight"
                 data-testid={`stat-label-${i}`}
               >
                 {stat.label}
               </span>
             </motion.div>
-
-            {/* Vertical divider — hidden after last item, hidden on mobile */}
-            {i < STATS.length - 1 && (
-              <div className="hidden md:block self-stretch mr-12 flex-shrink-0">
-                <div className="w-px bg-gray-200 h-full" style={{ transform: "scaleY(0.6)", transformOrigin: "center" }} />
-              </div>
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -321,19 +559,19 @@ function Stats() {
 
 const VALUE_PROPS = [
   {
-    Icon: ArrowUpRight,
+    Icon: LineChart,
     heading: "Drive revenue",
-    body: "Credlyr's system responds to every lead in under 60 seconds — closing the gap between interest and conversation that costs service businesses bookings every day.",
+    body: "Credlyr's platform is built to help enterprises grow. Optimised to eliminate friction and instantly deliver higher conversion.",
   },
   {
     Icon: Lock,
-    heading: "Book more appointments",
-    body: "Automated qualification and scheduling moves leads from form fill to confirmed appointment without a single manual step — no phone tag, no back-and-forth.",
+    heading: "Future-proof compliance",
+    body: "A powerful policy engine translates KYC, KYB and AML into code - enabling the industry's most detailed audit trails.",
   },
   {
     Icon: MinusCircle,
-    heading: "Reduce overhead",
-    body: "Replace manual follow-up, chaser emails, and missed calls with automated sequences that run around the clock — without hiring extra staff.",
+    heading: "Reduce costs",
+    body: "Eliminate manual checks, endless emails and lengthy reviews - by automating manual work with compliant, auditable AI.",
   },
 ];
 
@@ -341,363 +579,43 @@ function ValueProposition() {
   return (
     <section
       data-testid="value-proposition-section"
-      className="w-full bg-white py-20 px-10"
+      className="w-full bg-white pt-0 pb-24 px-10 border-b border-neutral-200"
     >
-      {/* H2 heading */}
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        className="text-[38px] font-bold tracking-[-0.025em] text-gray-950 leading-[1.1] mb-14 max-w-[640px]"
-      >
-        Designed to convert. Built to scale.
-      </motion.h2>
-
-      {/* 3-column grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {VALUE_PROPS.map(({ Icon, heading, body }, i) => (
-          <motion.div
-            key={heading}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
-            data-testid={`value-card-${i}`}
-          >
-            {/* Icon — thin stroke, consistent weight */}
-            <Icon
-              size={22}
-              strokeWidth={1.5}
-              className="text-gray-900 mb-5"
-              aria-hidden="true"
-            />
-
-            {/* Heading */}
-            <h3 className="text-[16px] font-semibold text-gray-950 mb-3 tracking-[-0.01em]">
-              {heading}
-            </h3>
-
-            {/* Body */}
-            <p className="text-[14.5px] text-gray-400 leading-[1.65] font-normal">
-              {body}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ─── Trusted By Leaders ───────────────────────────────────────────────────────
-
-type LeaderCardVariant = "logo" | "portrait" | "testimonial";
-
-interface LeaderCard {
-  id: string;
-  variant: LeaderCardVariant;
-  colSpan?: 2;
-  // logo
-  company?: string;
-  tagline?: string;
-  // portrait
-  name?: string;
-  title?: string;
-  initials?: string;
-  gradient?: string;
-  // testimonial
-  quote?: string;
-  author?: string;
-  role?: string;
-  dark?: boolean;
-}
-
-const LEADER_CARDS: LeaderCard[] = [
-  {
-    id: "logo-apex",
-    variant: "logo",
-    company: "Apex Dental",
-    tagline: "Multi-location dental group",
-  },
-  {
-    id: "portrait-sarah",
-    variant: "portrait",
-    name: "Sarah Chen",
-    title: "CEO, HomeServ",
-    initials: "SC",
-    gradient: "linear-gradient(135deg, #c8a97e 0%, #a07850 100%)",
-    quote: "Every lead gets a response within 60 seconds. Our close rate tripled in the first month.",
-  },
-  {
-    id: "testimonial-nova",
-    variant: "testimonial",
-    quote: "We stopped losing clients to faster competitors. Credlyr gave our front desk an unfair advantage.",
-    author: "Lena Park",
-    role: "Founder, NovaSpa",
-    dark: true,
-  },
-  {
-    id: "testimonial-reid",
-    variant: "testimonial",
-    colSpan: 2,
-    quote: "Before Credlyr, half our leads went cold before anyone called them back. Now every enquiry gets a personalised response in under a minute — and our appointment book stays full.",
-    author: "Dr. Marcus Reid",
-    role: "Director, PrecisionMed",
-    dark: false,
-  },
-  {
-    id: "logo-shield",
-    variant: "logo",
-    company: "Shield Brokers",
-    tagline: "Insurance & risk advisory",
-  },
-  {
-    id: "portrait-emma",
-    variant: "portrait",
-    name: "Emma Walsh",
-    title: "Operations Director, TrueRealty",
-    initials: "EW",
-    gradient: "linear-gradient(135deg, #7c9e8f 0%, #4a7265 100%)",
-    quote: "Our agents now spend time closing deals, not chasing cold leads that went quiet.",
-  },
-  {
-    id: "logo-homeserv",
-    variant: "logo",
-    company: "HomeServ Pro",
-    tagline: "Home services network",
-  },
-  {
-    id: "testimonial-james",
-    variant: "testimonial",
-    quote: "The ROI showed up in the first week. I genuinely wish we'd found this two years ago.",
-    author: "James Okafor",
-    role: "CEO, TrueRealty",
-    dark: true,
-  },
-];
-
-function LogoCard({ card, onClick }: { card: LeaderCard; onClick: () => void }) {
-  return (
-    <motion.div
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-      className="rounded-3xl border border-gray-150 bg-white shadow-sm cursor-pointer flex flex-col items-center justify-center p-8 h-64"
-      data-testid={`leader-card-${card.id}`}
-    >
-      <span className="text-[22px] font-bold tracking-[-0.02em] text-gray-900 mb-2">
-        {card.company}
-      </span>
-      <span className="text-[13px] text-gray-400 font-normal">{card.tagline}</span>
-    </motion.div>
-  );
-}
-
-function PortraitCard({ card, onClick }: { card: LeaderCard; onClick: () => void }) {
-  return (
-    <motion.div
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-      className="rounded-3xl shadow-sm cursor-pointer relative overflow-hidden h-64"
-      style={{ background: card.gradient }}
-      data-testid={`leader-card-${card.id}`}
-    >
-      {/* Large initial */}
-      <span
-        className="absolute top-6 left-6 text-[80px] font-bold leading-none select-none"
-        style={{ color: "rgba(255,255,255,0.18)" }}
-      >
-        {card.initials?.[0]}
-      </span>
-
-      {/* Bottom overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 px-6 pb-5">
-        <p className="text-[14px] font-semibold text-white leading-snug mb-0.5">{card.name}</p>
-        <p className="text-[12px] text-white/60">{card.title}</p>
-      </div>
-    </motion.div>
-  );
-}
-
-function TestimonialCard({ card, onClick }: { card: LeaderCard; onClick: () => void }) {
-  const isWide = card.colSpan === 2;
-  return (
-    <motion.div
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-      className={`rounded-3xl shadow-sm cursor-pointer flex flex-col justify-between p-7 h-64 ${
-        card.dark ? "bg-gray-950" : "bg-stone-100"
-      } ${isWide ? "col-span-2" : ""}`}
-      data-testid={`leader-card-${card.id}`}
-    >
-      <Quote
-        size={20}
-        strokeWidth={1.5}
-        className={card.dark ? "text-white/30" : "text-gray-300"}
-      />
-      <p
-        className={`text-[14px] leading-[1.6] font-normal mt-4 ${
-          isWide ? "text-[15px]" : ""
-        } ${card.dark ? "text-white/80" : "text-gray-700"}`}
-      >
-        {card.quote}
-      </p>
-      <div className="mt-5">
-        <p className={`text-[13px] font-semibold ${card.dark ? "text-white" : "text-gray-900"}`}>
-          {card.author}
-        </p>
-        <p className={`text-[12px] mt-0.5 ${card.dark ? "text-white/40" : "text-gray-400"}`}>
-          {card.role}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
-function TrustedByLeaders() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = LEADER_CARDS.find((c) => c.id === selectedId) ?? null;
-
-  return (
-    <section
-      data-testid="trusted-by-leaders-section"
-      className="w-full bg-white py-20 px-10"
-    >
-      <motion.p
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center text-[13px] text-gray-400 font-medium tracking-[0.04em] uppercase mb-10"
-      >
-        Trusted by leaders
-      </motion.p>
-
-      {/* Mosaic grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-min gap-4 [grid-auto-flow:dense]">
-        {LEADER_CARDS.map((card, i) => (
-          <motion.div
-            key={card.id}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-30px" }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: (i % 3) * 0.07 }}
-            className={card.colSpan === 2 ? "md:col-span-2" : ""}
-          >
-            {card.variant === "logo" && (
-              <LogoCard card={card} onClick={() => setSelectedId(card.id)} />
-            )}
-            {card.variant === "portrait" && (
-              <PortraitCard card={card} onClick={() => setSelectedId(card.id)} />
-            )}
-            {card.variant === "testimonial" && (
-              <TestimonialCard card={card} onClick={() => setSelectedId(card.id)} />
-            )}
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selected && (
-          <>
-            {/* Backdrop */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+        {/* 3-column grid with line separators */}
+        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-neutral-200">
+          {VALUE_PROPS.map(({ Icon, heading, body }, i) => (
             <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60]"
-              onClick={() => setSelectedId(null)}
-            />
-
-            {/* Modal panel */}
-            <motion.div
-              key="modal"
-              initial={{ opacity: 0, scale: 0.95, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 16 }}
-              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] w-full max-w-[480px] mx-4"
-              data-testid="leader-modal"
+              key={heading}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+              data-testid={`value-card-${i}`}
+              className={`px-8 py-12 flex flex-col items-start text-left ${
+                i < 2 ? "md:border-r md:border-neutral-200" : ""
+              }`}
             >
-              <div
-                className={`rounded-3xl shadow-2xl p-8 relative ${
-                  selected.dark ?? selected.variant === "portrait"
-                    ? "bg-gray-950 text-white"
-                    : "bg-white text-gray-950"
-                }`}
-              >
-                {/* Close */}
-                <button
-                  onClick={() => setSelectedId(null)}
-                  className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-white/10 transition-colors"
-                  data-testid="modal-close"
-                  aria-label="Close"
-                >
-                  <X
-                    size={16}
-                    className={selected.dark ?? selected.variant === "portrait" ? "text-white/60" : "text-gray-400"}
-                  />
-                </button>
+              {/* Icon — thin stroke, consistent weight */}
+              <Icon
+                strokeWidth={1.5}
+                className="w-8 h-8 text-neutral-900 mb-4"
+                aria-hidden="true"
+              />
 
-                {/* Content */}
-                {selected.variant === "logo" && (
-                  <div className="text-center py-4">
-                    <span className="text-[28px] font-bold tracking-[-0.02em] text-gray-900 block mb-2">
-                      {selected.company}
-                    </span>
-                    <span className="text-[14px] text-gray-400">{selected.tagline}</span>
-                  </div>
-                )}
+              {/* Heading */}
+              <h3 className="text-xl font-semibold text-gray-950 mb-2">
+                {heading}
+              </h3>
 
-                {(selected.variant === "portrait" || selected.variant === "testimonial") && (
-                  <>
-                    <Quote size={24} strokeWidth={1.5} className="mb-5 opacity-30" />
-                    <p
-                      className={`text-[17px] leading-[1.65] font-normal mb-8 ${
-                        selected.dark ?? selected.variant === "portrait" ? "text-white/85" : "text-gray-700"
-                      }`}
-                    >
-                      {selected.quote ?? selected.quote}
-                    </p>
-                    <div className="flex items-center gap-3">
-                      {selected.variant === "portrait" && (
-                        <div
-                          className="w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white flex-shrink-0"
-                          style={{ background: selected.gradient }}
-                        >
-                          {selected.initials}
-                        </div>
-                      )}
-                      <div>
-                        <p
-                          className={`text-[14px] font-semibold ${
-                            selected.dark ?? selected.variant === "portrait" ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          {selected.name ?? selected.author}
-                        </p>
-                        <p
-                          className={`text-[12px] ${
-                            selected.dark ?? selected.variant === "portrait" ? "text-white/40" : "text-gray-400"
-                          }`}
-                        >
-                          {selected.title ?? selected.role}
-                        </p>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
+              {/* Body */}
+              <p className="text-base text-neutral-500 leading-relaxed font-normal">
+                {body}
+              </p>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -751,6 +669,7 @@ function HubDesktop() {
             src="/hero-landscape.png"
             alt=""
             className="absolute inset-0 w-full h-full object-cover object-[center_60%]"
+            style={{ filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)" }}
           />
           <div className="absolute inset-0 bg-black/25" />
           <span className="absolute inset-0 flex items-center justify-center text-[22px] font-bold text-white tracking-[-0.025em] select-none">
@@ -797,6 +716,7 @@ function HubMobile() {
           src="/hero-landscape.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-[center_60%]"
+          style={{ filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)" }}
         />
         <div className="absolute inset-0 bg-black/25" />
         <span className="absolute inset-0 flex items-center justify-center text-[18px] font-bold text-white tracking-[-0.025em] select-none">
@@ -817,17 +737,17 @@ function InfrastructureHub() {
   return (
     <section
       data-testid="infrastructure-hub-section"
-      className="w-full bg-[#f5f4f2] py-20 px-10"
+      className="w-full bg-[#f5f4f2] py-24 px-10"
     >
       {/* Section header */}
-      <div className="flex items-start justify-between mb-12">
+      <div className="flex items-start justify-between mb-16">
         <div className="max-w-sm">
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[38px] md:text-[46px] font-bold tracking-[-0.03em] text-gray-950 leading-[1.08] mb-4"
+            className="text-4xl font-bold tracking-[-0.03em] text-gray-950 leading-tight mb-4"
           >
             The infrastructure<br />behind every booking.
           </motion.h2>
@@ -836,7 +756,7 @@ function InfrastructureHub() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
-            className="text-[14px] text-gray-500 leading-relaxed"
+            className="font-sans text-lg text-gray-600 leading-relaxed font-normal"
           >
             At the heart of Credlyr is a powerful conversion engine driving action
             across the full customer lifecycle.
@@ -927,10 +847,10 @@ function FeatureHighlight() {
   return (
     <section
       data-testid="feature-highlight-section"
-      className="w-full bg-white py-20 px-10"
+      className="w-full bg-white py-24 px-10"
     >
       {/* Header row */}
-      <div className="flex items-start justify-between mb-10">
+      <div className="flex items-start justify-between mb-16">
         <div>
           {/* Pill label */}
           <motion.span
@@ -949,7 +869,7 @@ function FeatureHighlight() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-            className="text-[38px] md:text-[46px] font-bold tracking-[-0.03em] text-gray-950 leading-[1.08] max-w-lg"
+            className="text-4xl font-bold tracking-[-0.03em] text-gray-950 leading-tight max-w-lg"
           >
             Save time with automated lead management
           </motion.h2>
@@ -960,7 +880,7 @@ function FeatureHighlight() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="text-[15px] text-gray-500 mt-4 leading-relaxed max-w-md"
+            className="font-sans text-lg text-gray-600 mt-4 leading-relaxed max-w-md font-normal"
           >
             Increase booking quality and cut costs — by removing manual follow-up from your team's plate.
           </motion.p>
@@ -1025,7 +945,7 @@ function FeatureHighlight() {
                       animate={{ opacity: 1, height: "auto", marginTop: 8 }}
                       exit={{ opacity: 0, height: 0, marginTop: 0 }}
                       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-[13px] text-gray-500 leading-[1.65] pl-7 overflow-hidden"
+                      className="font-sans text-[13px] text-gray-600 leading-[1.65] pl-7 overflow-hidden"
                     >
                       {item.description}
                     </motion.p>
@@ -1141,7 +1061,7 @@ const NEWS_CARDS: NewsCardData[] = [
 function NewsCardImage({ card }: { card: NewsCardData }) {
   if (card.variant === "text-bg") {
     return (
-      <div className="absolute inset-0 bg-gradient-to-b from-sky-200 via-blue-300 to-blue-400 flex items-center justify-center p-8">
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-100 via-orange-200 to-orange-300 flex items-center justify-center p-8">
         {/* Cloud shapes */}
         <div className="absolute bottom-[30%] left-[8%] w-24 h-10 bg-white/50 rounded-full blur-sm" />
         <div className="absolute bottom-[24%] left-[16%] w-32 h-8 bg-white/40 rounded-full blur-sm" />
@@ -1160,6 +1080,7 @@ function NewsCardImage({ card }: { card: NewsCardData }) {
           src="/hero-landscape.png"
           alt=""
           className="w-full h-full object-cover object-[center_45%]"
+          style={{ filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)" }}
         />
         <div className="absolute inset-0 bg-black/10" />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -1226,16 +1147,16 @@ function NewsSection() {
   return (
     <section
       data-testid="news-section"
-      className="w-full bg-white py-20 px-10"
+      className="w-full bg-white py-24 px-10"
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex items-center justify-between mb-16">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[28px] font-semibold tracking-[-0.025em] text-gray-950"
+          className="text-4xl font-bold tracking-[-0.025em] text-gray-950 leading-tight"
         >
           News
         </motion.h2>
@@ -1298,12 +1219,13 @@ function SiteFooter() {
         src="/hero-landscape.png"
         alt=""
         className="absolute inset-0 w-full h-full object-cover object-[center_42%] pointer-events-none select-none"
+        style={{ filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)" }}
       />
-      {/* Dark teal overlay */}
-      <div className="absolute inset-0 bg-teal-900/82 pointer-events-none" />
+      {/* Warm dark overlay */}
+      <div className="absolute inset-0 bg-stone-900/85 pointer-events-none" />
 
       {/* Content layer */}
-      <div className="relative z-10 flex flex-col justify-between px-10 pt-14 pb-10 min-h-[inherit]" style={{ minHeight: "60vh" }}>
+      <div className="relative z-10 flex flex-col justify-between px-10 pt-32 pb-16 min-h-[inherit]" style={{ minHeight: "60vh" }}>
 
         {/* Logo mark */}
         <div>
@@ -1351,22 +1273,175 @@ function SiteFooter() {
   );
 }
 
+// ─── Get Started Page ─────────────────────────────────────────────────────────
+
+function GetStartedPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    source: "Google search",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Form submitted! We will reach out to you soon.");
+  };
+
+  return (
+    <section className="relative w-full min-h-screen overflow-hidden p-0 m-0 flex items-center justify-center pt-24 pb-16 px-6">
+      {/* Full-bleed painting background */}
+      <img
+        src="/hero-landscape.png?v=2"
+        alt=""
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center 58%",
+          maxWidth: "none",
+          display: "block",
+          margin: 0,
+          padding: 0,
+          filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
+        }}
+      />
+
+      {/* Gradient scrim */}
+      <div
+        className="absolute inset-0 pointer-events-none p-0 m-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, transparent 55%, rgba(255,255,255,0.15) 70%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0.80) 92%, #ffffff 100%)",
+        }}
+      />
+
+      {/* Form Container Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 w-full max-w-[500px] bg-white/90 backdrop-blur-md border border-white/20 shadow-2xl rounded-3xl p-8 md:p-10 flex flex-col"
+      >
+        <div className="text-center mb-8">
+          <h1 className="text-[36px] font-bold tracking-tight text-gray-950 mb-3">
+            Get started
+          </h1>
+          <p className="text-lg text-gray-600 font-normal leading-relaxed">
+            Fill out the form and we will reach out to you soon.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          {/* Name */}
+          <div className="flex flex-col gap-1.5">
+            <input
+              type="text"
+              placeholder="Name *"
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full px-5 py-3 rounded-xl border border-gray-300 bg-white/50 focus:bg-white focus:border-neutral-500 focus:outline-none text-[15px] font-normal transition-all"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col gap-1.5">
+            <input
+              type="email"
+              placeholder="Business email *"
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full px-5 py-3 rounded-xl border border-gray-300 bg-white/50 focus:bg-white focus:border-neutral-500 focus:outline-none text-[15px] font-normal transition-all"
+            />
+          </div>
+
+          {/* Phone */}
+          <div className="flex flex-col gap-1.5">
+            <input
+              type="tel"
+              placeholder="Phone number"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full px-5 py-3 rounded-xl border border-gray-300 bg-white/50 focus:bg-white focus:border-neutral-500 focus:outline-none text-[15px] font-normal transition-all"
+            />
+          </div>
+
+          {/* Source Dropdown */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-[12.5px] font-medium text-gray-500 px-1">
+              How did you hear about us?
+            </label>
+            <select
+              value={formData.source}
+              onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+              className="w-full px-5 py-3.5 rounded-xl border border-gray-300 bg-white/50 focus:bg-white focus:border-neutral-500 focus:outline-none text-[15px] font-normal transition-all appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 1.25rem center",
+                backgroundSize: "1rem",
+                paddingRight: "2.5rem"
+              }}
+            >
+              <option value="Google search">Google search</option>
+              <option value="Referral">Referral</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          {/* Message Textarea */}
+          <div className="flex flex-col gap-1.5">
+            <textarea
+              placeholder="How can we help?"
+              rows={4}
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              className="w-full px-5 py-3 rounded-xl border border-gray-300 bg-white/50 focus:bg-white focus:border-neutral-500 focus:outline-none text-[15px] font-normal transition-all resize-none"
+            />
+          </div>
+
+          {/* Submit CTA */}
+          <button
+            type="submit"
+            className="w-full mt-2 py-3.5 bg-black text-white text-[15px] font-semibold rounded-full hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer select-none text-center"
+          >
+            Schedule a call
+          </button>
+        </form>
+      </motion.div>
+    </section>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      {/* Nav is fixed/transparent — hero image bleeds to page top */}
-      <Hero />
-      <TrustedBy />
-      <Stats />
-      <ValueProposition />
-      <TrustedByLeaders />
-      <InfrastructureHub />
-      <FeatureHighlight />
-      <NewsSection />
-      <SiteFooter />
+      <Switch>
+        <Route path="/get-started" component={GetStartedPage} />
+        <Route path="/">
+          <>
+            {/* Nav is fixed/transparent — hero image bleeds to page top */}
+            <Hero />
+            <SocialProof />
+            <StatsSection />
+            <ValueProposition />
+            <InfrastructureHub />
+            <FeatureHighlight />
+            <NewsSection />
+            <SiteFooter />
+          </>
+        </Route>
+      </Switch>
     </div>
   );
 }
