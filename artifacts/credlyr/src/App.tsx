@@ -19,6 +19,15 @@ import {
   Clock,
   CheckCircle,
   Info,
+  Briefcase,
+  Landmark,
+  UserCheck,
+  DollarSign,
+  Fingerprint,
+  Users,
+  FileText,
+  Eye,
+  Globe,
 } from "lucide-react";
 import { Link, Route, Switch, useLocation } from "wouter";
 import ResourcesHubPage from "./pages/ResourcesHub";
@@ -146,9 +155,9 @@ const NAV_LINKS: NavItem[] = [
 ];
 
 const STATS = [
-  { value: "10.6x", label: "Faster launch cycles" },
+  { value: "10.6x", label: "Faster onboarding" },
   { value: "37%", label: "Conversion increase" },
-  { value: "4.8x", label: "More campaign pages" },
+  { value: "4.8x", label: "Analyst efficiency" },
 ];
 
 const TRUSTED_LOGOS = [
@@ -726,11 +735,11 @@ function StatsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl md:text-4xl font-medium tracking-normal text-gray-950 leading-tight mb-0 max-w-[640px]"
+          className="text-4xl md:text-5xl font-bold tracking-tight text-gray-950 leading-[1.08] mb-0"
         >
-          Built for seconds
+          Designed to convert.
           <br />
-          of attention.
+          Built to scale.
         </motion.h2>
 
         {/* Stats Row */}
@@ -750,13 +759,13 @@ function StatsSection() {
               data-testid={`stat-block-${i}`}
             >
               <span
-                className="text-5xl md:text-7xl font-bold tracking-normal text-gray-950 leading-none"
+                className="text-6xl md:text-[80px] font-bold tracking-tight text-gray-950 leading-none"
                 data-testid={`stat-value-${i}`}
               >
                 {stat.value}
               </span>
               <span
-                className="text-sm font-normal text-neutral-500 mt-2 leading-tight"
+                className="text-[14px] md:text-[15px] font-normal text-neutral-500 mt-3 leading-tight"
                 data-testid={`stat-label-${i}`}
               >
                 {stat.label}
@@ -771,21 +780,47 @@ function StatsSection() {
 
 // ─── Value Proposition ────────────────────────────────────────────────────────
 
+const DriveRevenueIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 text-neutral-900 mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect x="3" y="3" width="18" height="18" rx="4" />
+    <path d="M7 16l4-4 4 3 3-5" />
+    <circle cx="7" cy="16" r="0.8" className="fill-neutral-900" />
+    <circle cx="11" cy="12" r="0.8" className="fill-neutral-900" />
+    <circle cx="15" cy="15" r="0.8" className="fill-neutral-900" />
+    <circle cx="18" cy="10" r="0.8" className="fill-neutral-900" />
+  </svg>
+);
+
+const ComplianceIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 text-neutral-900 mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect x="5" y="11" width="14" height="10" rx="3" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    <circle cx="12" cy="16" r="0.8" className="fill-neutral-900" />
+  </svg>
+);
+
+const ReduceCostsIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 text-neutral-900 mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+  </svg>
+);
+
 const VALUE_PROPS = [
   {
-    Icon: LineChart,
-    heading: "Convert faster",
-    body: "Credlyr builds websites that make the offer clear, prove trust quickly, and move visitors toward action without friction.",
+    Icon: DriveRevenueIcon,
+    heading: "Drive revenue",
+    body: "Credlyr's platform is built to help enterprises grow. Optimised to eliminate friction and instantly deliver higher conversion.",
   },
   {
-    Icon: Lock,
-    heading: "Earn trust fast",
-    body: "Slow, vague, or generic websites get filtered out instantly. Every section is built to reduce doubt and increase confidence.",
+    Icon: ComplianceIcon,
+    heading: "Future-proof compliance",
+    body: "A powerful policy engine translates KYC, KYB and AML into code - enabling the industry's most detailed audit trails.",
   },
   {
-    Icon: MinusCircle,
-    heading: "Scale campaigns",
-    body: "Launch landing pages per offer, audience, and campaign so your website becomes a conversion system, not a static brochure.",
+    Icon: ReduceCostsIcon,
+    heading: "Reduce costs",
+    body: "Eliminate manual checks, endless emails and lengthy reviews - by automating manual work with compliant, auditable AI.",
   },
 ];
 
@@ -814,20 +849,16 @@ function ValueProposition() {
                 i < 2 ? "md:border-r md:border-neutral-200" : ""
               }`}
             >
-              {/* Icon — thin stroke, consistent weight */}
-              <Icon
-                strokeWidth={1.5}
-                className="w-8 h-8 text-neutral-900 mb-4"
-                aria-hidden="true"
-              />
+              {/* Icon — thin stroke, custom SVG */}
+              <Icon />
 
               {/* Heading */}
-              <h3 className="text-xl font-semibold text-gray-950 mb-2">
+              <h3 className="text-[18px] md:text-[19px] font-bold text-gray-950 mb-3 leading-snug">
                 {heading}
               </h3>
 
               {/* Body */}
-              <p className="text-base text-neutral-500 leading-relaxed font-normal">
+              <p className="text-[14px] md:text-[15px] text-neutral-500 leading-relaxed font-normal">
                 {body}
               </p>
             </motion.div>
@@ -842,101 +873,342 @@ function ValueProposition() {
 
 // ─── AI Awareness Cycle Section ────────────────────────────────────────────────
 
-function AIAwarenessCycle() {
-  const points = [
+function OnboardHighlight() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const features = [
     {
-      num: "01",
-      title: "AI search is compressing attention",
-      desc: "Fewer casual clicks, more \"decision-ready\" visitors. When they land, your site must convert or you lose them.",
+      icon: Briefcase,
+      title: "20+ KYB modules",
+      desc: "Configure every data field to fit your enterprise needs – from ID&V to AML, KYC, and more.",
     },
     {
-      num: "02",
-      title: "Trust requirements are rising",
-      desc: "If your site looks outdated, slow, unclear, or generic, you get filtered out instantly.",
+      icon: Zap,
+      title: "Optimised for conversion",
+      desc: "Frictionless UX/UI engineered to minimize drop-off rates and maximize completion.",
     },
     {
-      num: "03",
-      title: "The landing-page economy is exploding",
-      desc: "Businesses need pages per offer, per campaign, per audience - not one homepage.",
+      icon: CheckCircle,
+      title: "First-time-right data collection",
+      desc: "Real-time validation prevents errors, typos, and bad documents before submission.",
     },
     {
-      num: "04",
-      title: "AI answers are replacing browsing",
-      desc: "If your site isn’t structured for clarity, proof, and intent, you don’t get picked by humans or by answer engines.",
-    },
-    {
-      num: "05",
-      title: "Competition is now credibility",
-      desc: "The winner isn’t who \"has a website.\" It’s who has a site that sells, proves, and positions.",
+      icon: Globe,
+      title: "Deep localization",
+      desc: "Instantly adapt to local regulations, languages, currencies, and preferred local methods.",
     },
   ];
 
+  // For localization rotation
+  const [localIndex, setLocalIndex] = useState(0);
+  const localizations = [
+    { country: "United States", flag: "🇺🇸", method: "ACH / Plaid", currency: "USD", rule: "SEC / FINRA" },
+    { country: "Germany", flag: "🇩🇪", method: "Sofort / SEPA", currency: "EUR", rule: "BaFin Compliant" },
+    { country: "Netherlands", flag: "🇳🇱", method: "iDEAL / SEPA", currency: "EUR", rule: "DNB Compliant" },
+    { country: "United Kingdom", flag: "🇬🇧", method: "Faster Payments", currency: "GBP", rule: "FCA Compliant" },
+  ];
+
+  useEffect(() => {
+    if (activeIndex !== 3) return;
+    const timer = setInterval(() => {
+      setLocalIndex((prev) => (prev + 1) % localizations.length);
+    }, 2200);
+    return () => clearInterval(timer);
+  }, [activeIndex]);
+
   return (
     <section
-      data-testid="ai-awareness-cycle-section"
-      className="w-full bg-[#fcfbfa] py-12 md:py-20 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
+      data-testid="onboard-highlight-section"
+      className="w-full bg-[#fbfaf7] py-16 md:py-24 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-20 items-start">
-        {/* Left Column: Narrative Copy */}
-        <div className="flex flex-col items-start text-left lg:sticky lg:top-32">
-          {/* Subtle Label */}
-          <span className="inline-block border border-neutral-200 rounded-full px-3 py-1.5 text-[12px] text-gray-500 font-medium mb-6">
-            The AI Awareness Cycle
-          </span>
-          {/* Large Serif Headline */}
-          <h2 className="text-4xl md:text-5xl lg:text-[52px] leading-[1.08] font-normal tracking-tight text-gray-950 mb-8 max-w-xl">
-            When was the last time you browsed the internet without asking AI first?
-          </h2>
-          <div className="space-y-6 text-[17px] md:text-[18px] text-neutral-600 leading-relaxed font-normal max-w-xl">
-            <p>
-              AI became your Google, your Wikipedia, your shopping assistant, your VA. And because it’s so convenient in our daily lives, it became our decision maker.
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+        {/* Header row */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
+          <div className="text-left">
+            <span className="inline-block bg-[#eae7e1]/50 border border-neutral-250/20 text-neutral-600 rounded-full px-3 py-1 text-[12px] font-medium mb-4">
+              Onboard
+            </span>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-950 leading-[1.1] mb-3">
+              Drive revenues with Credlyr Onboard
+            </h2>
+            <p className="text-lg md:text-[19px] text-neutral-500 font-normal leading-relaxed">
+              High-converting onboarding journeys, no code required.
             </p>
-            <p>
-              Now it’s simple: ask AI, get the answer, click one link, credit card half out. Your website is the only thing between paid and the back button.
-            </p>
-            <p>
-              No one wants to spend 15 minutes browsing websites. Their attention span is too low. You only have seconds to convince them to buy from you. If your site is slow, vague, generic, or confusing, you get filtered out instantly and that buyer + his card info is gone.
-            </p>
-            <p className="font-semibold text-gray-950 text-[18px] md:text-[19px] leading-relaxed">
-              That is why business owners will pay thousands for a website that earns trust fast.
-            </p>
-            <p>
-              The current AI awareness cycle is... websites. Not because websites are new. Because the internet’s buying environment has changed, and the website is now the trust-and-conversion hub.
-            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <Link to="/product/websites" className="inline-flex items-center gap-1.5 px-6 py-2.5 border border-neutral-250/80 rounded-full text-[14px] font-semibold text-gray-950 hover:bg-neutral-50 transition-all hover:shadow-[0_2px_8px_rgba(0,0,0,0.02)] bg-white">
+              Explore <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
 
-        {/* Right Column: 5 Pillars / Stacked Cards */}
-        <div className="flex flex-col gap-6 w-full">
-          <div className="border-b border-neutral-200 pb-4 mb-4">
-            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
-              Why websites are the most relevant business problem right now
-            </h3>
+        {/* Two-column layout grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-stretch">
+          {/* Left Column: Visual Showcase */}
+          <div className="bg-[#f5f3ef]/80 border border-neutral-200/60 rounded-[32px] p-6 md:p-10 flex items-center justify-center min-h-[440px] relative overflow-hidden">
+            <AnimatePresence mode="wait">
+              {activeIndex === 0 && (
+                <motion.div
+                  key="modules"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col gap-2.5 w-full max-w-[290px] select-none"
+                >
+                  {/* KYB modules list */}
+                  {[
+                    { label: "Bank account", color: "text-rose-500 bg-rose-50/80", icon: Landmark },
+                    { label: "Ownership", color: "text-blue-500 bg-blue-50/80", icon: UserCheck },
+                    { label: "Source of Funds", color: "text-amber-600 bg-amber-50/80", icon: DollarSign },
+                    {
+                      label: "Identity verification",
+                      color: "text-white bg-purple-600",
+                      icon: Fingerprint,
+                      isActive: true,
+                    },
+                    { label: "Representatives", color: "text-teal-500 bg-teal-50/80", icon: Users },
+                    { label: "UBO", color: "text-emerald-600 bg-emerald-50/80", icon: FileText },
+                    { label: "AML Screening", color: "text-neutral-500 bg-neutral-100/80", icon: Eye },
+                  ].map((m, idx) => {
+                    const MIcon = m.icon;
+                    return (
+                      <motion.div
+                        key={m.label}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                        className={`flex items-center gap-3.5 px-4 py-2.5 rounded-2xl border transition-all ${
+                          m.isActive
+                            ? "bg-white border-purple-100 shadow-[0_12px_28px_rgba(147,51,234,0.06),0_4px_8px_rgba(147,51,234,0.03)] scale-[1.04]"
+                            : "bg-white/70 border-neutral-200/40 text-neutral-600"
+                        }`}
+                      >
+                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${m.color}`}>
+                          <MIcon className="w-4.5 h-4.5" />
+                        </div>
+                        <span className={`text-[14px] ${m.isActive ? "font-bold text-gray-950" : "font-semibold"}`}>
+                          {m.label}
+                        </span>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+              )}
+
+              {activeIndex === 1 && (
+                <motion.div
+                  key="conversion"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full max-w-[300px] select-none flex flex-col gap-4"
+                >
+                  {/* Active Conversion rate visual */}
+                  <div className="bg-white border border-neutral-200/60 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center w-full">
+                    <span className="text-[12px] font-mono tracking-widest text-[#0080ff] uppercase font-bold mb-2">
+                      Conversion System
+                    </span>
+                    <motion.span
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="text-5xl font-extrabold tracking-tight text-gray-950 mb-1"
+                    >
+                      98.4%
+                    </motion.span>
+                    <span className="text-[13px] text-emerald-600 font-semibold flex items-center gap-1 mb-4">
+                      <Zap className="w-3.5 h-3.5 fill-emerald-600" /> +14.2% vs Industry avg
+                    </span>
+
+                    {/* Funnel bars visual */}
+                    <div className="w-full space-y-3 mt-2 border-t border-neutral-100 pt-4">
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-[11px] font-bold text-neutral-400">
+                          <span>COMPLETION RATE</span>
+                          <span className="text-gray-900">98.4%</span>
+                        </div>
+                        <div className="w-full h-2 bg-neutral-100 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "98.4%" }}
+                            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                            className="h-full bg-blue-500 rounded-full"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-[11px] font-bold text-neutral-400">
+                          <span>TIME TO RUN</span>
+                          <span className="text-gray-900">42s average</span>
+                        </div>
+                        <div className="w-full h-2 bg-neutral-100 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "35%" }}
+                            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+                            className="h-full bg-emerald-500 rounded-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activeIndex === 2 && (
+                <motion.div
+                  key="data-collection"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full max-w-[310px] select-none flex flex-col gap-4 relative"
+                >
+                  {/* Document scan simulator */}
+                  <div className="bg-white border border-neutral-200/60 rounded-3xl p-5 shadow-xl flex flex-col gap-4 overflow-hidden relative w-full">
+                    <div className="flex justify-between items-center border-b border-neutral-100 pb-3">
+                      <span className="text-sm font-bold text-gray-900">ID Verification</span>
+                      <span className="text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md font-bold">SCANNING</span>
+                    </div>
+
+                    {/* ID Graphic */}
+                    <div className="relative border border-neutral-250/50 bg-neutral-50/60 rounded-xl p-3.5 h-[100px] overflow-hidden flex items-center gap-3">
+                      <div className="w-10 h-12 bg-neutral-250 rounded border border-neutral-300 flex items-center justify-center text-[20px]">👤</div>
+                      <div className="flex-1 space-y-2">
+                        <div className="w-20 h-2 bg-neutral-300 rounded-full" />
+                        <div className="w-16 h-1.5 bg-neutral-200 rounded-full" />
+                        <div className="w-24 h-1.5 bg-neutral-200 rounded-full" />
+                      </div>
+                      
+                      {/* Scanning Laser Line */}
+                      <motion.div
+                        animate={{ top: ["0%", "85%", "0%"] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute left-0 right-0 h-0.5 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)] z-10"
+                      />
+                    </div>
+
+                    {/* Real-time checklist */}
+                    <div className="space-y-2.5">
+                      {[
+                        { label: "Document authenticity verified", delay: 0.2 },
+                        { label: "MRZ fields validation passed", delay: 0.4 },
+                        { label: "Age check (>18) confirmed", delay: 0.6 },
+                      ].map((c) => (
+                        <div key={c.label} className="flex items-center gap-2 text-[13px]">
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 200, delay: c.delay }}
+                            className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shrink-0"
+                          >
+                            ✓
+                          </motion.div>
+                          <span className="text-neutral-600 font-semibold">{c.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activeIndex === 3 && (
+                <motion.div
+                  key="localization"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full max-w-[300px] select-none"
+                >
+                  {/* Dynamic localized profile card */}
+                  <div className="bg-white border border-neutral-200/60 rounded-3xl p-6 shadow-xl text-left w-full">
+                    <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-4">
+                      <div>
+                        <span className="text-[11px] font-mono tracking-widest text-[#0080ff] uppercase font-bold">
+                          Global Engine
+                        </span>
+                        <h3 className="text-[18px] font-bold text-gray-950 mt-0.5">Local Compliance</h3>
+                      </div>
+                      <span className="text-3xl select-none" role="img" aria-label="flag">
+                        {localizations[localIndex].flag}
+                      </span>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <span className="text-[11px] font-bold text-neutral-400 block uppercase">COUNTRY</span>
+                        <span className="text-sm font-semibold text-gray-900">{localizations[localIndex].country}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <span className="text-[11px] font-bold text-neutral-400 block uppercase">METHOD</span>
+                          <span className="text-sm font-semibold text-gray-900">{localizations[localIndex].method}</span>
+                        </div>
+                        <div>
+                          <span className="text-[11px] font-bold text-neutral-400 block uppercase">CURRENCY</span>
+                          <span className="text-sm font-semibold text-gray-900">{localizations[localIndex].currency}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <span className="text-[11px] font-bold text-neutral-400 block uppercase">COMPLIANCE RULES</span>
+                        <span className="text-sm font-semibold text-purple-600 font-mono">{localizations[localIndex].rule}</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {points.map((p, idx) => (
-              <motion.div
-                key={p.num}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-[#fcfbf9] border border-neutral-200/60 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-4 md:gap-6 items-start hover:border-neutral-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300"
-              >
-                <div className="text-[18px] font-bold text-neutral-300 font-mono leading-none md:mt-[3px]">
-                  {p.num}
-                </div>
-                <div className="flex-1 flex flex-col text-left">
-                  <h4 className="text-[16px] md:text-[17px] font-bold text-gray-950 mb-2 leading-snug">
-                    {p.title}
-                  </h4>
-                  <p className="text-sm md:text-[14.5px] text-neutral-500 leading-relaxed font-normal">
-                    {p.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+          {/* Right Column: Clickable Features Accordion */}
+          <div className="flex flex-col justify-center gap-4 text-left w-full">
+            {features.map((f, index) => {
+              const FIcon = f.icon;
+              const isActive = index === activeIndex;
+
+              return (
+                <button
+                  key={f.title}
+                  onClick={() => setActiveIndex(index)}
+                  className={`w-full text-left rounded-2xl transition-all duration-300 border focus:outline-none cursor-pointer ${
+                    isActive
+                      ? "bg-[#eae7e1]/45 border-neutral-250/20 shadow-[0_4px_12px_rgba(0,0,0,0.02)] p-6"
+                      : "bg-transparent border-transparent hover:bg-[#eae7e1]/20 p-5"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                      isActive ? "bg-gray-950 text-white" : "bg-[#eae7e1]/50 text-neutral-500"
+                    }`}>
+                      <FIcon className="w-5 h-5" />
+                    </div>
+                    <span className={`text-[16px] md:text-[17px] font-bold text-gray-950`}>
+                      {f.title}
+                    </span>
+                  </div>
+
+                  <AnimatePresence initial={false}>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                        animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <p className="text-sm md:text-[14.5px] text-neutral-600 leading-relaxed pl-14 font-normal">
+                          {f.desc}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -1011,57 +1283,111 @@ function DigitalVisual() {
       </div>
 
       <div className="relative flex-1 flex items-center justify-center my-4">
-        {/* Floating Credit Card Representation */}
+        {/* Mock Desktop Browser Window */}
         <motion.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="relative w-48 h-28 rounded-2xl bg-white border border-neutral-200/60 p-4 shadow-[0_12px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between z-10"
+          animate={{ y: [0, -5, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="relative w-[280px] md:w-[320px] h-[160px] md:h-[180px] rounded-xl bg-white border border-neutral-200/70 shadow-lg flex flex-col overflow-hidden z-10"
         >
-          <div className="flex justify-between items-start">
-            <div className="w-8 h-8 rounded-lg bg-[#0080ff]/10 flex items-center justify-center text-[#0080ff]">
-              ✦
+          {/* Browser Header Bar */}
+          <div className="flex items-center justify-between px-3 py-2 border-b border-neutral-100 bg-neutral-50/50">
+            <div className="flex gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-red-400/80" />
+              <div className="w-1.5 h-1.5 rounded-full bg-yellow-400/80" />
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400/80" />
             </div>
-            <span className="text-[10px] font-bold text-neutral-300">EUR</span>
+            <div className="w-36 h-3 bg-neutral-200/60 rounded-full" />
+            <div className="w-4" />
           </div>
-          <div>
-            <div className="text-[14px] font-mono text-neutral-700 tracking-wider">
-              **** **** **** 8820
+
+          {/* Browser Content */}
+          <div className="p-3 flex-1 flex flex-col justify-between">
+            {/* Header / Nav Mock */}
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded bg-blue-500 flex items-center justify-center text-[7px] text-white">✦</div>
+                <div className="w-8 h-2 bg-neutral-300 rounded-full" />
+              </div>
+              <div className="flex gap-2">
+                <div className="w-6 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-6 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-6 h-1.5 bg-neutral-200 rounded-full" />
+              </div>
             </div>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-[9px] text-neutral-400 font-semibold uppercase">
-                William Vanderplaetse
-              </span>
-              <span className="text-[10px] text-[#0080ff] font-bold">
-                Active
-              </span>
+
+            {/* Main content grid */}
+            <div className="grid grid-cols-[1.2fr_0.8fr] gap-3 flex-1">
+              <div className="flex flex-col justify-center gap-2">
+                <div className="w-24 h-3 bg-neutral-800 rounded-full" />
+                <div className="w-16 h-2 bg-neutral-400 rounded-full" />
+                <div className="space-y-1 mt-1">
+                  <div className="w-32 h-1 bg-neutral-200 rounded-full" />
+                  <div className="w-28 h-1 bg-neutral-200 rounded-full" />
+                </div>
+                <div className="w-12 h-3.5 bg-blue-500 rounded mt-1" />
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="w-full h-full rounded-lg bg-neutral-50 border border-neutral-100 flex items-center justify-center p-2">
+                  <div className="flex flex-col items-center gap-1.5 w-full">
+                    <div className="w-8 h-8 rounded-full border border-blue-500/30 flex items-center justify-center">
+                      <div className="w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <span className="text-[10px] text-blue-600 font-bold">✓</span>
+                      </div>
+                    </div>
+                    <div className="w-12 h-1.5 bg-neutral-300 rounded-full" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Floating Coins representation */}
+        {/* Mock Mobile Phone Window (Overlapping) */}
         <motion.div
-          animate={{ y: [0, 8, 0], x: [0, -4, 0] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          className="absolute -right-2 top-8 w-16 h-16 rounded-full bg-white border border-neutral-100 flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.04)] text-[15px] font-bold text-neutral-700 z-20"
+          animate={{ y: [0, -9, 0], x: [0, -1, 0] }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          className="absolute right-4 md:right-8 bottom-2 w-[84px] md:w-[92px] h-[146px] md:h-[160px] rounded-2xl bg-white border-[3px] border-neutral-800 shadow-2xl flex flex-col overflow-hidden z-20"
         >
-          0.00027
-        </motion.div>
+          {/* Mobile Speaker Slot */}
+          <div className="w-7 h-1 bg-neutral-800 rounded-full mx-auto mt-1 mb-1" />
 
-        <motion.div
-          animate={{ y: [0, -8, 0], x: [0, 4, 0] }}
-          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute -left-4 bottom-4 w-12 h-12 rounded-full bg-white border border-neutral-100 flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.04)] text-[12px] font-bold text-neutral-600 z-0"
-        >
-          €
+          {/* Mobile Body Content */}
+          <div className="p-1.5 flex-1 flex flex-col justify-between">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-2">
+              <div className="w-2 h-2 rounded-full bg-blue-500" />
+              <div className="flex flex-col gap-[1.5px] items-end">
+                <div className="w-3 h-[1.5px] bg-neutral-400 rounded-full" />
+                <div className="w-2.5 h-[1.5px] bg-neutral-400 rounded-full" />
+              </div>
+            </div>
+
+            {/* Mobile Body Page Stack */}
+            <div className="flex-1 flex flex-col gap-1.5 justify-center">
+              <div className="w-14 h-2.5 bg-neutral-800 rounded-full" />
+              <div className="w-10 h-1.5 bg-neutral-400 rounded-full" />
+              
+              <div className="w-full h-11 bg-neutral-50 border border-neutral-100 rounded-md flex items-center justify-center p-1 my-0.5">
+                <div className="flex flex-col items-center gap-1 w-full">
+                  <div className="w-4 h-4 rounded-full bg-blue-500/10 flex items-center justify-center">
+                    <span className="text-[6px] text-blue-600 font-bold">✓</span>
+                  </div>
+                  <div className="w-8 h-1 bg-neutral-300 rounded-full" />
+                </div>
+              </div>
+
+              <div className="w-full h-2.5 bg-blue-500 rounded" />
+            </div>
+          </div>
         </motion.div>
       </div>
 
       <div className="flex justify-between items-end border-t border-neutral-200/50 pt-4">
         <span className="text-[10px] text-neutral-400 font-mono">
-          CONVERSION SYSTEM / CORE
+          WEBSITE UX / RESPONSIVE
         </span>
         <span className="text-[10px] text-neutral-600 font-mono">
-          SPEED / TRUST
+          MOBILE / DESKTOP
         </span>
       </div>
     </div>
@@ -1521,10 +1847,10 @@ function FeatureHighlight() {
                   delay: i * 0.07,
                 }}
                 onClick={() => setActiveId(item.id)}
-                className={`w-full rounded-xl px-4 py-4 text-left cursor-pointer transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 ${
+                className={`w-full rounded-xl px-4 py-4 text-left cursor-pointer transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 border ${
                   isActive
-                    ? "bg-gray-50 ring-1 ring-blue-500/85"
-                    : "hover:bg-gray-50/60"
+                    ? "bg-white border-blue-500/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+                    : "bg-transparent border-transparent hover:bg-gray-50/60"
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -2335,7 +2661,7 @@ export default function App() {
             <SocialProof />
             <StatsSection />
             <ValueProposition />
-            <AIAwarenessCycle />
+            <OnboardHighlight />
             <OurServices />
             <FeatureHighlight />
             <SecurityTrust />
