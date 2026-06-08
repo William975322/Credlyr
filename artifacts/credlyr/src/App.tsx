@@ -1232,44 +1232,84 @@ function OnboardHighlight() {
 
 function BrandVisual() {
   return (
-    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#161514] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-850">
-      {/* Editorial typographic grid */}
+    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#faf9f6] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-200/80 shadow-sm">
+      {/* Top label row */}
       <div className="flex justify-between items-start">
-        <span className="text-[11px] font-mono tracking-widest text-[#e6e2da]/70 uppercase">
-          Brand System / V1
+        <span className="text-[11px] font-mono tracking-widest text-neutral-400 uppercase">
+          Brand Identity / V1
         </span>
-        <span className="text-[11px] font-mono tracking-widest text-neutral-500">
+        <span className="text-[11px] font-mono tracking-widest text-neutral-300">
           © 2026
         </span>
       </div>
 
-      <div className="relative flex-1 flex items-center justify-center my-4">
-        {/* Floating abstract graphic elements */}
-        <div className="absolute w-36 h-36 rounded-full border border-neutral-800 flex items-center justify-center">
-          <div className="w-24 h-24 rounded-full border border-neutral-800/60 flex items-center justify-center">
-            <div className="text-[32px] font-bold text-neutral-700 font-serif">✦</div>
-          </div>
-        </div>
+      {/* Center: Brand identity elements */}
+      <div className="flex-1 flex flex-col items-start justify-center gap-5 my-4">
 
-        {/* Dynamic typographic layout */}
-        <div className="relative text-center z-10 flex flex-col items-center">
-          <span className="text-[38px] font-normal font-serif text-neutral-300 leading-none tracking-tight">
-            CREDLYR
-          </span>
-          <span className="text-[34px] font-normal italic font-serif text-[#e6e2da] leading-none tracking-normal mt-1">
-            Studio
-          </span>
-          <span className="text-[38px] font-semibold font-sans text-white leading-none tracking-tighter mt-2">
-            CREATIVE
-          </span>
-        </div>
+        {/* Logo mark + wordmark */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center gap-3"
+        >
+          <div className="w-9 h-9 rounded-lg bg-gray-950 flex items-center justify-center shrink-0">
+            <span className="text-white text-[16px] font-bold leading-none">✦</span>
+          </div>
+          <div className="flex flex-col leading-tight">
+            <span className="text-[18px] font-bold text-gray-950 tracking-tight leading-none">Credlyr</span>
+            <span className="text-[11px] text-neutral-400 font-medium mt-0.5">Brand System</span>
+          </div>
+        </motion.div>
+
+        {/* Color palette strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-2 w-full"
+        >
+          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Colour Palette</span>
+          <div className="flex gap-2">
+            {[
+              { bg: "bg-gray-950", label: "Ink" },
+              { bg: "bg-[#e6e2da]", label: "Sand" },
+              { bg: "bg-[#fbfaf7]", label: "Cream", border: true },
+              { bg: "bg-neutral-400", label: "Mist" },
+              { bg: "bg-neutral-200", label: "Haze", border: true },
+            ].map((c) => (
+              <div key={c.label} className="flex flex-col items-center gap-1.5">
+                <div className={`w-8 h-8 rounded-xl ${c.bg} ${c.border ? "border border-neutral-200/80" : ""}`} />
+                <span className="text-[9px] text-neutral-400 font-medium">{c.label}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Type specimen */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full border-t border-neutral-100 pt-4"
+        >
+          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block mb-2">Typography</span>
+          <div className="flex items-baseline gap-4">
+            <span className="text-[28px] font-bold text-gray-950 leading-none tracking-tight">Aa</span>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[11px] font-semibold text-neutral-600">GT America</span>
+              <span className="text-[10px] text-neutral-400 font-medium">Regular · Medium · Bold</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      <div className="flex justify-between items-end border-t border-neutral-900 pt-4">
-        <span className="text-[10px] text-neutral-600 font-mono">
-          SYSTEM / STORY / VALUE
-        </span>
+      {/* Bottom footer row */}
+      <div className="flex justify-between items-end border-t border-neutral-100 pt-4">
         <span className="text-[10px] text-neutral-400 font-mono">
+          STRATEGY / IDENTITY / SYSTEM
+        </span>
+        <span className="text-[10px] text-neutral-300 font-mono">
           CREDLYR®
         </span>
       </div>
@@ -1280,124 +1320,90 @@ function BrandVisual() {
 function DigitalVisual() {
   return (
     <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#faf9f6] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-200/80 shadow-sm">
-      {/* Visual background accents */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0080ff]/5 to-transparent pointer-events-none" />
-
+      {/* Top label row */}
       <div className="flex justify-between items-start">
-        <span className="text-[11px] font-mono tracking-widest text-[#0080ff]/75 uppercase">
-          Digital Interface / UX
+        <span className="text-[11px] font-mono tracking-widest text-neutral-400 uppercase">
+          Website Design / UX
         </span>
-        <span className="text-[11px] font-mono tracking-widest text-neutral-400">
+        <span className="text-[11px] font-mono tracking-widest text-neutral-300">
           Live Preview
         </span>
       </div>
 
-      <div className="relative flex-1 flex items-center justify-center my-4">
-        {/* Mock Desktop Browser Window */}
+      {/* Center: Browser UI mockup */}
+      <div className="flex-1 flex items-center justify-center my-4">
         <motion.div
-          animate={{ y: [0, -5, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="relative w-[280px] md:w-[320px] h-[160px] md:h-[180px] rounded-xl bg-white border border-neutral-200/70 shadow-lg flex flex-col overflow-hidden z-10"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-[360px] rounded-2xl bg-white border border-neutral-200/70 shadow-lg overflow-hidden"
         >
-          {/* Browser Header Bar */}
-          <div className="flex items-center justify-between px-3 py-2 border-b border-neutral-100 bg-neutral-50/50">
-            <div className="flex gap-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-red-400/80" />
-              <div className="w-1.5 h-1.5 rounded-full bg-yellow-400/80" />
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400/80" />
+          {/* Browser chrome */}
+          <div className="flex items-center gap-2 px-3 py-2.5 bg-neutral-50 border-b border-neutral-100">
+            <div className="flex gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-neutral-300" />
+              <div className="w-2 h-2 rounded-full bg-neutral-300" />
+              <div className="w-2 h-2 rounded-full bg-neutral-300" />
             </div>
-            <div className="w-36 h-3 bg-neutral-200/60 rounded-full" />
-            <div className="w-4" />
+            <div className="flex-1 mx-2 h-4 bg-neutral-100 rounded-full flex items-center px-2">
+              <span className="text-[8px] text-neutral-400 font-mono tracking-wide">credlyr.com/studio</span>
+            </div>
           </div>
 
-          {/* Browser Content */}
-          <div className="p-3 flex-1 flex flex-col justify-between">
-            {/* Header / Nav Mock */}
-            <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded bg-blue-500 flex items-center justify-center text-[7px] text-white">✦</div>
-                <div className="w-8 h-2 bg-neutral-300 rounded-full" />
+          {/* Page content */}
+          <div className="p-4 bg-white">
+            {/* Nav */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-1.5">
+                <div className="w-4 h-4 rounded-md bg-gray-950 flex items-center justify-center">
+                  <span className="text-white text-[7px] font-bold">✦</span>
+                </div>
+                <div className="w-10 h-2 bg-gray-800 rounded-full" />
+              </div>
+              <div className="flex gap-3">
+                <div className="w-8 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-8 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-8 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-14 h-5 bg-gray-950 rounded-full" />
+              </div>
+            </div>
+
+            {/* Hero section */}
+            <div className="mb-4">
+              <div className="w-16 h-2 bg-neutral-200 rounded-full mb-2" />
+              <div className="w-48 h-4 bg-gray-900 rounded-full mb-1.5" />
+              <div className="w-36 h-4 bg-gray-900 rounded-full mb-3" />
+              <div className="space-y-1 mb-4">
+                <div className="w-52 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-44 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-32 h-1.5 bg-neutral-200 rounded-full" />
               </div>
               <div className="flex gap-2">
-                <div className="w-6 h-1.5 bg-neutral-200 rounded-full" />
-                <div className="w-6 h-1.5 bg-neutral-200 rounded-full" />
-                <div className="w-6 h-1.5 bg-neutral-200 rounded-full" />
+                <div className="w-20 h-6 bg-gray-950 rounded-full" />
+                <div className="w-20 h-6 border border-neutral-200 rounded-full" />
               </div>
             </div>
 
-            {/* Main content grid */}
-            <div className="grid grid-cols-[1.2fr_0.8fr] gap-3 flex-1">
-              <div className="flex flex-col justify-center gap-2">
-                <div className="w-24 h-3 bg-neutral-800 rounded-full" />
-                <div className="w-16 h-2 bg-neutral-400 rounded-full" />
-                <div className="space-y-1 mt-1">
-                  <div className="w-32 h-1 bg-neutral-200 rounded-full" />
-                  <div className="w-28 h-1 bg-neutral-200 rounded-full" />
+            {/* Stats row */}
+            <div className="grid grid-cols-3 gap-2 border-t border-neutral-100 pt-3">
+              {[["3.2×", "Avg. ROI"], ["94%", "Retention"], ["2 wk", "Launch"]].map(([val, lbl]) => (
+                <div key={lbl} className="flex flex-col gap-0.5">
+                  <span className="text-[11px] font-bold text-gray-900">{val}</span>
+                  <span className="text-[8px] text-neutral-400 font-medium">{lbl}</span>
                 </div>
-                <div className="w-12 h-3.5 bg-blue-500 rounded mt-1" />
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="w-full h-full rounded-lg bg-neutral-50 border border-neutral-100 flex items-center justify-center p-2">
-                  <div className="flex flex-col items-center gap-1.5 w-full">
-                    <div className="w-8 h-8 rounded-full border border-blue-500/30 flex items-center justify-center">
-                      <div className="w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center">
-                        <span className="text-[10px] text-blue-600 font-bold">✓</span>
-                      </div>
-                    </div>
-                    <div className="w-12 h-1.5 bg-neutral-300 rounded-full" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Mock Mobile Phone Window (Overlapping) */}
-        <motion.div
-          animate={{ y: [0, -9, 0], x: [0, -1, 0] }}
-          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-          className="absolute right-4 md:right-8 bottom-2 w-[84px] md:w-[92px] h-[146px] md:h-[160px] rounded-2xl bg-white border-[3px] border-neutral-800 shadow-2xl flex flex-col overflow-hidden z-20"
-        >
-          {/* Mobile Speaker Slot */}
-          <div className="w-7 h-1 bg-neutral-800 rounded-full mx-auto mt-1 mb-1" />
-
-          {/* Mobile Body Content */}
-          <div className="p-1.5 flex-1 flex flex-col justify-between">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-2">
-              <div className="w-2 h-2 rounded-full bg-blue-500" />
-              <div className="flex flex-col gap-[1.5px] items-end">
-                <div className="w-3 h-[1.5px] bg-neutral-400 rounded-full" />
-                <div className="w-2.5 h-[1.5px] bg-neutral-400 rounded-full" />
-              </div>
-            </div>
-
-            {/* Mobile Body Page Stack */}
-            <div className="flex-1 flex flex-col gap-1.5 justify-center">
-              <div className="w-14 h-2.5 bg-neutral-800 rounded-full" />
-              <div className="w-10 h-1.5 bg-neutral-400 rounded-full" />
-              
-              <div className="w-full h-11 bg-neutral-50 border border-neutral-100 rounded-md flex items-center justify-center p-1 my-0.5">
-                <div className="flex flex-col items-center gap-1 w-full">
-                  <div className="w-4 h-4 rounded-full bg-blue-500/10 flex items-center justify-center">
-                    <span className="text-[6px] text-blue-600 font-bold">✓</span>
-                  </div>
-                  <div className="w-8 h-1 bg-neutral-300 rounded-full" />
-                </div>
-              </div>
-
-              <div className="w-full h-2.5 bg-blue-500 rounded" />
+              ))}
             </div>
           </div>
         </motion.div>
       </div>
 
-      <div className="flex justify-between items-end border-t border-neutral-200/50 pt-4">
+      {/* Bottom footer row */}
+      <div className="flex justify-between items-end border-t border-neutral-100 pt-4">
         <span className="text-[10px] text-neutral-400 font-mono">
-          WEBSITE UX / RESPONSIVE
+          STRATEGY / DESIGN / BUILD
         </span>
-        <span className="text-[10px] text-neutral-600 font-mono">
-          MOBILE / DESKTOP
+        <span className="text-[10px] text-neutral-300 font-mono">
+          CREDLYR®
         </span>
       </div>
     </div>
@@ -1643,35 +1649,39 @@ const DASHBOARD_STATES: Record<string, DashboardState> = {
 function MessagingPreview() {
   return (
     <div className="relative mx-auto flex min-h-[360px] max-w-[560px] items-center justify-center overflow-hidden rounded-[28px] bg-[#ebe9e5] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_70px_rgba(0,0,0,0.08)] md:min-h-[460px] md:p-12">
+      {/* Stacked ghost cards behind */}
       <div className="absolute left-1/2 top-[22%] h-24 w-[72%] -translate-x-1/2 rounded-2xl bg-white/45 shadow-[0_12px_40px_rgba(0,0,0,0.04)]" />
       <div className="absolute left-1/2 top-[18%] h-24 w-[64%] -translate-x-1/2 rounded-2xl bg-white/30 shadow-[0_12px_40px_rgba(0,0,0,0.03)]" />
 
+      {/* Main modal card */}
       <div className="relative w-full max-w-[420px] rounded-2xl bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
-        <h3 className="text-[22px] font-semibold leading-tight text-gray-900">
-          Collect Customer Proof
+        <h3 className="text-[20px] font-semibold leading-tight text-gray-900">
+          Request Page Content
         </h3>
-        <p className="mt-2 text-[14px] leading-relaxed text-gray-600">
-          Automate review requests right after appointment completion.
+        <p className="mt-1.5 text-[13px] leading-relaxed text-gray-500">
+          Send a structured brief to collect copy, images &amp; assets.
         </p>
 
-        <div className="mt-5 rounded-lg bg-sky-50 px-4 py-4 text-[14px] leading-relaxed text-sky-800">
-          "Hi Sarah, thank you for booking through Credlyr today! Would you mind sharing a quick 1-minute review of your dental cleaning?"
+        {/* Blue info box */}
+        <div className="mt-5 rounded-lg bg-sky-50 px-4 py-4 text-[13px] leading-relaxed text-sky-700">
+          Please provide the homepage hero copy, logo files, and 3–5 brand images to proceed with the design phase.
         </div>
 
-        <div className="mt-8 flex items-center justify-between gap-4">
+        {/* Action row */}
+        <div className="mt-6 flex items-center justify-between gap-4">
           <button
             type="button"
-            className="inline-flex items-center gap-2 text-[14px] font-semibold text-gray-800"
+            className="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-500 hover:text-gray-800 transition-colors"
           >
-            <X size={16} strokeWidth={1.8} />
+            <X size={15} strokeWidth={1.8} />
             Cancel
           </button>
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-[14px] font-semibold text-gray-900"
+            className="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-[13px] font-semibold text-gray-900 hover:bg-gray-200 transition-colors"
           >
-            <ChevronRight size={16} strokeWidth={1.8} className="rotate-180" />
-            Send Request
+            <ChevronRight size={15} strokeWidth={1.8} className="rotate-180" />
+            Send request
           </button>
         </div>
       </div>
@@ -1784,7 +1794,7 @@ function FeatureHighlight() {
   return (
     <section
       data-testid="feature-highlight-section"
-      className="w-full bg-white py-16 md:py-24 px-5 sm:px-8 md:px-10"
+      className="w-full bg-[#faf9f6] py-16 md:py-24 px-5 sm:px-8 md:px-10"
     >
       {/* Header row */}
       <div className="flex flex-col md:flex-row items-start justify-between gap-8 mb-12 md:mb-16">
