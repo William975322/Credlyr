@@ -37,6 +37,13 @@ import AboutPage from "./pages/About";
 import ProductPage from "./pages/ProductPage";
 import TrustPage from "./pages/Trust";
 import CareersPage from "./pages/Careers";
+import ReviewsPage from "./pages/Reviews";
+import PartnersPage from "./pages/Partners";
+import CommunityPage from "./pages/Community";
+import NewsPage from "./pages/News";
+import ContactPage from "./pages/Contact";
+import DocumentationPage from "./pages/Documentation";
+import SecurityPage from "./pages/Security";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -1433,6 +1440,7 @@ function OurServices() {
 
   return (
     <section
+      id="services"
       data-testid="our-services-section"
       className="w-full bg-[#fbfaf7] py-20 md:py-32 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
     >
@@ -2363,30 +2371,61 @@ export function SiteFooter() {
                 </p>
                 <ul className="flex flex-col gap-2.5">
                   {col.links.map((link) => {
-                    let hrefVal = "#";
-                    if (link === "Website Builds" || link === "Full-Cycle Websites" || link === "Custom Digital Product Design & Development") hrefVal = "/product/websites";
-                    else if (link === "Landing Pages") hrefVal = "/product/landing-pages";
-                    else if (link === "About") hrefVal = "/about";
-                    else if (link === "Blog" || link === "Case Studies") hrefVal = "/resources-hub";
-                    
-                    const isInternal = hrefVal.startsWith("/");
-                    const Anchor = (
-                      <a
-                        href={hrefVal}
-                        className="text-sm text-neutral-700 hover:text-gray-950 transition-colors duration-150 font-medium"
-                      >
-                        {link}
-                      </a>
-                    );
+                    // Industries column — plain text only, not clickable yet
+                    if (col.heading === "Industries") {
+                      return (
+                        <li key={link}>
+                          <span className="text-sm text-neutral-400 font-medium cursor-default">{link}</span>
+                        </li>
+                      );
+                    }
+
+                    // href map for all other links
+                    const HREF_MAP: Record<string, string> = {
+                      // Services — scroll to homepage section or product pages
+                      "Brand Strategy": "/#services",
+                      "Visual Identity": "/#services",
+                      "Full-Cycle Websites": "/product/websites",
+                      "Landing Pages": "/product/landing-pages",
+                      "Ongoing Optimisation": "/#services",
+                      // Customers
+                      "Case Studies": "/resources-hub",
+                      "Reviews": "/customers/reviews",
+                      "Partners": "/customers/partners",
+                      "Community": "/customers/community",
+                      // Company
+                      "About": "/about",
+                      "News": "/news",
+                      "Careers": "/careers",
+                      "Contact": "/get-started",
+                      // Resources
+                      "Blog": "/resources-hub",
+                      "Documentation": "/docs",
+                      "Trust": "/trust",
+                      "Security": "/security",
+                      "Status": "/status",
+                    };
+
+                    const hrefVal = HREF_MAP[link] ?? "#";
+                    const isHash = hrefVal.startsWith("#") || hrefVal.includes("/#");
+                    const isInternal = hrefVal.startsWith("/") && !isHash;
+
+                    if (isHash) {
+                      return (
+                        <li key={link}>
+                          <a href={hrefVal} className="text-sm text-neutral-700 hover:text-gray-950 transition-colors duration-150 font-medium">{link}</a>
+                        </li>
+                      );
+                    }
 
                     return (
                       <li key={link}>
                         {isInternal ? (
-                          <Link href={hrefVal} asChild>
-                            {Anchor}
+                          <Link href={hrefVal}>
+                            <a className="text-sm text-neutral-700 hover:text-gray-950 transition-colors duration-150 font-medium">{link}</a>
                           </Link>
                         ) : (
-                          Anchor
+                          <a href={hrefVal} className="text-sm text-neutral-700 hover:text-gray-950 transition-colors duration-150 font-medium">{link}</a>
                         )}
                       </li>
                     );
@@ -2680,6 +2719,13 @@ export default function App() {
         <Route path="/trust" component={TrustPage} />
         <Route path="/careers" component={CareersPage} />
         <Route path="/product/:id" component={ProductPage} />
+        <Route path="/customers/reviews" component={ReviewsPage} />
+        <Route path="/customers/partners" component={PartnersPage} />
+        <Route path="/customers/community" component={CommunityPage} />
+        <Route path="/news" component={NewsPage} />
+        <Route path="/contact" component={ContactPage} />
+        <Route path="/docs" component={DocumentationPage} />
+        <Route path="/security" component={SecurityPage} />
         <Route path="/">
           <>
             {/* Nav is fixed/transparent — hero image bleeds to page top */}
