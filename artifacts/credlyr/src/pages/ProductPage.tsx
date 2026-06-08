@@ -1049,21 +1049,121 @@ function WebsitesProductPage() {
         </div>
       </section>
 
-      {/* ─── 10. Final Call to Action ─── */}
-      <section className="bg-[#fbfaf7] text-gray-950 py-24 md:py-32 px-5 sm:px-8 md:px-10 text-center relative border-b border-neutral-150/50">
-        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-          <h2 className="text-balance text-4xl md:text-5xl font-normal tracking-tight text-gray-950 mb-6 leading-tight">
-            Ready to integrate {data.badge}?
-          </h2>
-          <p className="max-w-[560px] text-[16px] md:text-[18px] text-neutral-600 font-medium leading-relaxed mb-10">
-            Build your conversion infrastructure. Schedule a 20-minute onboarding strategy session with William.
-          </p>
+      {/* ─── 9. Testimonials (seQura / Plaid Style) ─── */}
+      <section className="bg-white py-16 md:py-24 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Card 1: seQura */}
+          <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
+            <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
+              "Great brands are built on great experiences. Credlyr's conversion-optimized UX makes our customer acquisition seamless."
+            </p>
+            <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
+              <img 
+                src="/pieter-van-der-does.png" 
+                alt="David Backstrom" 
+                className="w-11 h-11 rounded-full object-cover filter grayscale" 
+              />
+              <div>
+                <h4 className="text-sm font-bold text-gray-950 font-sans">David Backstrom</h4>
+                <p className="text-xs text-neutral-500 font-sans">CEO, seQura</p>
+              </div>
+            </div>
+          </div>
 
-          <Link href="/get-started" asChild>
-            <a className="inline-flex items-center px-8 py-4 bg-black text-white text-[15px] font-semibold rounded-full hover:bg-neutral-850 transition-colors shadow-lg active:scale-[0.98]">
-              Schedule a call <ArrowUpRight size={16} className="ml-2" />
-            </a>
-          </Link>
+          {/* Card 2: Plaid */}
+          <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
+            <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
+              "A website used to be a cost center for us. Now, it’s a revenue driver thanks to Credlyr’s intuitive custom layouts, enterprise-grade speed and zero code shift."
+            </p>
+            <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
+              <img 
+                src="/claire-hughes-johnson.png" 
+                alt="Zak Lambert" 
+                className="w-11 h-11 rounded-full object-cover filter grayscale" 
+              />
+              <div>
+                <h4 className="text-sm font-bold text-gray-950 font-sans">Zak Lambert</h4>
+                <p className="text-xs text-neutral-500 font-sans">GM EMEA, Plaid</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 10. Next Up Carousel/List Section ─── */}
+      <section className="bg-[#fbfaf8] py-20 md:py-28 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-left">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-950 mb-10 leading-tight">
+            Next up
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Card 1 */}
+            <Link href="/product/landing-pages" asChild>
+              <a className="bg-[#f5f3ec] hover:bg-[#ebe9e3] border border-[#e6e2da] rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[220px] transition-colors duration-200 group">
+                <span className="px-2.5 py-1 bg-white border border-neutral-200 rounded-full text-[10px] font-mono uppercase tracking-wider w-fit text-neutral-500 font-bold">
+                  Campaigns
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-950 mt-6 group-hover:translate-x-1 transition-transform duration-200">
+                  Landing Pages: Build focused pages per offer and audience <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
+                </h3>
+              </a>
+            </Link>
+
+            {/* Card 2 */}
+            <Link href="/product/booking" asChild>
+              <a className="bg-[#f5f3ec] hover:bg-[#ebe9e3] border border-[#e6e2da] rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[220px] transition-colors duration-200 group">
+                <span className="px-2.5 py-1 bg-white border border-neutral-200 rounded-full text-[10px] font-mono uppercase tracking-wider w-fit text-neutral-500 font-bold">
+                  Scheduling
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-950 mt-6 group-hover:translate-x-1 transition-transform duration-200">
+                  Appointment Booking: Frictionless timezone-locked calendar booking <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
+                </h3>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 11. Custom Get Started Form (Teal Block) ─── */}
+      <section className="bg-[#3a6870] text-white py-24 px-5 sm:px-8 md:px-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center text-left">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+              Get started
+            </h2>
+            <p className="text-base sm:text-lg text-teal-100/80 leading-relaxed font-normal max-w-md">
+              Learn more about the Credlyr platform. Enter your business email and we&apos;ll reach out.
+            </p>
+          </div>
+
+          <form 
+            onSubmit={(e) => e.preventDefault()}
+            className="flex flex-col gap-4 w-full max-w-md"
+          >
+            <input 
+              type="text" 
+              placeholder="Name *" 
+              required
+              className="w-full bg-[#4a7a82] border border-teal-200/20 rounded-lg px-4 py-3 text-sm text-white placeholder-teal-100/60 focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-transparent transition-all font-semibold"
+            />
+            <input 
+              type="email" 
+              placeholder="Business email *" 
+              required
+              className="w-full bg-[#4a7a82] border border-teal-200/20 rounded-lg px-4 py-3 text-sm text-white placeholder-teal-100/60 focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-transparent transition-all font-semibold"
+            />
+            <input 
+              type="tel" 
+              placeholder="Phone number" 
+              className="w-full bg-[#4a7a82] border border-teal-200/20 rounded-lg px-4 py-3 text-sm text-white placeholder-teal-100/60 focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-transparent transition-all font-semibold"
+            />
+            <button 
+              type="submit"
+              className="w-fit mt-2 px-8 py-3 bg-white text-[#3a6870] hover:bg-neutral-50 active:scale-[0.98] transition-all rounded-full font-bold text-sm cursor-pointer shadow-md select-none"
+            >
+              Schedule a call
+            </button>
+          </form>
         </div>
       </section>
 
