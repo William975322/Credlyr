@@ -1124,14 +1124,14 @@ function WebsitesProductPage() {
         </div>
       </section>
 
-      {/* ─── 11. Custom Get Started Form (Teal Block) ─── */}
-      <section className="bg-[#3a6870] text-white py-24 px-5 sm:px-8 md:px-10">
+      {/* ─── 11. Custom Get Started Form (Light Block) ─── */}
+      <section className="bg-[#fbfaf7] text-gray-950 py-24 px-5 sm:px-8 md:px-10 border-t border-neutral-150/40">
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center text-left">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-950 mb-6">
               Get started
             </h2>
-            <p className="text-base sm:text-lg text-teal-100/80 leading-relaxed font-normal max-w-md">
+            <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal max-w-md">
               Learn more about the Credlyr platform. Enter your business email and we&apos;ll reach out.
             </p>
           </div>
@@ -1144,22 +1144,22 @@ function WebsitesProductPage() {
               type="text" 
               placeholder="Name *" 
               required
-              className="w-full bg-[#4a7a82] border border-teal-200/20 rounded-lg px-4 py-3 text-sm text-white placeholder-teal-100/60 focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-transparent transition-all font-semibold"
+              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold"
             />
             <input 
               type="email" 
               placeholder="Business email *" 
               required
-              className="w-full bg-[#4a7a82] border border-teal-200/20 rounded-lg px-4 py-3 text-sm text-white placeholder-teal-100/60 focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-transparent transition-all font-semibold"
+              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold"
             />
             <input 
               type="tel" 
               placeholder="Phone number" 
-              className="w-full bg-[#4a7a82] border border-teal-200/20 rounded-lg px-4 py-3 text-sm text-white placeholder-teal-100/60 focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-transparent transition-all font-semibold"
+              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold"
             />
             <button 
               type="submit"
-              className="w-fit mt-2 px-8 py-3 bg-white text-[#3a6870] hover:bg-neutral-50 active:scale-[0.98] transition-all rounded-full font-bold text-sm cursor-pointer shadow-md select-none"
+              className="w-fit mt-2 px-8 py-3 bg-black text-white hover:bg-neutral-800 active:scale-[0.98] transition-all rounded-full font-bold text-sm cursor-pointer shadow-md select-none"
             >
               Schedule a call
             </button>
