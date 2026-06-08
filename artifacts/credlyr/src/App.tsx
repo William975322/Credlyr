@@ -52,7 +52,7 @@ const NAV_LINKS: NavItem[] = [
         title: "Product",
         items: [
           {
-            label: "Website Builds",
+            label: "Custom Digital Product Design & Development",
             sub: "Fast, trust-first sites built to convert",
             href: "/product/websites",
           },
@@ -1939,7 +1939,7 @@ const FOOTER_COLS = [
     links: [
       "Brand Strategy",
       "Visual Identity",
-      "Website Builds",
+      "Custom Digital Product Design & Development",
       "Landing Pages",
       "Ongoing Optimisation",
     ],
@@ -2008,7 +2008,7 @@ export function SiteFooter() {
                 <ul className="flex flex-col gap-2.5">
                   {col.links.map((link) => {
                     let hrefVal = "#";
-                    if (link === "Website Builds") hrefVal = "/product/websites";
+                    if (link === "Website Builds" || link === "Full-Cycle Websites" || link === "Custom Digital Product Design & Development") hrefVal = "/product/websites";
                     else if (link === "Landing Pages") hrefVal = "/product/landing-pages";
                     else if (link === "About") hrefVal = "/about";
                     else if (link === "Blog" || link === "Case Studies") hrefVal = "/resources-hub";

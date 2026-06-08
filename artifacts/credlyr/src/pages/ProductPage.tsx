@@ -54,9 +54,9 @@ interface ProductDetails {
 
 const PRODUCT_DATA: Record<string, ProductDetails> = {
   "websites": {
-    badge: "Website Builds",
-    title: "Drive revenues with Website Builds",
-    subtitle: "Website Builds provides conversion-optimized page frameworks designed for speed, clarity, and authority. Hand-coded directly for your brand.",
+    badge: "Custom Digital Product Design & Development",
+    title: "Drive revenues with Custom Digital Product Design & Development",
+    subtitle: "Custom Digital Product Design & Development provides conversion-optimized page frameworks designed for speed, clarity, and authority. Hand-coded directly for your brand.",
     needTitle: "Everything you need, and more",
     needSubtitle: "Stop losing customers to clunky templates. Access elite, hand-coded layout patterns designed for high performance.",
     needBullets: [
@@ -106,8 +106,8 @@ const PRODUCT_DATA: Record<string, ProductDetails> = {
       { title: "Multi-Offer Systems", desc: "Present distinct campaigns on dedicated pages while maintaining a single cohesive brand footprint." }
     ],
     collectMockupSettings: ["Risk score: Low", "Region: EU", "Theme: Off-White"],
-    collectMockupInfo: ["Website builds", "SEO sitemaps", "SSL security"],
-    glanceTitle: "Website Builds at a glance",
+    collectMockupInfo: ["Custom Product Design", "SEO sitemaps", "SSL security"],
+    glanceTitle: "Custom Digital Product Design & Development at a glance",
     glanceCols: [
       { title: "Design", items: ["Bespoke typography", "Mathematical grids", "Custom brand visuals", "Style guidelines", "Dynamic icons", "Animation controls"] },
       { title: "Performance", items: ["Mobile optimized", "Edge CDN routing", "Image compression", "Lighthouse audits", "Static generation", "Zero layout shift"] },
@@ -483,24 +483,26 @@ function WebsitesProductPage() {
 
   const accordionItems = [
     {
-      title: "Auditing your UX or technical architecture",
-      desc: "We review your existing codebase, page performance, and layout friction points to discover immediate design and performance fixes."
+      title: "Discovery & Scoping",
+      desc: "The best results start with collaboration. We'll work together, combining our design expertise with your industry insight to co-create a strategic project roadmap. You'll get full clarity on investment, timeline, and expected outcomes.",
+      readMore: true
     },
     {
-      title: "Helping you prepare to build",
-      desc: "We help you define conversion objectives, write layout sitemaps, and structure brand rules before coding begins."
+      title: "UX Research",
+      desc: "We gather valuable insights to identify unmet user needs within your market and shape your idea into a digital product that is engaging and useful to the end user."
     },
     {
-      title: "Launching your MVP",
-      desc: "We ship a fast, custom-coded first version of your platform, optimized for search engines and direct traffic conversion."
+      title: "Accessibility Audit",
+      desc: "Your product should meet or exceed ADA and WCAG AA standards. This ensures your website or app is inclusive, strengthens your SEO, and allows you to reach a wider audience overall.",
+      readMore: true
     },
     {
-      title: "Scaling your product over a multi-year roadmap",
-      desc: "We continuously extend your layout system, building landing pages, scheduling calendars, and API integrations as your business grows."
+      title: "Usability Testing",
+      desc: "To make sure your app or website is intuitive and enjoyable to use, we'll test how your end users move through the funnel and identify opportunities to remove friction."
     },
     {
-      title: "Rebuilding legacy applications in record time",
-      desc: "We convert clunky database-heavy systems into clean, fast, search-ready architectures without any business downtime."
+      title: "SEO Audit",
+      desc: "We analyze search visibility, page speed, crawl paths, and indexing errors to guarantee your platform ranks as a primary source for search and answer engines."
     }
   ];
 
@@ -577,72 +579,95 @@ function WebsitesProductPage() {
 
       {/* ─── 3. Offering Accordion Section (Dark) ─── */}
       <section className="bg-[#0f0e0d] text-white py-24 md:py-32 px-5 sm:px-8 md:px-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-16 lg:gap-24 items-start text-left">
-          {/* Left Side Info */}
-          <div className="sticky top-32">
-            <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-widest block mb-4">
-              OUR SERVICE ARCHITECTURE
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-serif font-normal leading-[1.1] tracking-tight text-white mb-6">
-              Design and develop digital products that set the bar.
-            </h2>
-            <p className="text-neutral-400 text-base md:text-lg max-w-md font-normal leading-relaxed">
-              Ship the solutions your customers love and your business needs.
-            </p>
+        <div className="max-w-7xl mx-auto flex flex-col">
+          
+          {/* Adchitects style header block */}
+          <div className="border-b border-neutral-800 pb-12 mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full">
+            <div>
+              <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-widest block mb-3">
+                CUSTOM DIGITAL PRODUCT DESIGN & DEVELOPMENT
+              </span>
+              <h3 className="text-2xl sm:text-3xl md:text-[40px] font-sans font-bold tracking-tight text-white leading-none">
+                FULL-CYCLE WEBSITES & APPS.
+              </h3>
+            </div>
+            <div>
+              <span className="text-neutral-400 text-base md:text-xl font-sans font-bold tracking-tight uppercase leading-none block md:pb-1">
+                EXPERIENCE FIRST.
+              </span>
+            </div>
           </div>
 
-          {/* Right Side Interactive List */}
-          <div className="flex flex-col gap-1 w-full">
-            {accordionItems.map((item, idx) => {
-              const isOpen = openAccordion === idx;
-              return (
-                <div key={item.title} className="border-b border-neutral-800 py-5 w-full">
-                  <button
-                    onClick={() => setOpenAccordion(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between text-left cursor-pointer group py-1"
-                  >
-                    <span className={`text-[17px] md:text-[19px] font-semibold transition-colors duration-200 flex items-center gap-4 ${
-                      isOpen ? "text-white" : "text-neutral-500 group-hover:text-neutral-200"
-                    }`}>
-                      <span className="text-xs">✦</span>
-                      {item.title}
-                    </span>
-                    <ChevronRight
-                      size={18}
-                      className={`text-neutral-600 transition-transform duration-300 ${isOpen ? "rotate-90 text-white" : ""}`}
-                    />
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                        animate={{ height: "auto", opacity: 1, marginTop: 14 }}
-                        exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="overflow-hidden pl-8"
-                      >
-                        <p className="text-sm md:text-[15px] text-neutral-400 leading-relaxed font-normal max-w-xl">
-                          {item.desc}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-16 lg:gap-24 items-start w-full">
+            {/* Left Side Info */}
+            <div className="sticky top-32">
+              <h2 className="text-3xl md:text-4xl lg:text-[52px] font-sans font-bold tracking-tight text-white mb-6 uppercase">
+                IDEATE
+              </h2>
+              <p className="text-neutral-400 text-sm sm:text-base md:text-[17px] leading-relaxed max-w-md font-normal">
+                Our creatives are experienced in developing your ideas or inventing new ones. Together, we can explore concepts and shape your idea into plans for a brand-new or improved digital experience.
+              </p>
+            </div>
 
-            {/* AI Box */}
-            <div className="bg-[#07162c] border border-blue-900/40 rounded-2xl p-6 flex items-start gap-4 mt-10">
-              <div className="bg-blue-500/10 rounded-lg p-2 text-blue-400 shrink-0">
-                <Sparkles size={20} />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2">
-                  Building with AI
-                </h4>
-                <p className="text-xs sm:text-[13px] text-blue-200/80 leading-relaxed max-w-xl">
-                  From AI-driven development practices to complete native AI integrations, we inject smart sitemaps, dynamic query prompts, and indexing schemas to keep you at the absolute forefront.
-                </p>
+            {/* Right Side Interactive List */}
+            <div className="flex flex-col gap-1 w-full">
+              {accordionItems.map((item, idx) => {
+                const isOpen = openAccordion === idx;
+                return (
+                  <div key={item.title} className="border-b border-neutral-800 py-5 w-full">
+                    <button
+                      onClick={() => setOpenAccordion(isOpen ? null : idx)}
+                      className="w-full flex items-center justify-between text-left cursor-pointer group py-1"
+                    >
+                      <span className={`text-[17px] md:text-[19px] font-semibold transition-colors duration-200 flex items-center gap-4 ${
+                        isOpen ? "text-white" : "text-neutral-500 group-hover:text-neutral-200"
+                      }`}>
+                        <span className="text-xs">✦</span>
+                        {item.title}
+                      </span>
+                      <ChevronRight
+                        size={18}
+                        className={`text-neutral-600 transition-transform duration-300 ${isOpen ? "rotate-90 text-white" : ""}`}
+                      />
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                          animate={{ height: "auto", opacity: 1, marginTop: 14 }}
+                          exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden pl-8"
+                        >
+                          <p className="text-sm md:text-[15px] text-neutral-400 leading-relaxed font-normal max-w-xl">
+                            {item.desc}
+                          </p>
+                          {item.readMore && (
+                            <button className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-semibold rounded-full mt-4 transition-colors duration-150 cursor-pointer select-none">
+                              <span className="w-1 h-1 bg-white rounded-full" />
+                              Read more
+                            </button>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+
+              {/* AI Box */}
+              <div className="bg-[#07162c] border border-blue-900/40 rounded-2xl p-6 flex items-start gap-4 mt-10">
+                <div className="bg-blue-500/10 rounded-lg p-2 text-blue-400 shrink-0">
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2">
+                    Building with AI
+                  </h4>
+                  <p className="text-xs sm:text-[13px] text-blue-200/80 leading-relaxed max-w-xl">
+                    From AI-driven development practices to complete native AI integrations, we inject smart sitemaps, dynamic query prompts, and indexing schemas to keep you at the absolute forefront.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -693,7 +718,7 @@ function WebsitesProductPage() {
       <section className="bg-[#fbfaf7] text-gray-950 py-24 md:py-32 px-5 sm:px-8 md:px-10 text-center relative border-b border-neutral-150/50">
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
           <h2 className="text-balance text-4xl md:text-5xl font-normal tracking-tight text-gray-950 mb-6 leading-tight">
-            Ready to integrate Website Builds?
+            Ready to integrate Custom Digital Product Design & Development?
           </h2>
           <p className="max-w-[560px] text-[16px] md:text-[18px] text-neutral-600 font-medium leading-relaxed mb-10">
             Build your conversion infrastructure. Schedule a 20-minute onboarding strategy session with William.
