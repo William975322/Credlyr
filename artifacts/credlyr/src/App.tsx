@@ -653,11 +653,10 @@ function Hero() {
         >
           <Link href="/get-started" asChild>
             <a
-              className="inline-flex items-center gap-2 px-7 py-3 bg-black text-white rounded-full font-semibold text-[15px] md:text-[16px] hover:bg-gray-800 active:scale-[0.98] transition-all cursor-pointer shadow-[0_18px_45px_rgba(0,0,0,0.22)]"
+              className="inline-flex items-center px-8 py-3.5 bg-black text-white rounded-full font-semibold text-[15px] md:text-[16px] hover:bg-gray-800 active:scale-[0.98] transition-all cursor-pointer shadow-[0_18px_45px_rgba(0,0,0,0.22)]"
               data-testid="button-hero-cta"
             >
               Get started
-              <ArrowUpRight size={16} strokeWidth={1.7} />
             </a>
           </Link>
         </motion.div>
