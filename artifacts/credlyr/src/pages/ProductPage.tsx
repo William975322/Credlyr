@@ -702,7 +702,7 @@ function WebsitesProductPage() {
             <div className="space-y-4">
               {data.convBullets.slice(0, 5).map((bullet) => (
                 <div key={bullet} className="flex gap-3.5 items-start">
-                  <CheckCircle className="w-5 h-5 text-[#00c060] shrink-0 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" />
                   <span className="text-[15px] font-semibold text-gray-700">{bullet}</span>
                 </div>
               ))}
@@ -778,7 +778,7 @@ function WebsitesProductPage() {
 
               <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 text-[10px] text-neutral-400 font-mono">
                 <span>SECURITY ENCRYPTED</span>
-                <span>Cal.com Integration</span>
+                <span />
               </div>
             </div>
           </div>
@@ -1342,7 +1342,7 @@ export default function ProductPage() {
             <div className="space-y-4">
               {data.convBullets.slice(0, 5).map((bullet) => (
                 <div key={bullet} className="flex gap-3.5 items-start">
-                  <CheckCircle className="w-5 h-5 text-[#00c060] shrink-0 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" />
                   <span className="text-[15px] font-semibold text-gray-700">{bullet}</span>
                 </div>
               ))}
@@ -1419,7 +1419,7 @@ export default function ProductPage() {
 
               <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 text-[10px] text-neutral-400 font-mono">
                 <span>SECURITY ENCRYPTED</span>
-                <span>Cal.com Integration</span>
+                <span />
               </div>
             </div>
           </div>
