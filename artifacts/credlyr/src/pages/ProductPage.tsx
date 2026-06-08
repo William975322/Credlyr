@@ -476,6 +476,243 @@ function CollapsibleItem({ title, desc, isOpen, onToggle }: CollapsibleItemProps
   );
 }
 
+// ─── Websites Bespoke Product Page Component ───────────────────────────────────
+
+function WebsitesProductPage() {
+  const [openAccordion, setOpenAccordion] = useState<number | null>(0);
+
+  const accordionItems = [
+    {
+      title: "Auditing your UX or technical architecture",
+      desc: "We review your existing codebase, page performance, and layout friction points to discover immediate design and performance fixes."
+    },
+    {
+      title: "Helping you prepare to build",
+      desc: "We help you define conversion objectives, write layout sitemaps, and structure brand rules before coding begins."
+    },
+    {
+      title: "Launching your MVP",
+      desc: "We ship a fast, custom-coded first version of your platform, optimized for search engines and direct traffic conversion."
+    },
+    {
+      title: "Scaling your product over a multi-year roadmap",
+      desc: "We continuously extend your layout system, building landing pages, scheduling calendars, and API integrations as your business grows."
+    },
+    {
+      title: "Rebuilding legacy applications in record time",
+      desc: "We convert clunky database-heavy systems into clean, fast, search-ready architectures without any business downtime."
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#fbfaf7] text-gray-950 pt-0 pb-0 px-0 flex flex-col justify-between">
+      {/* ─── 1. Hero Section ─── */}
+      <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#f5f3ec] to-[#fbfaf7] pt-36 pb-20 md:pt-48 md:pb-28 text-center px-5 sm:px-6">
+        {/* Soft colorful glow */}
+        <div className="absolute inset-0 pointer-events-none opacity-45" style={{
+          background: "radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 40%, transparent 70%)"
+        }} />
+
+        <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
+          <h1 className="max-w-4xl text-balance text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.04] tracking-tight font-serif italic font-normal text-gray-950 mb-12">
+            We build digital products that win.
+          </h1>
+
+          {/* 4 Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mt-4">
+            {/* Card 1: Dashboard */}
+            <div className="bg-white rounded-2xl border border-neutral-200/85 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] flex items-center justify-center group hover:scale-[1.01] transition-transform duration-300">
+              <img src="/mockup-crm.png" alt="CRM dashboard analytics" className="w-full h-full object-cover" />
+            </div>
+
+            {/* Card 2: Keyboard/Keyboard Typing */}
+            <div className="bg-white rounded-2xl border border-neutral-200/85 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] flex items-center justify-center group hover:scale-[1.01] transition-transform duration-300">
+              <img src="/mockup-calendar.png" alt="Scheduling calendar mockup" className="w-full h-full object-cover" />
+            </div>
+
+            {/* Card 3: Mobile Phone/Wallet */}
+            <div className="bg-white rounded-2xl border border-neutral-200/85 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] flex items-center justify-center group hover:scale-[1.01] transition-transform duration-300">
+              <img src="/mockup-chat.png" alt="Chat and dynamic mobile feeds" className="w-full h-full object-cover" />
+            </div>
+
+            {/* Card 4: VR Headset Spatial Canvas */}
+            <div className="bg-[#0c0b0a] rounded-2xl border border-neutral-800 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] relative flex flex-col justify-between p-5 text-white text-left group hover:scale-[1.01] transition-transform duration-300">
+              <div className="flex justify-between items-center text-[9px] font-mono text-neutral-500 uppercase tracking-widest">
+                <span>VISION PRO</span>
+                <span>90 FPS</span>
+              </div>
+              <div className="my-auto flex flex-col items-center">
+                <svg viewBox="0 0 100 100" className="w-16 h-16 text-[#e8e4db] stroke-current fill-none" strokeWidth="1.5">
+                  <path d="M15 45 Q50 35 85 45 Q90 65 50 65 Q10 65 15 45 Z" />
+                  <path d="M50 35 V65" strokeDasharray="3 3" />
+                </svg>
+                <span className="text-[11px] font-mono text-[#e8e4db] mt-3 uppercase tracking-wider">Spatial Canvas</span>
+              </div>
+              <div className="flex justify-between items-center text-[9px] font-mono text-neutral-500">
+                <span>LATENCY 12MS</span>
+                <span>ACTIVE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 2. Platform Edge Section ─── */}
+      <section className="bg-white py-24 md:py-32 px-5 sm:px-8 md:px-10 border-t border-b border-neutral-100">
+        <div className="max-w-5xl mx-auto text-left">
+          <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mb-6">
+            YOUR PLATFORMS ARE YOUR EDGE
+          </span>
+          <p className="text-xl sm:text-2xl md:text-[28px] leading-[1.45] text-neutral-800 font-normal tracking-tight max-w-4xl">
+            No matter what industry you&apos;re in, your digital products are at the heart of how you work, how you connect with customers, and how you deliver your services. The best ones win hearts and drive results.
+          </p>
+          <p className="text-xl sm:text-2xl md:text-[28px] leading-[1.45] text-neutral-800 font-normal tracking-tight max-w-4xl mt-6">
+            Unfortunately, your competitors know this too. How do you take the lead? You obsess over what your customers need. Then you move fast, and build better.
+          </p>
+          <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mt-16">
+            ✦ OUR OFFERING
+          </span>
+        </div>
+      </section>
+
+      {/* ─── 3. Offering Accordion Section (Dark) ─── */}
+      <section className="bg-[#0f0e0d] text-white py-24 md:py-32 px-5 sm:px-8 md:px-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-16 lg:gap-24 items-start text-left">
+          {/* Left Side Info */}
+          <div className="sticky top-32">
+            <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-widest block mb-4">
+              OUR SERVICE ARCHITECTURE
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-serif font-normal leading-[1.1] tracking-tight text-white mb-6">
+              Design and develop digital products that set the bar.
+            </h2>
+            <p className="text-neutral-400 text-base md:text-lg max-w-md font-normal leading-relaxed">
+              Ship the solutions your customers love and your business needs.
+            </p>
+          </div>
+
+          {/* Right Side Interactive List */}
+          <div className="flex flex-col gap-1 w-full">
+            {accordionItems.map((item, idx) => {
+              const isOpen = openAccordion === idx;
+              return (
+                <div key={item.title} className="border-b border-neutral-800 py-5 w-full">
+                  <button
+                    onClick={() => setOpenAccordion(isOpen ? null : idx)}
+                    className="w-full flex items-center justify-between text-left cursor-pointer group py-1"
+                  >
+                    <span className={`text-[17px] md:text-[19px] font-semibold transition-colors duration-200 flex items-center gap-4 ${
+                      isOpen ? "text-white" : "text-neutral-500 group-hover:text-neutral-200"
+                    }`}>
+                      <span className="text-xs">✦</span>
+                      {item.title}
+                    </span>
+                    <ChevronRight
+                      size={18}
+                      className={`text-neutral-600 transition-transform duration-300 ${isOpen ? "rotate-90 text-white" : ""}`}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                        animate={{ height: "auto", opacity: 1, marginTop: 14 }}
+                        exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                        className="overflow-hidden pl-8"
+                      >
+                        <p className="text-sm md:text-[15px] text-neutral-400 leading-relaxed font-normal max-w-xl">
+                          {item.desc}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+
+            {/* AI Box */}
+            <div className="bg-[#07162c] border border-blue-900/40 rounded-2xl p-6 flex items-start gap-4 mt-10">
+              <div className="bg-blue-500/10 rounded-lg p-2 text-blue-400 shrink-0">
+                <Sparkles size={20} />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2">
+                  Building with AI
+                </h4>
+                <p className="text-xs sm:text-[13px] text-blue-200/80 leading-relaxed max-w-xl">
+                  From AI-driven development practices to complete native AI integrations, we inject smart sitemaps, dynamic query prompts, and indexing schemas to keep you at the absolute forefront.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 4. Value Cards Section ─── */}
+      <section className="bg-[#fbfaf8] py-24 md:py-32 px-5 sm:px-8 md:px-10 border-t border-neutral-100">
+        <div className="max-w-7xl mx-auto text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <div className="bg-white border border-neutral-200/60 rounded-3xl p-8 md:p-10 flex flex-col justify-between aspect-[1/1] hover:shadow-md transition-shadow duration-300">
+              <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest">— 01</span>
+              <div>
+                <h3 className="text-2xl font-semibold text-gray-950 mb-3 tracking-tight">See the big picture.</h3>
+                <p className="text-sm sm:text-[14.5px] text-neutral-500 leading-relaxed">
+                  We combine strategy, design and technical excellence. And never sacrifice one for the other.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bg-white border border-neutral-200/60 rounded-3xl p-8 md:p-10 flex flex-col justify-between aspect-[1/1] hover:shadow-md transition-shadow duration-300">
+              <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest">— 02</span>
+              <div>
+                <h3 className="text-2xl font-semibold text-gray-950 mb-3 tracking-tight">Own it end to end.</h3>
+                <p className="text-sm sm:text-[14.5px] text-neutral-500 leading-relaxed">
+                  We build with cross-functional teams who take full responsibility, from idea to impact.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-white border border-neutral-200/60 rounded-3xl p-8 md:p-10 flex flex-col justify-between aspect-[1/1] hover:shadow-md transition-shadow duration-300">
+              <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest">— 03</span>
+              <div>
+                <h3 className="text-2xl font-semibold text-gray-950 mb-3 tracking-tight">Move faster with AI.</h3>
+                <p className="text-sm sm:text-[14.5px] text-neutral-500 leading-relaxed">
+                  We use AI to build faster, and better.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. Final Call to Action ─── */}
+      <section className="bg-[#fbfaf7] text-gray-950 py-24 md:py-32 px-5 sm:px-8 md:px-10 text-center relative border-b border-neutral-150/50">
+        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
+          <h2 className="text-balance text-4xl md:text-5xl font-normal tracking-tight text-gray-950 mb-6 leading-tight">
+            Ready to integrate Website Builds?
+          </h2>
+          <p className="max-w-[560px] text-[16px] md:text-[18px] text-neutral-600 font-medium leading-relaxed mb-10">
+            Build your conversion infrastructure. Schedule a 20-minute onboarding strategy session with William.
+          </p>
+
+          <Link href="/get-started" asChild>
+            <a className="inline-flex items-center px-8 py-4 bg-black text-white text-[15px] font-semibold rounded-full hover:bg-neutral-850 transition-colors shadow-lg active:scale-[0.98]">
+              Schedule a call <ArrowUpRight size={16} className="ml-2" />
+            </a>
+          </Link>
+        </div>
+      </section>
+
+      {/* Shared Dark Site Footer */}
+      <SiteFooter />
+    </div>
+  );
+}
+
 // ─── Main Page Component ───────────────────────────────────────────────────────
 
 export default function ProductPage() {
@@ -484,6 +721,10 @@ export default function ProductPage() {
   const data = PRODUCT_DATA[id];
 
   const [activeTabIdx, setActiveTabIdx] = useState(0);
+
+  if (id === "websites") {
+    return <WebsitesProductPage />;
+  }
 
   if (!data) {
     return (
