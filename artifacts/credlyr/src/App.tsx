@@ -1236,7 +1236,7 @@ const FEATURE_ITEMS: FeatureItem[] = [
   {
     id: "automated",
     icon: CheckSquare,
-    title: "Conversion website build",
+    title: "Custom Digital Product Design & Development",
     description:
       "Turn attention into action with a fast, clear site that sells your offer before the buyer loses interest.",
   },
