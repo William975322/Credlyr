@@ -98,17 +98,17 @@ const NAV_LINKS: NavItem[] = [
       left: {
         title: "Industries",
         items: [
-          { label: "Dentists", sub: "Dental clinics and specialist practices" },
-          { label: "Healthcare", sub: "Clinics, care providers, and wellness" },
-          { label: "Local Practices", sub: "Service businesses with booked appointments" },
+          { label: "Dentists", sub: "Surgeries, orthodontics, clinics" },
+          { label: "Healthcare", sub: "Medical groups, wellness, therapy" },
+          { label: "Local Practices", sub: "Law firms, physio, consultants" },
         ],
       },
       right: {
         title: "Teams",
         items: [
-          { label: "Sales", sub: "Lead gen and conversion strategy" },
-          { label: "Marketing", sub: "Brand development and content" },
-          { label: "Operations", sub: "CRM and workflow automation" },
+          { label: "Sales", sub: "Lead generation, booking flow" },
+          { label: "Marketing", sub: "Positioning, brand, copywriting" },
+          { label: "Operations", sub: "CRM sync, workflow automation" },
         ],
       },
     },
