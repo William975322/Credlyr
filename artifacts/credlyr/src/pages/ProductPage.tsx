@@ -54,8 +54,8 @@ interface ProductDetails {
 const PRODUCT_DATA: Record<string, ProductDetails> = {
   "websites": {
     badge: "Full-Cycle Websites",
-    title: "We build digital products that win.",
-    subtitle: "Full-Cycle Websites provides conversion-optimized page frameworks designed for speed, clarity, and authority. Hand-coded directly for your brand.",
+    title: "A full-service digital innovation partner",
+    subtitle: "Our rich design and technology expertise delivers top brands and digital experiences.",
     needTitle: "Everything you need, and more",
     needSubtitle: "Stop losing customers to clunky templates. Access elite, hand-coded layout patterns designed for high performance.",
     needBullets: [
@@ -559,51 +559,138 @@ function WebsitesProductPage() {
             {data.badge}
           </span>
 
-          <h1 className="max-w-4xl text-balance text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.04] tracking-tight font-serif italic font-normal text-gray-950 mb-12">
+          <h1 className="max-w-4xl text-balance text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.04] tracking-tight font-serif italic font-normal text-gray-950 mb-6">
             {data.title}
           </h1>
 
-          {/* 4 Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mt-4">
-            {/* Card 1: Dashboard */}
-            <div className="bg-white rounded-2xl border border-neutral-200/85 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] flex items-center justify-center group hover:scale-[1.01] transition-transform duration-300">
-              <img src="/mockup-crm.png" alt="CRM dashboard analytics" className="w-full h-full object-cover" />
-            </div>
+          {/* Subtitle */}
+          <p className="max-w-[640px] text-balance text-[17px] sm:text-[19px] md:text-[21px] leading-[1.48] text-neutral-600 font-normal mb-10">
+            {data.subtitle}
+          </p>
 
-            {/* Card 2: Keyboard/Keyboard Typing */}
-            <div className="bg-white rounded-2xl border border-neutral-200/85 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] flex items-center justify-center group hover:scale-[1.01] transition-transform duration-300">
-              <img src="/mockup-calendar.png" alt="Scheduling calendar mockup" className="w-full h-full object-cover" />
-            </div>
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-4 items-center justify-center">
+            <Link href="/get-started" asChild>
+              <a className="inline-flex items-center px-8 py-3.5 bg-black text-white text-[15px] font-semibold rounded-full hover:bg-neutral-800 transition-colors duration-150 active:scale-[0.98] shadow-sm">
+                Schedule a call
+              </a>
+            </Link>
+            <Link href="/get-started" asChild>
+              <a className="inline-flex items-center px-8 py-3.5 bg-[#efeeea] border border-neutral-200/80 text-gray-800 text-[15px] font-semibold rounded-full hover:bg-[#e4e3df] transition-colors duration-150 active:scale-[0.98]">
+                Watch demo <ArrowUpRight size={14} className="ml-1.5" />
+              </a>
+            </Link>
+          </div>
+        </div>
+      </section>
 
-            {/* Card 3: Mobile Phone/Wallet */}
-            <div className="bg-white rounded-2xl border border-neutral-200/85 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] flex items-center justify-center group hover:scale-[1.01] transition-transform duration-300">
-              <img src="/mockup-chat.png" alt="Chat and dynamic mobile feeds" className="w-full h-full object-cover" />
+      {/* ─── 2. "Websites" Section ─── */}
+      <section className="bg-white py-24 md:py-32 px-5 sm:px-8 md:px-10 border-t border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20 items-center text-left">
+          {/* Info Column */}
+          <div className="flex flex-col items-start">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 leading-tight">
+              Websites
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal mb-8 max-w-xl">
+              A website is the most important channel to showcase your brand to customers. Our portfolio features award-winning websites designed to give users the best experience possible while also meeting business goals.
+            </p>
+            {/* Checklist */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+              {[
+                "Content Strategy",
+                "Web Design",
+                "Interactive Experiences",
+                "Content Production",
+                "Frontend & Backend Development",
+                "CMS Implementation"
+              ].map((bullet) => (
+                <div key={bullet} className="flex gap-3 items-center">
+                  <Check className="w-5 h-5 text-neutral-400 shrink-0" />
+                  <span className="text-sm md:text-[14.5px] text-gray-700 font-semibold">{bullet}</span>
+                </div>
+              ))}
             </div>
+          </div>
 
-            {/* Card 4: VR Headset Spatial Canvas */}
-            <div className="bg-[#0c0b0a] rounded-2xl border border-neutral-800 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] aspect-[4/3] relative flex flex-col justify-between p-5 text-white text-left group hover:scale-[1.01] transition-transform duration-300">
-              <div className="flex justify-between items-center text-[9px] font-mono text-neutral-500 uppercase tracking-widest">
-                <span>VISION PRO</span>
-                <span>90 FPS</span>
+          {/* Browser Mockup on the right */}
+          <div className="bg-[#f5f3ec] border border-[#e6e2da] rounded-[28px] p-6 flex flex-col justify-center items-center relative aspect-[16/10] overflow-hidden select-none">
+            {/* Safari/Chrome Browser Frame */}
+            <div className="w-full h-full bg-white border border-neutral-200/80 rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col">
+              {/* Browser bar */}
+              <div className="bg-neutral-50 border-b border-neutral-150 px-4 py-2 flex items-center justify-between">
+                {/* Window Controls */}
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                </div>
+                {/* Search Bar */}
+                <div className="bg-neutral-100 border border-neutral-200/60 rounded-md px-12 py-0.5 text-[9px] text-neutral-400 font-mono flex items-center gap-1">
+                  <svg viewBox="0 0 24 24" className="w-2.5 h-2.5 fill-none stroke-current" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  <span>dfinity.org</span>
+                </div>
+                {/* Spacer */}
+                <div className="w-10" />
               </div>
-              <div className="my-auto flex flex-col items-center">
-                <svg viewBox="0 0 100 100" className="w-16 h-16 text-[#e8e4db] stroke-current fill-none" strokeWidth="1.5">
-                  <path d="M15 45 Q50 35 85 45 Q90 65 50 65 Q10 65 15 45 Z" />
-                  <path d="M50 35 V65" strokeDasharray="3 3" />
-                </svg>
-                <span className="text-[11px] font-mono text-[#e8e4db] mt-3 uppercase tracking-wider">Spatial Canvas</span>
-              </div>
-              <div className="flex justify-between items-center text-[9px] font-mono text-neutral-500">
-                <span>LATENCY 12MS</span>
-                <span>ACTIVE</span>
+
+              {/* Website content preview */}
+              <div className="flex-1 bg-[#fbfaf7] p-5 flex flex-col justify-between relative">
+                {/* Fake website nav */}
+                <div className="flex justify-between items-center text-[8px] font-sans font-semibold text-gray-900 border-b border-neutral-200/40 pb-2">
+                  <span>∞ dfinity</span>
+                  <div className="flex gap-3 text-neutral-400">
+                    <span>Developers</span>
+                    <span>Ecosystem</span>
+                    <span>Community</span>
+                  </div>
+                </div>
+
+                {/* Body split: left text, right cube */}
+                <div className="flex-1 flex items-center justify-between my-2 gap-4">
+                  <div className="flex-1 flex flex-col items-start gap-1">
+                    <span className="text-[7.5px] font-bold text-indigo-500 uppercase tracking-widest">Internet Computer</span>
+                    <h3 className="text-xs sm:text-[13px] font-serif font-bold text-gray-950 leading-tight">
+                      Reimagine how you build everything.
+                    </h3>
+                    <p className="text-[6.5px] text-neutral-400 leading-normal max-w-[120px]">
+                      The Internet Computer is a public network that connects billions of people and devices.
+                    </p>
+                  </div>
+
+                  {/* 3D Geometric Cube SVG */}
+                  <div className="w-16 h-16 relative flex items-center justify-center bg-neutral-900 rounded-lg p-2.5 shadow-md">
+                    <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-current" strokeWidth="1.5">
+                      {/* Top Face */}
+                      <polygon points="50,15 80,30 50,45 20,30" className="text-indigo-400" fill="rgba(99, 102, 241, 0.1)" />
+                      {/* Left Face */}
+                      <polygon points="20,30 50,45 50,85 20,70" className="text-purple-400" fill="rgba(168, 85, 247, 0.1)" />
+                      {/* Right Face */}
+                      <polygon points="50,45 80,30 80,70 50,85" className="text-pink-400" fill="rgba(236, 72, 153, 0.1)" />
+                      {/* Grid Lines */}
+                      <path d="M50 15 V85 M20 30 L80 70 M80 30 L20 70" className="text-white/20" strokeWidth="1" strokeDasharray="2 2" />
+                      {/* Inner Star */}
+                      <path d="M50,40 L52,48 L60,50 L52,52 L50,60 L48,52 L40,50 L48,48 Z" className="text-white fill-current" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Footer line */}
+                <div className="text-[6px] font-mono text-neutral-400 border-t border-neutral-200/40 pt-1.5 flex justify-between">
+                  <span>LATENCY 0MS</span>
+                  <span>100% DECENTRALIZED</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── 2. "Everything you need" Section ─── */}
-      <section className="bg-white py-24 md:py-32 px-5 sm:px-8 md:px-10 border-t border-b border-neutral-100">
+      {/* ─── 3. "Everything you need" Section ─── */}
+      <section className="bg-white py-24 md:py-32 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20 items-center text-left">
           {/* Info Column */}
           <div className="flex flex-col items-start">
