@@ -1877,7 +1877,7 @@ function FeatureHighlight() {
                 onClick={() => setActiveId(item.id)}
                 className={`w-full rounded-xl px-4 py-4 text-left cursor-pointer transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 border ${
                   isActive
-                    ? "bg-white border-blue-500/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
+                    ? "bg-white border-neutral-300 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                     : "bg-transparent border-transparent hover:bg-gray-50/60"
                 }`}
               >
@@ -1958,53 +1958,51 @@ function FeatureHighlight() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-[#ebe9e5] rounded-[28px] p-7 md:p-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_70px_rgba(0,0,0,0.08)]"
+                className="relative overflow-hidden rounded-[28px] bg-[#ebe9e5] shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_70px_rgba(0,0,0,0.08)] min-h-[360px] md:min-h-[420px]"
               >
-                <div className="mx-auto bg-white rounded-2xl shadow-[0_18px_55px_rgba(0,0,0,0.08)] overflow-hidden max-w-[520px]">
-                  <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
-                    <LayoutList
-                      size={16}
-                      strokeWidth={1.6}
-                      className="text-gray-500"
-                    />
-                    <span className="text-[18px] font-semibold text-gray-900">
-                      {activeDashboard.title}
-                    </span>
-                  </div>
-
-                  <div className="divide-y divide-gray-50">
-                    {activeDashboard.items.map((item) => (
-                      <div
+                {/* Duna-style stacked row list */}
+                <div className="absolute inset-0 flex flex-col justify-center gap-0 px-8 md:px-10 py-10">
+                  {activeDashboard.items.map((item, i) => {
+                    const isMiddle = item.active;
+                    const distFromCenter = Math.abs(i - activeDashboard.items.findIndex(x => x.active));
+                    const opacity = distFromCenter === 0 ? 1 : distFromCenter === 1 ? 0.55 : 0.25;
+                    const scale = distFromCenter === 0 ? 1 : distFromCenter === 1 ? 0.97 : 0.94;
+                    return (
+                      <motion.div
                         key={item.label}
-                        className={`flex items-center justify-between px-6 py-4 transition-colors cursor-default ${
-                          item.active ? "bg-[#efeeeb]" : "bg-white"
+                        animate={{ opacity, scale }}
+                        transition={{ duration: 0.3 }}
+                        className={`flex items-center gap-4 rounded-2xl px-5 py-4 mb-1 ${
+                          isMiddle ? "bg-white shadow-[0_4px_24px_rgba(0,0,0,0.08)]" : "bg-white/60"
                         }`}
                       >
-                        <div className="flex items-center gap-3">
-                          <span
-                            className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                              item.active ? "bg-gray-600" : "bg-gray-300"
-                            }`}
-                          />
-                          <span
-                            className={`text-[15px] md:text-[16px] ${
-                              item.active
-                                ? "text-gray-900 font-medium"
-                                : "text-gray-500"
-                            }`}
-                          >
-                            {item.label}
-                          </span>
+                        {/* Circle icon */}
+                        <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center border ${
+                          isMiddle
+                            ? "bg-gray-950 border-gray-950"
+                            : "bg-transparent border-neutral-300"
+                        }`}>
+                          {isMiddle && (
+                            <div className="w-2 h-2 rounded-full bg-white" />
+                          )}
                         </div>
-                        {item.count !== null && (
-                          <span className="text-[14px] text-gray-400 tabular-nums">
-                            {item.count}
-                          </span>
+                        <span className={`text-[15px] md:text-[16px] ${
+                          isMiddle ? "font-semibold text-gray-950" : "text-gray-400 font-normal"
+                        }`}>
+                          {item.label}
+                        </span>
+                        {item.count !== null && isMiddle && (
+                          <span className="ml-auto text-[14px] text-gray-400 tabular-nums">{item.count}</span>
                         )}
-                      </div>
-                    ))}
-                  </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
+
+                {/* Top fade gradient */}
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#ebe9e5] to-transparent pointer-events-none" />
+                {/* Bottom fade gradient */}
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#ebe9e5] to-transparent pointer-events-none" />
               </motion.div>
             )}
           </AnimatePresence>
