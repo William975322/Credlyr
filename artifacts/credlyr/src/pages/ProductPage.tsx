@@ -3,7 +3,6 @@ import { useRoute, Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
-  CheckCircle,
   X,
   ChevronRight,
   Calendar,
@@ -618,7 +617,7 @@ function WebsitesProductPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               {data.needBullets.map((bullet) => (
                 <div key={bullet} className="flex gap-3 items-center">
-                  <CheckCircle className="w-5 h-5 text-neutral-400 shrink-0" />
+                  <Check className="w-5 h-5 text-neutral-400 shrink-0" />
                   <span className="text-sm md:text-[14.5px] text-gray-700 font-semibold">{bullet}</span>
                 </div>
               ))}
@@ -702,7 +701,7 @@ function WebsitesProductPage() {
             <div className="space-y-4">
               {data.convBullets.slice(0, 5).map((bullet) => (
                 <div key={bullet} className="flex gap-3.5 items-start">
-                  <CheckCircle className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" />
+                  <Check className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" />
                   <span className="text-[15px] font-semibold text-gray-700">{bullet}</span>
                 </div>
               ))}
@@ -1258,7 +1257,7 @@ export default function ProductPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               {data.needBullets.map((bullet) => (
                 <div key={bullet} className="flex gap-3 items-center">
-                  <CheckCircle className="w-5 h-5 text-neutral-400 shrink-0" />
+                  <Check className="w-5 h-5 text-neutral-400 shrink-0" />
                   <span className="text-sm md:text-[14.5px] text-gray-700 font-semibold">{bullet}</span>
                 </div>
               ))}
@@ -1342,7 +1341,7 @@ export default function ProductPage() {
             <div className="space-y-4">
               {data.convBullets.slice(0, 5).map((bullet) => (
                 <div key={bullet} className="flex gap-3.5 items-start">
-                  <CheckCircle className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" />
+                  <Check className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" />
                   <span className="text-[15px] font-semibold text-gray-700">{bullet}</span>
                 </div>
               ))}
