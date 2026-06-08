@@ -54,9 +54,9 @@ interface ProductDetails {
 
 const PRODUCT_DATA: Record<string, ProductDetails> = {
   "websites": {
-    badge: "Custom Digital Product Design & Development",
-    title: "Drive revenues with Custom Digital Product Design & Development",
-    subtitle: "Custom Digital Product Design & Development provides conversion-optimized page frameworks designed for speed, clarity, and authority. Hand-coded directly for your brand.",
+    badge: "Full-Cycle Websites",
+    title: "We build digital products that win.",
+    subtitle: "Full-Cycle Websites provides conversion-optimized page frameworks designed for speed, clarity, and authority. Hand-coded directly for your brand.",
     needTitle: "Everything you need, and more",
     needSubtitle: "Stop losing customers to clunky templates. Access elite, hand-coded layout patterns designed for high performance.",
     needBullets: [
@@ -107,7 +107,7 @@ const PRODUCT_DATA: Record<string, ProductDetails> = {
     ],
     collectMockupSettings: ["Risk score: Low", "Region: EU", "Theme: Off-White"],
     collectMockupInfo: ["Custom Product Design", "SEO sitemaps", "SSL security"],
-    glanceTitle: "Custom Digital Product Design & Development at a glance",
+    glanceTitle: "Full-Cycle Websites at a glance",
     glanceCols: [
       { title: "Design", items: ["Bespoke typography", "Mathematical grids", "Custom brand visuals", "Style guidelines", "Dynamic icons", "Animation controls"] },
       { title: "Performance", items: ["Mobile optimized", "Edge CDN routing", "Image compression", "Lighthouse audits", "Static generation", "Zero layout shift"] },
@@ -479,13 +479,14 @@ function CollapsibleItem({ title, desc, isOpen, onToggle }: CollapsibleItemProps
 // ─── Websites Bespoke Product Page Component ───────────────────────────────────
 
 function WebsitesProductPage() {
-  const [openAccordion, setOpenAccordion] = useState<number | null>(0);
+  const [activeTabIdx, setActiveTabIdx] = useState(0);
+  const [customColor, setCustomColor] = useState("charcoal"); // beige, charcoal, green
+  const [activeLang, setActiveLang] = useState("English");
 
   const accordionItems = [
     {
       title: "Discovery & Scoping",
-      desc: "The best results start with collaboration. We'll work together, combining our design expertise with your industry insight to co-create a strategic project roadmap. You'll get full clarity on investment, timeline, and expected outcomes.",
-      readMore: true
+      desc: "The best results start with collaboration. We'll work together, combining our design expertise with your industry insight to co-create a strategic project roadmap. You'll get full clarity on investment, timeline, and expected outcomes."
     },
     {
       title: "UX Research",
@@ -493,8 +494,7 @@ function WebsitesProductPage() {
     },
     {
       title: "Accessibility Audit",
-      desc: "Your product should meet or exceed ADA and WCAG AA standards. This ensures your website or app is inclusive, strengthens your SEO, and allows you to reach a wider audience overall.",
-      readMore: true
+      desc: "Your product should meet or exceed ADA and WCAG AA standards. This ensures your website or app is inclusive, strengthens your SEO, and allows you to reach a wider audience overall."
     },
     {
       title: "Usability Testing",
@@ -506,6 +506,46 @@ function WebsitesProductPage() {
     }
   ];
 
+  const data = PRODUCT_DATA["websites"];
+
+  const getTabMockupData = (idx: number) => {
+    switch (idx) {
+      case 0:
+        return {
+          title: "Roadmap Settings",
+          criteria: ["Timeline: 4 weeks", "Scope: Responsive Web", "Deliverables: Figma Files"],
+          outputs: ["Expected outcomes", "Investment clear", "Roadmap signed"]
+        };
+      case 1:
+        return {
+          title: "User Persona Criteria",
+          criteria: ["Target: Service Business", "Region: Europe", "Needs: Instant Booking"],
+          outputs: ["Persona mapped", "Friction solved", "Journey validated"]
+        };
+      case 2:
+        return {
+          title: "Accessibility Settings",
+          criteria: ["ADA Standard: Title III", "WCAG: AA Level", "Testing: Screen Reader"],
+          outputs: ["Color contrast pass", "ARIA labels active", "Keyboard nav ready"]
+        };
+      case 3:
+        return {
+          title: "Usability Testing Settings",
+          criteria: ["Target: 10 Users", "Task: Book Cleaning", "Duration: 5 days"],
+          outputs: ["Funnel drop-off cut", "Flow drop solved", "Navigation smoothed"]
+        };
+      case 4:
+      default:
+        return {
+          title: "SEO Audit Settings",
+          criteria: ["Search: Google/AI search", "Crawl path: Sitemap XML", "Schema: JSON-LD"],
+          outputs: ["AI engine readable", "Sitemap generated", "Schema verified"]
+        };
+    }
+  };
+
+  const currentMockupData = getTabMockupData(activeTabIdx);
+
   return (
     <div className="min-h-screen bg-[#fbfaf7] text-gray-950 pt-0 pb-0 px-0 flex flex-col justify-between">
       {/* ─── 1. Hero Section ─── */}
@@ -516,8 +556,12 @@ function WebsitesProductPage() {
         }} />
 
         <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
+          <span className="px-4 py-1.5 rounded-full border border-neutral-200 bg-white text-[13px] text-neutral-600 font-semibold mb-6 shadow-sm">
+            {data.badge}
+          </span>
+
           <h1 className="max-w-4xl text-balance text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.04] tracking-tight font-serif italic font-normal text-gray-950 mb-12">
-            We build digital products that win.
+            {data.title}
           </h1>
 
           {/* 4 Cards Grid */}
@@ -559,122 +603,413 @@ function WebsitesProductPage() {
         </div>
       </section>
 
-      {/* ─── 2. Platform Edge Section ─── */}
+      {/* ─── 2. "Everything you need" Section ─── */}
       <section className="bg-white py-24 md:py-32 px-5 sm:px-8 md:px-10 border-t border-b border-neutral-100">
-        <div className="max-w-5xl mx-auto text-left">
-          <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mb-6">
-            YOUR PLATFORMS ARE YOUR EDGE
-          </span>
-          <p className="text-xl sm:text-2xl md:text-[28px] leading-[1.45] text-neutral-800 font-normal tracking-tight max-w-4xl">
-            No matter what industry you&apos;re in, your digital products are at the heart of how you work, how you connect with customers, and how you deliver your services. The best ones win hearts and drive results.
-          </p>
-          <p className="text-xl sm:text-2xl md:text-[28px] leading-[1.45] text-neutral-800 font-normal tracking-tight max-w-4xl mt-6">
-            Unfortunately, your competitors know this too. How do you take the lead? You obsess over what your customers need. Then you move fast, and build better.
-          </p>
-          <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mt-16">
-            ✦ OUR OFFERING
-          </span>
-        </div>
-      </section>
-
-      {/* ─── 3. Offering Accordion Section (Dark) ─── */}
-      <section className="bg-[#0f0e0d] text-white py-24 md:py-32 px-5 sm:px-8 md:px-10">
-        <div className="max-w-7xl mx-auto flex flex-col">
-          
-          {/* Adchitects style header block */}
-          <div className="border-b border-neutral-800 pb-12 mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full">
-            <div>
-              <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-widest block mb-3">
-                CUSTOM DIGITAL PRODUCT DESIGN & DEVELOPMENT
-              </span>
-              <h3 className="text-2xl sm:text-3xl md:text-[40px] font-sans font-bold tracking-tight text-white leading-none">
-                FULL-CYCLE WEBSITES & APPS.
-              </h3>
-            </div>
-            <div>
-              <span className="text-neutral-400 text-base md:text-xl font-sans font-bold tracking-tight uppercase leading-none block md:pb-1">
-                EXPERIENCE FIRST.
-              </span>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20 items-center text-left">
+          {/* Info Column */}
+          <div className="flex flex-col items-start">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 leading-tight">
+              {data.needTitle}
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal mb-8 max-w-xl">
+              {data.needSubtitle}
+            </p>
+            {/* Checklist */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+              {data.needBullets.map((bullet) => (
+                <div key={bullet} className="flex gap-3 items-center">
+                  <CheckCircle className="w-5 h-5 text-neutral-400 shrink-0" />
+                  <span className="text-sm md:text-[14.5px] text-gray-700 font-semibold">{bullet}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-16 lg:gap-24 items-start w-full">
-            {/* Left Side Info */}
-            <div className="sticky top-32">
-              <h2 className="text-3xl md:text-4xl lg:text-[52px] font-sans font-bold tracking-tight text-white mb-6 uppercase">
-                IDEATE
-              </h2>
-              <p className="text-neutral-400 text-sm sm:text-base md:text-[17px] leading-relaxed max-w-md font-normal">
-                Our creatives are experienced in developing your ideas or inventing new ones. Together, we can explore concepts and shape your idea into plans for a brand-new or improved digital experience.
-              </p>
+          {/* Visual Stack Card Mockup */}
+          <div className="bg-[#f5f3ec] border border-[#e6e2da] rounded-[28px] p-8 flex flex-col justify-center items-center relative aspect-[16/10] overflow-hidden select-none">
+            {/* Layered Card Stack Mockup */}
+            <div className="flex flex-col gap-3 w-full max-w-[340px]">
+              {data.needStackCards.map((card, idx) => (
+                <motion.div
+                  key={card}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  className={`bg-white rounded-xl p-4 shadow-[0_8px_24px_rgba(0,0,0,0.02)] border flex items-center justify-between transition-all duration-300 ${
+                    idx === 2 
+                      ? "border-blue-550 shadow-[0_12px_36px_rgba(0,128,255,0.06)] relative z-10 scale-[1.03]" 
+                      : "border-neutral-200/60 opacity-80"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold ${
+                      idx === 2 ? "bg-blue-500/10 text-blue-600" : "bg-neutral-150 text-neutral-500"
+                    }`}>
+                      {idx + 1}
+                    </div>
+                    <span className="text-sm font-semibold text-gray-950">{card}</span>
+                  </div>
+                  <Check className={`w-4 h-4 ${idx === 2 ? "text-blue-500" : "text-neutral-300"}`} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 3. "Designed for conversion" Section ─── */}
+      <section className="bg-[#fbfaf8] py-24 md:py-32 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-20 items-center text-left">
+          
+          {/* Flowchart Mockup Block */}
+          <div className="bg-[#f5f3ec] border border-[#e6e2da] rounded-[28px] p-8 flex flex-col justify-between aspect-[16/10] overflow-hidden select-none">
+            <div className="flex justify-between items-center border-b border-neutral-200/60 pb-3 mb-4">
+              <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-widest">{data.convFlowTitle}</span>
+              <span className="text-[9px] font-mono text-neutral-500">Auto Verification</span>
+            </div>
+            
+            {/* Flowchart items and connectors */}
+            <div className="flex-1 flex flex-col justify-center gap-4 relative max-w-[280px] mx-auto w-full">
+              {data.convFlowNodes.map((node, idx) => (
+                <div key={node.label} className="flex flex-col items-center w-full">
+                  <div className="bg-white border border-neutral-200 rounded-xl p-3.5 shadow-sm text-center w-full relative z-10 flex flex-col gap-0.5">
+                    <span className="text-sm font-bold text-gray-950">{node.label}</span>
+                    {node.sub && <span className="text-[10px] text-neutral-400 font-mono">{node.sub}</span>}
+                  </div>
+                  {idx < data.convFlowNodes.length - 1 && (
+                    <div className="w-px h-6 border-l border-dashed border-neutral-350 my-1 relative z-0" />
+                  )}
+                </div>
+              ))}
             </div>
 
-            {/* Right Side Interactive List */}
-            <div className="flex flex-col gap-1 w-full">
-              {accordionItems.map((item, idx) => {
-                const isOpen = openAccordion === idx;
-                return (
-                  <div key={item.title} className="border-b border-neutral-800 py-5 w-full">
-                    <button
-                      onClick={() => setOpenAccordion(isOpen ? null : idx)}
-                      className="w-full flex items-center justify-between text-left cursor-pointer group py-1"
-                    >
-                      <span className={`text-[17px] md:text-[19px] font-semibold transition-colors duration-200 flex items-center gap-4 ${
-                        isOpen ? "text-white" : "text-neutral-500 group-hover:text-neutral-200"
-                      }`}>
-                        <span className="text-xs">✦</span>
-                        {item.title}
-                      </span>
-                      <ChevronRight
-                        size={18}
-                        className={`text-neutral-600 transition-transform duration-300 ${isOpen ? "rotate-90 text-white" : ""}`}
-                      />
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                          animate={{ height: "auto", opacity: 1, marginTop: 14 }}
-                          exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                          transition={{ duration: 0.25, ease: "easeInOut" }}
-                          className="overflow-hidden pl-8"
-                        >
-                          <p className="text-sm md:text-[15px] text-neutral-400 leading-relaxed font-normal max-w-xl">
-                            {item.desc}
-                          </p>
-                          {item.readMore && (
-                            <button className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-semibold rounded-full mt-4 transition-colors duration-150 cursor-pointer select-none">
-                              <span className="w-1 h-1 bg-white rounded-full" />
-                              Read more
-                            </button>
-                          )}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
+            <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 mt-4 text-[10px] text-neutral-400 font-mono">
+              <span>ACTIVE SYSTEM</span>
+              <span>100% CORRECT</span>
+            </div>
+          </div>
 
-              {/* AI Box */}
-              <div className="bg-[#07162c] border border-blue-900/40 rounded-2xl p-6 flex items-start gap-4 mt-10">
-                <div className="bg-blue-500/10 rounded-lg p-2 text-blue-400 shrink-0">
-                  <Sparkles size={20} />
+          {/* Text Column */}
+          <div className="flex flex-col items-start lg:pl-4">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 leading-tight">
+              {data.convTitle}
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal mb-8 max-w-xl">
+              {data.convSubtitle}
+            </p>
+            {/* Bullets */}
+            <div className="space-y-4">
+              {data.convBullets.slice(0, 5).map((bullet) => (
+                <div key={bullet} className="flex gap-3.5 items-start">
+                  <CheckCircle className="w-5 h-5 text-[#00c060] shrink-0 mt-0.5" />
+                  <span className="text-[15px] font-semibold text-gray-700">{bullet}</span>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2">
-                    Building with AI
-                  </h4>
-                  <p className="text-xs sm:text-[13px] text-blue-200/80 leading-relaxed max-w-xl">
-                    From AI-driven development practices to complete native AI integrations, we inject smart sitemaps, dynamic query prompts, and indexing schemas to keep you at the absolute forefront.
-                  </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 4. "Collect all information" Tabs Section ─── */}
+      <section className="bg-white py-24 md:py-32 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-left">
+          {/* Section Header */}
+          <div className="max-w-3xl mb-16 md:mb-20">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 leading-tight">
+              {data.collectTitle}
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal">
+              {data.collectSubtitle}
+            </p>
+          </div>
+
+          {/* Tabs Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-stretch">
+            {/* Left Side: Collapsible list */}
+            <div className="flex flex-col justify-center">
+              {accordionItems.map((tab, idx) => (
+                <CollapsibleItem
+                  key={tab.title}
+                  title={tab.title}
+                  desc={tab.desc}
+                  isOpen={activeTabIdx === idx}
+                  onToggle={() => setActiveTabIdx(idx)}
+                />
+              ))}
+            </div>
+
+            {/* Right Side: Mockup panel */}
+            <div className="bg-[#f5f3ec] border border-[#e6e2da] rounded-[28px] p-8 flex flex-col justify-between aspect-[16/10] overflow-hidden select-none">
+              <div className="flex justify-between items-center border-b border-neutral-200/60 pb-3">
+                <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-widest">Settings Matrix</span>
+                <span className="text-[10px] text-[#0080ff] font-bold">Autopiped</span>
+              </div>
+
+              {/* Mockup settings mapping layout */}
+              <div className="flex-1 flex items-center justify-between gap-6 max-w-[320px] mx-auto w-full my-6">
+                {/* Inputs block */}
+                <div className="flex flex-col gap-2 flex-1">
+                  <div className="text-[9px] font-mono uppercase text-neutral-400 mb-1 font-bold">{currentMockupData.title}</div>
+                  {currentMockupData.criteria.map((setting) => (
+                    <div key={setting} className="bg-white border rounded-lg px-3 py-2 text-xs font-semibold text-gray-700 shadow-sm">
+                      {setting}
+                    </div>
+                  ))}
                 </div>
+                {/* Arrow connectors */}
+                <div className="flex flex-col justify-center">
+                  <svg width="24" height="60" viewBox="0 0 24 60" fill="none" className="text-neutral-300">
+                    <path d="M0 15 H14 Q20 15 20 22 V38 Q20 45 14 45 H0" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M20 30 H24" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                </div>
+                {/* Outputs block */}
+                <div className="flex flex-col gap-2 flex-1">
+                  <div className="text-[9px] font-mono uppercase text-neutral-400 mb-1 font-bold">Checklist Output</div>
+                  {currentMockupData.outputs.map((info) => (
+                    <div key={info} className="bg-white border border-[#00c060]/30 rounded-lg px-3 py-2 text-xs font-semibold text-gray-950 flex justify-between items-center shadow-sm">
+                      <span>{info}</span>
+                      <Check className="w-3.5 h-3.5 text-[#00c060]" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 text-[10px] text-neutral-400 font-mono">
+                <span>SECURITY ENCRYPTED</span>
+                <span>Cal.com Integration</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── 4. Value Cards Section ─── */}
+      {/* ─── 5. "Fully customizable websites" Section ─── */}
+      <section className="bg-[#fbfaf8] py-24 md:py-32 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-20 items-center text-left">
+          
+          {/* Left Side: Mockup panel */}
+          <div className="bg-[#f5f3ec] border border-[#e6e2da] rounded-[28px] p-8 flex flex-col justify-between aspect-[16/10] overflow-hidden select-none relative">
+            <div className="flex justify-between items-center border-b border-neutral-200/60 pb-3">
+              <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-widest">Design Editor Preview</span>
+              {/* Color swatches */}
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => setCustomColor("charcoal")}
+                  className={`w-4 h-4 rounded-full bg-[#0c0b0a] border cursor-pointer ${customColor === "charcoal" ? "ring-2 ring-offset-2 ring-blue-500 border-transparent" : "border-neutral-350"}`} 
+                />
+                <button 
+                  onClick={() => setCustomColor("beige")}
+                  className={`w-4 h-4 rounded-full bg-[#fbfaf7] border cursor-pointer ${customColor === "beige" ? "ring-2 ring-offset-2 ring-blue-500 border-transparent" : "border-neutral-350"}`} 
+                />
+                <button 
+                  onClick={() => setCustomColor("green")}
+                  className={`w-4 h-4 rounded-full bg-[#556b2f] border cursor-pointer ${customColor === "green" ? "ring-2 ring-offset-2 ring-blue-500 border-transparent" : "border-neutral-350"}`} 
+                />
+              </div>
+            </div>
+
+            {/* Simulated Website interface */}
+            <div className="flex-1 bg-white border border-neutral-200/80 rounded-xl my-4 p-4 shadow-sm flex flex-col justify-between">
+              {/* Fake Nav */}
+              <div className="flex justify-between items-center border-b border-neutral-100 pb-2">
+                <span className="text-xs font-bold text-gray-900 tracking-tight">✦ YourLogo</span>
+                <div className="flex gap-2.5 text-[9px] text-neutral-400 font-semibold font-sans">
+                  <span>Products</span>
+                  <span>About</span>
+                  <span>Contact</span>
+                </div>
+              </div>
+
+              {/* Fake Hero Body */}
+              <div className="my-auto py-2 text-center flex flex-col items-center">
+                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Launch fast</span>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-tight tracking-tight max-w-[200px]">
+                  Experience trust built directly into the grid.
+                </h3>
+                {/* Dynamically styled button based on customColor */}
+                <button 
+                  className={`mt-4 px-4 py-1.5 text-[10px] font-bold text-white rounded-full transition-colors ${
+                    customColor === "charcoal" ? "bg-[#0c0b0a] hover:bg-neutral-800" :
+                    customColor === "beige" ? "bg-[#8c887d] text-gray-900 hover:bg-[#7a766b]" :
+                    "bg-[#556b2f] hover:bg-[#445625]"
+                  }`}
+                >
+                  Book slot
+                </button>
+              </div>
+
+              {/* Tools row */}
+              <div className="flex justify-between items-center pt-2 border-t border-neutral-100 text-[10px] text-neutral-400">
+                <div className="flex gap-2">
+                  <span className="px-1.5 py-0.5 bg-neutral-100 rounded text-[9px] font-mono">Aa</span>
+                  <span className="px-1.5 py-0.5 bg-neutral-100 rounded text-[9px] font-mono">⌘K</span>
+                </div>
+                <span>Grid: Active</span>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 text-[10px] text-neutral-400 font-mono">
+              <span>WHITE-LABEL</span>
+              <span>100% Custom Style</span>
+            </div>
+          </div>
+
+          {/* Right Side Text */}
+          <div className="flex flex-col items-start lg:pl-4">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 leading-tight">
+              Fully customizable websites
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal">
+              Leverage extensive brand control: customize colors, typography grids, spacing layouts, and shapes to match the look and feel of your brand. Keep design guidelines consistent across all product pages.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. "Global speed, local relevance" Section ─── */}
+      <section className="bg-white py-24 md:py-32 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-20 items-center text-left">
+          {/* Left Side Text */}
+          <div className="flex flex-col items-start">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 leading-tight">
+              Global speed, local relevance
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal mb-8">
+              Deploy static pages to edge servers globally for sub-second load times. Seamlessly serve multi-language versions, target local search regions, and integrate localized booking calendars.
+            </p>
+            <a href="/get-started" className="inline-flex items-center gap-1.5 border border-neutral-350 hover:bg-neutral-50 rounded-full px-5 py-2.5 text-sm text-neutral-700 hover:text-black font-semibold transition-colors duration-150">
+              Explore infrastructure <ChevronRight size={14} className="mt-0.5" />
+            </a>
+          </div>
+
+          {/* Right Side Language list Mockup */}
+          <div className="bg-[#f5f3ec] border border-[#e6e2da] rounded-[28px] p-8 flex flex-col justify-between aspect-[16/10] overflow-hidden select-none">
+            <div className="flex justify-between items-center border-b border-neutral-200/60 pb-3">
+              <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-widest">Active Localization</span>
+              <span className="text-[10px] text-[#00c060] font-bold">Edge Auto-Route</span>
+            </div>
+
+            {/* Language dropdown select list mockup */}
+            <div className="relative max-w-[200px] w-full mx-auto my-4 bg-white border border-neutral-200 shadow-lg rounded-xl overflow-hidden py-1.5">
+              {["English", "Deutsch", "Español", "Français", "Italiano", "Nederlands", "Português"].map((lang) => {
+                const isActive = activeLang === lang;
+                return (
+                  <button
+                    key={lang}
+                    onClick={() => setActiveLang(lang)}
+                    className={`w-full flex items-center justify-between px-4 py-2 text-xs font-semibold cursor-pointer text-left ${
+                      isActive ? "bg-neutral-50 text-gray-950 font-bold" : "text-gray-500 hover:bg-neutral-25 hover:text-gray-950"
+                    }`}
+                  >
+                    <span>{lang}</span>
+                    {isActive && <Check className="w-3.5 h-3.5 text-[#00c060]" />}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 text-[10px] text-neutral-400 font-mono">
+              <span>LATENCY: 12MS</span>
+              <span>7+ LANGUAGES READY</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 7. "Understand complex customer journeys" Section ─── */}
+      <section className="bg-[#fbfaf8] py-24 md:py-32 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-20 items-center text-left">
+          
+          {/* Left Side: Funnel Chart Mockup */}
+          <div className="bg-[#f5f3ec] border border-[#e6e2da] rounded-[28px] p-8 flex flex-col justify-between aspect-[16/10] overflow-hidden select-none">
+            <div className="flex justify-between items-center border-b border-neutral-200/60 pb-3">
+              <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-widest">Conversion Funnel Analytics</span>
+              <span className="text-[10px] text-neutral-500">Live feed</span>
+            </div>
+
+            {/* Org structure / Funnel representation */}
+            <div className="flex-1 flex flex-col justify-center items-center py-4 w-full">
+              <div className="flex flex-col gap-2.5 w-full max-w-[280px]">
+                <div className="bg-white border rounded-xl p-2.5 shadow-sm text-center font-bold text-xs text-gray-950">
+                  Google Search Ad <span className="text-blue-500 font-mono text-[9px] block">Click-thru (100%)</span>
+                </div>
+                
+                <div className="flex justify-center text-neutral-300">
+                  <ChevronRight size={16} className="rotate-90" />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 w-full">
+                  <div className="bg-white border rounded-xl p-2.5 shadow-sm text-center font-bold text-[11px] text-gray-950">
+                    Product Page <span className="text-neutral-400 font-mono text-[9px] block">Engagement (45%)</span>
+                  </div>
+                  <div className="bg-white border rounded-xl p-2.5 shadow-sm text-center font-bold text-[11px] text-gray-950">
+                    Trust Block <span className="text-neutral-400 font-mono text-[9px] block">Verification (30%)</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-center text-neutral-300">
+                  <ChevronRight size={16} className="rotate-90" />
+                </div>
+
+                <div className="bg-[#00c060]/5 border border-[#00c060]/30 rounded-xl p-2.5 shadow-sm text-center font-bold text-xs text-[#00c060] relative">
+                  Calendar Booking <span className="text-[#00c060] font-mono text-[9px] block">Confirmed Appt (12.4%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 text-[10px] text-neutral-400 font-mono">
+              <span>CONVERSION SCORE: HIGH</span>
+              <span>12.4% FUNNEL OUTCOME</span>
+            </div>
+          </div>
+
+          {/* Right Side Text */}
+          <div className="flex flex-col items-start lg:pl-4">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 leading-tight">
+              Understand complex customer journeys
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal">
+              Trace how traffic converts from the initial search click down to the booked appointment. Sync your analytics pipelines directly to optimize copy layouts and maximize appointment rates without manual tracking.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 8. glance (at a glance) Section ─── */}
+      <section className="bg-[#fbfaf8] py-24 md:py-32 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-left">
+          
+          {/* Section Header */}
+          <div className="mb-16 md:mb-20">
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 leading-tight">
+              {data.glanceTitle}
+            </h2>
+          </div>
+
+          {/* 5-Column Checklist Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-12 pt-8 border-t border-neutral-200">
+            {data.glanceCols.map((col) => (
+              <div key={col.title} className="flex flex-col items-start">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-gray-950 mb-5 border-b border-neutral-200/80 pb-2 w-full">
+                  {col.title}
+                </h3>
+                <ul className="flex flex-col gap-3.5 w-full">
+                  {col.items.map((item) => (
+                    <li key={item} className="flex gap-2 items-start text-xs sm:text-[13px] text-neutral-500 font-medium leading-tight">
+                      <Check className="w-3.5 h-3.5 text-neutral-400 shrink-0 mt-[1px]" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 9. Value Cards Section ─── */}
       <section className="bg-[#fbfaf8] py-24 md:py-32 px-5 sm:px-8 md:px-10 border-t border-neutral-100">
         <div className="max-w-7xl mx-auto text-left">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -714,11 +1049,11 @@ function WebsitesProductPage() {
         </div>
       </section>
 
-      {/* ─── 6. Final Call to Action ─── */}
+      {/* ─── 10. Final Call to Action ─── */}
       <section className="bg-[#fbfaf7] text-gray-950 py-24 md:py-32 px-5 sm:px-8 md:px-10 text-center relative border-b border-neutral-150/50">
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
           <h2 className="text-balance text-4xl md:text-5xl font-normal tracking-tight text-gray-950 mb-6 leading-tight">
-            Ready to integrate Custom Digital Product Design & Development?
+            Ready to integrate {data.badge}?
           </h2>
           <p className="max-w-[560px] text-[16px] md:text-[18px] text-neutral-600 font-medium leading-relaxed mb-10">
             Build your conversion infrastructure. Schedule a 20-minute onboarding strategy session with William.
