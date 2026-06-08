@@ -25,6 +25,7 @@ import ResourcesHubPage from "./pages/ResourcesHub";
 import ArticleDetailPage from "./pages/ArticleDetail";
 import AboutPage from "./pages/About";
 import ProductPage from "./pages/ProductPage";
+import TrustPage from "./pages/Trust";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -130,7 +131,7 @@ const NAV_LINKS: NavItem[] = [
       variant: "split-preview",
       left: {
         items: [
-          { label: "Trust", sub: "Safe, secure, and private" },
+          { label: "Trust", sub: "Safe, secure, and private", href: "/trust" },
           { label: "Status", sub: "Uptime and availability", href: "/status" },
           {
             label: "Resources hub",
@@ -2096,57 +2097,35 @@ function GetStartedPage() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 w-full max-w-[560px] overflow-hidden rounded-3xl border border-white/30 bg-white/92 p-7 shadow-2xl backdrop-blur-md md:p-8"
+        className="relative z-10 w-full max-w-[760px] overflow-hidden rounded-3xl border border-white/30 bg-white/92 p-7 shadow-2xl backdrop-blur-md md:p-8"
       >
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral-950 text-white">
           <Calendar size={22} strokeWidth={1.8} aria-hidden="true" />
         </div>
 
         <div className="mt-5 text-center">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.06em] text-neutral-400">
-            Free strategy call
-          </p>
           <h1 className="mt-2 text-[32px] font-bold leading-tight tracking-normal text-gray-950 md:text-[38px]">
             Book your website audit
           </h1>
-          <p className="mx-auto mt-3 max-w-[440px] text-[16px] font-normal leading-relaxed text-gray-600">
+          <p className="mx-auto mt-3 max-w-[480px] text-[16px] font-normal leading-relaxed text-gray-600">
             Pick a slot and we&apos;ll map the fastest fixes to make your site
             clearer, faster, and easier to buy from.
           </p>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {[
-            { Icon: Clock, label: "20 minutes" },
-            { Icon: CheckCircle, label: "No pressure" },
-            { Icon: LineChart, label: "Clear next steps" },
-          ].map(({ Icon, label }) => (
-            <div
-              key={label}
-              className="flex items-center justify-center gap-2 rounded-xl bg-neutral-100 px-3 py-3 text-[13px] font-semibold text-neutral-700"
-            >
-              <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
-              {label}
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-7">
+        <div className="mt-7 w-full border border-neutral-200/60 rounded-2xl overflow-hidden bg-white shadow-sm">
           {BOOKING_URL ? (
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-4 text-[15px] font-semibold text-white transition-all hover:bg-neutral-800 active:scale-[0.98]"
-              data-testid="booking-link"
-            >
-              Choose a time
-              <ArrowUpRight size={17} strokeWidth={1.8} />
-            </a>
+            <iframe
+              src={`${BOOKING_URL}?embed=true`}
+              style={{ width: "100%", height: "550px" }}
+              frameBorder="0"
+              title="Book Website Audit"
+              className="w-full h-[550px]"
+            />
           ) : (
-            <div className="rounded-2xl border border-dashed border-neutral-300 bg-neutral-50 px-5 py-4 text-center">
+            <div className="rounded-2xl border border-dashed border-neutral-350 bg-neutral-50 px-5 py-8 text-center">
               <p className="text-[14px] font-semibold text-neutral-900">
-                Add your booking link to activate this button.
+                Add your booking link to activate this scheduler.
               </p>
               <p className="mt-1 text-[13px] leading-relaxed text-neutral-500">
                 Set VITE_CAL_URL to your public event link.
@@ -2334,6 +2313,7 @@ export default function App() {
         <Route path="/resources-hub" component={ResourcesHubPage} />
         <Route path="/resources-hub/identity-in-an-ai-world" component={ArticleDetailPage} />
         <Route path="/about" component={AboutPage} />
+        <Route path="/trust" component={TrustPage} />
         <Route path="/product/:id" component={ProductPage} />
         <Route path="/">
           <>
