@@ -22,6 +22,10 @@ import {
   Info,
 } from "lucide-react";
 import { Link, Route, Switch, useLocation } from "wouter";
+import ResourcesHubPage from "./pages/ResourcesHub";
+import ArticleDetailPage from "./pages/ArticleDetail";
+import AboutPage from "./pages/About";
+import ProductPage from "./pages/ProductPage";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -45,44 +49,42 @@ const NAV_LINKS: NavItem[] = [
     dropdown: {
       variant: "two-column",
       left: {
-        title: "Platform",
+        title: "Product",
         items: [
           {
             label: "Website Builds",
             sub: "Fast, trust-first sites built to convert",
+            href: "/product/websites",
           },
           {
             label: "Landing Pages",
-            sub: "Pages for every offer, campaign, and audience",
+            sub: "Pages for every offer and campaign",
+            href: "/product/landing-pages",
           },
           {
             label: "Appointment Booking",
             sub: "Frictionless scheduling, zero back-and-forth",
-          },
-          {
-            label: "AI Search Ready",
-            sub: "Clear structure for humans and answer engines",
+            href: "/product/booking",
           },
         ],
       },
       right: {
-        title: "Solutions",
+        title: "Platform",
         items: [
           {
-            label: "Lead Generation",
-            sub: "Traffic paths that turn attention into enquiries",
+            label: "Lead Conversion",
+            sub: "Keep leads moving from click to deal",
+            href: "/product/conversion",
           },
           {
-            label: "CRM Conversion",
-            sub: "Keep leads moving from first click to closed deal",
-          },
-          {
-            label: "Conversion Strategy",
-            sub: "Positioning, proof, and action paths that sell",
+            label: "AI Search Ready",
+            sub: "Clear structure for answer engines",
+            href: "/product/ai-search",
           },
           {
             label: "Trust Systems",
-            sub: "Credibility signals that reduce buyer hesitation",
+            sub: "Credibility signals that reduce hesitation",
+            href: "/product/trust-systems",
           },
         ],
       },
@@ -116,7 +118,7 @@ const NAV_LINKS: NavItem[] = [
       variant: "split-preview",
       left: {
         items: [
-          { label: "About", sub: "Our story" },
+          { label: "About", sub: "Our story", href: "/about" },
           { label: "News", sub: "Press and insights" },
           { label: "Careers", sub: "We're hiring" },
         ],
@@ -134,6 +136,7 @@ const NAV_LINKS: NavItem[] = [
           {
             label: "Resources hub",
             sub: "Customer stories, insights, product updates",
+            href: "/resources-hub",
           },
         ],
       },
@@ -162,6 +165,8 @@ function Navigation() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [location] = useLocation();
+  const isResourcesPage = location.startsWith("/resources-hub");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -203,46 +208,58 @@ function Navigation() {
           className="hidden md:flex items-center gap-1"
           aria-label="Main navigation"
         >
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.label}
-              onMouseEnter={() => {
-                if (link.dropdown) {
-                  setOpenDropdown(link.label);
-                } else {
-                  setOpenDropdown(null);
-                }
-              }}
-              onFocus={() => {
-                if (link.dropdown) {
-                  setOpenDropdown(link.label);
-                } else {
-                  setOpenDropdown(null);
-                }
-              }}
-              onClick={() => {
-                if (link.dropdown) {
-                  setOpenDropdown(link.label);
-                }
-              }}
-              className={`group inline-flex items-center gap-[3px] px-4 py-2 rounded-full text-[14px] font-medium transition-all duration-150 cursor-pointer select-none ${
-                openDropdown === link.label
-                  ? "bg-neutral-800/50 text-white backdrop-blur-md"
-                  : "text-gray-600 hover:bg-neutral-800/50 hover:text-white hover:backdrop-blur-md"
-              }`}
-              data-testid={`nav-link-${link.label.toLowerCase()}`}
-            >
-              {link.label}
-              {link.dropdown && link.label !== "Resources" && (
-                <ChevronDown
-                  size={13}
-                  className={`text-gray-400 transition-transform duration-200 group-hover:text-white ${
-                    openDropdown === link.label ? "rotate-180 text-white" : ""
-                  }`}
-                />
-              )}
-            </button>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const ButtonElement = (
+              <button
+                key={link.label}
+                onMouseEnter={() => {
+                  if (link.dropdown) {
+                    setOpenDropdown(link.label);
+                  } else {
+                    setOpenDropdown(null);
+                  }
+                }}
+                onFocus={() => {
+                  if (link.dropdown) {
+                    setOpenDropdown(link.label);
+                  } else {
+                    setOpenDropdown(null);
+                  }
+                }}
+                onClick={() => {
+                  if (link.dropdown) {
+                    setOpenDropdown(link.label);
+                  }
+                }}
+                className={`group inline-flex items-center gap-[3px] px-4 py-2 rounded-full text-[14px] font-medium transition-all duration-150 cursor-pointer select-none ${
+                  openDropdown === link.label
+                    ? "bg-neutral-800/50 text-white backdrop-blur-md"
+                    : "text-gray-600 hover:bg-neutral-800/50 hover:text-white hover:backdrop-blur-md"
+                }`}
+                data-testid={`nav-link-${link.label.toLowerCase()}`}
+              >
+                {link.label}
+                {link.dropdown && link.label !== "Resources" && (
+                  <ChevronDown
+                    size={13}
+                    className={`text-gray-400 transition-transform duration-200 group-hover:text-white ${
+                      openDropdown === link.label ? "rotate-180 text-white" : ""
+                    }`}
+                  />
+                )}
+              </button>
+            );
+
+            if (link.label === "Resources") {
+              return (
+                <Link key={link.label} href="/resources-hub" asChild>
+                  {ButtonElement}
+                </Link>
+              );
+            }
+
+            return ButtonElement;
+          })}
         </nav>
 
         {/* CTA pill */}
@@ -251,7 +268,7 @@ function Navigation() {
             className="hidden md:inline-flex items-center px-[18px] py-[8px] bg-black text-white text-[13.5px] font-semibold rounded-full transition-colors duration-150 hover:bg-neutral-800 active:scale-[0.98] cursor-pointer"
             data-testid="button-book-demo"
           >
-            Schedule a call
+            {isResourcesPage ? "Schedule a demo" : "Schedule a call"}
           </a>
         </Link>
 
@@ -480,17 +497,28 @@ function Navigation() {
 
             {/* Links vertical list */}
             <div className="flex-1 py-8 flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={`#${link.label.toLowerCase()}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between text-[18px] font-medium text-white py-4 border-b border-neutral-900 hover:text-neutral-300 transition-colors"
-                >
-                  <span>{link.label}</span>
-                  <ChevronRight size={16} className="text-neutral-500" />
-                </a>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const isResources = link.label === "Resources";
+                const isCompany = link.label === "Company";
+                const hrefVal = isResources
+                  ? "/resources-hub"
+                  : isCompany
+                  ? "/about"
+                  : isResourcesPage
+                  ? `/#${link.label.toLowerCase()}`
+                  : `#${link.label.toLowerCase()}`;
+                return (
+                  <Link key={link.label} href={hrefVal} asChild>
+                    <a
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center justify-between text-[18px] font-medium text-white py-4 border-b border-neutral-900 hover:text-neutral-300 transition-colors cursor-pointer"
+                    >
+                      <span>{link.label}</span>
+                      <ChevronRight size={16} className="text-neutral-500" />
+                    </a>
+                  </Link>
+                );
+              })}
             </div>
 
             {/* Bottom section */}
@@ -500,7 +528,7 @@ function Navigation() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full inline-flex items-center justify-center py-3.5 bg-white text-black text-[15px] font-semibold rounded-full hover:bg-neutral-200 active:scale-[0.98] transition-all cursor-pointer"
                 >
-                  Schedule a call
+                  {isResourcesPage ? "Schedule a demo" : "Schedule a call"}
                 </a>
               </Link>
               <span className="text-center text-[12px] text-neutral-500 mt-2">
@@ -782,269 +810,404 @@ function ValueProposition() {
 
 // ─── AI Visual Section ────────────────────────────────────────────────────────
 
-function AIVisualSection() {
+// ─── AI Awareness Cycle Section ────────────────────────────────────────────────
+
+function AIAwarenessCycle() {
+  const points = [
+    {
+      num: "01",
+      title: "AI search is compressing attention",
+      desc: "Fewer casual clicks, more \"decision-ready\" visitors. When they land, your site must convert or you lose them.",
+    },
+    {
+      num: "02",
+      title: "Trust requirements are rising",
+      desc: "If your site looks outdated, slow, unclear, or generic, you get filtered out instantly.",
+    },
+    {
+      num: "03",
+      title: "The landing-page economy is exploding",
+      desc: "Businesses need pages per offer, per campaign, per audience - not one homepage.",
+    },
+    {
+      num: "04",
+      title: "AI answers are replacing browsing",
+      desc: "If your site isn’t structured for clarity, proof, and intent, you don’t get picked by humans or by answer engines.",
+    },
+    {
+      num: "05",
+      title: "Competition is now credibility",
+      desc: "The winner isn’t who \"has a website.\" It’s who has a site that sells, proves, and positions.",
+    },
+  ];
+
   return (
     <section
-      data-testid="ai-visual-section"
-      className="relative w-full overflow-hidden bg-[#d9e7df] px-5 py-28 text-center text-white sm:px-8 md:px-10 md:py-36"
+      data-testid="ai-awareness-cycle-section"
+      className="w-full bg-[#fcfbfa] py-20 md:py-32 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
     >
-      <img
-        src="/hero-landscape.png"
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover object-[center_16%]"
-        style={{
-          filter: "sepia(8%) brightness(108%) saturate(92%) hue-rotate(168deg)",
-        }}
-      />
-      <div className="absolute inset-0 bg-[#5f8fa5]/45 mix-blend-multiply" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_18%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0.52)_18%,rgba(255,255,255,0)_38%),radial-gradient(ellipse_at_100%_18%,rgba(255,255,255,0.78)_0%,rgba(255,255,255,0.48)_20%,rgba(255,255,255,0)_42%),radial-gradient(ellipse_at_10%_95%,rgba(255,255,255,0.76)_0%,rgba(255,255,255,0.44)_22%,rgba(255,255,255,0)_48%),radial-gradient(ellipse_at_92%_94%,rgba(255,255,255,0.74)_0%,rgba(255,255,255,0.48)_24%,rgba(255,255,255,0)_52%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white/35 to-transparent" />
-
-      <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 mx-auto flex max-w-4xl flex-col items-center"
-      >
-        <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/18 px-4 py-2 text-[14px] font-medium text-white/92 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-md md:mb-8 md:text-[15px]">
-          <span className="h-2.5 w-2.5 rounded-[2px] bg-lime-300" />
-          AI Search
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-20 items-start">
+        {/* Left Column: Narrative Copy */}
+        <div className="flex flex-col items-start text-left lg:sticky lg:top-32">
+          {/* Subtle Label */}
+          <span className="inline-block border border-neutral-200 rounded-full px-3 py-1.5 text-[12px] text-gray-500 font-medium mb-6">
+            The AI Awareness Cycle
+          </span>
+          {/* Large Serif Headline */}
+          <h2 className="text-4xl md:text-5xl lg:text-[52px] leading-[1.08] font-normal tracking-tight text-gray-950 mb-8 max-w-xl">
+            When was the last time you browsed the internet without asking AI first?
+          </h2>
+          <div className="space-y-6 text-[17px] md:text-[18px] text-neutral-600 leading-relaxed font-normal max-w-xl">
+            <p>
+              AI became your Google, your Wikipedia, your shopping assistant, your VA. And because it’s so convenient in our daily lives, it became our decision maker.
+            </p>
+            <p>
+              Now it’s simple: ask AI, get the answer, click one link, credit card half out. Your website is the only thing between paid and the back button.
+            </p>
+            <p>
+              No one wants to spend 15 minutes browsing websites. Their attention span is too low. You only have seconds to convince them to buy from you. If your site is slow, vague, generic, or confusing, you get filtered out instantly and that buyer + his card info is gone.
+            </p>
+            <p className="font-semibold text-gray-950 text-[18px] md:text-[19px] leading-relaxed">
+              That is why business owners will pay thousands for a website that earns trust fast.
+            </p>
+            <p>
+              The current AI awareness cycle is... websites. Not because websites are new. Because the internet’s buying environment has changed, and the website is now the trust-and-conversion hub.
+            </p>
+          </div>
         </div>
 
-        <h2 className="text-balance text-[clamp(38px,5.8vw,68px)] font-normal leading-[1.04] tracking-normal text-white">
-          AI changed how buyers decide.
-        </h2>
+        {/* Right Column: 5 Pillars / Stacked Cards */}
+        <div className="flex flex-col gap-6 w-full">
+          <div className="border-b border-neutral-200 pb-4 mb-4">
+            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+              Why websites are the most relevant business problem right now
+            </h3>
+          </div>
 
-        <p className="mt-5 max-w-3xl text-balance text-[18px] font-normal leading-[1.55] text-white/78 md:mt-6 md:text-[24px]">
-          Buyers now ask AI, compare faster, and click fewer links. When they
-          land on your website, every second has to build trust and move them
-          toward action.
-        </p>
+          <div className="flex flex-col gap-4">
+            {points.map((p, idx) => (
+              <motion.div
+                key={p.num}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-[#fcfbf9] border border-neutral-200/60 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-4 md:gap-6 items-start hover:border-neutral-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300"
+              >
+                <div className="text-[18px] font-bold text-neutral-300 font-mono leading-none md:mt-[3px]">
+                  {p.num}
+                </div>
+                <div className="flex-1 flex flex-col text-left">
+                  <h4 className="text-[16px] md:text-[17px] font-bold text-gray-950 mb-2 leading-snug">
+                    {p.title}
+                  </h4>
+                  <p className="text-sm md:text-[14.5px] text-neutral-500 leading-relaxed font-normal">
+                    {p.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-        <Link href="/get-started" asChild>
-          <a
-            className="mt-10 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-neutral-900 shadow-[0_18px_45px_rgba(20,45,55,0.18)] transition-all hover:bg-neutral-100 active:scale-[0.98] md:px-7 md:py-3.5 md:text-[17px]"
-            data-testid="button-ai-visual-cta"
+          {/* Bottom callout */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-6 bg-[#f5f3ec] border border-[#e6e2da] rounded-2xl p-6 md:p-8 text-left"
           >
-            Build for the new buyer
-            <ChevronRight size={18} strokeWidth={1.8} />
-          </a>
-        </Link>
-      </motion.div>
+            <p className="text-sm md:text-[15px] text-neutral-800 leading-relaxed font-medium">
+              So the demand isn’t “AI websites.”
+              <br />
+              The demand is: <span className="text-gray-950 font-bold underline decoration-neutral-400 underline-offset-4">conversion infrastructure</span> – built for speed of decision, trust, and action.
+            </p>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
 
 // ─── Infrastructure Hub ───────────────────────────────────────────────────────
 
-function SpokeNode({ label }: { label: string }) {
+// ─── Our Services Section ──────────────────────────────────────────────────────
+
+function BrandVisual() {
   return (
-    <motion.div
-      whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }}
-      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-white border border-gray-200 rounded-full px-6 py-2.5 text-[14px] text-gray-700 font-medium cursor-default whitespace-nowrap shadow-sm select-none"
-    >
-      {label}
-    </motion.div>
+    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#161514] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-850">
+      {/* Editorial typographic grid */}
+      <div className="flex justify-between items-start">
+        <span className="text-[11px] font-mono tracking-widest text-[#00c060]/70 uppercase">
+          Brand System / V1
+        </span>
+        <span className="text-[11px] font-mono tracking-widest text-neutral-500">
+          © 2026
+        </span>
+      </div>
+
+      <div className="relative flex-1 flex items-center justify-center my-4">
+        {/* Floating abstract graphic elements */}
+        <div className="absolute w-36 h-36 rounded-full border border-neutral-800 flex items-center justify-center">
+          <div className="w-24 h-24 rounded-full border border-[#00c060]/10 flex items-center justify-center">
+            <div className="text-[32px] font-bold text-[#00c060]/30 font-serif">✦</div>
+          </div>
+        </div>
+
+        {/* Dynamic typographic layout */}
+        <div className="relative text-center z-10 flex flex-col items-center">
+          <span className="text-[38px] font-normal font-serif text-neutral-300 leading-none tracking-tight">
+            OSCAR
+          </span>
+          <span className="text-[34px] font-normal italic font-serif text-[#00c060] leading-none tracking-normal mt-1">
+            Charlie
+          </span>
+          <span className="text-[38px] font-semibold font-sans text-white leading-none tracking-tighter mt-2">
+            CREATIVE
+          </span>
+        </div>
+      </div>
+
+      <div className="flex justify-between items-end border-t border-neutral-900 pt-4">
+        <span className="text-[10px] text-neutral-600 font-mono">
+          SYSTEM / STORY / VALUE
+        </span>
+        <span className="text-[10px] text-neutral-400 font-mono">
+          CREDLYR®
+        </span>
+      </div>
+    </div>
   );
 }
 
-function HubDesktop() {
+function DigitalVisual() {
   return (
-    <div className="relative w-full h-[460px]">
-      {/* SVG connector lines */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        {/* top */}
-        <line
-          x1="50%"
-          y1="20%"
-          x2="50%"
-          y2="33%"
-          stroke="#d1d5db"
-          strokeWidth="1"
-        />
-        {/* bottom */}
-        <line
-          x1="50%"
-          y1="67%"
-          x2="50%"
-          y2="80%"
-          stroke="#d1d5db"
-          strokeWidth="1"
-        />
-        {/* left */}
-        <line
-          x1="21%"
-          y1="50%"
-          x2="31.5%"
-          y2="50%"
-          stroke="#d1d5db"
-          strokeWidth="1"
-        />
-        {/* right */}
-        <line
-          x1="68.5%"
-          y1="50%"
-          x2="79%"
-          y2="50%"
-          stroke="#d1d5db"
-          strokeWidth="1"
-        />
-      </svg>
+    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#faf9f6] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-200/80 shadow-sm">
+      {/* Visual background accents */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0080ff]/5 to-transparent pointer-events-none" />
 
-      {/* Center hub */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        {/* Concentric rings */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[192px] rounded-[124px] border border-gray-200/60 pointer-events-none" />
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[390px] h-[210px] rounded-[133px] border border-gray-200/40 pointer-events-none" />
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[228px] rounded-[142px] border border-gray-200/20 pointer-events-none" />
-        {/* Hub pill */}
+      <div className="flex justify-between items-start">
+        <span className="text-[11px] font-mono tracking-widest text-[#0080ff]/75 uppercase">
+          Digital Interface / UX
+        </span>
+        <span className="text-[11px] font-mono tracking-widest text-neutral-400">
+          Live Preview
+        </span>
+      </div>
+
+      <div className="relative flex-1 flex items-center justify-center my-4">
+        {/* Floating Credit Card Representation */}
         <motion.div
-          whileHover={{
-            scale: 1.02,
-            boxShadow: "0 12px 48px rgba(0,0,0,0.14)",
-          }}
-          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-80 h-40 rounded-[100px] overflow-hidden border-2 border-gray-100 cursor-default"
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="relative w-48 h-28 rounded-2xl bg-white border border-neutral-200/60 p-4 shadow-[0_12px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between z-10"
         >
-          <img
-            src="/hero-landscape.png"
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover object-[center_60%]"
-            style={{
-              filter:
-                "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
-            }}
-          />
-          <div className="absolute inset-0 bg-black/25" />
-          <span className="absolute inset-0 flex items-center justify-center text-[22px] font-bold text-white tracking-normal select-none">
-            Credlyr Engine
-          </span>
+          <div className="flex justify-between items-start">
+            <div className="w-8 h-8 rounded-lg bg-[#0080ff]/10 flex items-center justify-center text-[#0080ff]">
+              ✦
+            </div>
+            <span className="text-[10px] font-bold text-neutral-300">EUR</span>
+          </div>
+          <div>
+            <div className="text-[14px] font-mono text-neutral-700 tracking-wider">
+              **** **** **** 8820
+            </div>
+            <div className="flex justify-between items-center mt-2">
+              <span className="text-[9px] text-neutral-400 font-semibold uppercase">
+                William Vanderplaetse
+              </span>
+              <span className="text-[10px] text-[#0080ff] font-bold">
+                Active
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Floating Coins representation */}
+        <motion.div
+          animate={{ y: [0, 8, 0], x: [0, -4, 0] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          className="absolute -right-2 top-8 w-16 h-16 rounded-full bg-white border border-neutral-100 flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.04)] text-[15px] font-bold text-neutral-700 z-20"
+        >
+          0.00027
+        </motion.div>
+
+        <motion.div
+          animate={{ y: [0, -8, 0], x: [0, 4, 0] }}
+          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute -left-4 bottom-4 w-12 h-12 rounded-full bg-white border border-neutral-100 flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.04)] text-[12px] font-bold text-neutral-600 z-0"
+        >
+          €
         </motion.div>
       </div>
 
-      {/* Top: Decide */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-12">
-        <SpokeNode label="Decide" />
-      </div>
-
-      {/* Bottom: Data Platform */}
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-12">
-        <SpokeNode label="Data Platform" />
-      </div>
-
-      {/* Left: Onboard */}
-      <div className="absolute left-14 top-1/2 -translate-y-1/2">
-        <SpokeNode label="Onboard" />
-      </div>
-
-      {/* Right: Lifecycle */}
-      <div className="absolute right-14 top-1/2 -translate-y-1/2">
-        <SpokeNode label="Lifecycle" />
-      </div>
-    </div>
-  );
-}
-
-function HubMobile() {
-  return (
-    <div className="flex flex-col items-center gap-0 py-8">
-      <SpokeNode label="Decide" />
-      <div className="w-px h-8 bg-gray-200" />
-      {/* Hub */}
-      <motion.div
-        whileHover={{ scale: 1.02, boxShadow: "0 12px 48px rgba(0,0,0,0.14)" }}
-        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-72 h-36 rounded-[100px] overflow-hidden border-2 border-gray-100 cursor-default"
-      >
-        <img
-          src="/hero-landscape.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover object-[center_60%]"
-          style={{
-            filter:
-              "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
-          }}
-        />
-        <div className="absolute inset-0 bg-black/25" />
-        <span className="absolute inset-0 flex items-center justify-center text-[18px] font-bold text-white tracking-normal select-none">
-          Credlyr Engine
+      <div className="flex justify-between items-end border-t border-neutral-200/50 pt-4">
+        <span className="text-[10px] text-neutral-400 font-mono">
+          CONVERSION SYSTEM / CORE
         </span>
-      </motion.div>
-      <div className="w-px h-8 bg-gray-200" />
-      <SpokeNode label="Data Platform" />
-      <div className="flex gap-4 mt-6">
-        <SpokeNode label="Onboard" />
-        <SpokeNode label="Lifecycle" />
+        <span className="text-[10px] text-neutral-600 font-mono">
+          SPEED / TRUST
+        </span>
       </div>
     </div>
   );
 }
 
-function InfrastructureHub() {
+function OurServices() {
+  const brandServices = [
+    "Brand Strategy",
+    "Positioning",
+    "Brand architecture",
+    "Naming",
+    "Visual identity",
+    "Verbal identity",
+    "Design Systems",
+    "Brand Guidelines",
+  ];
+
+  const digitalServices = [
+    "Digital strategy",
+    "Website UX",
+    "Website UI",
+    "Platform & Product UI",
+    "Website development",
+    "Ongoing optimisation",
+  ];
+
   return (
     <section
-      data-testid="infrastructure-hub-section"
-      className="w-full bg-[#f5f4f2] py-16 md:py-24 px-5 sm:px-8 md:px-10"
+      data-testid="our-services-section"
+      className="w-full bg-[#fbfaf7] py-20 md:py-32 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
     >
-      {/* Section header */}
-      <div className="flex flex-col md:flex-row items-start justify-between gap-8 mb-12 md:mb-16">
-        <div className="max-w-sm">
-          <motion.h2
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-3xl md:text-4xl font-bold tracking-normal text-gray-950 leading-tight mb-4"
-          >
-            The infrastructure
-            <br />
-            behind every sale.
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
-            className="font-sans text-lg text-gray-600 leading-relaxed font-normal"
-          >
-            At the heart of Credlyr is a website system built for speed of
-            decision, trust, and action.
-          </motion.p>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-left">
+        {/* Section Header */}
+        <div className="max-w-4xl mb-20 md:mb-28">
+          <p className="font-serif italic text-[17px] md:text-[19px] text-[#8c887d] mb-4">
+            Our Services
+          </p>
+          <h2 className="text-4xl md:text-5xl lg:text-[60px] font-normal tracking-tight text-gray-950 leading-[1.05] max-w-3xl">
+            Blending brand and digital we turn <span className="font-serif italic">emotional connection</span> into <span className="font-serif italic text-neutral-700">meaningful growth</span>.
+          </h2>
         </div>
-        <motion.a
-          href="#"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.12 }}
-          className="hidden md:flex items-center gap-1.5 border border-gray-300 rounded-full px-4 py-2 text-[13px] text-gray-600 hover:bg-white/80 transition-colors whitespace-nowrap mt-1 shrink-0"
-        >
-          Explore <ArrowUpRight size={12} strokeWidth={1.5} />
-        </motion.a>
-      </div>
 
-      {/* Diagram */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        className="w-full max-w-4xl mx-auto"
-      >
-        <div className="hidden md:block">
-          <HubDesktop />
+        {/* Services Columns */}
+        <div className="flex flex-col gap-24 md:gap-32">
+          
+          {/* Row 1: Brand */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+            {/* Visual block */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <BrandVisual />
+            </motion.div>
+
+            {/* Info block */}
+            <div className="flex flex-col items-start">
+              {/* Category Header */}
+              <div className="flex items-center gap-3 mb-6">
+                {/* Green Stacked Cylinder Icon */}
+                <div className="flex flex-col gap-[2px]">
+                  <div className="w-[18px] h-[5px] rounded-full bg-[#00c060]" />
+                  <div className="w-[18px] h-[5px] rounded-full bg-[#00c060]/75" />
+                  <div className="w-[18px] h-[5px] rounded-full bg-[#00c060]/50" />
+                </div>
+                <h3 className="text-2xl font-bold font-serif text-gray-950">Brand</h3>
+              </div>
+
+              {/* Description */}
+              <p className="text-[16px] md:text-[17px] text-neutral-600 leading-relaxed font-normal mb-8">
+                Brand is how your business shows up in the world. It shapes perception, builds trust, and gives people a reason to believe in what you do. We define the strategy, narrative and identity that bring your brand into focus.
+              </p>
+
+              {/* Sub-services list */}
+              <ul className="flex flex-col gap-3">
+                {brandServices.map((service, idx) => (
+                  <motion.li
+                    key={service}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.05 }}
+                    className="text-[17px] md:text-[18px] text-gray-750 hover:text-gray-950 font-serif italic cursor-pointer transition-colors duration-150 relative group w-fit"
+                  >
+                    {service}
+                    <span className="absolute bottom-0 left-0 w-0 h-px bg-gray-400 group-hover:w-full transition-all duration-200" />
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Row 2: Digital */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+            {/* Visual block (order-last on large screens to offset) */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:order-last"
+            >
+              <DigitalVisual />
+            </motion.div>
+
+            {/* Info block */}
+            <div className="flex flex-col items-start">
+              {/* Category Header */}
+              <div className="flex items-center gap-3 mb-6">
+                {/* Blue Layered Box Icon */}
+                <div className="relative w-[18px] h-[16px]">
+                  <div className="absolute top-0 left-0 w-[14px] h-[10px] rounded-[2px] bg-[#0080ff] border border-white/20" />
+                  <div className="absolute bottom-0 right-0 w-[14px] h-[10px] rounded-[2px] bg-[#0080ff]/70 border border-white/10" />
+                </div>
+                <h3 className="text-2xl font-bold font-serif text-gray-950">Digital</h3>
+              </div>
+
+              {/* Description */}
+              <p className="text-[16px] md:text-[17px] text-neutral-600 leading-relaxed font-normal mb-8">
+                Digital is where your brand is experienced. It’s how people engage, interact, and decide. We design and build digital experiences that turn a single, defining feeling into seamless journeys – from strategy and UX to design and development.
+              </p>
+
+              {/* Sub-services list */}
+              <ul className="flex flex-col gap-3 mb-8">
+                {digitalServices.map((service, idx) => (
+                  <motion.li
+                    key={service}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.05 }}
+                    className="text-[17px] md:text-[18px] text-gray-750 hover:text-gray-950 font-serif italic cursor-pointer transition-colors duration-150 relative group w-fit"
+                  >
+                    {service}
+                    <span className="absolute bottom-0 left-0 w-0 h-px bg-gray-400 group-hover:w-full transition-all duration-200" />
+                  </motion.li>
+                ))}
+              </ul>
+
+              {/* Project links under Digital */}
+              <div className="flex items-center gap-4 flex-wrap border-t border-neutral-200/60 pt-6 w-full">
+                <span className="text-xs font-semibold text-neutral-400 uppercase tracking-widest mr-2 font-mono">Featured Projects:</span>
+                {["Charlie Oscar", "Vertical", "Venga"].map((proj) => (
+                  <a
+                    key={proj}
+                    href="#"
+                    className="text-[13px] font-semibold text-neutral-700 hover:text-black flex items-center gap-0.5 group transition-colors font-mono"
+                  >
+                    {proj}
+                    <span className="inline-block transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150">↘</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div className="md:hidden">
-          <HubMobile />
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
@@ -1102,37 +1265,37 @@ const FEATURE_ITEMS: FeatureItem[] = [
 
 const DASHBOARD_STATES: Record<string, DashboardState> = {
   automated: {
-    title: "Leads",
+    title: "Launch Checklist",
     items: [
-      { label: "New leads", count: 2, active: true },
-      { label: "My open leads", count: 3, active: false },
-      { label: "My follow-ups", count: 4, active: false },
-      { label: "Escalations", count: 3, active: false },
-      { label: "All leads", count: null, active: false },
+      { label: "Mobile speed optimization", count: 99, active: true },
+      { label: "SEO schema structure", count: 1, active: false },
+      { label: "Trust system synchronization", count: 4, active: false },
+      { label: "Form fields friction cut", count: 2, active: false },
+      { label: "All tasks completed", count: null, active: false },
     ],
   },
   efficiency: {
-    title: "Reviews",
+    title: "Campaign Pages",
     items: [
-      { label: "Inbox", count: 2, active: true },
-      { label: "My open reviews", count: 3, active: false },
-      { label: "My follow ups", count: 4, active: false },
-      { label: "Open Escalations", count: 3, active: false },
-      { label: "All reviews", count: null, active: false },
+      { label: "Dental Implants Offer", count: 8, active: true },
+      { label: "Emergency Care Page", count: 3, active: false },
+      { label: "Teeth Whitening Special", count: 4, active: false },
+      { label: "Local Cleaning Campaign", count: 2, active: false },
+      { label: "All active campaigns", count: null, active: false },
     ],
   },
   messaging: {
-    title: "Messages",
+    title: "Collect Trust Signals",
     items: [],
   },
   audit: {
-    title: "Audit trail",
+    title: "Performance Logs",
     items: [
-      { label: "Latest activity", count: 8, active: true },
-      { label: "Assigned leads", count: 3, active: false },
-      { label: "Automated actions", count: 12, active: false },
-      { label: "Exports ready", count: 2, active: false },
-      { label: "All records", count: null, active: false },
+      { label: "Daily conversion check", count: 8, active: true },
+      { label: "Active A/B tests", count: 3, active: false },
+      { label: "Page Speed auto scans", count: 12, active: false },
+      { label: "Analytics exports ready", count: 2, active: false },
+      { label: "All records normal", count: null, active: false },
     ],
   },
 };
@@ -1145,15 +1308,14 @@ function MessagingPreview() {
 
       <div className="relative w-full max-w-[420px] rounded-2xl bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
         <h3 className="text-[22px] font-semibold leading-tight text-gray-900">
-          Follow up with Connection
+          Collect Customer Proof
         </h3>
         <p className="mt-2 text-[14px] leading-relaxed text-gray-600">
-          Follow up on the following items with the connection.
+          Automate review requests right after appointment completion.
         </p>
 
         <div className="mt-5 rounded-lg bg-sky-50 px-4 py-4 text-[14px] leading-relaxed text-sky-800">
-          Please provide the missing financial statements for Q1 to complete our
-          compliance review.
+          "Hi Sarah, thank you for booking through Credlyr today! Would you mind sharing a quick 1-minute review of your dental cleaning?"
         </div>
 
         <div className="mt-8 flex items-center justify-between gap-4">
@@ -1169,7 +1331,7 @@ function MessagingPreview() {
             className="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-[14px] font-semibold text-gray-900"
           >
             <ChevronRight size={16} strokeWidth={1.8} className="rotate-180" />
-            Follow-up
+            Send Request
           </button>
         </div>
       </div>
@@ -1773,13 +1935,13 @@ function NewsSection() {
 
 const FOOTER_COLS = [
   {
-    heading: "Product",
+    heading: "Services",
     links: [
+      "Brand Strategy",
+      "Visual Identity",
       "Website Builds",
       "Landing Pages",
-      "Conversion Strategy",
-      "AI Search Readiness",
-      "Analytics",
+      "Ongoing Optimisation",
     ],
   },
   {
@@ -1806,7 +1968,7 @@ const FOOTER_COLS = [
   },
 ];
 
-function SiteFooter() {
+export function SiteFooter() {
   return (
     <footer
       data-testid="site-footer"
@@ -1817,13 +1979,13 @@ function SiteFooter() {
       <img
         src="/hero-landscape.png"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover object-[center_42%] pointer-events-none select-none"
+        className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none"
         style={{
           filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
         }}
       />
-      {/* Warm dark overlay */}
-      <div className="absolute inset-0 bg-stone-900/85 pointer-events-none" />
+      {/* Seamless top gradient fade */}
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#fbfaf7] via-[#fbfaf7]/70 to-transparent pointer-events-none z-10" />
 
       {/* Content layer */}
       <div
@@ -1832,7 +1994,7 @@ function SiteFooter() {
       >
         {/* Logo mark */}
         <div>
-          <p className="text-[16px] font-bold text-white/90 tracking-normal mb-10 select-none">
+          <p className="text-[16px] font-bold text-gray-950 tracking-normal mb-10 select-none">
             ✦ Credlyr
           </p>
 
@@ -1840,20 +2002,39 @@ function SiteFooter() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-10">
             {FOOTER_COLS.map((col) => (
               <div key={col.heading}>
-                <p className="text-[13px] font-semibold text-gray-100 mb-4 tracking-wide">
+                <p className="text-[13px] font-bold text-gray-950 mb-4 tracking-wide">
                   {col.heading}
                 </p>
                 <ul className="flex flex-col gap-2.5">
-                  {col.links.map((link) => (
-                    <li key={link}>
+                  {col.links.map((link) => {
+                    let hrefVal = "#";
+                    if (link === "Website Builds") hrefVal = "/product/websites";
+                    else if (link === "Landing Pages") hrefVal = "/product/landing-pages";
+                    else if (link === "About") hrefVal = "/about";
+                    else if (link === "Blog" || link === "Case Studies") hrefVal = "/resources-hub";
+                    
+                    const isInternal = hrefVal.startsWith("/");
+                    const Anchor = (
                       <a
-                        href="#"
-                        className="text-sm text-gray-300/80 hover:text-white transition-colors duration-150"
+                        href={hrefVal}
+                        className="text-sm text-neutral-700 hover:text-gray-950 transition-colors duration-150 font-medium"
                       >
                         {link}
                       </a>
-                    </li>
-                  ))}
+                    );
+
+                    return (
+                      <li key={link}>
+                        {isInternal ? (
+                          <Link href={hrefVal} asChild>
+                            {Anchor}
+                          </Link>
+                        ) : (
+                          Anchor
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
@@ -1862,16 +2043,16 @@ function SiteFooter() {
 
         {/* Legal strip */}
         <div className="flex items-center gap-5 mt-16 flex-wrap">
-          <span className="text-[12px] text-gray-400">© Credlyr 2026</span>
+          <span className="text-[12px] text-neutral-600 font-medium">© Credlyr 2026</span>
           <a
             href="#"
-            className="text-[12px] text-gray-400 hover:text-white transition-colors"
+            className="text-[12px] text-neutral-600 hover:text-gray-950 transition-colors font-medium"
           >
             Privacy Policy
           </a>
           <a
             href="#"
-            className="text-[12px] text-gray-400 hover:text-white transition-colors"
+            className="text-[12px] text-neutral-600 hover:text-gray-950 transition-colors font-medium"
           >
             Security
           </a>
@@ -2159,6 +2340,10 @@ export default function App() {
       <Switch>
         <Route path="/get-started" component={GetStartedPage} />
         <Route path="/status" component={StatusPage} />
+        <Route path="/resources-hub" component={ResourcesHubPage} />
+        <Route path="/resources-hub/identity-in-an-ai-world" component={ArticleDetailPage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/product/:id" component={ProductPage} />
         <Route path="/">
           <>
             {/* Nav is fixed/transparent — hero image bleeds to page top */}
@@ -2166,9 +2351,9 @@ export default function App() {
             <SocialProof />
             <StatsSection />
             <ValueProposition />
-            <InfrastructureHub />
+            <AIAwarenessCycle />
+            <OurServices />
             <FeatureHighlight />
-            <AIVisualSection />
             <SecurityTrust />
             <NewsSection />
             <SiteFooter />
