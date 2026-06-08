@@ -26,6 +26,7 @@ import ArticleDetailPage from "./pages/ArticleDetail";
 import AboutPage from "./pages/About";
 import ProductPage from "./pages/ProductPage";
 import TrustPage from "./pages/Trust";
+import CareersPage from "./pages/Careers";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -120,7 +121,7 @@ const NAV_LINKS: NavItem[] = [
         items: [
           { label: "About", sub: "Our story", href: "/about" },
           { label: "News", sub: "Press and insights" },
-          { label: "Careers", sub: "We're hiring" },
+          { label: "Careers", sub: "We're hiring", href: "/careers" },
         ],
       },
     },
@@ -304,14 +305,33 @@ function Navigation() {
                       </div>
                     )}
                     <div className="flex flex-col gap-1">
-                      {activeLink.dropdown.left.items.map((item) => (
-                        <Link
-                          key={item.label}
-                          href={item.href || "/get-started"}
-                          asChild
-                        >
-                          <a
-                            className="block text-left px-3 py-2 rounded-xl transition-colors duration-100 cursor-pointer hover:bg-neutral-800/50"
+                      {activeLink.dropdown.left.items.map((item) => {
+                        const isClickable = activeLink.label !== "Customers";
+                        if (isClickable) {
+                          return (
+                            <Link
+                              key={item.label}
+                              href={item.href || "/get-started"}
+                              asChild
+                            >
+                              <a
+                                className="block text-left px-3 py-2 rounded-xl transition-colors duration-100 cursor-pointer hover:bg-neutral-800/50"
+                                data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                              >
+                                <div className="text-[13.5px] font-semibold text-white leading-snug">
+                                  {item.label}
+                                </div>
+                                <div className="text-neutral-500 text-sm mt-[2px] font-normal leading-normal">
+                                  {item.sub}
+                                </div>
+                              </a>
+                            </Link>
+                          );
+                        }
+                        return (
+                          <div
+                            key={item.label}
+                            className="block text-left px-3 py-2 rounded-xl select-none"
                             data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                           >
                             <div className="text-[13.5px] font-semibold text-white leading-snug">
@@ -320,9 +340,9 @@ function Navigation() {
                             <div className="text-neutral-500 text-sm mt-[2px] font-normal leading-normal">
                               {item.sub}
                             </div>
-                          </a>
-                        </Link>
-                      ))}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -334,14 +354,33 @@ function Navigation() {
                       </div>
                     )}
                     <div className="flex flex-col gap-1">
-                      {activeLink.dropdown.right?.items.map((item) => (
-                        <Link
-                          key={item.label}
-                          href={item.href || "/get-started"}
-                          asChild
-                        >
-                          <a
-                            className="block text-left px-3 py-2 rounded-xl transition-colors duration-100 cursor-pointer hover:bg-neutral-800/50"
+                      {activeLink.dropdown.right?.items.map((item) => {
+                        const isClickable = activeLink.label !== "Customers";
+                        if (isClickable) {
+                          return (
+                            <Link
+                              key={item.label}
+                              href={item.href || "/get-started"}
+                              asChild
+                            >
+                              <a
+                                className="block text-left px-3 py-2 rounded-xl transition-colors duration-100 cursor-pointer hover:bg-neutral-800/50"
+                                data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                              >
+                                <div className="text-[13.5px] font-semibold text-white leading-snug">
+                                  {item.label}
+                                </div>
+                                <div className="text-neutral-500 text-sm mt-[2px] font-normal leading-normal">
+                                  {item.sub}
+                                </div>
+                              </a>
+                            </Link>
+                          );
+                        }
+                        return (
+                          <div
+                            key={item.label}
+                            className="block text-left px-3 py-2 rounded-xl select-none"
                             data-testid={`dropdown-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                           >
                             <div className="text-[13.5px] font-semibold text-white leading-snug">
@@ -350,9 +389,9 @@ function Navigation() {
                             <div className="text-neutral-500 text-sm mt-[2px] font-normal leading-normal">
                               {item.sub}
                             </div>
-                          </a>
-                        </Link>
-                      ))}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </>
@@ -2314,6 +2353,7 @@ export default function App() {
         <Route path="/resources-hub/identity-in-an-ai-world" component={ArticleDetailPage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/trust" component={TrustPage} />
+        <Route path="/careers" component={CareersPage} />
         <Route path="/product/:id" component={ProductPage} />
         <Route path="/">
           <>
