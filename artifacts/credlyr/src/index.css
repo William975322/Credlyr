@@ -171,12 +171,13 @@ body {
   body {
     margin: 0;
     padding: 0;
+    background-color: #fbfaf7;
   }
   body {
     font-family: var(--app-font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: hsl(var(--background));
+    background-color: #fbfaf7;
     color: hsl(var(--foreground));
     letter-spacing: 0;
   }

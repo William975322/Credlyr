@@ -875,7 +875,7 @@ function AIAwarenessCycle() {
   return (
     <section
       data-testid="ai-awareness-cycle-section"
-      className="w-full bg-[#fcfbfa] py-20 md:py-32 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
+      className="w-full bg-[#fcfbfa] py-12 md:py-20 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-20 items-start">
         {/* Left Column: Narrative Copy */}
@@ -939,21 +939,6 @@ function AIAwarenessCycle() {
               </motion.div>
             ))}
           </div>
-
-          {/* Bottom callout */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 bg-[#f5f3ec] border border-[#e6e2da] rounded-2xl p-6 md:p-8 text-left"
-          >
-            <p className="text-sm md:text-[15px] text-neutral-800 leading-relaxed font-medium">
-              So the demand isn’t “AI websites.”
-              <br />
-              The demand is: <span className="text-gray-950 font-bold underline decoration-neutral-400 underline-offset-4">conversion infrastructure</span> – built for speed of decision, trust, and action.
-            </p>
-          </motion.div>
         </div>
       </div>
     </section>
@@ -969,7 +954,7 @@ function BrandVisual() {
     <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#161514] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-850">
       {/* Editorial typographic grid */}
       <div className="flex justify-between items-start">
-        <span className="text-[11px] font-mono tracking-widest text-[#00c060]/70 uppercase">
+        <span className="text-[11px] font-mono tracking-widest text-[#e6e2da]/70 uppercase">
           Brand System / V1
         </span>
         <span className="text-[11px] font-mono tracking-widest text-neutral-500">
@@ -980,18 +965,18 @@ function BrandVisual() {
       <div className="relative flex-1 flex items-center justify-center my-4">
         {/* Floating abstract graphic elements */}
         <div className="absolute w-36 h-36 rounded-full border border-neutral-800 flex items-center justify-center">
-          <div className="w-24 h-24 rounded-full border border-[#00c060]/10 flex items-center justify-center">
-            <div className="text-[32px] font-bold text-[#00c060]/30 font-serif">✦</div>
+          <div className="w-24 h-24 rounded-full border border-neutral-800/60 flex items-center justify-center">
+            <div className="text-[32px] font-bold text-neutral-700 font-serif">✦</div>
           </div>
         </div>
 
         {/* Dynamic typographic layout */}
         <div className="relative text-center z-10 flex flex-col items-center">
           <span className="text-[38px] font-normal font-serif text-neutral-300 leading-none tracking-tight">
-            OSCAR
+            CREDLYR
           </span>
-          <span className="text-[34px] font-normal italic font-serif text-[#00c060] leading-none tracking-normal mt-1">
-            Charlie
+          <span className="text-[34px] font-normal italic font-serif text-[#e6e2da] leading-none tracking-normal mt-1">
+            Studio
           </span>
           <span className="text-[38px] font-semibold font-sans text-white leading-none tracking-tighter mt-2">
             CREATIVE
@@ -1140,12 +1125,6 @@ function OurServices() {
             <div className="flex flex-col items-start">
               {/* Category Header */}
               <div className="flex items-center gap-3 mb-6">
-                {/* Green Stacked Cylinder Icon */}
-                <div className="flex flex-col gap-[2px]">
-                  <div className="w-[18px] h-[5px] rounded-full bg-[#00c060]" />
-                  <div className="w-[18px] h-[5px] rounded-full bg-[#00c060]/75" />
-                  <div className="w-[18px] h-[5px] rounded-full bg-[#00c060]/50" />
-                </div>
                 <h3 className="text-2xl font-bold font-serif text-gray-950">Brand</h3>
               </div>
 
@@ -1190,11 +1169,6 @@ function OurServices() {
             <div className="flex flex-col items-start">
               {/* Category Header */}
               <div className="flex items-center gap-3 mb-6">
-                {/* Blue Layered Box Icon */}
-                <div className="relative w-[18px] h-[16px]">
-                  <div className="absolute top-0 left-0 w-[14px] h-[10px] rounded-[2px] bg-[#0080ff] border border-white/20" />
-                  <div className="absolute bottom-0 right-0 w-[14px] h-[10px] rounded-[2px] bg-[#0080ff]/70 border border-white/10" />
-                </div>
                 <h3 className="text-2xl font-bold font-serif text-gray-950">Digital</h3>
               </div>
 
@@ -2344,7 +2318,7 @@ export default function App() {
   const showNavigation = location !== "/status";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#fbfaf7]">
       {showNavigation && <Navigation />}
       <Switch>
         <Route path="/get-started" component={GetStartedPage} />
