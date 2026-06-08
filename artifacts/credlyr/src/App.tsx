@@ -28,6 +28,7 @@ import {
   FileText,
   Eye,
   Globe,
+  Search,
 } from "lucide-react";
 import { Link, Route, Switch, useLocation } from "wouter";
 import ResourcesHubPage from "./pages/ResourcesHub";
@@ -873,29 +874,36 @@ function ValueProposition() {
 
 // ─── AI Awareness Cycle Section ────────────────────────────────────────────────
 
+const NumberOneCircleIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 text-current" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 8v8M10 10l2-2" />
+  </svg>
+);
+
 function OnboardHighlight() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const features = [
     {
       icon: Briefcase,
-      title: "20+ KYB modules",
-      desc: "Configure every data field to fit your enterprise needs – from ID&V to AML, KYC, and more.",
+      title: "20+ Layout components",
+      desc: "Configure every page section to fit your campaign needs – from heroes to grids, forms, and more.",
     },
     {
       icon: Zap,
       title: "Optimised for conversion",
-      desc: "Frictionless UX/UI engineered to minimize drop-off rates and maximize completion.",
+      desc: "Benefit from data pre-fills, dynamic user interfaces, smart reminders, and intelligent optimisations.",
     },
     {
-      icon: CheckCircle,
+      icon: NumberOneCircleIcon,
       title: "First-time-right data collection",
-      desc: "Real-time validation prevents errors, typos, and bad documents before submission.",
+      desc: "Adapt data collection in real-time based on visitor behavior, country routing, and conversion rules.",
     },
     {
       icon: Globe,
-      title: "Deep localization",
-      desc: "Instantly adapt to local regulations, languages, currencies, and preferred local methods.",
+      title: "Multi-language ready",
+      desc: "Launch in 7+ languages out of the box. Visitors see your site in their language, automatically.",
     },
   ];
 
@@ -954,22 +962,22 @@ function OnboardHighlight() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col gap-2.5 w-full max-w-[290px] select-none"
+                  className="flex flex-col gap-2.5 w-full max-w-[290px] select-none text-left"
                 >
-                  {/* KYB modules list */}
+                  {/* Web sections templates list */}
                   {[
-                    { label: "Bank account", color: "text-rose-500 bg-rose-50/80", icon: Landmark },
-                    { label: "Ownership", color: "text-blue-500 bg-blue-50/80", icon: UserCheck },
-                    { label: "Source of Funds", color: "text-amber-600 bg-amber-50/80", icon: DollarSign },
+                    { label: "Pricing grid", color: "text-rose-500 bg-rose-50/80", icon: DollarSign },
+                    { label: "Hero header", color: "text-blue-500 bg-blue-50/80", icon: LayoutList },
+                    { label: "Feature list", color: "text-amber-600 bg-amber-50/80", icon: CheckSquare },
                     {
-                      label: "Identity verification",
+                      label: "Contact form",
                       color: "text-white bg-purple-600",
-                      icon: Fingerprint,
+                      icon: MessageSquare,
                       isActive: true,
                     },
-                    { label: "Representatives", color: "text-teal-500 bg-teal-50/80", icon: Users },
-                    { label: "UBO", color: "text-emerald-600 bg-emerald-50/80", icon: FileText },
-                    { label: "AML Screening", color: "text-neutral-500 bg-neutral-100/80", icon: Eye },
+                    { label: "Testimonials", color: "text-teal-500 bg-teal-50/80", icon: Users },
+                    { label: "FAQ section", color: "text-emerald-600 bg-emerald-50/80", icon: FileText },
+                    { label: "Footer layout", color: "text-neutral-500 bg-neutral-100/80", icon: Eye },
                   ].map((m, idx) => {
                     const MIcon = m.icon;
                     return (
@@ -1003,56 +1011,54 @@ function OnboardHighlight() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full max-w-[300px] select-none flex flex-col gap-4"
+                  className="w-full max-w-[280px] select-none flex flex-col gap-3 text-left"
                 >
-                  {/* Active Conversion rate visual */}
-                  <div className="bg-white border border-neutral-200/60 rounded-3xl p-6 shadow-xl flex flex-col items-center text-center w-full">
-                    <span className="text-[12px] font-mono tracking-widest text-[#0080ff] uppercase font-bold mb-2">
-                      Conversion System
+                  {/* Duna conversion autofill card mockup adapted to website context */}
+                  <div className="flex flex-col gap-1 w-full">
+                    <span className="text-[11.5px] font-bold text-neutral-400 uppercase tracking-wider pl-0.5">
+                      Business search
                     </span>
-                    <motion.span
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.1 }}
-                      className="text-5xl font-extrabold tracking-tight text-gray-950 mb-1"
-                    >
-                      98.4%
-                    </motion.span>
-                    <span className="text-[13px] text-emerald-600 font-semibold flex items-center gap-1 mb-4">
-                      <Zap className="w-3.5 h-3.5 fill-emerald-600" /> +14.2% vs Industry avg
-                    </span>
+                    <div className="flex items-center gap-2.5 px-4 py-3 rounded-2xl border border-emerald-500 bg-white shadow-xs">
+                      <Search className="w-4 h-4 text-neutral-400" />
+                      <span className="text-[14px] text-gray-900 font-semibold">Credlyr B.V.</span>
+                    </div>
+                  </div>
 
-                    {/* Funnel bars visual */}
-                    <div className="w-full space-y-3 mt-2 border-t border-neutral-100 pt-4">
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-[11px] font-bold text-neutral-400">
-                          <span>COMPLETION RATE</span>
-                          <span className="text-gray-900">98.4%</span>
-                        </div>
-                        <div className="w-full h-2 bg-neutral-100 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "98.4%" }}
-                            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                            className="h-full bg-blue-500 rounded-full"
-                          />
-                        </div>
-                      </div>
+                  {/* Down Arrow */}
+                  <div className="flex justify-center -my-0.5">
+                    <svg width="10" height="24" viewBox="0 0 10 24" fill="none" stroke="#d4d4d8" strokeWidth="1.5">
+                      <line x1="5" y1="0" x2="5" y2="24" />
+                      <path d="M2 19l3 3 3-3" />
+                    </svg>
+                  </div>
 
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-[11px] font-bold text-neutral-400">
-                          <span>TIME TO RUN</span>
-                          <span className="text-gray-900">42s average</span>
-                        </div>
-                        <div className="w-full h-2 bg-neutral-100 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "35%" }}
-                            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-                            className="h-full bg-emerald-500 rounded-full"
-                          />
-                        </div>
-                      </div>
+                  {/* Card 1 */}
+                  <div className="bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-1">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-5 h-5 rounded bg-gray-950 flex items-center justify-center text-[9px] text-white">✦</div>
+                      <span className="text-[14px] font-bold text-gray-900">Business details</span>
+                    </div>
+                    <div className="flex items-center gap-1 pl-7 text-[12px] text-emerald-600 font-bold">
+                      <Zap className="w-3.5 h-3.5 fill-emerald-600" /> Autofilled
+                    </div>
+                  </div>
+
+                  {/* Down Arrow */}
+                  <div className="flex justify-center -my-0.5">
+                    <svg width="10" height="24" viewBox="0 0 10 24" fill="none" stroke="#d4d4d8" strokeWidth="1.5">
+                      <line x1="5" y1="0" x2="5" y2="24" />
+                      <path d="M2 19l3 3 3-3" />
+                    </svg>
+                  </div>
+
+                  {/* Card 2 */}
+                  <div className="bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-1">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-5 h-5 rounded bg-gray-950 flex items-center justify-center text-[9px] text-white">✦</div>
+                      <span className="text-[14px] font-bold text-gray-900">Representatives</span>
+                    </div>
+                    <div className="flex items-center gap-1 pl-7 text-[12px] text-emerald-600 font-bold">
+                      <Zap className="w-3.5 h-3.5 fill-emerald-600" /> Autofilled
                     </div>
                   </div>
                 </motion.div>
@@ -1065,52 +1071,47 @@ function OnboardHighlight() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full max-w-[310px] select-none flex flex-col gap-4 relative"
+                  className="w-full max-w-[320px] select-none flex items-center justify-between text-left relative"
                 >
-                  {/* Document scan simulator */}
-                  <div className="bg-white border border-neutral-200/60 rounded-3xl p-5 shadow-xl flex flex-col gap-4 overflow-hidden relative w-full">
-                    <div className="flex justify-between items-center border-b border-neutral-100 pb-3">
-                      <span className="text-sm font-bold text-gray-900">ID Verification</span>
-                      <span className="text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md font-bold">SCANNING</span>
+                  {/* Left Card: Settings */}
+                  <div className="w-[125px] bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+                    <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mb-1">Settings</span>
+                    <div className="bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1.5 text-[11px] font-bold text-neutral-600">
+                      Risk level: Medium
                     </div>
-
-                    {/* ID Graphic */}
-                    <div className="relative border border-neutral-250/50 bg-neutral-50/60 rounded-xl p-3.5 h-[100px] overflow-hidden flex items-center gap-3">
-                      <div className="w-10 h-12 bg-neutral-250 rounded border border-neutral-300 flex items-center justify-center text-[20px]">👤</div>
-                      <div className="flex-1 space-y-2">
-                        <div className="w-20 h-2 bg-neutral-300 rounded-full" />
-                        <div className="w-16 h-1.5 bg-neutral-200 rounded-full" />
-                        <div className="w-24 h-1.5 bg-neutral-200 rounded-full" />
-                      </div>
-                      
-                      {/* Scanning Laser Line */}
-                      <motion.div
-                        animate={{ top: ["0%", "85%", "0%"] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute left-0 right-0 h-0.5 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)] z-10"
-                      />
+                    <div className="bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1.5 text-[11px] font-bold text-neutral-600">
+                      Country: NL
                     </div>
+                    <div className="bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1.5 text-[11px] font-bold text-neutral-600">
+                      Business type: SaaS
+                    </div>
+                  </div>
 
-                    {/* Real-time checklist */}
-                    <div className="space-y-2.5">
-                      {[
-                        { label: "Document authenticity verified", delay: 0.2 },
-                        { label: "MRZ fields validation passed", delay: 0.4 },
-                        { label: "Age check (>18) confirmed", delay: 0.6 },
-                      ].map((c) => (
-                        <div key={c.label} className="flex items-center gap-2 text-[13px]">
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 200, delay: c.delay }}
-                            className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shrink-0"
-                          >
-                            ✓
-                          </motion.div>
-                          <span className="text-neutral-600 font-semibold">{c.label}</span>
+                  {/* Connecting Schematic Line */}
+                  <div className="flex-1 h-[90px] flex items-center justify-center">
+                    <svg width="32" height="90" viewBox="0 0 32 90" fill="none" stroke="#d4d4d8" strokeWidth="1.5">
+                      <path d="M0 20 H8 Q16 20 16 35 V55 Q16 70 8 70 H0" />
+                      <path d="M0 45 H16" />
+                      <path d="M32 20 H24 Q16 20 16 35 V55 Q16 70 24 70 H32" />
+                      <path d="M32 45 H16" />
+                    </svg>
+                  </div>
+
+                  {/* Right Card: Information */}
+                  <div className="w-[135px] bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+                    <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mb-1">Information</span>
+                    {[
+                      { label: "UBO" },
+                      { label: "Bank account" },
+                      { label: "Ownership" },
+                    ].map((row) => (
+                      <div key={row.label} className="flex items-center justify-between py-1 border-b border-neutral-50 last:border-0">
+                        <span className="text-[12px] font-bold text-neutral-600">{row.label}</span>
+                        <div className="w-4.5 h-4.5 rounded-full bg-neutral-900 text-white flex items-center justify-center text-[10px] shrink-0 font-bold select-none leading-none">
+                          ✓
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -1122,41 +1123,50 @@ function OnboardHighlight() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full max-w-[300px] select-none"
+                  className="w-full max-w-[260px] select-none"
                 >
-                  {/* Dynamic localized profile card */}
-                  <div className="bg-white border border-neutral-200/60 rounded-3xl p-6 shadow-xl text-left w-full">
-                    <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-4">
-                      <div>
-                        <span className="text-[11px] font-mono tracking-widest text-[#0080ff] uppercase font-bold">
-                          Global Engine
-                        </span>
-                        <h3 className="text-[18px] font-bold text-gray-950 mt-0.5">Local Compliance</h3>
+                  {/* Duna-style language selector dropdown */}
+                  <div className="bg-white border border-neutral-200/50 rounded-2xl overflow-hidden shadow-lg">
+                    {/* Selected language row */}
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-100">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-lg leading-none">🇬🇧</span>
+                        <span className="text-[14px] font-semibold text-gray-900">English</span>
                       </div>
-                      <span className="text-3xl select-none" role="img" aria-label="flag">
-                        {localizations[localIndex].flag}
-                      </span>
+                      <ChevronRight className="w-3.5 h-3.5 text-neutral-400 rotate-90" />
                     </div>
 
-                    <div className="space-y-4">
-                      <div>
-                        <span className="text-[11px] font-bold text-neutral-400 block uppercase">COUNTRY</span>
-                        <span className="text-sm font-semibold text-gray-900">{localizations[localIndex].country}</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <span className="text-[11px] font-bold text-neutral-400 block uppercase">METHOD</span>
-                          <span className="text-sm font-semibold text-gray-900">{localizations[localIndex].method}</span>
-                        </div>
-                        <div>
-                          <span className="text-[11px] font-bold text-neutral-400 block uppercase">CURRENCY</span>
-                          <span className="text-sm font-semibold text-gray-900">{localizations[localIndex].currency}</span>
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-[11px] font-bold text-neutral-400 block uppercase">COMPLIANCE RULES</span>
-                        <span className="text-sm font-semibold text-purple-600 font-mono">{localizations[localIndex].rule}</span>
-                      </div>
+                    {/* Dropdown list */}
+                    <div className="flex flex-col divide-y divide-neutral-50">
+                      {[
+                        { flag: "🇩🇪", label: "Deutsch",    active: false },
+                        { flag: "🇬🇧", label: "English",    active: true  },
+                        { flag: "🇪🇸", label: "Español",    active: false },
+                        { flag: "🇫🇷", label: "Français",   active: false },
+                        { flag: "🇮🇹", label: "Italiano",   active: false },
+                        { flag: "🇳🇱", label: "Nederlands", active: false },
+                        { flag: "🇵🇹", label: "Português",  active: false },
+                      ].map((lang, i) => (
+                        <motion.div
+                          key={lang.label}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                          className={`flex items-center justify-between px-4 py-2.5 ${
+                            lang.active ? "bg-neutral-50" : "bg-white"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <span className="text-base leading-none">{lang.flag}</span>
+                            <span className={`text-[13px] font-semibold ${
+                              lang.active ? "text-gray-950" : "text-neutral-500"
+                            }`}>{lang.label}</span>
+                          </div>
+                          {lang.active && (
+                            <span className="text-[12px] text-neutral-400">✓</span>
+                          )}
+                        </motion.div>
+                      ))}
                     </div>
                   </div>
                 </motion.div>
