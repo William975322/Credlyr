@@ -1654,33 +1654,41 @@ function MessagingPreview() {
       <div className="absolute left-1/2 top-[18%] h-24 w-[64%] -translate-x-1/2 rounded-2xl bg-white/30 shadow-[0_12px_40px_rgba(0,0,0,0.03)]" />
 
       {/* Main modal card */}
-      <div className="relative w-full max-w-[420px] rounded-2xl bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
-        <h3 className="text-[20px] font-semibold leading-tight text-gray-900">
-          Request Page Content
-        </h3>
-        <p className="mt-1.5 text-[13px] leading-relaxed text-gray-500">
-          Send a structured brief to collect copy, images &amp; assets.
-        </p>
+      <div className="relative w-full max-w-[420px] rounded-2xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden">
+        {/* Card header */}
+        <div className="flex items-center gap-3 px-6 py-5 border-b border-neutral-100">
+          <MessageSquare size={16} strokeWidth={1.6} className="text-gray-500" />
+          <span className="text-[17px] font-semibold text-gray-900">Request Page Content</span>
+        </div>
 
-        {/* Blue info box */}
-        <div className="mt-5 rounded-lg bg-sky-50 px-4 py-4 text-[13px] leading-relaxed text-sky-700">
-          Please provide the homepage hero copy, logo files, and 3–5 brand images to proceed with the design phase.
+        {/* Message body */}
+        <div className="px-6 py-5">
+          <p className="text-[13px] text-gray-500 leading-relaxed mb-5">
+            Send a structured brief to your client to collect copy, images &amp; assets for the build.
+          </p>
+
+          {/* Textarea mockup */}
+          <div className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 min-h-[80px] flex items-start">
+            <span className="text-[13px] text-neutral-300 leading-relaxed select-none">
+              Write your message to the client…
+            </span>
+          </div>
         </div>
 
         {/* Action row */}
-        <div className="mt-6 flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 px-6 pb-5">
           <button
             type="button"
-            className="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-500 hover:text-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-400 hover:text-gray-700 transition-colors"
           >
-            <X size={15} strokeWidth={1.8} />
+            <X size={14} strokeWidth={1.8} />
             Cancel
           </button>
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-[13px] font-semibold text-gray-900 hover:bg-gray-200 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-[13px] font-semibold text-white hover:bg-gray-700 transition-colors"
           >
-            <ChevronRight size={15} strokeWidth={1.8} className="rotate-180" />
+            <ChevronRight size={14} strokeWidth={1.8} className="rotate-180" />
             Send request
           </button>
         </div>
@@ -1816,7 +1824,7 @@ function FeatureHighlight() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-            className="text-3xl md:text-4xl font-bold tracking-normal text-gray-950 leading-tight max-w-lg"
+            className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-950 leading-[1.1] max-w-lg"
           >
             Save time with automated lead management
           </motion.h2>
