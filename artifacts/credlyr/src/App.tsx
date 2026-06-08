@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ChevronDown,
   ArrowUpRight,
   Lock,
   MinusCircle,
@@ -239,14 +238,6 @@ function Navigation() {
                 data-testid={`nav-link-${link.label.toLowerCase()}`}
               >
                 {link.label}
-                {link.dropdown && link.label !== "Resources" && (
-                  <ChevronDown
-                    size={13}
-                    className={`text-gray-400 transition-transform duration-200 group-hover:text-white ${
-                      openDropdown === link.label ? "rotate-180 text-white" : ""
-                    }`}
-                  />
-                )}
               </button>
             );
 
