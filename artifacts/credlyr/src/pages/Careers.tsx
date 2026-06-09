@@ -1,25 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Globe, MapPin } from "lucide-react";
+import { Globe } from "lucide-react";
 import { SiteFooter } from "../App";
 
 export default function Careers() {
-  const engineeringRoles = [
-    { title: "Backend engineers", levels: "Senior · Staff · Principal", location: "Remote" },
-    { title: "Fullstack engineers", levels: "Senior · Staff · Principal", location: "Remote" }
-  ];
-
-  const designRoles = [
-    { title: "Senior Product Designer", levels: "Senior", location: "Remote" },
-    { title: "Motion & Interaction Designer", levels: "Mid · Senior", location: "Remote" }
-  ];
-
-  const growthRoles = [
-    { title: "Growth Associate", levels: "Junior", location: "Onsite" },
-    { title: "Technical Copywriter", levels: "Senior", location: "Remote" },
-    { title: "Deployment strategist", levels: "Junior", location: "Onsite" },
-    { title: "Enterprise Account Executive", levels: "Senior", location: "Remote" }
-  ];
-
   const openAppRoles = [
     { title: "Your future role", levels: "Open application", location: "Remote" }
   ];
@@ -88,85 +71,6 @@ export default function Careers() {
 
           <div className="space-y-12">
             
-            {/* Engineering */}
-            <div>
-              <h3 className="text-xs font-bold font-mono text-neutral-400 uppercase tracking-widest mb-6 border-b border-neutral-100 pb-3">
-                Engineering
-              </h3>
-              <div className="divide-y divide-neutral-100">
-                {engineeringRoles.map((role) => (
-                  <div key={role.title} className="py-6 flex items-center justify-between group">
-                    <div>
-                      <h4 className="text-[17px] font-bold text-gray-950 group-hover:text-neutral-600 transition-colors">
-                        {role.title}
-                      </h4>
-                      <p className="text-xs text-neutral-400 font-mono mt-1">
-                        {role.levels}
-                      </p>
-                    </div>
-                    <span className="text-sm font-semibold text-neutral-500 bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1 flex items-center gap-1.5">
-                      <Globe size={13} className="text-neutral-400" />
-                      {role.location}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Design */}
-            <div>
-              <h3 className="text-xs font-bold font-mono text-neutral-400 uppercase tracking-widest mb-6 border-b border-neutral-100 pb-3">
-                Design
-              </h3>
-              <div className="divide-y divide-neutral-100">
-                {designRoles.map((role) => (
-                  <div key={role.title} className="py-6 flex items-center justify-between group">
-                    <div>
-                      <h4 className="text-[17px] font-bold text-gray-950 group-hover:text-neutral-600 transition-colors">
-                        {role.title}
-                      </h4>
-                      <p className="text-xs text-neutral-400 font-mono mt-1">
-                        {role.levels}
-                      </p>
-                    </div>
-                    <span className="text-sm font-semibold text-neutral-500 bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1 flex items-center gap-1.5">
-                      <Globe size={13} className="text-neutral-400" />
-                      {role.location}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Growth */}
-            <div>
-              <h3 className="text-xs font-bold font-mono text-neutral-400 uppercase tracking-widest mb-6 border-b border-neutral-100 pb-3">
-                Growth
-              </h3>
-              <div className="divide-y divide-neutral-100">
-                {growthRoles.map((role) => (
-                  <div key={role.title} className="py-6 flex items-center justify-between group">
-                    <div>
-                      <h4 className="text-[17px] font-bold text-gray-950 group-hover:text-neutral-600 transition-colors">
-                        {role.title}
-                      </h4>
-                      <p className="text-xs text-neutral-400 font-mono mt-1">
-                        {role.levels}
-                      </p>
-                    </div>
-                    <span className="text-sm font-semibold text-neutral-500 bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1 flex items-center gap-1.5">
-                      {role.location === "Onsite" ? (
-                        <MapPin size={13} className="text-neutral-400" />
-                      ) : (
-                        <Globe size={13} className="text-neutral-400" />
-                      )}
-                      {role.location}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Open Applications */}
             <div>
               <h3 className="text-xs font-bold font-mono text-neutral-400 uppercase tracking-widest mb-6 border-b border-neutral-100 pb-3">
