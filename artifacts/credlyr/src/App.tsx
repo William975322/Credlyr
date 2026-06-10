@@ -183,7 +183,17 @@ function Navigation() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+
+  const handleMobileNav = (href: string) => {
+    setIsMobileMenuOpen(false);
+    setExpandedSection(null);
+    setTimeout(() => {
+      setLocation(href);
+    }, 150);
+  };
+
   const isResourcesPage = location.startsWith("/resources-hub");
 
   useEffect(() => {
@@ -285,10 +295,10 @@ function Navigation() {
         {/* Mobile menu trigger */}
         <button
           onClick={() => setIsMobileMenuOpen(true)}
-          className="flex md:hidden items-center justify-center p-1.5 text-gray-950 hover:text-gray-700 transition-colors cursor-pointer select-none"
+          className="flex md:hidden items-center justify-center w-10 h-10 -mr-2 text-gray-950 hover:text-gray-700 transition-colors cursor-pointer select-none"
           aria-label="Open menu"
         >
-          <Menu size={24} strokeWidth={1.5} />
+          <Menu size={26} strokeWidth={1.5} />
         </button>
       </div>
 
@@ -521,12 +531,16 @@ function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-neutral-950/98 backdrop-blur-xl z-[100] flex flex-col p-6 md:hidden"
+            className="fixed inset-0 bg-neutral-950/98 backdrop-blur-xl z-[100] flex flex-col p-6 md:hidden overflow-y-auto"
           >
             {/* Header row */}
-            <div className="flex items-center justify-between pb-6 border-b border-neutral-900">
+            <div className="flex items-center justify-between pb-6 border-b border-neutral-900 shrink-0">
               <a
                 href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleMobileNav("/");
+                }}
                 className="flex items-center gap-[10px] text-2xl font-bold text-white tracking-normal select-none"
               >
                 <span className="text-2xl leading-none translate-y-[-1px]">
@@ -536,49 +550,99 @@ function Navigation() {
               </a>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg border border-neutral-800 hover:bg-neutral-800/50 text-white transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-lg border border-neutral-800 hover:bg-neutral-800/50 text-white transition-colors cursor-pointer"
                 aria-label="Close menu"
               >
-                <X size={18} />
+                <X size={20} />
               </button>
             </div>
 
             {/* Links vertical list */}
             <div className="flex-1 py-8 flex flex-col gap-1">
               {NAV_LINKS.map((link) => {
+                const hasDropdown = !!link.dropdown;
+                const isExpanded = expandedSection === link.label;
+
+                if (hasDropdown) {
+                  return (
+                    <div key={link.label} className="flex flex-col border-b border-neutral-900">
+                      <button
+                        onClick={() => setExpandedSection(isExpanded ? null : link.label)}
+                        className="flex items-center justify-between text-[18px] font-medium text-white py-4 hover:text-neutral-300 transition-colors w-full text-left cursor-pointer"
+                      >
+                        <span>{link.label}</span>
+                        <ChevronRight 
+                          size={16} 
+                          className={`text-neutral-500 transition-transform duration-200 ${isExpanded ? "rotate-90 text-white" : ""}`} 
+                        />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden pl-4 pb-4 flex flex-col gap-3"
+                          >
+                            {/* Render items from left column */}
+                            {link.dropdown?.left?.items.map((item) => (
+                              <button
+                                key={item.label}
+                                onClick={() => handleMobileNav(item.href || "/get-started")}
+                                className="text-[15px] font-medium text-neutral-400 hover:text-white transition-colors text-left py-1 w-full cursor-pointer"
+                              >
+                                {item.label}
+                              </button>
+                            ))}
+                            {/* Render items from right column */}
+                            {link.dropdown?.right?.items.map((item) => (
+                              <button
+                                key={item.label}
+                                onClick={() => handleMobileNav(item.href || "/get-started")}
+                                className="text-[15px] font-medium text-neutral-400 hover:text-white transition-colors text-left py-1 w-full cursor-pointer"
+                              >
+                                {item.label}
+                              </button>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                // Fallback (for links without dropdowns)
                 const isResources = link.label === "Resources";
                 const isCompany = link.label === "Company";
                 const hrefVal = isResources
                   ? "/resources-hub"
                   : isCompany
                   ? "/about"
-                  : isResourcesPage
-                  ? `/#${link.label.toLowerCase()}`
-                  : `#${link.label.toLowerCase()}`;
+                  : `/#${link.label.toLowerCase()}`;
+
                 return (
-                  <Link key={link.label} href={hrefVal} asChild>
-                    <a
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-between text-[18px] font-medium text-white py-4 border-b border-neutral-900 hover:text-neutral-300 transition-colors cursor-pointer"
-                    >
-                      <span>{link.label}</span>
-                      <ChevronRight size={16} className="text-neutral-500" />
-                    </a>
-                  </Link>
+                  <button
+                    key={link.label}
+                    onClick={() => handleMobileNav(hrefVal)}
+                    className="flex items-center justify-between text-[18px] font-medium text-white py-4 border-b border-neutral-900 hover:text-neutral-300 transition-colors w-full text-left cursor-pointer"
+                  >
+                    <span>{link.label}</span>
+                    <ChevronRight size={16} className="text-neutral-500" />
+                  </button>
                 );
               })}
             </div>
 
             {/* Bottom section */}
-            <div className="pt-6 border-t border-neutral-900 flex flex-col gap-4">
-              <Link href="/get-started" asChild>
-                <a
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full inline-flex items-center justify-center py-3.5 bg-white text-black text-[15px] font-semibold rounded-full hover:bg-neutral-200 active:scale-[0.98] transition-all cursor-pointer"
-                >
-                  {isResourcesPage ? "Schedule a demo" : "Schedule a call"}
-                </a>
-              </Link>
+            <div className="pt-6 border-t border-neutral-900 flex flex-col gap-4 shrink-0">
+              <button
+                onClick={() => handleMobileNav("/get-started")}
+                className="w-full inline-flex items-center justify-center py-3.5 bg-white text-black text-[15px] font-semibold rounded-full hover:bg-neutral-200 active:scale-[0.98] transition-all cursor-pointer"
+              >
+                {isResourcesPage ? "Schedule a demo" : "Schedule a call"}
+              </button>
               <span className="text-center text-[12px] text-neutral-500 mt-2">
                 Built for businesses where customers are first
               </span>
