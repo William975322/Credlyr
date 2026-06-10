@@ -1,4 +1,4 @@
-import express, { type Request, type Response } from "express";
+import express from "express";
 import cors from "cors";
 import { pinoHttp } from "pino-http";
 import router from "./routes/index.js";
@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use("/api", router);
 
-app.get("/", (_req: Request, res: Response) => {
+app.get("/", (_req: any, res: any) => {
   res.json({ status: "ok", service: "Credlyr API Server" });
 });
 
