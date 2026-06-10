@@ -91,7 +91,7 @@ const RESOURCES_CARDS: ResourceCard[] = [
   },
 ];
 
-function DunaGradientCard({
+function CredyrGradientCard({
   children,
   className = "",
 }: {
@@ -221,7 +221,7 @@ export default function ResourcesHub() {
           >
             <Link href="/resources-hub/identity-in-an-ai-world">
               <a className="block w-full cursor-pointer transition-transform duration-350 hover:scale-[1.01]">
-                <DunaGradientCard className="w-full aspect-[4/3] lg:aspect-[1.4] shadow-md">
+                <CredyrGradientCard className="w-full aspect-[4/3] lg:aspect-[1.4] shadow-md">
                   <svg
                     viewBox="0 0 100 100"
                     className="w-24 h-24 text-white"
@@ -235,7 +235,7 @@ export default function ResourcesHub() {
                     <line x1="27.3" y1="27.3" x2="72.7" y2="72.7" />
                     <line x1="27.3" y1="72.7" x2="72.7" y2="27.3" />
                   </svg>
-                </DunaGradientCard>
+                </CredyrGradientCard>
               </a>
             </Link>
           </motion.div>
@@ -290,9 +290,9 @@ export default function ResourcesHub() {
               >
                 {/* Visual Area */}
                 {card.type === "gradient" ? (
-                  <DunaGradientCard>
+                  <CredyrGradientCard>
                     <CardIllustration iconType={card.iconType} />
-                  </DunaGradientCard>
+                  </CredyrGradientCard>
                 ) : (
                   <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-sm hover:shadow-md bg-stone-200 transition-all duration-300">
                     <img

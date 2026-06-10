@@ -38,7 +38,7 @@ const SECTIONS: TOCSection[] = [
   { id: "faq", label: "Frequently asked questions" },
 ];
 
-function DunaGradientCard({
+function CredyrGradientCard({
   children,
   className = "",
 }: {
@@ -684,9 +684,9 @@ export default function ArticleDetail() {
             {CONTINUE_READING_ARTICLES.map((art, idx) => (
               <Link key={art.title} href={art.href} asChild>
                 <div className="flex flex-col group cursor-pointer">
-                  <DunaGradientCard>
+                  <CredyrGradientCard>
                     <CardIllustration />
-                  </DunaGradientCard>
+                  </CredyrGradientCard>
                   <h3 className="text-lg md:text-xl font-normal text-gray-950 mt-4 mb-2 group-hover:text-neutral-800 transition-colors line-clamp-2">
                     {art.title}
                   </h3>
