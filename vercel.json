@@ -1,4 +1,15 @@
 {
-  "buildCommand": "node -e \"const fs=require('fs'); const script=fs.existsSync('vercel-build.mjs')?'vercel-build.mjs':'../../vercel-build.mjs'; const res=require('child_process').spawnSync('node', [script], {stdio:'inherit'}); process.exit(res.status);\"",
-  "outputDirectory": ".vercel/output"
+  "version": 2,
+  "builds": [
+    {
+      "src": "vercel-entry.mjs",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "vercel-entry.mjs"
+    }
+  ]
 }
