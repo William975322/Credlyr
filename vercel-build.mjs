@@ -6,7 +6,7 @@ import { execSync } from "node:child_process";
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const apiServerDist = path.resolve(rootDir, "artifacts/api-server/dist");
 const frontendDist = path.resolve(rootDir, "artifacts/credlyr/dist/public");
-const outputDir = path.resolve(process.cwd(), ".vercel/output");
+const outputDir = path.resolve(rootDir, ".vercel/output");
 
 console.log("=== VERCEL-BUILD.MJS SCRIPT RUNNING ===");
 console.log("rootDir is:", rootDir);
