@@ -1,6 +1,15 @@
 {
-  "buildCommand": "pnpm --filter @workspace/api-server run build",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "artifacts/api-server/src/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "artifacts/api-server/src/index.ts"
+    }
   ]
 }
