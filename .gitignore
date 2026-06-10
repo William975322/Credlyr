@@ -52,3 +52,6 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# built public assets in api-server
+artifacts/api-server/public/
