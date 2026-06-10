@@ -2489,7 +2489,8 @@ export function SiteFooter() {
 // ─── Get Started Page ─────────────────────────────────────────────────────────
 
 const BOOKING_URL =
-  (import.meta.env.VITE_CAL_URL as string | undefined)?.trim() || "";
+  (import.meta.env.VITE_CAL_URL as string | undefined)?.trim() ||
+  "https://cal.com/william-vanderpl";
 
 function GetStartedPage() {
   return (
