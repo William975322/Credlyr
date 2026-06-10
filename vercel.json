@@ -1,4 +1,4 @@
 {
-  "buildCommand": "node vercel-build.mjs",
+  "buildCommand": "echo '=== VERCEL BUILD COMMAND INITIATED ===' && node vercel-build.mjs 2>&1",
   "outputDirectory": ".vercel/output"
 }

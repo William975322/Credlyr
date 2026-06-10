@@ -8,6 +8,12 @@ const apiServerDist = path.resolve(rootDir, "artifacts/api-server/dist");
 const frontendDist = path.resolve(rootDir, "artifacts/credlyr/dist/public");
 const outputDir = path.resolve(rootDir, ".vercel/output");
 
+console.log("=== VERCEL-BUILD.MJS SCRIPT RUNNING ===");
+console.log("rootDir is:", rootDir);
+console.log("apiServerDist is:", apiServerDist);
+console.log("frontendDist is:", frontendDist);
+console.log("outputDir is:", outputDir);
+
 function runCommand(cmd) {
   console.log(`Executing: ${cmd}`);
   try {
