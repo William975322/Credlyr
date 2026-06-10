@@ -1,52 +1,71 @@
 import { mkdir, writeFile, cp, rm } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const apiServerDist = path.resolve(rootDir, "artifacts/api-server/dist");
 const frontendDist = path.resolve(rootDir, "artifacts/credlyr/dist/public");
 const outputDir = path.resolve(rootDir, ".vercel/output");
 
-async function buildVercelOutput() {
-  const { execSync } = await import("node:child_process");
+function runCommand(cmd) {
+  console.log(`Executing: ${cmd}`);
+  try {
+    const output = execSync(cmd, { cwd: rootDir, stdio: "pipe" });
+    console.log(output.toString());
+  } catch (err) {
+    console.error(`Error executing command: ${cmd}`);
+    if (err.stdout) {
+      console.error("--- STDOUT ---");
+      console.error(err.stdout.toString());
+    }
+    if (err.stderr) {
+      console.error("--- STDERR ---");
+      console.error(err.stderr.toString());
+    }
+    throw err;
+  }
+}
 
+async function buildVercelOutput() {
   // Determine pnpm command
   let pnpmCmd = "pnpm";
   try {
     execSync("pnpm --version", { stdio: "ignore" });
   } catch {
-    pnpmCmd = "npx pnpm";
+    pnpmCmd = "npx --yes pnpm";
   }
 
   // Ensure env variables for vite build are set
   process.env.PORT = process.env.PORT || "5173";
   process.env.BASE_PATH = process.env.BASE_PATH || "/";
 
-  // 1. Run the workspace build
-  console.log("Running workspace build...");
-  execSync(`${pnpmCmd} run build`, {
-    cwd: rootDir,
-    stdio: "inherit",
-  });
+  // 1. Build backend API server
+  console.log("Building backend API server...");
+  runCommand(`${pnpmCmd} --filter @workspace/api-server run build`);
 
-  // 2. Clean and recreate the .vercel/output directory
+  // 2. Build frontend React app
+  console.log("Building frontend React app...");
+  runCommand(`${pnpmCmd} --filter @workspace/credlyr run build`);
+
+  // 3. Clean and recreate the .vercel/output directory
   console.log("Cleaning and creating .vercel/output...");
   await rm(outputDir, { recursive: true, force: true });
   await mkdir(outputDir, { recursive: true });
 
-  // 3. Create the static files directory and copy frontend output there
+  // 4. Create the static files directory and copy frontend output there
   const staticDir = path.join(outputDir, "static");
   await mkdir(staticDir, { recursive: true });
   console.log("Copying frontend static assets...");
   await cp(frontendDist, staticDir, { recursive: true });
 
-  // 4. Create the function directory for the backend serverless function
+  // 5. Create the function directory for the backend serverless function
   const funcDir = path.join(outputDir, "functions/api.func");
   await mkdir(funcDir, { recursive: true });
   console.log("Copying backend API server...");
   await cp(apiServerDist, funcDir, { recursive: true });
 
-  // 5. Write the serverless function configuration (.vc-config.json)
+  // 6. Write the serverless function configuration (.vc-config.json)
   console.log("Writing .vc-config.json...");
   await writeFile(
     path.join(funcDir, ".vc-config.json"),
@@ -61,7 +80,7 @@ async function buildVercelOutput() {
     ),
   );
 
-  // 6. Write the global routing configuration (config.json)
+  // 7. Write the global routing configuration (config.json)
   console.log("Writing global config.json...");
   await writeFile(
     path.join(outputDir, "config.json"),
@@ -98,6 +117,7 @@ async function buildVercelOutput() {
 }
 
 buildVercelOutput().catch((err) => {
+  console.error("Build process failed:");
   console.error(err);
   process.exit(1);
 });
