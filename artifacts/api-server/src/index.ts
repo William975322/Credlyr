@@ -1,6 +1,7 @@
 import app from "./app";
 import { logger } from "./lib/logger";
 
+// Trigger build with new Root Directory setting on Vercel
 const rawPort = process.env["PORT"];
 
 if (rawPort) {
