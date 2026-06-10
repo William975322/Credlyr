@@ -1,5 +1,5 @@
-import app from "./app";
-import { logger } from "./lib/logger";
+import app from "./app.js";
+import { logger } from "./lib/logger.js";
 
 // Trigger build with new Root Directory setting on Vercel
 const rawPort = process.env["PORT"];
