@@ -116,8 +116,7 @@ body {
   --chart-5: 0 0% 90%;
 
   --app-font-sans:
-    "GT America", "GT America Standard", "GT America Trial", "Helvetica Neue",
-    "Arial", sans-serif;
+    "Inter", "Helvetica Neue", "Arial", sans-serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.5rem;
 
@@ -179,7 +178,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: #fbfaf7;
     color: hsl(var(--foreground));
-    letter-spacing: 0;
+    letter-spacing: -0.015em;
   }
 }
 
