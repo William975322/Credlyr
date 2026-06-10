@@ -66,7 +66,7 @@ router.post("/contact", async (req, res) => {
 
   // 2. Resend Email integration (direct REST API)
   const resendKey = process.env.RESEND_API_KEY;
-  const emailTo = process.env.EMAIL_TO || "william@credyr.com";
+  const emailTo = process.env.EMAIL_TO || "william.vanderplaetse@gmail.com";
   const emailFrom = process.env.EMAIL_FROM || "onboarding@credyr.com";
 
   if (resendKey) {
