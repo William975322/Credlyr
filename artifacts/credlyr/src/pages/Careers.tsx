@@ -37,7 +37,7 @@ export default function Careers() {
               Dear future colleague, or other readers,
             </p>
             <p>
-              &apos;Here&apos;s your spin-up buddy,&apos; said my manager at IBM years ago. Into the door walked a team that wanted to ship code, design interfaces, and build products at speeds they had never seen before. It marked the beginning of my love for technology execution, and eventually, the decision to build Credlyr.
+              &apos;Here&apos;s your spin-up buddy,&apos; said my manager at IBM years ago. Into the door walked a team that wanted to ship code, design interfaces, and build products at speeds they had never seen before. It marked the beginning of my love for technology execution, and eventually, the decision to build Credyr.
             </p>
             <p>
               We spend our days discussing how to build an agency that brings out the absolute best in people. Our friends and colleagues often mockingly joke: &apos;Shouldn’t you just build websites first and define your company culture later?&apos;. We politely disagree — both are equally important to execute on a big vision.
@@ -47,7 +47,7 @@ export default function Careers() {
               Building a company as a product.
             </h3>
             <p>
-              So here we are: thrilled to finally bring this vision into reality! We see Credlyr as the second product we are building and are deeply motivated to make it our best. So how do we bring this to life?
+              So here we are: thrilled to finally bring this vision into reality! We see Credyr as the second product we are building and are deeply motivated to make it our best. So how do we bring this to life?
             </p>
             <p>
               <strong>People.</strong> We believe a business becomes the people it hires. Talent density is the core of our company product. To us, this is our #1 goal. That&apos;s why we give extensive autonomy, select projects that challenge our boundaries, and are relentlessly looking for exceptional talent.
@@ -108,8 +108,8 @@ export default function Careers() {
           </h2>
           <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal max-w-2xl">
             One of our operating principles is to be a <em>curious student</em> — always learning, borrowing, remixing, and rethinking. So if there is anything we can improve, we&apos;d love to hear from you. We appreciate blunt directness: the good, the bad, the confusing. You can email us at{" "}
-            <a href="mailto:feedback@credlyr.com" className="text-gray-950 font-semibold underline decoration-neutral-400 hover:text-neutral-700 transition-colors">
-              feedback@credlyr.com
+            <a href="mailto:feedback@credyr.com" className="text-gray-950 font-semibold underline decoration-neutral-400 hover:text-neutral-700 transition-colors">
+              feedback@credyr.com
             </a>{" "}
             — we read every note with curiosity and care.
           </p>

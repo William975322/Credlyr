@@ -240,7 +240,7 @@ export default function ArticleDetail() {
                   AI-native compliance systems have already cut onboarding time
                   by 60% and reduced analyst follow-up rates by 51%. The gap is
                   adoption: only around 10% of firms have made a meaningful AI
-                  impact in compliance (Credlyr, 2026).
+                  impact in compliance (Credyr, 2026).
                 </li>
               </ul>
             </section>
@@ -432,12 +432,12 @@ export default function ArticleDetail() {
                   results at firms that have made the transition.
                 </p>
                 <p>
-                  The numbers from implementations of Credlyr's AI-native
+                  The numbers from implementations of Credyr's AI-native
                   onboarding are concrete: onboarding time cut by more than 60%,
                   and analyst follow-up rates down 51% (from around 30% of cases
                   to 17%), measured over a rolling 30-day period through
                   mid-2025. These results sit alongside the 10.6x onboarding and
-                  4.8x productivity figures published at Credlyr's Series A.
+                  4.8x productivity figures published at Credyr's Series A.
                   McKinsey's Agentic AI Report (2025) puts the productivity
                   gains from agentic AI in financial-crime work at 200% to
                   2,000%.
@@ -501,7 +501,7 @@ export default function ArticleDetail() {
               <div className="space-y-6 text-[16px] text-neutral-600">
                 <p>
                   Only around 10% of firms have made a meaningful AI impact in
-                  compliance (Credlyr, 2026). That is a striking gap given the
+                  compliance (Credyr, 2026). That is a striking gap given the
                   proof of concept is already there.
                 </p>
                 <p>
@@ -565,7 +565,7 @@ export default function ArticleDetail() {
                   best positioned are the ones that treat the identity record as
                   something that continues to evolve after onboarding: updated
                   continuously, enriched by new signals, and re-evaluated when
-                  the risk environment changes. The Credlyr AI memo frames this as
+                  the risk environment changes. The Credyr AI memo frames this as
                   the "AI-native identity system of record," the category that
                   replaces static compliance files.
                 </p>

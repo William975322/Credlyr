@@ -55,21 +55,21 @@ const RESOURCES_CARDS: ResourceCard[] = [
     iconType: "mckinsey",
   },
   {
-    title: "Credlyr Conversations with Stripe COO Claire Hughes Johnson",
+    title: "Credyr Conversations with Stripe COO Claire Hughes Johnson",
     category: "Conversations",
     readTime: "19 min Conversations",
     type: "image",
     imagePath: "/claire-hughes-johnson.png",
   },
   {
-    title: "Credlyr Conversations with Adyen founder Pieter van der Does",
+    title: "Credyr Conversations with Adyen founder Pieter van der Does",
     category: "Conversations",
     readTime: "16 min Conversations",
     type: "image",
     imagePath: "/pieter-van-der-does.png",
   },
   {
-    title: "Credlyr Onboard: A revenue-driving onboarding solution",
+    title: "Credyr Onboard: A revenue-driving onboarding solution",
     category: "Product",
     readTime: "4 min Product",
     type: "gradient",
@@ -83,7 +83,7 @@ const RESOURCES_CARDS: ResourceCard[] = [
     iconType: "pyramid",
   },
   {
-    title: "Credlyr + Plaid: Seamless bank authentication",
+    title: "Credyr + Plaid: Seamless bank authentication",
     category: "Product",
     readTime: "3 min Product",
     type: "gradient",

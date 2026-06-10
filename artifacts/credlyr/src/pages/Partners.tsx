@@ -3,9 +3,9 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, HandshakeIcon } from "lucide-react";
 
 const TIERS = [
-  { name: "Referral Partner", desc: "Refer clients to Credlyr and earn a commission on every project that completes. No work required on your end.", cta: "Join as referral" },
+  { name: "Referral Partner", desc: "Refer clients to Credyr and earn a commission on every project that completes. No work required on your end.", cta: "Join as referral" },
   { name: "Agency Partner", desc: "White-label our design and development capabilities under your brand. Scale your offering without scaling your team.", cta: "Explore agency partnership" },
-  { name: "Technology Partner", desc: "Integrate your product or platform with Credlyr's client projects. Reach new customers through our network.", cta: "Become a tech partner" },
+  { name: "Technology Partner", desc: "Integrate your product or platform with Credyr's client projects. Reach new customers through our network.", cta: "Become a tech partner" },
 ];
 
 export default function PartnersPage() {
@@ -28,7 +28,7 @@ export default function PartnersPage() {
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
           className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-xl font-normal mb-10">
-          Whether you refer clients, resell our services, or integrate your product with our work — the Credlyr partner programme gives you the tools to grow alongside us.
+          Whether you refer clients, resell our services, or integrate your product with our work — the Credyr partner programme gives you the tools to grow alongside us.
         </motion.p>
       </section>
 

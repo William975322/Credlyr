@@ -1141,7 +1141,7 @@ function WebsitesProductPage() {
           {/* Card 1: seQura */}
           <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
             <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
-              "Great brands are built on great experiences. Credlyr's conversion-optimized UX makes our customer acquisition seamless."
+              "Great brands are built on great experiences. Credyr's conversion-optimized UX makes our customer acquisition seamless."
             </p>
             <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
               <img 
@@ -1159,7 +1159,7 @@ function WebsitesProductPage() {
           {/* Card 2: Plaid */}
           <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
             <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
-              "A website used to be a cost center for us. Now, it’s a revenue driver thanks to Credlyr’s intuitive custom layouts, enterprise-grade speed and zero code shift."
+              "A website used to be a cost center for us. Now, it’s a revenue driver thanks to Credyr’s intuitive custom layouts, enterprise-grade speed and zero code shift."
             </p>
             <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
               <img 
@@ -1218,7 +1218,7 @@ function WebsitesProductPage() {
               Get started
             </h2>
             <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal max-w-md">
-              Learn more about the Credlyr platform. Enter your business email and we&apos;ll reach out.
+              Learn more about the Credyr platform. Enter your business email and we&apos;ll reach out.
             </p>
           </div>
 

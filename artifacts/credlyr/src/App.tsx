@@ -218,7 +218,7 @@ function Navigation() {
           <span className="text-2xl md:text-3xl leading-none translate-y-[-1px]">
             ✦
           </span>
-          <span>Credlyr</span>
+          <span>Credyr</span>
         </a>
 
         {/* Center plain-text links */}
@@ -532,7 +532,7 @@ function Navigation() {
                 <span className="text-2xl leading-none translate-y-[-1px]">
                   ✦
                 </span>
-                <span>Credlyr</span>
+                <span>Credyr</span>
               </a>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -658,7 +658,7 @@ function Hero() {
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
           className="mt-5 md:mt-6 max-w-[680px] text-balance text-[clamp(17px,2.1vw,22px)] leading-[1.42] text-neutral-700 font-normal mb-7 md:mb-8"
         >
-          Credlyr builds fast, clear, trust-heavy websites that turn
+          Credyr builds fast, clear, trust-heavy websites that turn
           decision-ready visitors into buyers before they hit the back button.
         </motion.p>
 
@@ -818,7 +818,7 @@ const VALUE_PROPS = [
   {
     Icon: DriveRevenueIcon,
     heading: "Drive revenue",
-    body: "Credlyr's platform is built to help enterprises grow. Optimised to eliminate friction and instantly deliver higher conversion.",
+    body: "Credyr's platform is built to help enterprises grow. Optimised to eliminate friction and instantly deliver higher conversion.",
   },
   {
     Icon: ComplianceIcon,
@@ -944,7 +944,7 @@ function OnboardHighlight() {
               Onboard
             </span>
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-950 leading-[1.1] mb-3">
-              Drive revenues with Credlyr Onboard
+              Drive revenues with Credyr Onboard
             </h2>
             <p className="text-lg md:text-[19px] text-neutral-500 font-normal leading-relaxed">
               High-converting onboarding journeys, no code required.
@@ -1027,7 +1027,7 @@ function OnboardHighlight() {
                     </span>
                     <div className="flex items-center gap-2.5 px-4 py-3 rounded-2xl border border-emerald-500 bg-white shadow-xs">
                       <Search className="w-4 h-4 text-neutral-400" />
-                      <span className="text-[14px] text-gray-900 font-semibold">Credlyr B.V.</span>
+                      <span className="text-[14px] text-gray-900 font-semibold">Credyr B.V.</span>
                     </div>
                   </div>
 
@@ -1264,7 +1264,7 @@ function BrandVisual() {
             <span className="text-white text-[16px] font-bold leading-none">✦</span>
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-[18px] font-bold text-gray-950 tracking-tight leading-none">Credlyr</span>
+            <span className="text-[18px] font-bold text-gray-950 tracking-tight leading-none">Credyr</span>
             <span className="text-[11px] text-neutral-400 font-medium mt-0.5">Brand System</span>
           </div>
         </motion.div>
@@ -1353,7 +1353,7 @@ function DigitalVisual() {
               <div className="w-2 h-2 rounded-full bg-neutral-300" />
             </div>
             <div className="flex-1 mx-2 h-4 bg-neutral-100 rounded-full flex items-center px-2">
-              <span className="text-[8px] text-neutral-400 font-mono tracking-wide">credlyr.com/studio</span>
+              <span className="text-[8px] text-neutral-400 font-mono tracking-wide">credyr.com/studio</span>
             </div>
           </div>
 
@@ -2093,7 +2093,7 @@ function SecurityTrust() {
             Safe and secure
           </h2>
           <p className="mt-6 max-w-3xl text-[18px] leading-[1.55] text-neutral-500 md:text-[24px]">
-            Your trust is our foundation. Credlyr is designed with a deep
+            Your trust is our foundation. Credyr is designed with a deep
             commitment to data privacy and security. Visit our trust page and
             security center to learn more.
           </p>
@@ -2147,7 +2147,7 @@ const NEWS_CARDS: NewsCardData[] = [
   {
     id: "conversation",
     variant: "logo-bg",
-    title: "Credlyr in conversation with HomeServ CEO Sarah Chen",
+    title: "Credyr in conversation with HomeServ CEO Sarah Chen",
     category: "Conversations",
     readTime: "12 min watch",
   },
@@ -2194,7 +2194,7 @@ function NewsCardImage({ card }: { card: NewsCardData }) {
               ✦
             </span>
             <p className="text-[15px] text-white/90 font-semibold tracking-wide mt-1 select-none">
-              Credlyr
+              Credyr
             </p>
           </div>
         </div>
@@ -2351,7 +2351,7 @@ export function SiteFooter() {
           <div>
             {/* Logo mark */}
             <p className="text-[16px] font-bold text-white tracking-normal mb-10 select-none">
-              ✦ Credlyr
+              ✦ Credyr
             </p>
 
             {/* Link columns */}
@@ -2419,7 +2419,7 @@ export function SiteFooter() {
           {/* Legal strip */}
           <div className="flex items-center justify-between gap-5 mt-16 w-full flex-wrap border-t border-white/10 pt-8">
             <div className="flex items-center gap-5">
-              <span className="text-[12px] text-white/80 font-medium">© Credlyr 2026</span>
+              <span className="text-[12px] text-white/80 font-medium">© Credyr 2026</span>
               <a
                 href="#"
                 className="text-[12px] text-white/80 hover:text-white transition-colors font-medium"
@@ -2610,7 +2610,7 @@ function StatusPage() {
             className="flex items-center gap-[10px] text-2xl font-bold tracking-normal text-white select-none"
           >
             <span className="text-2xl leading-none translate-y-[-1px]">✦</span>
-            <span>Credlyr</span>
+            <span>Credyr</span>
           </a>
 
           <div className="flex flex-wrap gap-3">
@@ -2714,7 +2714,7 @@ function StatusPage() {
         </div>
 
         <div className="mt-10 pb-4 text-center text-[13px] text-neutral-500">
-          <p>Powered by Credlyr</p>
+          <p>Powered by Credyr</p>
           <a href="#" className="mt-4 inline-block hover:text-neutral-300">
             Privacy policy
           </a>

@@ -116,7 +116,7 @@ export default function OptimisationPage() {
       <section className="px-5 sm:px-8 md:px-10 py-16 md:py-24 border-t border-neutral-200/60 bg-gray-950">
         <div className="max-w-2xl">
           <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4 leading-tight">Stop leaving conversions on the table.</h2>
-          <p className="text-neutral-400 text-lg mb-8">Join businesses already growing with Credlyr's monthly optimisation retainer.</p>
+          <p className="text-neutral-400 text-lg mb-8">Join businesses already growing with Credyr's monthly optimisation retainer.</p>
           <Link href="/get-started">
             <a className="inline-flex items-center gap-2 bg-white text-gray-950 rounded-full px-6 py-3 text-[14px] font-semibold hover:bg-neutral-100 transition-colors">
               Schedule a call <ArrowRight size={14} strokeWidth={2} />

@@ -64,7 +64,7 @@ export default function About() {
     },
     {
       category: "Design System",
-      title: "Credlyr Design Framework Release",
+      title: "Credyr Design Framework Release",
       desc: "Introducing our custom lightweight styling framework built for speed, responsiveness, and warm minimalist brand aesthetics.",
       icon: Layers,
       iconBg: "from-teal-500/10 to-cyan-500/10 text-teal-700",
@@ -170,7 +170,7 @@ export default function About() {
               Our company
             </h2>
             <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal">
-              Credlyr brings deep expertise in design, positioning copy, and performance edge architecture to build websites that command authority.
+              Credyr brings deep expertise in design, positioning copy, and performance edge architecture to build websites that command authority.
             </p>
           </div>
 

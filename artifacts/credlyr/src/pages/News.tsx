@@ -3,8 +3,8 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const NEWS_ITEMS = [
-  { date: "June 2026", tag: "Launch", title: "Credlyr launches full brand and digital studio services for SMEs", excerpt: "Today we're announcing the full Credlyr studio offering — brand strategy, visual identity, full-cycle websites, and ongoing optimisation — all under one roof." },
-  { date: "May 2026", tag: "Partnership", title: "Credlyr joins the Dental Growth Alliance as preferred digital partner", excerpt: "We're proud to be the recommended website and brand partner for DGA member practices across the UK." },
+  { date: "June 2026", tag: "Launch", title: "Credyr launches full brand and digital studio services for SMEs", excerpt: "Today we're announcing the full Credyr studio offering — brand strategy, visual identity, full-cycle websites, and ongoing optimisation — all under one roof." },
+  { date: "May 2026", tag: "Partnership", title: "Credyr joins the Dental Growth Alliance as preferred digital partner", excerpt: "We're proud to be the recommended website and brand partner for DGA member practices across the UK." },
   { date: "April 2026", tag: "Product", title: "Introducing Ongoing Optimisation: your site, always improving", excerpt: "Our new monthly retainer service keeps your digital presence sharp, fast, and converting — month after month." },
 ];
 
@@ -28,7 +28,7 @@ export default function NewsPage() {
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
           className="text-lg text-gray-500 leading-relaxed max-w-xl font-normal">
-          The latest from Credlyr — product launches, partnerships, and what we're thinking about.
+          The latest from Credyr — product launches, partnerships, and what we're thinking about.
         </motion.p>
       </section>
 
@@ -56,7 +56,7 @@ export default function NewsPage() {
         <div className="max-w-2xl">
           <h2 className="text-xl font-semibold text-gray-950 mb-2">Press enquiries</h2>
           <p className="text-[15px] text-gray-500 mb-4">For media requests, interviews, and partnership announcements, reach us at:</p>
-          <a href="mailto:press@credlyr.com" className="text-[15px] font-semibold text-gray-950 hover:text-gray-500 transition-colors">press@credlyr.com</a>
+          <a href="mailto:press@credyr.com" className="text-[15px] font-semibold text-gray-950 hover:text-gray-500 transition-colors">press@credyr.com</a>
         </div>
       </section>
     </div>

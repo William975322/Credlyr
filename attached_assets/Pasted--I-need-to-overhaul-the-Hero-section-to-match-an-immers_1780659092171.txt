@@ -8,7 +8,7 @@ The 'Buttery' Fade: Instead of a hard cut, add a bottom gradient overlay that is
 
 Text Overlay: Position the text (Headline, Subtitle, CTA) absolutely, centered at the bottom of the viewport (flex flex-col items-center justify-end pb-24).
 
-Announcement Pill: Add a small bg-gray-900 pill badge above the main headline: text-white text-xs px-4 py-1.5 rounded-full mb-5. Label it: 'New → Credlyr for service businesses'.
+Announcement Pill: Add a small bg-gray-900 pill badge above the main headline: text-white text-xs px-4 py-1.5 rounded-full mb-5. Label it: 'New → Credyr for service businesses'.
 
 Clean Grid: Ensure the headline is text-gray-950 and the subtitle is text-gray-600. Remove any residual white padding or borders that were forcing the 'dead white space' block."
 

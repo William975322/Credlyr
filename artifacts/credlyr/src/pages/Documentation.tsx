@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, BookOpen, Zap, Settings } from "lucide-react";
 
 const GUIDES = [
-  { icon: Zap, title: "Getting started with Credlyr", desc: "Everything you need to know for your first project — from onboarding to launch.", time: "5 min read" },
+  { icon: Zap, title: "Getting started with Credyr", desc: "Everything you need to know for your first project — from onboarding to launch.", time: "5 min read" },
   { icon: BookOpen, title: "How to prepare your brand assets", desc: "What to gather before your brand or website project kicks off so we can hit the ground running.", time: "4 min read" },
   { icon: Settings, title: "Optimisation retainer: what to expect", desc: "A plain-language guide to how the monthly retainer works, what we track, and how we report.", time: "6 min read" },
   { icon: BookOpen, title: "Working with our team", desc: "Communication cadence, revision process, approval stages, and how to get the best result.", time: "3 min read" },
@@ -31,7 +31,7 @@ export default function DocumentationPage() {
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
           className="text-lg text-gray-500 leading-relaxed max-w-xl font-normal">
-          Everything you need to work effectively with Credlyr — from onboarding to launch and beyond.
+          Everything you need to work effectively with Credyr — from onboarding to launch and beyond.
         </motion.p>
       </section>
 
@@ -63,7 +63,7 @@ export default function DocumentationPage() {
         <div className="max-w-2xl">
           <h2 className="text-xl font-semibold text-gray-950 mb-2">Can't find what you need?</h2>
           <p className="text-[15px] text-gray-500 mb-6">Our team is always happy to help with specific questions.</p>
-          <a href="mailto:hello@credlyr.com" className="inline-flex items-center gap-2 border border-gray-200 rounded-full px-5 py-2.5 text-[13px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+          <a href="mailto:hello@credyr.com" className="inline-flex items-center gap-2 border border-gray-200 rounded-full px-5 py-2.5 text-[13px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
             Email us <ArrowRight size={13} strokeWidth={2} />
           </a>
         </div>

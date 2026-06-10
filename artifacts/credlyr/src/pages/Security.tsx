@@ -4,7 +4,7 @@ import { ArrowLeft, Shield, Lock, Server, Eye } from "lucide-react";
 
 const PILLARS = [
   { icon: Lock, title: "Encryption at rest & in transit", desc: "All client data is encrypted using AES-256 at rest and TLS 1.3 in transit. We never store sensitive credentials in plain text." },
-  { icon: Server, title: "Secure infrastructure", desc: "All Credlyr services are hosted on enterprise-grade cloud infrastructure with SOC 2 Type II certified providers and automatic failover." },
+  { icon: Server, title: "Secure infrastructure", desc: "All Credyr services are hosted on enterprise-grade cloud infrastructure with SOC 2 Type II certified providers and automatic failover." },
   { icon: Eye, title: "Access control", desc: "Role-based access controls limit who can view or modify client data. All actions are logged and auditable." },
   { icon: Shield, title: "Responsible disclosure", desc: "We maintain a responsible disclosure programme. If you discover a vulnerability, we want to hear from you." },
 ];
@@ -29,7 +29,7 @@ export default function SecurityPage() {
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
           className="text-lg text-gray-500 leading-relaxed max-w-xl font-normal">
-          Credlyr takes the security of your data and your clients' data seriously. Here's how we protect what matters.
+          Credyr takes the security of your data and your clients' data seriously. Here's how we protect what matters.
         </motion.p>
       </section>
 
@@ -61,7 +61,7 @@ export default function SecurityPage() {
         <div className="max-w-3xl">
           <h2 className="text-2xl font-semibold text-gray-950 mb-4 tracking-tight">GDPR & Data Privacy</h2>
           <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
-            Credlyr operates in full compliance with the General Data Protection Regulation (GDPR). We act as a data processor for client data and never sell, share, or use your data for purposes beyond the services we provide. Our full Privacy Policy is available at the footer of every page.
+            Credyr operates in full compliance with the General Data Protection Regulation (GDPR). We act as a data processor for client data and never sell, share, or use your data for purposes beyond the services we provide. Our full Privacy Policy is available at the footer of every page.
           </p>
           <div className="flex gap-4 flex-wrap">
             {["GDPR Compliant", "Data Processor Agreement", "Privacy by Design"].map((badge) => (
@@ -76,7 +76,7 @@ export default function SecurityPage() {
         <div className="max-w-2xl">
           <h2 className="text-xl font-semibold text-gray-950 mb-2">Report a vulnerability</h2>
           <p className="text-[15px] text-gray-500 mb-4 leading-relaxed">Found something that doesn't look right? Please reach out to our security team directly. We respond to all responsible disclosures within 48 hours.</p>
-          <a href="mailto:security@credlyr.com" className="text-[15px] font-semibold text-gray-950 hover:text-gray-500 transition-colors">security@credlyr.com</a>
+          <a href="mailto:security@credyr.com" className="text-[15px] font-semibold text-gray-950 hover:text-gray-500 transition-colors">security@credyr.com</a>
         </div>
       </section>
     </div>

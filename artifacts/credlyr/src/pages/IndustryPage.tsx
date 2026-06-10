@@ -67,7 +67,7 @@ export default function IndustryPage({ data }: { data: IndustryData }) {
       {/* Features */}
       <section className="px-5 sm:px-8 md:px-10 py-16 md:py-20 border-t border-neutral-200/60">
         <div className="max-w-5xl">
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-950 mb-12 tracking-tight">What you get with Credlyr</h2>
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-950 mb-12 tracking-tight">What you get with Credyr</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {data.features.map((f, i) => (
               <motion.div key={f.title}

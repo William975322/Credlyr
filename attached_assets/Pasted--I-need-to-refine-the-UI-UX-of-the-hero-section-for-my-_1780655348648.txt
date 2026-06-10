@@ -1,4 +1,4 @@
-"I need to refine the UI/UX of the hero section for my agency website, Credlyr. Use 'image_a72986.jpg' as the definitive visual reference for the 'Duna' aesthetic I am emulating.
+"I need to refine the UI/UX of the hero section for my agency website, Credyr. Use 'image_a72986.jpg' as the definitive visual reference for the 'Duna' aesthetic I am emulating.
 
 Please apply the following refinements to the current implementation:
 
@@ -14,7 +14,7 @@ Alignment: Ensure the alignment of the logo on the far left and the navigation m
 
 Please refactor the current CSS/Tailwind classes to achieve this professional 'agency-grade' finish."
 
-Tips to elevate the "Credlyr" UI further
+Tips to elevate the "Credyr" UI further
 Beyond the code structure, here are three design principles to keep in mind as you iterate, based on the high-end aesthetic you are aiming for:
 
 The "Luxury" Whitespace Rule: In high-end design, whitespace is not "empty" space; it is a design element. If you feel the UI is cluttered, increase your margin and padding values by 25%. It will immediately make the site feel more premium.

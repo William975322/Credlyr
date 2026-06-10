@@ -37,7 +37,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Email</p>
-                <a href="mailto:hello@credlyr.com" className="text-[15px] font-semibold text-gray-900 hover:text-gray-500 transition-colors">hello@credlyr.com</a>
+                <a href="mailto:hello@credyr.com" className="text-[15px] font-semibold text-gray-900 hover:text-gray-500 transition-colors">hello@credyr.com</a>
               </div>
             </div>
             <div className="flex items-center gap-3">

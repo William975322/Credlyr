@@ -3,12 +3,12 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, Star } from "lucide-react";
 
 const REVIEWS = [
-  { name: "James R.", role: "Dental Practice Owner", text: "Credlyr built our new site in under 2 weeks and our appointment bookings went up 40% in the first month. It just works.", rating: 5 },
+  { name: "James R.", role: "Dental Practice Owner", text: "Credyr built our new site in under 2 weeks and our appointment bookings went up 40% in the first month. It just works.", rating: 5 },
   { name: "Sarah M.", role: "Spa Director", text: "The design is exactly what we wanted — beautiful, premium, and now our gift voucher sales are up massively over Christmas.", rating: 5 },
-  { name: "Tom H.", role: "Estate Agent", text: "I wanted a personal brand separate from my franchise. Credlyr delivered something I'm genuinely proud to send clients to.", rating: 5 },
+  { name: "Tom H.", role: "Estate Agent", text: "I wanted a personal brand separate from my franchise. Credyr delivered something I'm genuinely proud to send clients to.", rating: 5 },
   { name: "Anna K.", role: "Clinic Manager", text: "Professional, fast, and they understood our industry without us having to explain everything twice. Highly recommend.", rating: 5 },
   { name: "Chris B.", role: "Plumbing Business Owner", text: "Started ranking on Google within 6 weeks. My phone hasn't stopped since. Worth every penny.", rating: 5 },
-  { name: "Emma L.", role: "Wellness Brand Founder", text: "Not just a website — a full brand identity. Credlyr gave us a look that finally matches the quality of what we offer.", rating: 5 },
+  { name: "Emma L.", role: "Wellness Brand Founder", text: "Not just a website — a full brand identity. Credyr gave us a look that finally matches the quality of what we offer.", rating: 5 },
 ];
 
 export default function ReviewsPage() {
@@ -31,7 +31,7 @@ export default function ReviewsPage() {
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
           className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-xl font-normal">
-          Real results from real businesses. Here's what our clients have to say about working with Credlyr.
+          Real results from real businesses. Here's what our clients have to say about working with Credyr.
         </motion.p>
       </section>
 

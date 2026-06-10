@@ -15,7 +15,7 @@ const PRINCIPLES = [
   { title: "Distinctive", desc: "Your mark needs to own a space in people's minds — not blend in. We design for recognition, not trend." },
   { title: "Scalable", desc: "From favicon to billboard, every element is built to hold at any size and on any surface." },
   { title: "Systematic", desc: "We document every decision so your team — and future partners — can apply your brand without you in the room." },
-  { title: "Timeless", desc: "Credlyr identities are built to last a decade, not a season. We avoid what looks good right now and build what endures." },
+  { title: "Timeless", desc: "Credyr identities are built to last a decade, not a season. We avoid what looks good right now and build what endures." },
 ];
 
 export default function VisualIdentityPage() {
@@ -62,7 +62,7 @@ export default function VisualIdentityPage() {
                 <span className="text-white text-lg font-bold">✦</span>
               </div>
               <div>
-                <p className="text-[18px] font-bold text-gray-950 tracking-tight leading-none">Credlyr</p>
+                <p className="text-[18px] font-bold text-gray-950 tracking-tight leading-none">Credyr</p>
                 <p className="text-[11px] text-neutral-400 font-medium mt-0.5">Brand System</p>
               </div>
             </div>

@@ -18,11 +18,11 @@ export default function CommunityPage() {
         </motion.span>
         <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.05 }}
           className="text-5xl md:text-6xl font-semibold tracking-tight text-gray-950 leading-[1.05] mb-6 max-w-2xl">
-          The Credlyr Community.
+          The Credyr Community.
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
           className="text-lg md:text-xl text-gray-500 leading-relaxed font-normal mb-10">
-          A private space for Credlyr clients and partners to share results, get feedback, and stay sharp on what's working in digital growth.
+          A private space for Credyr clients and partners to share results, get feedback, and stay sharp on what's working in digital growth.
         </motion.p>
       </section>
 
@@ -30,8 +30,8 @@ export default function CommunityPage() {
         <div className="max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             { title: "Monthly newsletter", desc: "Practical digital marketing and design insights delivered monthly. No fluff — just what's working for businesses like yours." },
-            { title: "Client Slack group", desc: "A private channel where Credlyr clients share wins, ask questions, and get direct access to our team between projects." },
-            { title: "Webinar series", desc: "Quarterly live sessions on conversion, SEO, branding, and digital strategy — hosted by the Credlyr team." },
+            { title: "Client Slack group", desc: "A private channel where Credyr clients share wins, ask questions, and get direct access to our team between projects." },
+            { title: "Webinar series", desc: "Quarterly live sessions on conversion, SEO, branding, and digital strategy — hosted by the Credyr team." },
           ].map((c, i) => (
             <motion.div key={c.title}
               initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
