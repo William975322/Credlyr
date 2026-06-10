@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRoute, Link } from "wouter";
+import { useRoute, Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
@@ -478,6 +478,36 @@ function CollapsibleItem({ title, desc, isOpen, onToggle }: CollapsibleItemProps
 // ─── Websites Bespoke Product Page Component ───────────────────────────────────
 
 function WebsitesProductPage() {
+  const [, setLocation] = useLocation();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          service: "Websites Product Inquiry",
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to submit form:", err);
+    } finally {
+      setSubmitting(false);
+      setLocation("/thanks");
+    }
+  };
+
   const [activeTabIdx, setActiveTabIdx] = useState(0);
   const [customColor, setCustomColor] = useState("charcoal"); // beige, charcoal, green
   const [activeLang, setActiveLang] = useState("English");
@@ -1223,31 +1253,41 @@ function WebsitesProductPage() {
           </div>
 
           <form 
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
             className="flex flex-col gap-4 w-full max-w-md"
           >
             <input 
               type="text" 
               placeholder="Name *" 
               required
-              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={submitting}
+              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold disabled:opacity-50"
             />
             <input 
               type="email" 
               placeholder="Business email *" 
               required
-              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={submitting}
+              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold disabled:opacity-50"
             />
             <input 
               type="tel" 
               placeholder="Phone number" 
-              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              disabled={submitting}
+              className="w-full bg-white border border-neutral-250 rounded-lg px-4 py-3 text-sm text-gray-950 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all font-semibold disabled:opacity-50"
             />
             <button 
               type="submit"
-              className="w-fit mt-2 px-8 py-3 bg-black text-white hover:bg-neutral-800 active:scale-[0.98] transition-all rounded-full font-bold text-sm cursor-pointer shadow-md select-none"
+              disabled={submitting}
+              className="w-fit mt-2 px-8 py-3 bg-black text-white hover:bg-neutral-800 active:scale-[0.98] transition-all rounded-full font-bold text-sm cursor-pointer shadow-md select-none disabled:opacity-50"
             >
-              Schedule a call
+              {submitting ? "Sending..." : "Schedule a call"}
             </button>
           </form>
         </div>

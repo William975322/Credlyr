@@ -2486,6 +2486,67 @@ export function SiteFooter() {
   );
 }
 
+// ─── Thanks Page ─────────────────────────────────────────────────────────────
+
+export function ThanksPage() {
+  return (
+    <div className="min-h-screen bg-[#fbfaf7] text-gray-950 pt-0 pb-0 px-0 flex flex-col justify-between">
+      <section className="relative w-full min-h-[85vh] overflow-hidden p-0 m-0 flex items-center justify-center pt-32 pb-16 px-5 sm:px-6">
+        {/* Full-bleed painting background */}
+        <img
+          src="/hero-landscape.png?v=2"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 58%",
+            maxWidth: "none",
+            display: "block",
+            margin: 0,
+            padding: 0,
+            filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
+          }}
+        />
+
+        {/* Gradient scrim */}
+        <div
+          className="absolute inset-0 pointer-events-none p-0 m-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, transparent 55%, rgba(255,255,255,0.15) 70%, rgba(255,255,255,0.45) 82%, rgba(255,255,255,0.80) 92%, #ffffff 100%)",
+          }}
+        />
+
+        {/* Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 w-full max-w-[640px] overflow-hidden rounded-3xl border border-white/30 bg-white/92 p-10 shadow-2xl backdrop-blur-md md:p-14 text-center"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-950 mb-6">
+            Thanks for your interest
+          </h1>
+          <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal mb-8 max-w-md mx-auto">
+            We'll reach out to you shortly.
+          </p>
+          <Link href="/" asChild>
+            <a className="inline-flex items-center px-8 py-3 bg-black text-white hover:bg-neutral-800 active:scale-[0.98] transition-all rounded-full font-bold text-sm cursor-pointer shadow-md select-none">
+              Back to homepage
+            </a>
+          </Link>
+        </motion.div>
+      </section>
+      <SiteFooter />
+    </div>
+  );
+}
+
 // ─── Get Started Page ─────────────────────────────────────────────────────────
 
 const BOOKING_URL =
@@ -2742,6 +2803,7 @@ export default function App() {
       {showNavigation && <Navigation />}
       <Switch>
         <Route path="/get-started" component={GetStartedPage} />
+        <Route path="/thanks" component={ThanksPage} />
         <Route path="/status" component={StatusPage} />
         <Route path="/resources-hub" component={ResourcesHubPage} />
         <Route path="/resources-hub/identity-in-an-ai-world" component={ArticleDetailPage} />

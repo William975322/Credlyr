@@ -5,6 +5,36 @@ import { useState } from "react";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [service, setService] = useState("Brand Strategy");
+  const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          service,
+          message,
+        }),
+      });
+      setSent(true);
+    } catch (err) {
+      console.error("Failed to send message:", err);
+      setSent(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#faf9f6]">
@@ -73,20 +103,20 @@ export default function ContactPage() {
               <p className="text-[14px] text-gray-500">We'll be in touch within 24 hours.</p>
             </div>
           ) : (
-            <form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Name</label>
-                  <input required type="text" placeholder="Your name" className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition" />
+                  <input required type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition disabled:opacity-50" />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Email</label>
-                  <input required type="email" placeholder="you@company.com" className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition" />
+                  <input required type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition disabled:opacity-50" />
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">What do you need?</label>
-                <select className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition text-gray-700">
+                <select value={service} onChange={(e) => setService(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition text-gray-700 disabled:opacity-50">
                   <option>Brand Strategy</option>
                   <option>Visual Identity</option>
                   <option>Full-Cycle Website</option>
@@ -97,10 +127,10 @@ export default function ContactPage() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Message</label>
-                <textarea required rows={4} placeholder="Tell us about your project..." className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition resize-none" />
+                <textarea required rows={4} placeholder="Tell us about your project..." value={message} onChange={(e) => setMessage(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition resize-none disabled:opacity-50" />
               </div>
-              <button type="submit" className="w-full bg-gray-950 text-white rounded-xl py-3 text-[14px] font-semibold hover:bg-gray-800 transition-colors">
-                Send message
+              <button type="submit" disabled={submitting} className="w-full bg-gray-950 text-white rounded-xl py-3 text-[14px] font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50">
+                {submitting ? "Sending..." : "Send message"}
               </button>
             </form>
           )}
