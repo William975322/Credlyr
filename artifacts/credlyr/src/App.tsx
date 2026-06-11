@@ -163,9 +163,9 @@ const NAV_LINKS: NavItem[] = [
 ];
 
 const STATS = [
-  { value: "10.6x", label: "Faster onboarding" },
+  { value: "10.6x", label: "Faster launch" },
   { value: "37%", label: "Conversion increase" },
-  { value: "4.8x", label: "Analyst efficiency" },
+  { value: "4.8x", label: "Return on marketing spend" },
 ];
 
 const TRUSTED_LOGOS = [
@@ -882,17 +882,17 @@ const VALUE_PROPS = [
   {
     Icon: DriveRevenueIcon,
     heading: "Drive revenue",
-    body: "Credyr's platform is built to help enterprises grow. Optimised to eliminate friction and instantly deliver higher conversion.",
+    body: "Fast, clear pages with zero friction between interest and action - built to turn decision-ready visitors into paying customers.",
   },
   {
     Icon: ComplianceIcon,
-    heading: "Future-proof compliance",
-    body: "A powerful policy engine translates KYC, KYB and AML into code - enabling the industry's most detailed audit trails.",
+    heading: "Never lose a lead",
+    body: "Calendar booking and CRM automation capture, qualify, and follow up with every enquiry - before they go back and ask AI for the next option.",
   },
   {
     Icon: ReduceCostsIcon,
     heading: "Reduce costs",
-    body: "Eliminate manual checks, endless emails and lengthy reviews - by automating manual work with compliant, auditable AI.",
+    body: "Automated reminders, follow-ups, and marketing workflows do the admin - so your team spends its time on the work that gets billed.",
   },
 ];
 
@@ -944,6 +944,124 @@ function ValueProposition() {
 // ─── AI Visual Section ────────────────────────────────────────────────────────
 
 // ─── AI Awareness Cycle Section ────────────────────────────────────────────────
+
+const AWARENESS_SHIFTS = [
+  {
+    num: "01",
+    title: "AI search compresses attention",
+    body: "Fewer casual clicks, more decision-ready visitors. When they land, your site converts in seconds - or they're back asking AI for the next option.",
+  },
+  {
+    num: "02",
+    title: "Trust requirements keep rising",
+    body: "Outdated, slow, unclear, or generic gets filtered out instantly. Buyers decide whether you feel credible before they read a word.",
+  },
+  {
+    num: "03",
+    title: "The landing-page economy is exploding",
+    body: "Businesses need a page per offer, per campaign, per audience - not one homepage doing all the work.",
+  },
+  {
+    num: "04",
+    title: "AI answers are replacing browsing",
+    body: "Sites structured for clarity, proof, and intent get picked - by humans and by answer engines. Everyone else is invisible.",
+  },
+  {
+    num: "05",
+    title: "Credibility is the new competition",
+    body: "The winner isn't whoever has a website. It's whoever has a site that sells, proves, and positions.",
+  },
+];
+
+function AwarenessCycle() {
+  return (
+    <section
+      data-testid="awareness-cycle-section"
+      className="w-full bg-white py-20 md:py-28 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-14 lg:gap-20 items-start">
+          {/* Left: narrative */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:sticky lg:top-32 text-left"
+          >
+            <p className="font-serif italic text-[17px] md:text-[19px] text-[#8c887d] mb-4">
+              Why now
+            </p>
+            <h2 className="text-4xl md:text-5xl font-normal tracking-tight text-gray-950 leading-[1.08] mb-7">
+              Your website is the only thing between{" "}
+              <span className="font-serif italic">paid</span> and the back
+              button.
+            </h2>
+
+            <div className="flex flex-col gap-5 text-[16px] md:text-[17px] text-neutral-600 leading-relaxed font-normal max-w-xl">
+              <p>
+                When was the last time you browsed the internet without asking
+                AI first? AI became your Google, your Wikipedia, your shopping
+                assistant - and because it's that convenient, it became the
+                decision maker.
+              </p>
+              <p>
+                The new buying journey is short. Ask AI. Get the answer. Click
+                one link - credit card half out. Nobody spends fifteen minutes
+                comparing websites anymore. You get seconds to earn trust, or
+                that buyer is gone.
+              </p>
+              <p>
+                The demand isn't "AI websites." It's{" "}
+                <span className="font-serif italic text-gray-950">
+                  conversion infrastructure
+                </span>{" "}
+                - websites, landing pages, booking, and CRM automation built
+                for speed of decision, trust, and action.
+              </p>
+            </div>
+
+            <Link href="/get-started" asChild>
+              <a className="mt-9 inline-flex items-center gap-1.5 px-6 py-2.5 bg-black text-white rounded-full text-[14px] font-semibold hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer">
+                Book a website audit <ChevronRight className="w-3.5 h-3.5" />
+              </a>
+            </Link>
+          </motion.div>
+
+          {/* Right: the five shifts */}
+          <div className="flex flex-col text-left">
+            {AWARENESS_SHIFTS.map((shift, i) => (
+              <motion.div
+                key={shift.num}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  duration: 0.55,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: i * 0.06,
+                }}
+                className="grid grid-cols-[48px_1fr] gap-5 py-7 md:py-8 border-t border-neutral-200 last:border-b"
+              >
+                <span className="text-[12px] font-mono text-neutral-400 pt-1.5 tracking-widest">
+                  {shift.num}
+                </span>
+                <div>
+                  <h3 className="text-[18px] md:text-[20px] font-semibold text-gray-950 leading-snug mb-2">
+                    {shift.title}
+                  </h3>
+                  <p className="text-[14.5px] md:text-[15.5px] text-neutral-500 leading-relaxed font-normal">
+                    {shift.body}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const NumberOneCircleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 text-current" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -2889,6 +3007,7 @@ export default function App() {
             <SocialProof />
             <StatsSection />
             <ValueProposition />
+            <AwarenessCycle />
             <OnboardHighlight />
             <OurServices />
             <FeatureHighlight />
