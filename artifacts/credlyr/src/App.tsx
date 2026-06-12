@@ -1096,23 +1096,6 @@ function OnboardHighlight() {
     },
   ];
 
-  // For localization rotation
-  const [localIndex, setLocalIndex] = useState(0);
-  const localizations = [
-    { country: "United States", flag: "🇺🇸", method: "ACH / Plaid", currency: "USD", rule: "SEC / FINRA" },
-    { country: "Germany", flag: "🇩🇪", method: "Sofort / SEPA", currency: "EUR", rule: "BaFin Compliant" },
-    { country: "Netherlands", flag: "🇳🇱", method: "iDEAL / SEPA", currency: "EUR", rule: "DNB Compliant" },
-    { country: "United Kingdom", flag: "🇬🇧", method: "Faster Payments", currency: "GBP", rule: "FCA Compliant" },
-  ];
-
-  useEffect(() => {
-    if (activeIndex !== 3) return;
-    const timer = setInterval(() => {
-      setLocalIndex((prev) => (prev + 1) % localizations.length);
-    }, 2200);
-    return () => clearInterval(timer);
-  }, [activeIndex]);
-
   return (
     <section
       data-testid="onboard-highlight-section"
@@ -1126,10 +1109,10 @@ function OnboardHighlight() {
               Onboard
             </span>
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-950 leading-[1.1] mb-3">
-              Drive revenues with Credyr Onboard
+              Drive revenue with Credyr Onboard
             </h2>
             <p className="text-lg md:text-[19px] text-neutral-500 font-normal leading-relaxed">
-              High-converting onboarding journeys, no code required.
+              High-converting page and booking journeys, no code required.
             </p>
           </div>
           <div className="flex-shrink-0">
@@ -2299,9 +2282,9 @@ function SecurityTrust() {
           }}
           className="flex flex-wrap items-center justify-start gap-5 md:justify-end md:gap-7"
         >
-          <TrustBadge label="AICPA SOC2" />
+          <TrustBadge label="SSL/TLS" sublabel="Encrypted" />
           <TrustBadge label="GDPR" variant="stars" />
-          <TrustBadge label="ISO" sublabel="27001" variant="ring" />
+          <TrustBadge label="99.9%" sublabel="Uptime" variant="ring" />
         </motion.div>
       </div>
     </section>

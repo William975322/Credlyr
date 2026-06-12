@@ -14,7 +14,7 @@ export default function Trust() {
     },
     {
       title: "DDoS Protection & Caching",
-      desc: "Global caching rules keep your assets cached at edge locations, preventing database strain or server exhaustion. Traffic surges are scaled natively across AWS infrastructure.",
+      desc: "Global caching rules keep your assets cached at edge locations, preventing database strain or server exhaustion. Traffic surges are scaled natively across global edge infrastructure.",
     },
   ];
 
@@ -61,7 +61,7 @@ export default function Trust() {
             </h2>
             <div className="space-y-6 text-base md:text-lg text-neutral-600 leading-relaxed font-normal">
               <p>
-                Our websites are built using static architecture and deployed directly to global edge networks (AWS CloudFront CDN integration). By serving pre-rendered static HTML, CSS, and lightweight JS from secure edge servers close to your visitors, we deliver sub-second load times worldwide while completely eliminating traditional database load lag. Because there is no database running on the server, your website is immune to SQL injections, database breaches, and server-side exploits.
+                Our websites are built using static architecture and deployed directly to global edge networks. By serving pre-rendered static HTML, CSS, and lightweight JS from secure edge servers close to your visitors, we deliver sub-second load times worldwide while completely eliminating traditional database load lag. Because there is no database running on the server, your website is immune to SQL injections, database breaches, and server-side exploits.
               </p>
               <p>
                 For delivery and hosting, we enforce secure HTTPS encryption, automated SSL certificates, and isolated static environments. This means only clean, compiled code is served to your customers, protecting your brand from malware or defacement. Combined with automated uptime checks and intelligent caching rules, our website infrastructure is engineered to handle massive viral traffic spikes effortlessly while keeping your business-critical lead generation forms operational 24/7.
@@ -118,7 +118,7 @@ export default function Trust() {
             </div>
 
             <div className="flex justify-between items-end border-t border-neutral-200/60 pt-3 text-[10px] text-neutral-400 font-mono">
-              <span>AWS CLOUDFRONT CDN</span>
+              <span>GLOBAL EDGE CDN</span>
               <span>100% SECURE EDGE</span>
             </div>
           </div>

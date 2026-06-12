@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const NEWS_ITEMS = [
   { date: "June 2026", tag: "Launch", title: "Credyr launches full brand and digital studio services for SMEs", excerpt: "Today we're announcing the full Credyr studio offering — brand strategy, visual identity, full-cycle websites, and ongoing optimisation — all under one roof." },
-  { date: "May 2026", tag: "Partnership", title: "Credyr joins the Dental Growth Alliance as preferred digital partner", excerpt: "We're proud to be the recommended website and brand partner for DGA member practices across the UK." },
+  { date: "May 2026", tag: "Product", title: "Credyr expands into booking and CRM automation", excerpt: "Calendar booking, CRM pipelines, and automated follow-up now ship as part of every Credyr conversion build — so no enquiry goes unanswered." },
   { date: "April 2026", tag: "Product", title: "Introducing Ongoing Optimisation: your site, always improving", excerpt: "Our new monthly retainer service keeps your digital presence sharp, fast, and converting — month after month." },
 ];
 

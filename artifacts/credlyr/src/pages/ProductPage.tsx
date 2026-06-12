@@ -661,7 +661,7 @@ function WebsitesProductPage() {
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
-                  <span>dfinity.org</span>
+                  <span>apexdental.com</span>
                 </div>
                 {/* Spacer */}
                 <div className="w-10" />
@@ -671,23 +671,23 @@ function WebsitesProductPage() {
               <div className="flex-1 bg-[#fbfaf7] p-5 flex flex-col justify-between relative">
                 {/* Fake website nav */}
                 <div className="flex justify-between items-center text-[8px] font-sans font-semibold text-gray-900 border-b border-neutral-200/40 pb-2">
-                  <span>∞ dfinity</span>
+                  <span>✦ Apex Dental</span>
                   <div className="flex gap-3 text-neutral-400">
-                    <span>Developers</span>
-                    <span>Ecosystem</span>
-                    <span>Community</span>
+                    <span>Treatments</span>
+                    <span>Reviews</span>
+                    <span>Book now</span>
                   </div>
                 </div>
 
                 {/* Body split: left text, right cube */}
                 <div className="flex-1 flex items-center justify-between my-2 gap-4">
                   <div className="flex-1 flex flex-col items-start gap-1">
-                    <span className="text-[7.5px] font-bold text-indigo-500 uppercase tracking-widest">Internet Computer</span>
+                    <span className="text-[7.5px] font-bold text-indigo-500 uppercase tracking-widest">Trusted local care</span>
                     <h3 className="text-xs sm:text-[13px] font-serif font-bold text-gray-950 leading-tight">
-                      Reimagine how you build everything.
+                      A healthier smile, booked in 60 seconds.
                     </h3>
                     <p className="text-[6.5px] text-neutral-400 leading-normal max-w-[120px]">
-                      The Internet Computer is a public network that connects billions of people and devices.
+                      Modern dentistry with same-week appointments and transparent pricing.
                     </p>
                   </div>
 
@@ -710,8 +710,8 @@ function WebsitesProductPage() {
 
                 {/* Footer line */}
                 <div className="text-[6px] font-mono text-neutral-400 border-t border-neutral-200/40 pt-1.5 flex justify-between">
-                  <span>LATENCY 0MS</span>
-                  <span>100% DECENTRALIZED</span>
+                  <span>SPEED SCORE 99</span>
+                  <span>CORE WEB VITALS: PASS</span>
                 </div>
               </div>
             </div>
@@ -1165,41 +1165,37 @@ function WebsitesProductPage() {
         </div>
       </section>
 
-      {/* ─── 9. Testimonials (seQura / Plaid Style) ─── */}
+      {/* ─── 9. Testimonials ─── */}
       <section className="bg-white py-16 md:py-24 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: seQura */}
+          {/* Card 1 */}
           <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
             <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
-              "Great brands are built on great experiences. Credyr's conversion-optimized UX makes our customer acquisition seamless."
+              "Credyr built our new site in under two weeks and appointment bookings went up noticeably in the first month. It just works."
             </p>
             <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
-              <img 
-                src="/pieter-van-der-does.png" 
-                alt="David Backstrom" 
-                className="w-11 h-11 rounded-full object-cover filter grayscale" 
-              />
+              <div className="w-11 h-11 rounded-full bg-stone-300/70 flex items-center justify-center text-[13px] font-bold text-stone-600 select-none">
+                JR
+              </div>
               <div>
-                <h4 className="text-sm font-bold text-gray-950 font-sans">David Backstrom</h4>
-                <p className="text-xs text-neutral-500 font-sans">CEO, seQura</p>
+                <h4 className="text-sm font-bold text-gray-950 font-sans">James R.</h4>
+                <p className="text-xs text-neutral-500 font-sans">Dental Practice Owner</p>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Plaid */}
+          {/* Card 2 */}
           <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
             <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
-              "A website used to be a cost center for us. Now, it’s a revenue driver thanks to Credyr’s intuitive custom layouts, enterprise-grade speed and zero code shift."
+              "Our website used to be a cost centre. Now it's a revenue driver - custom layouts, serious speed, and a booking flow our clients actually use."
             </p>
             <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
-              <img 
-                src="/claire-hughes-johnson.png" 
-                alt="Zak Lambert" 
-                className="w-11 h-11 rounded-full object-cover filter grayscale" 
-              />
+              <div className="w-11 h-11 rounded-full bg-stone-300/70 flex items-center justify-center text-[13px] font-bold text-stone-600 select-none">
+                SM
+              </div>
               <div>
-                <h4 className="text-sm font-bold text-gray-950 font-sans">Zak Lambert</h4>
-                <p className="text-xs text-neutral-500 font-sans">GM EMEA, Plaid</p>
+                <h4 className="text-sm font-bold text-gray-950 font-sans">Sarah M.</h4>
+                <p className="text-xs text-neutral-500 font-sans">Spa Director</p>
               </div>
             </div>
           </div>
@@ -1317,7 +1313,7 @@ export default function ProductPage() {
       <div className="min-h-screen bg-[#fbfaf7] flex flex-col justify-between pt-32 text-center px-5">
         <div className="my-auto max-w-md mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-          <p className="text-neutral-500 mb-8">The compliance or conversion offer you requested does not exist or has been updated.</p>
+          <p className="text-neutral-500 mb-8">The page you requested does not exist or has been moved.</p>
           <Link href="/" asChild>
             <a className="px-6 py-3 bg-black text-white rounded-full font-semibold hover:bg-neutral-800">
               Return Home

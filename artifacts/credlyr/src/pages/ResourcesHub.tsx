@@ -7,87 +7,80 @@ interface ResourceCard {
   category: string;
   readTime: string;
   type: "gradient" | "image";
-  iconType?: "star" | "circles" | "mckinsey" | "pyramid" | "plaid";
+  iconType?: "star" | "circles" | "pyramid";
   imagePath?: string;
 }
 
 const RESOURCES_CARDS: ResourceCard[] = [
   {
-    title: "AI-native KYB platforms",
+    title: "How AI answer engines choose which businesses to cite",
     category: "Insights",
-    readTime: "7 min Insights",
+    readTime: "7 min read",
     type: "gradient",
     iconType: "star",
   },
   {
-    title: "How to reduce false positives in KYB",
+    title: "The landing-page economy: one page per offer, not one homepage",
     category: "Insights",
-    readTime: "8 min Insights",
+    readTime: "5 min read",
     type: "gradient",
     iconType: "star",
   },
   {
-    title: "What is Know Your Business (KYB)? A guide to KYB verification",
+    title: "Why generic templates quietly kill conversion",
     category: "Insights",
-    readTime: "5 min Insights",
-    type: "gradient",
-    iconType: "star",
-  },
-  {
-    title: "Compliance is a conversion problem in KYB onboarding",
-    category: "Insights",
-    readTime: "5 min Insights",
-    type: "gradient",
-    iconType: "star",
-  },
-  {
-    title: "Building an Identity system of record in times of AI",
-    category: "Product",
-    readTime: "7 min Product",
-    type: "gradient",
-    iconType: "circles",
-  },
-  {
-    title: "McKinsey gets it: Why AI will transform financial crime fighting",
-    category: "Insights",
-    readTime: "5 min Insights",
-    type: "gradient",
-    iconType: "mckinsey",
-  },
-  {
-    title: "Credyr Conversations with Stripe COO Claire Hughes Johnson",
-    category: "Conversations",
-    readTime: "19 min Conversations",
-    type: "image",
-    imagePath: "/claire-hughes-johnson.png",
-  },
-  {
-    title: "Credyr Conversations with Adyen founder Pieter van der Does",
-    category: "Conversations",
-    readTime: "16 min Conversations",
-    type: "image",
-    imagePath: "/pieter-van-der-does.png",
-  },
-  {
-    title: "Credyr Onboard: A revenue-driving onboarding solution",
-    category: "Product",
-    readTime: "4 min Product",
-    type: "gradient",
-    iconType: "star",
-  },
-  {
-    title: "Compliance, conversion, and growth: A guide for leaders",
-    category: "Insights",
-    readTime: "6 min Insights",
+    readTime: "6 min read",
     type: "gradient",
     iconType: "pyramid",
   },
   {
-    title: "Credyr + Plaid: Seamless bank authentication",
-    category: "Product",
-    readTime: "3 min Product",
+    title: "Speed is trust: why slow sites get filtered out instantly",
+    category: "Insights",
+    readTime: "5 min read",
     type: "gradient",
-    iconType: "plaid",
+    iconType: "star",
+  },
+  {
+    title: "Credyr Trust Systems: proof that removes buyer hesitation",
+    category: "Product",
+    readTime: "4 min read",
+    type: "gradient",
+    iconType: "circles",
+  },
+  {
+    title: "Local SEO for service businesses: a practical guide",
+    category: "Guides",
+    readTime: "8 min read",
+    type: "gradient",
+    iconType: "pyramid",
+  },
+  {
+    title: "Booking flows that convert: from landing to confirmed slot in under a minute",
+    category: "Product",
+    readTime: "5 min read",
+    type: "gradient",
+    iconType: "circles",
+  },
+  {
+    title: "From enquiry to booked call: CRM automation that follows up for you",
+    category: "Product",
+    readTime: "6 min read",
+    type: "gradient",
+    iconType: "star",
+  },
+  {
+    title: "Structuring your site for humans and answer engines alike",
+    category: "Guides",
+    readTime: "7 min read",
+    type: "gradient",
+    iconType: "star",
+  },
+  {
+    title: "Email automation that nurtures leads without the spam folder",
+    category: "Guides",
+    readTime: "6 min read",
+    type: "gradient",
+    iconType: "pyramid",
   },
 ];
 
@@ -154,13 +147,6 @@ function CardIllustration({ iconType }: { iconType?: string }) {
           <circle cx="50" cy="50" r="41" />
         </svg>
       );
-    case "mckinsey":
-      return (
-        <span className="text-white text-2xl md:text-3xl font-serif tracking-normal text-center leading-tight select-none">
-          McKinsey
-          <br />& Company
-        </span>
-      );
     case "pyramid":
       return (
         <svg
@@ -180,25 +166,6 @@ function CardIllustration({ iconType }: { iconType?: string }) {
           <polygon points="50,70 45,80 55,80" />
           <line x1="50" y1="15" x2="50" y2="80" />
         </svg>
-      );
-    case "plaid":
-      return (
-        <div className="flex items-center gap-3">
-          <svg
-            viewBox="0 0 100 100"
-            className="w-10 h-10 text-white"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M30 20 h40 M20 40 h60 M20 60 h60 M30 80 h40 M30 20 v60 M50 20 v60 M70 20 v60" />
-          </svg>
-          <span className="text-white text-2xl font-black tracking-wider font-sans select-none">
-            PLAID
-          </span>
-        </div>
       );
     default:
       return null;
@@ -255,19 +222,19 @@ export default function ResourcesHub() {
             <Link href="/resources-hub/identity-in-an-ai-world">
               <a className="block text-left cursor-pointer group">
                 <h1 className="text-4xl md:text-5xl lg:text-[54px] font-normal tracking-tight text-gray-950 mt-4 mb-6 leading-[1.08] group-hover:text-neutral-800 transition-colors">
-                  Identity in an AI world:
+                  Credibility in an AI
                   <br />
-                  When the attacker is a
+                  world: When the first
                   <br />
-                  model
+                  visitor is a model
                 </h1>
               </a>
             </Link>
 
             <p className="text-base md:text-lg text-neutral-600 leading-relaxed font-normal max-w-[540px]">
-              Only 2% of financial crime is detected today. This article
-              explains why AI-based attackers have broken rules-based onboarding
-              and what AI-native compliance systems do differently.
+              Buyers ask AI first and decide in one click. This article explains
+              the AI awareness cycle, why answer engines now judge your site
+              before humans do, and what conversion infrastructure looks like.
             </p>
           </motion.div>
         </section>

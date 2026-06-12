@@ -21,7 +21,7 @@ export default function About() {
     {
       category: "Engineering",
       title: "Modern Performance Architectures",
-      desc: "How static page generation deployed directly to AWS CloudFront CDN achieves sub-second load speeds without database query delays.",
+      desc: "How static page generation deployed directly to a global edge CDN achieves sub-second load speeds without database query delays.",
       icon: Cpu,
       iconBg: "from-blue-500/10 to-indigo-500/10 text-blue-700",
       graphic: (
@@ -198,7 +198,7 @@ export default function About() {
                 </div>
               </div>
               <p className="text-[14px] md:text-[15px] text-neutral-600 leading-relaxed font-normal">
-                Former Managing consultant IBM Benelux data, ai & automation practice. Deep background in data engineering, positioning strategy, and technology execution.
+                Former managing consultant in IBM Benelux's Data, AI & Automation practice. Deep background in data engineering, positioning strategy, and technology execution.
               </p>
             </motion.div>
           </div>
@@ -206,7 +206,7 @@ export default function About() {
           {/* Grayscale Logo Strip */}
           <div className="border-t border-neutral-200/50 pt-16 text-center">
             <p className="text-[11px] text-neutral-400 font-semibold uppercase tracking-widest mb-10">
-              By people who previously built
+              Inspired by the digital experiences of
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 opacity-45 grayscale select-none pointer-events-none">
               <span className="text-xl font-black tracking-tighter text-neutral-700 italic">

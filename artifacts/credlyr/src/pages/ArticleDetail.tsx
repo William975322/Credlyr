@@ -11,29 +11,25 @@ interface TOCSection {
 const SECTIONS: TOCSection[] = [
   { id: "takeaways", label: "Key takeaways" },
   {
-    id: "what-attacker-means",
-    label: 'What does "the attacker is a model" actually mean for compliance?',
+    id: "awareness-cycle",
+    label: "What is the AI awareness cycle?",
   },
   {
-    id: "four-threats",
-    label: "What are the four AI threats to identity verification right now?",
+    id: "first-visitor-model",
+    label: "Why is your next visitor as likely to be a model as a person?",
   },
   {
-    id: "why-friction-fails",
-    label: "Why does friction-first onboarding fail as a fraud strategy?",
+    id: "filtered-in-seconds",
+    label: "Why do buyers filter you out in seconds?",
   },
   {
-    id: "what-ai-native-looks-like",
-    label: "What does AI-native compliance actually look like in practice?",
-  },
-  {
-    id: "why-slow-adoption",
-    label: "Why has AI adoption in compliance been so slow?",
+    id: "conversion-infrastructure",
+    label: "What does conversion infrastructure actually look like?",
   },
   {
     id: "three-decisions",
     label:
-      "Three decisions that will define the next five years in identity and compliance",
+      "Three decisions that will define the next five years for service businesses",
   },
   { id: "faq", label: "Frequently asked questions" },
 ];
@@ -86,19 +82,19 @@ function CardIllustration() {
 
 const CONTINUE_READING_ARTICLES = [
   {
-    title: "Best KYB software in 2026",
+    title: "How AI answer engines choose which businesses to cite",
     href: "/resources-hub",
-    readTime: "9 min read",
+    readTime: "7 min read",
   },
   {
-    title: "Identity in an AI world: When the attacker is a model",
+    title: "Credibility in an AI world: When the first visitor is a model",
     href: "/resources-hub/identity-in-an-ai-world",
     readTime: "6 min read",
   },
   {
-    title: "AI-native KYB platforms",
+    title: "The landing-page economy: one page per offer, not one homepage",
     href: "/resources-hub",
-    readTime: "7 min read",
+    readTime: "5 min read",
   },
 ];
 
@@ -149,9 +145,9 @@ export default function ArticleDetail() {
             Jun 4, 2026
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-[56px] font-normal tracking-tight text-gray-950 mt-4 mb-14 leading-[1.08] max-w-4xl mx-auto">
-            Identity in an AI world: When
+            Credibility in an AI world: When
             <br />
-            the attacker is a model
+            the first visitor is a model
           </h1>
 
           {/* Large Hero Image */}
@@ -215,83 +211,107 @@ export default function ArticleDetail() {
               </h2>
               <ul className="list-disc pl-5 space-y-4 text-[16px] text-neutral-600">
                 <li>
-                  Rules-based onboarding was designed to stop a human attacker
-                  with limited time and effort. The new attacker is an AI model
-                  with unlimited time and zero marginal cost per attempt.
+                  Buyers no longer browse. They ask AI, get a shortlist, and
+                  click one link. Your website is the only thing between "paid"
+                  and the back button.
                 </li>
                 <li>
-                  Only 2% of global financial crime is detected today, despite
-                  $304 billion spent annually on anti-money laundering (AML)
-                  and know-your-customer (KYC) compliance worldwide (McKinsey &
-                  Company, Agentic AI Report 2025).
+                  Your next visitor is as likely to be an answer-engine crawler
+                  as a person. Sites structured for clarity, proof, and intent
+                  get cited; everyone else is invisible.
                 </li>
                 <li>
-                  AI-driven fraud now includes four distinct threat classes:
-                  AI-generated documents, deepfake video at onboarding,
-                  synthetic companies, and state-sponsored actors (FATF,
-                  Europol, FBI IC3, 2025).
+                  Trust is decided in seconds, before a word is read. Slow,
+                  generic, or confusing sites get filtered out instantly - by
+                  humans and by models.
                 </li>
                 <li>
-                  Identity is also a conversion problem. More than half of
-                  applicants abandon financial applications that take over ten
-                  minutes to complete (Ribbit Capital, Identity Newsletter).
+                  The demand isn't "AI websites." It's conversion
+                  infrastructure: websites, landing pages, booking, and CRM
+                  automation built for speed of decision, trust, and action.
                 </li>
                 <li>
-                  AI-native compliance systems have already cut onboarding time
-                  by 60% and reduced analyst follow-up rates by 51%. The gap is
-                  adoption: only around 10% of firms have made a meaningful AI
-                  impact in compliance (Credyr, 2026).
+                  The winner isn't whoever has a website. It's whoever has a
+                  site that sells, proves, and positions.
                 </li>
               </ul>
             </section>
 
-            {/* what-attacker-means */}
+            {/* awareness-cycle */}
             <section
-              id="what-attacker-means"
+              id="awareness-cycle"
               className="scroll-mt-32 py-12 border-b border-neutral-200/60"
             >
               <h2 className="text-3xl font-normal text-gray-950 mb-6">
-                What does "the attacker is a model" actually mean for compliance?
+                What is the AI awareness cycle?
               </h2>
               <div className="space-y-6 text-[16px] text-neutral-600">
                 <p>
-                  In 1993, The New Yorker published the cartoon that still hangs
-                  in every identity professional's mental gallery: one dog at a
-                  keyboard telling another, "On the Internet, nobody knows
-                  you're a dog." The joke aged fine. The compliance systems
-                  built on the same assumption did not.
+                  When was the last time you browsed the internet without
+                  asking AI first? Over the past two years, AI quietly became
+                  your search engine, your encyclopaedia, your shopping
+                  assistant, and your personal researcher. And because it is
+                  that convenient, it became something more consequential: the
+                  decision maker.
                 </p>
                 <p>
-                  For three decades, the financial industry layered checks on
-                  top of checks (more vendors, more workflow steps, more
-                  document requirements). The underlying assumption held: the
-                  person on the other side of the application was a human being
-                  with limited time, limited resources, and a limited appetite
-                  for friction. Rules-based onboarding was an arms race
-                  calibrated for that attacker. Create enough friction and the
-                  bad actor gives up. Let the legitimate customer through.
+                  The buying journey has compressed accordingly. The old
+                  pattern was fifteen minutes of opening tabs, comparing
+                  options, and second-guessing. The new pattern is short: ask
+                  AI, get the answer, click one link - credit card half out.
+                  The visitor who lands on your site has already done their
+                  research somewhere else. They are not browsing. They are
+                  deciding.
                 </p>
                 <p>
-                  That assumption is now wrong. The attacker is increasingly a
-                  model. AI agents can attempt thousands of onboarding flows
-                  simultaneously, generate plausible synthetic documentation,
-                  pass liveness checks using deepfake video, and construct
-                  entirely fictitious company structures with supporting
-                  registries and directorship chains. The marginal cost of each
-                  new attempt approaches zero. The time available approaches
-                  unlimited. A system designed to exhaust a human adversary does
-                  not exhaust a model.
+                  That shift is what we call the AI awareness cycle, and it has
+                  an unexpected consequence: the website - written off for
+                  years as a digital brochure - is back at the centre of the
+                  sale. Not because websites are new, but because the buying
+                  environment changed around them. When the entire journey
+                  collapses into one click, the page that click lands on
+                  carries the full weight of the transaction. It is now the
+                  trust-and-conversion hub of the business.
+                </p>
+              </div>
+            </section>
+
+            {/* first-visitor-model */}
+            <section
+              id="first-visitor-model"
+              className="scroll-mt-32 py-12 border-b border-neutral-200/60"
+            >
+              <h2 className="text-3xl font-normal text-gray-950 mb-6">
+                Why is your next visitor as likely to be a model as a person?
+              </h2>
+              <div className="space-y-6 text-[16px] text-neutral-600">
+                <p>
+                  In 1993, The New Yorker published the cartoon that defined
+                  the early internet: one dog at a keyboard telling another,
+                  "On the Internet, nobody knows you're a dog." For thirty
+                  years that was the web's credibility problem - anyone could
+                  claim anything, and the reader had no way to check.
                 </p>
                 <p>
-                  The result is a detection rate that has not kept pace with
-                  the scale of the problem. According to McKinsey & Company's
-                  Agentic AI Report (2025), only 2% of global financial crime is
-                  being detected today - despite the US alone spending $46
-                  billion annually on financial crime compliance, and cumulative
-                  AML fines since 2008 reaching $321 billion globally. Revolut
-                  has more than a third of its staff working on financial crime;
-                  Wise runs compliance operations across 65+ licenses. The
-                  spend is enormous. The outcome is not.
+                  The situation has now inverted. Before a human ever reaches
+                  your site, an AI model probably has. Answer engines crawl,
+                  read, and evaluate your pages to decide whether you are worth
+                  recommending. They check whether your claims are structured
+                  and consistent, whether your services are clearly described,
+                  whether your proof is verifiable, and whether your business
+                  details match the public record. The reader knows more than
+                  ever - because the reader is a model.
+                </p>
+                <p>
+                  This changes what a website has to do. It is no longer
+                  enough to look good to a person scrolling on a phone. The
+                  site has to be legible to machines: clean semantic
+                  structure, schema markup that states plainly who you are and
+                  what you do, question-shaped headings with direct answers
+                  underneath, and credentials a crawler can verify. Sites
+                  built this way get cited and recommended. Sites that bury
+                  their offer in vague slogans and decorative markup simply
+                  never enter the conversation.
                 </p>
 
                 {/* Embedded Cartoon */}
@@ -310,240 +330,104 @@ export default function ArticleDetail() {
               </div>
             </section>
 
-            {/* four-threats */}
+            {/* filtered-in-seconds */}
             <section
-              id="four-threats"
+              id="filtered-in-seconds"
               className="scroll-mt-32 py-12 border-b border-neutral-200/60"
             >
               <h2 className="text-3xl font-normal text-gray-950 mb-6">
-                What are the four AI threats to identity verification right now?
+                Why do buyers filter you out in seconds?
               </h2>
               <div className="space-y-6 text-[16px] text-neutral-600">
                 <p>
-                  Regulators including FATF, Europol, and the FBI's Internet
-                  Crime Complaint Center (IC3) have catalogued four distinct
-                  threat classes in identity verification as of 2025.
+                  AI search compresses attention. When an answer engine hands a
+                  buyer a shortlist of two or three options, the casual,
+                  exploratory click disappears. What's left is a smaller number
+                  of decision-ready visitors - people who arrive with intent
+                  and a credit card, and who will commit to whichever option
+                  feels safest, fastest.
                 </p>
-
                 <p>
-                  <strong>AI-generated documents.</strong> Large language models
-                  and image synthesis tools can produce supporting documentation
-                  (utility bills, incorporation certificates, beneficial
-                  ownership records) that passes surface-level visual
-                  inspection. Document verification that relies on template
-                  matching or optical character recognition alone is now a weak
-                  control.
+                  Those visitors judge before they read. A page that takes
+                  seconds too long to load, a template they have seen on five
+                  competitor sites, a wall of vague copy that never states the
+                  offer, a booking path hidden behind a contact form - each of
+                  these is an instant filter. The visitor doesn't complain or
+                  give feedback. They press back, return to the AI, and take
+                  the next recommendation. The sale happens; it just happens
+                  somewhere else.
                 </p>
-
                 <p>
-                  <strong>Deepfake video at onboarding.</strong> Real-time
-                  face-swapping and voice synthesis have reached the point where
-                  video liveness checks can be defeated without specialized
-                  hardware. The check that was designed to confirm a human is
-                  present can now be passed by a model driving a synthetic
-                  face.
-                </p>
-
-                <p>
-                  <strong>Synthetic companies.</strong> Corporate identity fraud
-                  has scaled. It is now possible to construct a company with a
-                  plausible digital footprint (registered address, director
-                  history, company number, and some adverse-media-free history)
-                  using publicly available registries and AI-assisted content
-                  generation. Standard KYB (know-your-business) checks that rely
-                  on registry data alone do not catch a synthetic company that
-                  is, technically, in the registry.
-                </p>
-
-                <p>
-                  <strong>State-sponsored actors.</strong> Nation-state fraud
-                  operations have the budget, the patience, and the AI
-                  infrastructure to probe compliance systems at scale over
-                  extended periods. The concept of "friction as deterrence" has
-                  no meaning against an adversary whose resources dwarf the cost
-                  of the friction.
-                </p>
-
-                <p>
-                  Each of these threats shares the same structural property: it
-                  is optimized against a rules-based system. Rules are
-                  observable, testable, and eventually navigable by a patient,
-                  automated adversary. The defense has to be built differently.
+                  This is also why trust requirements keep rising. In an
+                  environment where AI can generate unlimited generic content
+                  and passable template websites in minutes, generic itself has
+                  become a warning sign. Distinctive design, specific claims,
+                  verifiable proof, and named, accountable people are what
+                  separate a real business from noise - to human visitors and
+                  answer engines alike. Credibility is the new competition: the
+                  winner isn't whoever has a website, it's whoever has a site
+                  that sells, proves, and positions.
                 </p>
               </div>
             </section>
 
-            {/* why-friction-fails */}
+            {/* conversion-infrastructure */}
             <section
-              id="why-friction-fails"
+              id="conversion-infrastructure"
               className="scroll-mt-32 py-12 border-b border-neutral-200/60"
             >
               <h2 className="text-3xl font-normal text-gray-950 mb-6">
-                Why does friction-first onboarding fail as a fraud strategy?
+                What does conversion infrastructure actually look like?
               </h2>
               <div className="space-y-6 text-[16px] text-neutral-600">
                 <p>
-                  Friction-first onboarding was rational when the population of
-                  potential fraudsters was constrained by human cost. Every
-                  extra document request, every callback, every manual review
-                  added effort that a bad actor might not absorb. Legitimate
-                  customers tolerated it because switching was costly and the
-                  alternative was no account at all.
-                </p>
-                <p>Neither of those conditions holds anymore.</p>
-                <p>
-                  On the fraud side: the marginal cost of completing an
-                  onboarding flow has dropped toward zero for model-based
-                  attackers. Friction deters humans. It does not deter agents.
-                </p>
-                <p>
-                  On the conversion side: customers now comparison-shop
-                  financial services the way they compare any product. In 2018,
-                  25% of customers opened a new bank account without shopping
-                  around; today that figure is 4% (McKinsey & Company, Global
-                  Banking Annual Review 2025). Friction that once locked
-                  customers in now loses them to whoever moves faster. More than
-                  half of applicants abandon applications that take over ten
-                  minutes (Ribbit Capital, Identity Newsletter). Identity is a
-                  conversion problem as much as a fraud problem, a framing the
-                  industry has been slow to accept.
-                </p>
-                <p>
-                  The systems built on friction-as-defense are now
-                  simultaneously failing at both jobs. They are not stopping the
-                  attackers they were designed to stop, and they are turning
-                  away legitimate customers they were designed to admit.
-                </p>
-              </div>
-            </section>
-
-            {/* what-ai-native-looks-like */}
-            <section
-              id="what-ai-native-looks-like"
-              className="scroll-mt-32 py-12 border-b border-neutral-200/60"
-            >
-              <h2 className="text-3xl font-normal text-gray-950 mb-6">
-                What does AI-native compliance actually look like in practice?
-              </h2>
-              <div className="space-y-6 text-[16px] text-neutral-600">
-                <p>
-                  The case for AI-native compliance is sometimes presented as a
-                  future state. The evidence suggests it is already producing
-                  results at firms that have made the transition.
-                </p>
-                <p>
-                  The numbers from implementations of Credyr's AI-native
-                  onboarding are concrete: onboarding time cut by more than 60%,
-                  and analyst follow-up rates down 51% (from around 30% of cases
-                  to 17%), measured over a rolling 30-day period through
-                  mid-2025. These results sit alongside the 10.6x onboarding and
-                  4.8x productivity figures published at Credyr's Series A.
-                  McKinsey's Agentic AI Report (2025) puts the productivity
-                  gains from agentic AI in financial-crime work at 200% to
-                  2,000%.
-                </p>
-                <p>
-                  These outcomes follow from three properties that distinguish
-                  AI-native systems from their rules-based predecessors.
+                  The demand this creates isn't for "AI websites" as a
+                  category. It is for conversion infrastructure: every layer
+                  between a buyer's first impression and a confirmed
+                  appointment, engineered for speed of decision. In practice it
+                  has four parts.
                 </p>
 
                 <p>
-                  <strong>Evidence-based decisioning.</strong> Rather than
-                  checking whether a document was submitted, an evidence-based
-                  system asks whether the evidence is consistent and credible
-                  across multiple signals simultaneously. A model can generate a
-                  document; it is harder to generate a document that is coherent
-                  with the applicant's digital footprint, behavioral signals,
-                  and cross-registry data.
+                  <strong>Speed.</strong> Pages served as pre-rendered static
+                  files from edge servers close to the visitor, so the site
+                  loads before doubt sets in. Speed is not a technical vanity
+                  metric; it is the first trust signal a visitor experiences,
+                  and a ranking input for both search and answer engines.
                 </p>
 
                 <p>
-                  <strong>Deterministic, auditable outputs.</strong> Compliance
-                  has a higher bar for AI deployment than most other functions.
-                  An unexplainable decision does not mean a missed sale: it
-                  means a regulatory enforcement action or a missed SAR
-                  (suspicious activity report). AI in compliance needs to
-                  produce decisions that can be explained to a regulator,
-                  attributed to a specific policy, and reproduced. The policy
-                  engine is the layer that makes AI decisions auditable rather
-                  than probabilistic.
+                  <strong>Clarity.</strong> One page, one argument. The
+                  landing-page economy replaces the single overloaded homepage
+                  with a dedicated page per offer, per campaign, per audience -
+                  so the dental-implant prospect, the emergency patient, and
+                  the price-shopper each land on exactly the argument they
+                  need, with nothing else competing for the click.
                 </p>
 
                 <p>
-                  <strong>Continuous monitoring.</strong> A customer who passes
-                  onboarding in January may be a different risk profile in July.
-                  Static, point-in-time onboarding produces a snapshot that
-                  becomes stale the moment it is filed. Continuous lifecycle
-                  monitoring (daily automated screening against sanctions lists,
-                  politically exposed person (PEP) registries, and adverse
-                  media) converts identity from a one-time check into a living
-                  record.
+                  <strong>Proof.</strong> Trust systems that surface real
+                  reviews, credentials, case results, and registrations where
+                  the buying decision actually happens - next to the call to
+                  action, not on a forgotten "testimonials" page. Proof is
+                  what converts a hesitant visitor, and it is what answer
+                  engines look for when deciding whom to cite.
                 </p>
 
                 <p>
-                  This is the inversion the industry is moving toward: from 99%
-                  checkbox and 1% judgment, to 1% checkbox and 99% judgment. The
-                  checkboxes get automated. The judgment (the decisions that
-                  actually require a human) gets surfaced to people equipped to
-                  make it.
+                  <strong>Action.</strong> A frictionless path from interest to
+                  commitment: calendar booking embedded in the page so a
+                  visitor can take a slot in under a minute, CRM automation
+                  that captures and follows up with every enquiry instantly,
+                  and reminders that protect the appointment once it's made.
+                  Response time decides close rates; automation is how a small
+                  team responds in seconds, every time.
                 </p>
-              </div>
-            </section>
 
-            {/* why-slow-adoption */}
-            <section
-              id="why-slow-adoption"
-              className="scroll-mt-32 py-12 border-b border-neutral-200/60"
-            >
-              <h2 className="text-3xl font-normal text-gray-950 mb-6">
-                Why has AI adoption in compliance been so slow?
-              </h2>
-              <div className="space-y-6 text-[16px] text-neutral-600">
                 <p>
-                  Only around 10% of firms have made a meaningful AI impact in
-                  compliance (Credyr, 2026). That is a striking gap given the
-                  proof of concept is already there.
-                </p>
-                <p>
-                  Four structural factors explain why compliance is the second
-                  wave of AI rather than the first.
-                </p>
-                <p>
-                  <strong>Risk asymmetry.</strong> In most business functions, the
-                  downside of a failed AI implementation is a missed efficiency.
-                  In compliance, the downside is a regulatory enforcement action,
-                  a fine, a reputational event, or a missed report on criminal
-                  activity. The upside is capped; the downside is career-ending.
-                  That asymmetry produces rational caution even when the
-                  evidence for transition is clear.
-                </p>
-                <p>
-                  <strong>The legacy policy layer.</strong> Financial institutions
-                  have accumulated hundreds of pages of judgment-based compliance
-                  policy written for human analysts. Converting that policy into
-                  machine-readable rules is a project in its own right, one that
-                  has to happen before AI can run on top of it. Firms that have
-                  not done that translation work cannot plug an AI layer in.
-                </p>
-                <p>
-                  <strong>The quality bar.</strong> AI in sales or marketing
-                  tolerates imprecision. AI in compliance must be reliable,
-                  repeatable, and explainable to a regulator on demand. The bar is
-                  higher, the testing cycles are longer, and the tolerance for
-                  hallucination is zero.
-                </p>
-                <p>
-                  <strong>Constant change.</strong> Customer data changes.
-                  Regulations change. AI models are updated. Sanctions lists move
-                  daily. A compliance system has to handle continuous change in its
-                  inputs while maintaining consistent, auditable outputs. That is a
-                  harder engineering problem than most AI deployments face.
-                </p>
-                <p>
-                  These are real constraints, not excuses. Purpose-built
-                  compliance infrastructure is designed to handle them;
-                  general-purpose AI tools applied to compliance workflows as an
-                  afterthought are not.
+                  None of these layers is optional, because the visitor only
+                  experiences them as one thing: a site that either feels safe
+                  and easy to buy from, or doesn't.
                 </p>
               </div>
             </section>
@@ -554,45 +438,40 @@ export default function ArticleDetail() {
               className="scroll-mt-32 py-12 border-b border-neutral-200/60"
             >
               <h2 className="text-3xl font-normal text-gray-950 mb-6">
-                Three decisions that will define the next five years in identity
-                and compliance
+                Three decisions that will define the next five years for
+                service businesses
               </h2>
               <div className="space-y-6 text-[16px] text-neutral-600">
                 <p>
-                  <strong>Treat identity as a living system of record.</strong> A
-                  KYB or KYC check that produces a PDF and a green light is not
-                  an identity system - it is a snapshot. The firms that will be
-                  best positioned are the ones that treat the identity record as
-                  something that continues to evolve after onboarding: updated
-                  continuously, enriched by new signals, and re-evaluated when
-                  the risk environment changes. The Credyr AI memo frames this as
-                  the "AI-native identity system of record," the category that
-                  replaces static compliance files.
+                  <strong>Treat your website as a living system, not a
+                  launch.</strong> A site that ships and then sits still decays
+                  in rankings, relevance, and conversion. The businesses that
+                  win treat the site like a sales rep on continuous review:
+                  measured monthly, tested constantly, and improved wherever
+                  visitors hesitate or drop off.
                 </p>
                 <p>
-                  <strong>Design for determinism and explainability from the
-                  start.</strong> Adding explainability to a system that was built
-                  without it is expensive and often impossible. Compliance AI that
-                  cannot trace a decision back to a specific policy input will not
-                  survive regulatory scrutiny. The architecture decision (evidence-based
-                  and auditable from day one) is more consequential than the choice
-                  of which AI model to run on top of it.
+                  <strong>Structure for machines as deliberately as for
+                  people.</strong> Answer engines are becoming the front door
+                  to your business. Clean structure, schema markup, direct
+                  answers, and verifiable credentials are not technical
+                  niceties - they are distribution. A site that AI cannot
+                  confidently read is a site AI will not recommend.
                 </p>
                 <p>
-                  <strong>Build for the adversary you will face, not the one
-                  you faced.</strong> The compliance frameworks in place at most
-                  institutions were calibrated against a human attacker with
-                  limited resources. The attacker is now a model. The threat
-                  classes are already documented by FATF, Europol, and the FBI:
-                  AI-generated documents, deepfake video, synthetic companies,
-                  state-sponsored actors. The question is whether the systems
-                  being built today are designed to handle them, or designed to
-                  handle a 2015 fraud profile.
+                  <strong>Compete on credibility, not presence.</strong>
+                  "Having a website" stopped being a differentiator a decade
+                  ago. In a market flooded with generated content and
+                  interchangeable templates, the scarce assets are specific
+                  proof, distinctive positioning, and a frictionless path to
+                  action. Those are buildable - but they have to be built on
+                  purpose.
                 </p>
                 <p>
-                  The detection rate does not move without the underlying system
-                  changing. Two percent detected is not a measurement problem. It
-                  is an architecture problem.
+                  The buying environment will keep shifting. The constant is
+                  that someone - human or model - lands on your site, decides
+                  in seconds, and either commits or moves on. Everything in
+                  this article is about winning that moment.
                 </p>
               </div>
             </section>
@@ -605,64 +484,66 @@ export default function ArticleDetail() {
               <div className="space-y-6 text-[16px] text-neutral-600 border-t border-neutral-200/40 pt-6">
                 <div>
                   <p className="font-semibold text-gray-950 mb-1">
-                    What is the current global financial crime detection rate?
+                    What is an answer engine?
                   </p>
                   <p>
-                    According to McKinsey & Company's Agentic AI Report (2025),
-                    only 2% of global financial crime is detected today, despite
-                    approximately $304 billion being spent each year on AML and
-                    KYC compliance worldwide.
+                    An answer engine is an AI system - like ChatGPT,
+                    Perplexity, or Google's AI Overviews - that responds to a
+                    question with a direct answer and a small number of cited
+                    sources, instead of a page of links. Being one of those
+                    cited sources is the new version of ranking first.
                   </p>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-950 mb-1">
-                    What AI threats are financial institutions facing in identity
-                    verification?
+                    Do I still need traditional SEO if buyers ask AI instead of
+                    Google?
                   </p>
                   <p>
-                    FATF, Europol, and the FBI IC3 have identified four primary
-                    AI-driven threats in identity verification as of 2025: AI-generated
-                    documents, deepfake video used to defeat liveness checks at
-                    onboarding, synthetic companies with fabricated digital footprints,
-                    and state-sponsored actors operating at scale.
+                    Yes. Answer engines build on the same foundations as
+                    search: crawlable structure, fast pages, clear content, and
+                    authoritative signals. Answer-engine optimisation extends
+                    SEO rather than replacing it - if your site isn't findable
+                    and readable, it can't be cited.
                   </p>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-950 mb-1">
-                    Why did rules-based onboarding stop working?
+                    Why isn't one good homepage enough anymore?
                   </p>
                   <p>
-                    Rules-based onboarding was designed to deter human attackers
-                    with limited time and resources. AI-based attackers have
-                    unlimited time, near-zero cost per attempt, and can systematically
-                    probe and navigate fixed rules. Friction deters people; it
-                    does not deter models.
+                    Because different visitors arrive with different intents,
+                    and a homepage has to serve all of them at once - which
+                    means it serves none of them perfectly. A dedicated landing
+                    page per offer, campaign, and audience lets each visitor
+                    land on a single focused argument, which is consistently
+                    what converts best.
                   </p>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-950 mb-1">
-                    What are the measurable results of AI-native compliance
-                    systems?
+                    What is conversion infrastructure?
                   </p>
                   <p>
-                    Implementations show onboarding time reductions of more than
-                    60% and a 51% drop in analyst follow-up rates. McKinsey (Agentic
-                    AI Report, 2025) estimates productivity gains from agentic AI
-                    in financial-crime work at 200% to 2,000%.
+                    Conversion infrastructure is the full system between a
+                    buyer's first impression and a confirmed appointment: a
+                    fast, trust-first website, focused landing pages, embedded
+                    calendar booking, and CRM automation that captures and
+                    follows up with every lead instantly. It treats the website
+                    as a revenue system rather than a brochure.
                   </p>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-950 mb-1">
-                    What makes compliance harder to automate with AI than other
-                    functions?
+                    How fast does a website need to be?
                   </p>
                   <p>
-                    Compliance requires AI outputs to be reliable, repeatable,
-                    and explainable to regulators on demand. The tolerance for
-                    error is effectively zero, and the consequences of a missed
-                    detection or unexplainable decision are regulatory rather than
-                    commercial. The quality bar is categorically higher than in
-                    most business functions where AI has already taken hold.
+                    Fast enough that the visitor never notices the wait -
+                    in practice, loading in about a second and passing Google's
+                    Core Web Vitals. Every additional second of delay measurably
+                    increases the share of visitors who leave before the page
+                    renders, and speed also feeds search and answer-engine
+                    rankings.
                   </p>
                 </div>
               </div>

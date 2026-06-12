@@ -2,7 +2,7 @@ import IndustryPage from "./IndustryPage";
 export default function DentalPage() {
   return <IndustryPage data={{
     name: "Dental Practices",
-    tagline: "More booked appointments. Less no-shows. A practice website that actually works.",
+    tagline: "More booked appointments. Fewer no-shows. A practice website that actually works.",
     description: "Your website should be your best patient acquisition tool — not a digital brochure. We build dental websites that convert first-time visitors into booked appointments.",
     hero: "dental",
     painPoints: [
