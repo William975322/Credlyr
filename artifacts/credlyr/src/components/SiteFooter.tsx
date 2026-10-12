@@ -30,7 +30,7 @@ const FOOTER_COLS = [
 
 export function SiteFooter() {
   return (
-    <footer data-testid="site-footer" className="bg-[#141312] text-white">
+    <footer data-testid="site-footer" className="bg-[#161a1e] text-white">
       <div className="mx-auto w-full max-w-[1120px] px-6 pb-10 pt-20 md:px-10 md:pt-24 xl:px-0">
         <div className="flex flex-col gap-14 md:flex-row md:justify-between">
           <div className="max-w-[300px]">
