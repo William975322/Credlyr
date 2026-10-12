@@ -29,6 +29,14 @@ import {
   Eye,
   Globe,
   Search,
+  Check,
+  Sparkles,
+  Smartphone,
+  Send,
+  Bell,
+  Database,
+  Shield,
+  ArrowRight,
 } from "lucide-react";
 import { Link, Route, Switch, useLocation } from "wouter";
 import ResourcesHubPage from "./pages/ResourcesHub";
@@ -44,6 +52,16 @@ import NewsPage from "./pages/News";
 import ContactPage from "./pages/Contact";
 import DocumentationPage from "./pages/Documentation";
 import SecurityPage from "./pages/Security";
+import DentalPage from "./pages/Dental";
+import MedicalPage from "./pages/Medical";
+import SpasPage from "./pages/Spas";
+import HomeServicesPage from "./pages/HomeServices";
+import RealEstatePage from "./pages/RealEstate";
+import BrandStrategyPage from "./pages/BrandStrategy";
+import VisualIdentityPage from "./pages/VisualIdentity";
+import OptimisationPage from "./pages/Optimisation";
+import BrandShowcasePage from "./pages/BrandShowcase";
+import { BrandLogo, BrandProvider, useBrandDirection, LogoMark } from "./components/BrandLogo";
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
@@ -63,69 +81,93 @@ interface NavItem {
 
 const NAV_LINKS: NavItem[] = [
   {
-    label: "Product",
+    label: "Services",
     dropdown: {
       variant: "two-column",
       left: {
-        title: "Product",
+        title: "Core Offerings",
         items: [
           {
-            label: "Full-Cycle Websites",
-            sub: "Fast, trust-first sites built to convert",
+            label: "Websites & Landing Pages",
+            sub: "Fast, editorial sites built to convert",
             href: "/product/websites",
           },
           {
-            label: "Landing Pages",
-            sub: "Pages for every offer and campaign",
-            href: "/product/landing-pages",
+            label: "Appointment Scheduling",
+            sub: "Frictionless calendar booking, zero drop-off",
+            href: "/product/booking",
           },
           {
-            label: "Appointment Booking",
-            sub: "Frictionless scheduling, zero back-and-forth",
-            href: "/product/booking",
+            label: "Lead-Response Automation",
+            sub: "Rapid automated reply and CRM sync",
+            href: "/product/conversion",
           },
         ],
       },
       right: {
-        title: "Platform",
+        title: "Capabilities",
         items: [
           {
-            label: "Lead Conversion",
-            sub: "Keep leads moving from click to deal",
-            href: "/product/conversion",
+            label: "Brand & Visual Identity",
+            sub: "Art direction that commands authority",
+            href: "/services/visual-identity",
           },
           {
-            label: "AI Search Ready",
-            sub: "Clear structure for answer engines",
+            label: "Answer Engine Optimization",
+            sub: "Structured for Google & AI answers",
             href: "/product/ai-search",
           },
           {
-            label: "Trust Systems",
-            sub: "Credibility signals that reduce hesitation",
-            href: "/product/trust-systems",
+            label: "Conversion Audits",
+            sub: "Teardowns that eliminate friction leaks",
+            href: "/get-started",
           },
         ],
       },
     },
   },
   {
-    label: "Customers",
+    label: "Sectors",
     dropdown: {
       variant: "two-column",
       left: {
-        title: "Industries",
+        title: "Healthcare & Wellness",
         items: [
-          { label: "Dentists", sub: "Surgeries, orthodontics, clinics" },
-          { label: "Healthcare", sub: "Medical groups, wellness, therapy" },
-          { label: "Local Practices", sub: "Law firms, physio, consultants" },
+          {
+            label: "Dental Practices",
+            sub: "Specialist surgeries & private clinics",
+            href: "/industries/dental",
+          },
+          {
+            label: "Medical & Clinics",
+            sub: "Consultants, diagnostics & medicine",
+            href: "/industries/medical",
+          },
+          {
+            label: "Aesthetics & Spas",
+            sub: "Aesthetic studios & restorative care",
+            href: "/industries/spas",
+          },
         ],
       },
       right: {
-        title: "Teams",
+        title: "Specialist Firms",
         items: [
-          { label: "Sales", sub: "Lead generation, booking flow" },
-          { label: "Marketing", sub: "Positioning, brand, copywriting" },
-          { label: "Operations", sub: "CRM sync, workflow automation" },
+          {
+            label: "Advisory & Specialist",
+            sub: "Private wealth, legal & consultancy",
+            href: "/services/brand-strategy",
+          },
+          {
+            label: "High-Value Trades",
+            sub: "Architectural builders & luxury trade",
+            href: "/industries/home-services",
+          },
+          {
+            label: "Client Reviews",
+            sub: "How practices grow with Credyr",
+            href: "/customers/reviews",
+          },
         ],
       },
     },
@@ -136,8 +178,8 @@ const NAV_LINKS: NavItem[] = [
       variant: "split-preview",
       left: {
         items: [
-          { label: "About", sub: "Our story", href: "/about" },
-          { label: "News", sub: "Press and insights" },
+          { label: "About", sub: "Our ethos & craft", href: "/about" },
+          { label: "News", sub: "Press and insights", href: "/news" },
           { label: "Careers", sub: "We're hiring", href: "/careers" },
         ],
       },
@@ -149,11 +191,11 @@ const NAV_LINKS: NavItem[] = [
       variant: "split-preview",
       left: {
         items: [
-          { label: "Trust", sub: "Safe, secure, and private", href: "/trust" },
-          { label: "Status", sub: "Uptime and availability", href: "/status" },
+          { label: "Trust & Security", sub: "Safe, secure, and private", href: "/trust" },
+          { label: "Status", sub: "Real-time system availability", href: "/status" },
           {
-            label: "Resources hub",
-            sub: "Customer stories, insights, product updates",
+            label: "Resources Hub",
+            sub: "Playbooks, articles & teardowns",
             href: "/resources-hub",
           },
         ],
@@ -162,20 +204,6 @@ const NAV_LINKS: NavItem[] = [
   },
 ];
 
-const STATS = [
-  { value: "10.6x", label: "Faster launch" },
-  { value: "37%", label: "Conversion increase" },
-  { value: "4.8x", label: "Return on marketing spend" },
-];
-
-const TRUSTED_LOGOS = [
-  "Apex Dental",
-  "NovaSpa",
-  "Shield Brokers",
-  "HomeServ",
-  "PrecisionMed",
-  "TrueRealty",
-];
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 
@@ -207,6 +235,8 @@ function Navigation() {
 
   const activeLink = NAV_LINKS.find((l) => l.label === openDropdown);
 
+  const { direction: logoDirection, setIsModalOpen } = useBrandDirection();
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-in-out ${
@@ -218,22 +248,19 @@ function Navigation() {
       onMouseLeave={() => setOpenDropdown(null)}
     >
       {/* Main bar */}
-      <div className="flex items-center justify-between px-5 py-5 sm:px-8 md:px-10 md:py-7">
+      <div className="max-w-6xl mx-auto w-full flex items-center justify-between px-6 sm:px-8 md:px-12 py-5 md:py-6">
         {/* Logo */}
         <a
           href="/"
-          className="flex items-center gap-[10px] text-2xl md:text-3xl font-bold text-gray-950 tracking-normal select-none"
+          className="select-none"
           data-testid="link-logo"
         >
-          <span className="text-2xl md:text-3xl leading-none translate-y-[-1px]">
-            ✦
-          </span>
-          <span>Credyr</span>
+          <BrandLogo />
         </a>
 
         {/* Center plain-text links */}
         <nav
-          className="hidden md:flex items-center gap-1"
+          className="hidden md:flex items-center gap-2"
           aria-label="Main navigation"
         >
           {NAV_LINKS.map((link) => {
@@ -259,10 +286,10 @@ function Navigation() {
                     setOpenDropdown(link.label);
                   }
                 }}
-                className={`group inline-flex items-center gap-[3px] px-4 py-2 rounded-full text-[14px] font-medium transition-all duration-150 cursor-pointer select-none ${
+                className={`group inline-flex items-center px-3.5 py-1.5 rounded-full text-[14.5px] font-medium transition-colors duration-150 cursor-pointer select-none ${
                   openDropdown === link.label
-                    ? "bg-neutral-800/50 text-white backdrop-blur-md"
-                    : "text-gray-600 hover:bg-neutral-800/50 hover:text-white hover:backdrop-blur-md"
+                    ? "text-neutral-950 font-semibold"
+                    : "text-neutral-900 hover:text-neutral-600"
                 }`}
                 data-testid={`nav-link-${link.label.toLowerCase()}`}
               >
@@ -282,23 +309,25 @@ function Navigation() {
           })}
         </nav>
 
-        {/* CTA pill */}
-        <Link href="/get-started" asChild>
-          <a
-            className="hidden md:inline-flex items-center px-[18px] py-[8px] bg-black text-white text-[13.5px] font-semibold rounded-full transition-colors duration-150 hover:bg-neutral-800 active:scale-[0.98] cursor-pointer"
-            data-testid="button-book-demo"
-          >
-            {isResourcesPage ? "Schedule a demo" : "Schedule a call"}
-          </a>
-        </Link>
+        {/* Right CTA */}
+        <div className="hidden md:flex items-center">
+          <Link href="/get-started" asChild>
+            <a
+              className="inline-flex items-center px-5 py-2.5 bg-neutral-950 text-white text-[14px] font-medium rounded-full transition-colors duration-150 hover:bg-neutral-800 active:scale-[0.98] cursor-pointer shadow-sm"
+              data-testid="button-book-demo"
+            >
+              {isResourcesPage ? "Schedule a demo" : "Book an audit"}
+            </a>
+          </Link>
+        </div>
 
         {/* Mobile menu trigger */}
         <button
           onClick={() => setIsMobileMenuOpen(true)}
-          className="flex md:hidden items-center justify-center w-10 h-10 -mr-2 text-gray-950 hover:text-gray-700 transition-colors cursor-pointer select-none"
+          className="flex md:hidden items-center justify-center w-10 h-10 text-neutral-950 hover:text-neutral-700 transition-colors cursor-pointer select-none"
           aria-label="Open menu"
         >
-          <Menu size={26} strokeWidth={1.5} />
+          <Menu size={24} strokeWidth={1.8} />
         </button>
       </div>
 
@@ -333,7 +362,7 @@ function Navigation() {
                     )}
                     <div className="flex flex-col gap-1">
                       {activeLink.dropdown.left.items.map((item) => {
-                        const isClickable = activeLink.label !== "Customers";
+                        const isClickable = true;
                         if (isClickable) {
                           return (
                             <Link
@@ -382,7 +411,7 @@ function Navigation() {
                     )}
                     <div className="flex flex-col gap-1">
                       {activeLink.dropdown.right?.items.map((item) => {
-                        const isClickable = activeLink.label !== "Customers";
+                        const isClickable = true;
                         if (isClickable) {
                           return (
                             <Link
@@ -541,12 +570,9 @@ function Navigation() {
                   e.preventDefault();
                   handleMobileNav("/");
                 }}
-                className="flex items-center gap-[10px] text-2xl font-bold text-white tracking-normal select-none"
+                className="select-none"
               >
-                <span className="text-2xl leading-none translate-y-[-1px]">
-                  ✦
-                </span>
-                <span>Credyr</span>
+                <BrandLogo tone="light" size="md" />
               </a>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -641,10 +667,10 @@ function Navigation() {
                 onClick={() => handleMobileNav("/get-started")}
                 className="w-full inline-flex items-center justify-center py-3.5 bg-white text-black text-[15px] font-semibold rounded-full hover:bg-neutral-200 active:scale-[0.98] transition-all cursor-pointer"
               >
-                {isResourcesPage ? "Schedule a demo" : "Schedule a call"}
+                {isResourcesPage ? "Schedule a demo" : "Book a website audit"}
               </button>
               <span className="text-center text-[12px] text-neutral-500 mt-2">
-                Built for businesses where customers are first
+                Built for businesses where trust drives revenue
               </span>
             </div>
           </motion.div>
@@ -654,7 +680,7 @@ function Navigation() {
   );
 }
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+// ─── Section 1: Hero ─────────────────────────────────────────────────────────
 
 function Hero() {
   return (
@@ -662,400 +688,89 @@ function Hero() {
       data-testid="hero-section"
       className="relative w-full h-[100svh] min-h-[660px] md:min-h-[760px] overflow-hidden p-0 m-0"
     >
-      {/* Full-bleed painting */}
+      {/* Full-bleed landscape painting */}
       <img
         src="/hero-landscape.png?v=2"
         alt=""
         aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover object-[center_56%] pointer-events-none select-none"
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center 58%",
-          maxWidth: "none",
-          display: "block",
-          margin: 0,
-          padding: 0,
-          filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
+          filter: "sepia(12%) brightness(104%) saturate(118%) hue-rotate(4deg)",
         }}
       />
 
-      {/* Gradient scrim */}
+      {/* Calibrated warm scrim gradient guaranteeing WCAG AAA dark text legibility */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.08) 66%, rgba(255,255,255,0.24) 78%, rgba(255,255,255,0.52) 90%, rgba(255,255,255,0.9) 100%)",
+            "linear-gradient(to bottom, rgba(251,250,247,0) 0%, rgba(251,250,247,0.06) 38%, rgba(251,250,247,0.38) 62%, rgba(251,250,247,0.78) 80%, rgba(251,250,247,0.95) 93%, #fbfaf7 100%)",
         }}
       />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-end pb-[clamp(52px,9vh,96px)] z-10 text-center px-5 sm:px-6">
-        {/* Announcement pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-          className="px-4 py-1.5 rounded-full bg-gray-950/95 text-white text-xs font-medium tracking-normal mb-5 shadow-[0_10px_30px_rgba(0,0,0,0.18)]"
-        >
-          Websites for the AI search era
-        </motion.div>
-
+      <div className="absolute inset-0 flex flex-col items-center justify-center pt-20 pb-10 sm:pt-24 sm:pb-12 z-10 text-center px-5 sm:px-6">
         {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="max-w-4xl text-balance text-[clamp(46px,8vw,88px)] leading-[0.98] tracking-normal font-normal text-gray-950"
-        >
-          Websites built
+        <h1 className="max-w-4xl text-balance text-[clamp(44px,7.5vw,84px)] leading-[0.98] tracking-[-0.035em] font-normal text-neutral-950">
+          Websites that turn
           <br />
-          for conversion
-        </motion.h1>
+          visitors into customers.
+        </h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
-          className="mt-5 md:mt-6 max-w-[680px] text-balance text-[clamp(17px,2.1vw,22px)] leading-[1.42] text-neutral-700 font-normal mb-7 md:mb-8"
-        >
-          Credyr builds fast, clear, trust-heavy websites that turn
-          decision-ready visitors into buyers before they hit the back button.
-        </motion.p>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.36 }}
-        >
-          <Link href="/get-started" asChild>
-            <a
-              className="inline-flex items-center px-8 py-3.5 bg-black text-white rounded-full font-semibold text-[15px] md:text-[16px] hover:bg-gray-800 active:scale-[0.98] transition-all cursor-pointer shadow-[0_18px_45px_rgba(0,0,0,0.22)]"
-              data-testid="button-hero-cta"
-            >
-              Get started
-            </a>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Logo strip ───────────────────────────────────────────────────────────────
-
-function SocialProof() {
-  return (
-    <section
-      data-testid="social-proof-section"
-      className="w-full bg-white py-16 md:py-24 px-5 sm:px-8 md:px-10 border-y border-gray-100"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-        <p className="text-center text-[13px] text-gray-400 font-medium tracking-[0.04em] uppercase mb-8">
-          Built for businesses where customers are first
+        {/* Subtitle - high contrast, larger, crisp typography */}
+        <p className="mt-6 md:mt-7 max-w-[620px] text-balance text-[clamp(19px,2.1vw,22px)] leading-[1.48] text-neutral-950 font-normal mb-8 md:mb-10">
+          We build beautiful websites that help service businesses win trust, capture enquiries and book more appointments.
         </p>
 
-        {/* Infinite marquee */}
-        <div className="w-full overflow-hidden flex relative py-2 select-none pointer-events-none">
-          {/* Gradient fade borders */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
-
-          <motion.div
-            className="flex gap-20 whitespace-nowrap"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              ease: "linear",
-              duration: 35,
-              repeat: Infinity,
-            }}
-          >
-            {/* Duplicated multiple times to guarantee seamless scrolling */}
-            {Array(4)
-              .fill(TRUSTED_LOGOS)
-              .flat()
-              .map((name, i) => (
-                <span
-                  key={i}
-                  className="text-[17px] font-semibold text-gray-300 tracking-normal"
-                  data-testid={`logo-${name.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  {name}
-                </span>
-              ))}
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StatsSection() {
-  return (
-    <section
-      data-testid="stats-section"
-      className="w-full bg-white pt-16 md:pt-24 pb-10 md:pb-12 px-5 sm:px-8 md:px-10"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-left flex flex-col items-start">
-        {/* H2 heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl md:text-5xl font-bold tracking-tight text-gray-950 leading-[1.08] mb-0"
-        >
-          Designed to convert.
-          <br />
-          Built to scale.
-        </motion.h2>
-
-        {/* Stats Row */}
-        <div className="flex flex-row flex-wrap justify-start items-start gap-8 md:gap-12 mt-8 w-full">
-          {STATS.map((stat, i) => (
-            <motion.div
-              key={stat.value}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-                delay: i * 0.1,
-              }}
-              className="flex flex-col items-start text-left"
-              data-testid={`stat-block-${i}`}
+        {/* Single CTA */}
+        <div className="flex flex-col items-center">
+          <Link href="/get-started" asChild>
+            <a
+              className="inline-flex items-center gap-2.5 px-8 py-4 bg-neutral-950 text-white rounded-full font-medium text-[16px] md:text-[17px] hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer shadow-[0_12px_32px_rgba(0,0,0,0.18)]"
+              data-testid="button-hero-cta"
             >
-              <span
-                className="text-6xl md:text-[80px] font-bold tracking-tight text-gray-950 leading-none"
-                data-testid={`stat-value-${i}`}
-              >
-                {stat.value}
-              </span>
-              <span
-                className="text-[14px] md:text-[15px] font-normal text-neutral-500 mt-3 leading-tight"
-                data-testid={`stat-label-${i}`}
-              >
-                {stat.label}
-              </span>
-            </motion.div>
-          ))}
+              Book a website audit
+              <ChevronRight size={18} strokeWidth={2} />
+            </a>
+          </Link>
         </div>
       </div>
     </section>
   );
 }
 
-// ─── Value Proposition ────────────────────────────────────────────────────────
+// ─── Section 2: What We Do (Duna Editorial Blueprint) ───────────────────────
 
-const DriveRevenueIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-neutral-900 mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <rect x="3" y="3" width="18" height="18" rx="4" />
-    <path d="M7 16l4-4 4 3 3-5" />
-    <circle cx="7" cy="16" r="0.8" className="fill-neutral-900" />
-    <circle cx="11" cy="12" r="0.8" className="fill-neutral-900" />
-    <circle cx="15" cy="15" r="0.8" className="fill-neutral-900" />
-    <circle cx="18" cy="10" r="0.8" className="fill-neutral-900" />
-  </svg>
-);
-
-const ComplianceIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-neutral-900 mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <rect x="5" y="11" width="14" height="10" rx="3" />
-    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-    <circle cx="12" cy="16" r="0.8" className="fill-neutral-900" />
-  </svg>
-);
-
-const ReduceCostsIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-neutral-900 mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <circle cx="12" cy="12" r="10" />
-    <line x1="8" y1="12" x2="16" y2="12" />
-  </svg>
-);
-
-const VALUE_PROPS = [
-  {
-    Icon: DriveRevenueIcon,
-    heading: "Drive revenue",
-    body: "Fast, clear pages with zero friction between interest and action - built to turn decision-ready visitors into paying customers.",
-  },
-  {
-    Icon: ComplianceIcon,
-    heading: "Never lose a lead",
-    body: "Calendar booking and CRM automation capture, qualify, and follow up with every enquiry - before they go back and ask AI for the next option.",
-  },
-  {
-    Icon: ReduceCostsIcon,
-    heading: "Reduce costs",
-    body: "Automated reminders, follow-ups, and marketing workflows do the admin - so your team spends its time on the work that gets billed.",
-  },
-];
-
-function ValueProposition() {
+function WhatWeDoSection() {
   return (
     <section
-      data-testid="value-proposition-section"
-      className="w-full bg-white pt-0 pb-16 md:pb-24 px-5 sm:px-8 md:px-10"
+      data-testid="what-we-do-section"
+      className="w-full bg-[#fbfaf7] py-28 md:py-36 px-6 sm:px-8 md:px-12 border-b border-neutral-200/60"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-        {/* 3-column grid with line separators */}
-        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-neutral-200">
-          {VALUE_PROPS.map(({ Icon, heading, body }, i) => (
-            <motion.div
-              key={heading}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-                delay: i * 0.1,
-              }}
-              data-testid={`value-card-${i}`}
-              className={`px-0 py-10 md:px-8 md:py-12 flex flex-col items-start text-left ${
-                i < 2 ? "md:border-r md:border-neutral-200" : ""
-              }`}
-            >
-              {/* Icon — thin stroke, custom SVG */}
-              <Icon />
+      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* Left Column: Editorial narrative */}
+        <div className="lg:col-span-6 text-left">
+          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-normal tracking-[-0.045em] text-[#222221] leading-[1.12] mb-6">
+            Most service websites lose clients before they ever reach out.
+          </h2>
 
-              {/* Heading */}
-              <h3 className="text-[18px] md:text-[19px] font-bold text-gray-950 mb-3 leading-snug">
-                {heading}
-              </h3>
-
-              {/* Body */}
-              <p className="text-[14px] md:text-[15px] text-neutral-500 leading-relaxed font-normal">
-                {body}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── AI Visual Section ────────────────────────────────────────────────────────
-
-// ─── AI Awareness Cycle Section ────────────────────────────────────────────────
-
-const AWARENESS_SHIFTS = [
-  {
-    num: "01",
-    title: "AI search compresses attention",
-    body: "Fewer casual clicks, more decision-ready visitors. When they land, your site converts in seconds - or they're back asking AI for the next option.",
-  },
-  {
-    num: "02",
-    title: "Trust requirements keep rising",
-    body: "Outdated, slow, unclear, or generic gets filtered out instantly. Buyers decide whether you feel credible before they read a word.",
-  },
-  {
-    num: "03",
-    title: "The landing-page economy is exploding",
-    body: "Businesses need a page per offer, per campaign, per audience - not one homepage doing all the work.",
-  },
-  {
-    num: "04",
-    title: "AI answers are replacing browsing",
-    body: "Sites structured for clarity, proof, and intent get picked - by humans and by answer engines. Everyone else is invisible.",
-  },
-  {
-    num: "05",
-    title: "Credibility is the new competition",
-    body: "The winner isn't whoever has a website. It's whoever has a site that sells, proves, and positions.",
-  },
-];
-
-function AwarenessCycle() {
-  return (
-    <section
-      data-testid="awareness-cycle-section"
-      className="w-full bg-white py-20 md:py-28 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-14 lg:gap-20 items-start">
-          {/* Left: narrative */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:sticky lg:top-32 text-left"
-          >
-            <p className="font-serif italic text-[17px] md:text-[19px] text-[#8c887d] mb-4">
-              Why now
+          <div className="flex flex-col gap-5 text-[18.5px] sm:text-[20px] text-neutral-700 leading-[1.62] font-normal">
+            <p>
+              When someone searches for a specialist doctor, private clinic, or advisory firm, they decide in seconds whether to trust you. If your website feels outdated, loads slowly, or makes booking difficult, they leave for a competitor.
             </p>
-            <h2 className="text-4xl md:text-5xl font-normal tracking-tight text-gray-950 leading-[1.08] mb-7">
-              Your website is the only thing between{" "}
-              <span className="font-serif italic">paid</span> and the back
-              button.
-            </h2>
+            <p>
+              Credyr builds bespoke digital front doors and connects the systems behind the scenes — from first visit to automated response and calendar booking — so no client is lost.
+            </p>
+          </div>
+        </div>
 
-            <div className="flex flex-col gap-5 text-[16px] md:text-[17px] text-neutral-600 leading-relaxed font-normal max-w-xl">
-              <p>
-                When was the last time you browsed the internet without asking
-                AI first? AI became your Google, your Wikipedia, your shopping
-                assistant - and because it's that convenient, it became the
-                decision maker.
-              </p>
-              <p>
-                The new buying journey is short. Ask AI. Get the answer. Click
-                one link - credit card half out. Nobody spends fifteen minutes
-                comparing websites anymore. You get seconds to earn trust, or
-                that buyer is gone.
-              </p>
-              <p>
-                The demand isn't "AI websites." It's{" "}
-                <span className="font-serif italic text-gray-950">
-                  conversion infrastructure
-                </span>{" "}
-                - websites, landing pages, booking, and CRM automation built
-                for speed of decision, trust, and action.
-              </p>
-            </div>
-
-            <Link href="/get-started" asChild>
-              <a className="mt-9 inline-flex items-center gap-1.5 px-6 py-2.5 bg-black text-white rounded-full text-[14px] font-semibold hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer">
-                Book a website audit <ChevronRight className="w-3.5 h-3.5" />
-              </a>
-            </Link>
-          </motion.div>
-
-          {/* Right: the five shifts */}
-          <div className="flex flex-col text-left">
-            {AWARENESS_SHIFTS.map((shift, i) => (
-              <motion.div
-                key={shift.num}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{
-                  duration: 0.55,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: i * 0.06,
-                }}
-                className="grid grid-cols-[48px_1fr] gap-5 py-7 md:py-8 border-t border-neutral-200 last:border-b"
-              >
-                <span className="text-[12px] font-mono text-neutral-400 pt-1.5 tracking-widest">
-                  {shift.num}
-                </span>
-                <div>
-                  <h3 className="text-[18px] md:text-[20px] font-semibold text-gray-950 leading-snug mb-2">
-                    {shift.title}
-                  </h3>
-                  <p className="text-[14.5px] md:text-[15.5px] text-neutral-500 leading-relaxed font-normal">
-                    {shift.body}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+        {/* Right Column: Framed Editorial Artwork (inspired by Duna Foundation in duna_5.webp) */}
+        <div className="lg:col-span-6">
+          <div className="rounded-3xl border border-neutral-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.04)] overflow-hidden aspect-[4/3] bg-neutral-100">
+            <img
+              src="/editorial-canvas.jpg"
+              alt="Credyr editorial landscape"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>
@@ -1063,1396 +778,554 @@ function AwarenessCycle() {
   );
 }
 
-const NumberOneCircleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 text-current" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 8v8M10 10l2-2" />
-  </svg>
-);
+// ─── Section 3: Core Services (Duna Product Blueprint) ───────────────────────
 
-function OnboardHighlight() {
-  const [activeIndex, setActiveIndex] = useState(0);
+function ServicesSection() {
+  const [activeTab1, setActiveTab1] = useState(0);
+  const [activeTab2, setActiveTab2] = useState(0);
+  const [activeTab3, setActiveTab3] = useState(0);
 
-  const features = [
+  const service1Tabs = [
     {
-      icon: Briefcase,
-      title: "20+ Layout components",
-      desc: "Configure every page section to fit your campaign needs – from heroes to grids, forms, and more.",
-    },
-    {
-      icon: Zap,
-      title: "Optimised for conversion",
-      desc: "Benefit from data pre-fills, dynamic user interfaces, smart reminders, and intelligent optimisations.",
-    },
-    {
-      icon: NumberOneCircleIcon,
-      title: "First-time-right data collection",
-      desc: "Adapt data collection in real-time based on visitor behavior, country routing, and conversion rules.",
+      icon: ShieldCheck,
+      title: "Clinical Authority Architecture",
+      description:
+        "Position clinical expertise immediately with verified practitioner credentials, GMC registration, and intuitive treatment pathways.",
     },
     {
       icon: Globe,
-      title: "Multi-language ready",
-      desc: "Launch in 7+ languages out of the box. Visitors see your site in their language, automatically.",
+      title: "High-Converting Patient Journeys",
+      description:
+        "Crafted specifically for discerning patients seeking private specialist care, turning cautious visitors into confident bookings.",
+    },
+    {
+      icon: Smartphone,
+      title: "Mobile-First Specialist Discovery",
+      description:
+        "Over 70% of private patients research on mobile. Fast touch response, zero layout shift, and instant consultation reservation.",
+    },
+    {
+      icon: Lock,
+      title: "Fast, Accessible & Compliant Code",
+      description:
+        "Sub-second load times, WCAG AAA compliant typography, clean semantic markup, and strict data privacy standards.",
     },
   ];
 
-  return (
-    <section
-      data-testid="onboard-highlight-section"
-      className="w-full bg-[#fbfaf7] py-16 md:py-24 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-        {/* Header row */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
-          <div className="text-left">
-            <span className="inline-block bg-[#eae7e1]/50 border border-neutral-250/20 text-neutral-600 rounded-full px-3 py-1 text-[12px] font-medium mb-4">
-              Onboard
-            </span>
-            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-950 leading-[1.1] mb-3">
-              Drive revenue with Credyr Onboard
-            </h2>
-            <p className="text-lg md:text-[19px] text-neutral-500 font-normal leading-relaxed">
-              High-converting page and booking journeys, no code required.
-            </p>
-          </div>
-          <div className="flex-shrink-0">
-            <Link to="/product/websites" className="inline-flex items-center gap-1.5 px-6 py-2.5 border border-neutral-250/80 rounded-full text-[14px] font-semibold text-gray-950 hover:bg-neutral-50 transition-all hover:shadow-[0_2px_8px_rgba(0,0,0,0.02)] bg-white">
-              Explore <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Two-column layout grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-stretch">
-          {/* Left Column: Visual Showcase */}
-          <div className="bg-[#f5f3ef]/80 border border-neutral-200/60 rounded-[32px] p-6 md:p-10 flex items-center justify-center min-h-[440px] relative overflow-hidden">
-            <AnimatePresence mode="wait">
-              {activeIndex === 0 && (
-                <motion.div
-                  key="modules"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col gap-2.5 w-full max-w-[290px] select-none text-left"
-                >
-                  {/* Web sections templates list */}
-                  {[
-                    { label: "Pricing grid", color: "text-rose-500 bg-rose-50/80", icon: DollarSign },
-                    { label: "Hero header", color: "text-blue-500 bg-blue-50/80", icon: LayoutList },
-                    { label: "Feature list", color: "text-amber-600 bg-amber-50/80", icon: CheckSquare },
-                    {
-                      label: "Contact form",
-                      color: "text-white bg-purple-600",
-                      icon: MessageSquare,
-                      isActive: true,
-                    },
-                    { label: "Testimonials", color: "text-teal-500 bg-teal-50/80", icon: Users },
-                    { label: "FAQ section", color: "text-emerald-600 bg-emerald-50/80", icon: FileText },
-                    { label: "Footer layout", color: "text-neutral-500 bg-neutral-100/80", icon: Eye },
-                  ].map((m, idx) => {
-                    const MIcon = m.icon;
-                    return (
-                      <motion.div
-                        key={m.label}
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                        className={`flex items-center gap-3.5 px-4 py-2.5 rounded-2xl border transition-all ${
-                          m.isActive
-                            ? "bg-white border-purple-100 shadow-[0_12px_28px_rgba(147,51,234,0.06),0_4px_8px_rgba(147,51,234,0.03)] scale-[1.04]"
-                            : "bg-white/70 border-neutral-200/40 text-neutral-600"
-                        }`}
-                      >
-                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${m.color}`}>
-                          <MIcon className="w-4.5 h-4.5" />
-                        </div>
-                        <span className={`text-[14px] ${m.isActive ? "font-bold text-gray-950" : "font-semibold"}`}>
-                          {m.label}
-                        </span>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              )}
-
-              {activeIndex === 1 && (
-                <motion.div
-                  key="conversion"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full max-w-[280px] select-none flex flex-col gap-3 text-left"
-                >
-                  {/* Credyr conversion autofill card mockup adapted to website context */}
-                  <div className="flex flex-col gap-1 w-full">
-                    <span className="text-[11.5px] font-bold text-neutral-400 uppercase tracking-wider pl-0.5">
-                      Business search
-                    </span>
-                    <div className="flex items-center gap-2.5 px-4 py-3 rounded-2xl border border-emerald-500 bg-white shadow-xs">
-                      <Search className="w-4 h-4 text-neutral-400" />
-                      <span className="text-[14px] text-gray-900 font-semibold">Credyr B.V.</span>
-                    </div>
-                  </div>
-
-                  {/* Down Arrow */}
-                  <div className="flex justify-center -my-0.5">
-                    <svg width="10" height="24" viewBox="0 0 10 24" fill="none" stroke="#d4d4d8" strokeWidth="1.5">
-                      <line x1="5" y1="0" x2="5" y2="24" />
-                      <path d="M2 19l3 3 3-3" />
-                    </svg>
-                  </div>
-
-                  {/* Card 1 */}
-                  <div className="bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-1">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 rounded bg-gray-950 flex items-center justify-center text-[9px] text-white">✦</div>
-                      <span className="text-[14px] font-bold text-gray-900">Business details</span>
-                    </div>
-                    <div className="flex items-center gap-1 pl-7 text-[12px] text-emerald-600 font-bold">
-                      <Zap className="w-3.5 h-3.5 fill-emerald-600" /> Autofilled
-                    </div>
-                  </div>
-
-                  {/* Down Arrow */}
-                  <div className="flex justify-center -my-0.5">
-                    <svg width="10" height="24" viewBox="0 0 10 24" fill="none" stroke="#d4d4d8" strokeWidth="1.5">
-                      <line x1="5" y1="0" x2="5" y2="24" />
-                      <path d="M2 19l3 3 3-3" />
-                    </svg>
-                  </div>
-
-                  {/* Card 2 */}
-                  <div className="bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-1">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 rounded bg-gray-950 flex items-center justify-center text-[9px] text-white">✦</div>
-                      <span className="text-[14px] font-bold text-gray-900">Representatives</span>
-                    </div>
-                    <div className="flex items-center gap-1 pl-7 text-[12px] text-emerald-600 font-bold">
-                      <Zap className="w-3.5 h-3.5 fill-emerald-600" /> Autofilled
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {activeIndex === 2 && (
-                <motion.div
-                  key="data-collection"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full max-w-[320px] select-none flex items-center justify-between text-left relative"
-                >
-                  {/* Left Card: Settings */}
-                  <div className="w-[125px] bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-2">
-                    <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mb-1">Settings</span>
-                    <div className="bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1.5 text-[11px] font-bold text-neutral-600">
-                      Risk level: Medium
-                    </div>
-                    <div className="bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1.5 text-[11px] font-bold text-neutral-600">
-                      Country: NL
-                    </div>
-                    <div className="bg-neutral-50 border border-neutral-200/60 rounded-lg px-2.5 py-1.5 text-[11px] font-bold text-neutral-600">
-                      Business type: SaaS
-                    </div>
-                  </div>
-
-                  {/* Connecting Schematic Line */}
-                  <div className="flex-1 h-[90px] flex items-center justify-center">
-                    <svg width="32" height="90" viewBox="0 0 32 90" fill="none" stroke="#d4d4d8" strokeWidth="1.5">
-                      <path d="M0 20 H8 Q16 20 16 35 V55 Q16 70 8 70 H0" />
-                      <path d="M0 45 H16" />
-                      <path d="M32 20 H24 Q16 20 16 35 V55 Q16 70 24 70 H32" />
-                      <path d="M32 45 H16" />
-                    </svg>
-                  </div>
-
-                  {/* Right Card: Information */}
-                  <div className="w-[135px] bg-white border border-neutral-200/50 rounded-2xl p-4 shadow-sm flex flex-col gap-2">
-                    <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mb-1">Information</span>
-                    {[
-                      { label: "UBO" },
-                      { label: "Bank account" },
-                      { label: "Ownership" },
-                    ].map((row) => (
-                      <div key={row.label} className="flex items-center justify-between py-1 border-b border-neutral-50 last:border-0">
-                        <span className="text-[12px] font-bold text-neutral-600">{row.label}</span>
-                        <div className="w-4.5 h-4.5 rounded-full bg-neutral-900 text-white flex items-center justify-center text-[10px] shrink-0 font-bold select-none leading-none">
-                          ✓
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {activeIndex === 3 && (
-                <motion.div
-                  key="localization"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full max-w-[260px] select-none"
-                >
-                  {/* Credyr-style language selector dropdown */}
-                  <div className="bg-white border border-neutral-200/50 rounded-2xl overflow-hidden shadow-lg">
-                    {/* Selected language row */}
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-100">
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-lg leading-none">🇬🇧</span>
-                        <span className="text-[14px] font-semibold text-gray-900">English</span>
-                      </div>
-                      <ChevronRight className="w-3.5 h-3.5 text-neutral-400 rotate-90" />
-                    </div>
-
-                    {/* Dropdown list */}
-                    <div className="flex flex-col divide-y divide-neutral-50">
-                      {[
-                        { flag: "🇩🇪", label: "Deutsch",    active: false },
-                        { flag: "🇬🇧", label: "English",    active: true  },
-                        { flag: "🇪🇸", label: "Español",    active: false },
-                        { flag: "🇫🇷", label: "Français",   active: false },
-                        { flag: "🇮🇹", label: "Italiano",   active: false },
-                        { flag: "🇳🇱", label: "Nederlands", active: false },
-                        { flag: "🇵🇹", label: "Português",  active: false },
-                      ].map((lang, i) => (
-                        <motion.div
-                          key={lang.label}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
-                          className={`flex items-center justify-between px-4 py-2.5 ${
-                            lang.active ? "bg-neutral-50" : "bg-white"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <span className="text-base leading-none">{lang.flag}</span>
-                            <span className={`text-[13px] font-semibold ${
-                              lang.active ? "text-gray-950" : "text-neutral-500"
-                            }`}>{lang.label}</span>
-                          </div>
-                          {lang.active && (
-                            <span className="text-[12px] text-neutral-400">✓</span>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Right Column: Clickable Features Accordion */}
-          <div className="flex flex-col justify-center gap-4 text-left w-full">
-            {features.map((f, index) => {
-              const FIcon = f.icon;
-              const isActive = index === activeIndex;
-
-              return (
-                <button
-                  key={f.title}
-                  onClick={() => setActiveIndex(index)}
-                  className={`w-full text-left rounded-2xl transition-all duration-300 border focus:outline-none cursor-pointer ${
-                    isActive
-                      ? "bg-[#eae7e1]/45 border-neutral-250/20 shadow-[0_4px_12px_rgba(0,0,0,0.02)] p-6"
-                      : "bg-transparent border-transparent hover:bg-[#eae7e1]/20 p-5"
-                  }`}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                      isActive ? "bg-gray-950 text-white" : "bg-[#eae7e1]/50 text-neutral-500"
-                    }`}>
-                      <FIcon className="w-5 h-5" />
-                    </div>
-                    <span className={`text-[16px] md:text-[17px] font-bold text-gray-950`}>
-                      {f.title}
-                    </span>
-                  </div>
-
-                  <AnimatePresence initial={false}>
-                    {isActive && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                        animate={{ opacity: 1, height: "auto", marginTop: 12 }}
-                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <p className="text-sm md:text-[14.5px] text-neutral-600 leading-relaxed pl-14 font-normal">
-                          {f.desc}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Infrastructure Hub ───────────────────────────────────────────────────────
-
-// ─── Our Services Section ──────────────────────────────────────────────────────
-
-function BrandVisual() {
-  return (
-    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#faf9f6] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-200/80 shadow-sm">
-      {/* Top label row */}
-      <div className="flex justify-between items-start">
-        <span className="text-[11px] font-mono tracking-widest text-neutral-400 uppercase">
-          Brand Identity / V1
-        </span>
-        <span className="text-[11px] font-mono tracking-widest text-neutral-300">
-          © 2026
-        </span>
-      </div>
-
-      {/* Center: Brand identity elements */}
-      <div className="flex-1 flex flex-col items-start justify-center gap-5 my-4">
-
-        {/* Logo mark + wordmark */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-3"
-        >
-          <div className="w-9 h-9 rounded-lg bg-gray-950 flex items-center justify-center shrink-0">
-            <span className="text-white text-[16px] font-bold leading-none">✦</span>
-          </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-[18px] font-bold text-gray-950 tracking-tight leading-none">Credyr</span>
-            <span className="text-[11px] text-neutral-400 font-medium mt-0.5">Brand System</span>
-          </div>
-        </motion.div>
-
-        {/* Color palette strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col gap-2 w-full"
-        >
-          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Colour Palette</span>
-          <div className="flex gap-2">
-            {[
-              { bg: "bg-gray-950", label: "Ink" },
-              { bg: "bg-[#e6e2da]", label: "Sand" },
-              { bg: "bg-[#fbfaf7]", label: "Cream", border: true },
-              { bg: "bg-neutral-400", label: "Mist" },
-              { bg: "bg-neutral-200", label: "Haze", border: true },
-            ].map((c) => (
-              <div key={c.label} className="flex flex-col items-center gap-1.5">
-                <div className={`w-8 h-8 rounded-xl ${c.bg} ${c.border ? "border border-neutral-200/80" : ""}`} />
-                <span className="text-[9px] text-neutral-400 font-medium">{c.label}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Type specimen */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full border-t border-neutral-100 pt-4"
-        >
-          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block mb-2">Typography</span>
-          <div className="flex items-baseline gap-4">
-            <span className="text-[28px] font-bold text-gray-950 leading-none tracking-tight">Aa</span>
-            <div className="flex flex-col gap-0.5">
-              <span className="text-[11px] font-semibold text-neutral-600">GT America</span>
-              <span className="text-[10px] text-neutral-400 font-medium">Regular · Medium · Bold</span>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Bottom footer row */}
-      <div className="flex justify-between items-end border-t border-neutral-100 pt-4">
-        <span className="text-[10px] text-neutral-400 font-mono">
-          STRATEGY / IDENTITY / SYSTEM
-        </span>
-        <span className="text-[10px] text-neutral-300 font-mono">
-          CREDYR®
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function DigitalVisual() {
-  return (
-    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#faf9f6] flex flex-col justify-between p-6 md:p-8 select-none border border-neutral-200/80 shadow-sm">
-      {/* Top label row */}
-      <div className="flex justify-between items-start">
-        <span className="text-[11px] font-mono tracking-widest text-neutral-400 uppercase">
-          Website Design / UX
-        </span>
-        <span className="text-[11px] font-mono tracking-widest text-neutral-300">
-          Live Preview
-        </span>
-      </div>
-
-      {/* Center: Browser UI mockup */}
-      <div className="flex-1 flex items-center justify-center my-4">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-[360px] rounded-2xl bg-white border border-neutral-200/70 shadow-lg overflow-hidden"
-        >
-          {/* Browser chrome */}
-          <div className="flex items-center gap-2 px-3 py-2.5 bg-neutral-50 border-b border-neutral-100">
-            <div className="flex gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-neutral-300" />
-              <div className="w-2 h-2 rounded-full bg-neutral-300" />
-              <div className="w-2 h-2 rounded-full bg-neutral-300" />
-            </div>
-            <div className="flex-1 mx-2 h-4 bg-neutral-100 rounded-full flex items-center px-2">
-              <span className="text-[8px] text-neutral-400 font-mono tracking-wide">credyr.com/studio</span>
-            </div>
-          </div>
-
-          {/* Page content */}
-          <div className="p-4 bg-white">
-            {/* Nav */}
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center gap-1.5">
-                <div className="w-4 h-4 rounded-md bg-gray-950 flex items-center justify-center">
-                  <span className="text-white text-[7px] font-bold">✦</span>
-                </div>
-                <div className="w-10 h-2 bg-gray-800 rounded-full" />
-              </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-1.5 bg-neutral-200 rounded-full" />
-                <div className="w-8 h-1.5 bg-neutral-200 rounded-full" />
-                <div className="w-8 h-1.5 bg-neutral-200 rounded-full" />
-                <div className="w-14 h-5 bg-gray-950 rounded-full" />
-              </div>
-            </div>
-
-            {/* Hero section */}
-            <div className="mb-4">
-              <div className="w-16 h-2 bg-neutral-200 rounded-full mb-2" />
-              <div className="w-48 h-4 bg-gray-900 rounded-full mb-1.5" />
-              <div className="w-36 h-4 bg-gray-900 rounded-full mb-3" />
-              <div className="space-y-1 mb-4">
-                <div className="w-52 h-1.5 bg-neutral-200 rounded-full" />
-                <div className="w-44 h-1.5 bg-neutral-200 rounded-full" />
-                <div className="w-32 h-1.5 bg-neutral-200 rounded-full" />
-              </div>
-              <div className="flex gap-2">
-                <div className="w-20 h-6 bg-gray-950 rounded-full" />
-                <div className="w-20 h-6 border border-neutral-200 rounded-full" />
-              </div>
-            </div>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-3 gap-2 border-t border-neutral-100 pt-3">
-              {[["3.2×", "Avg. ROI"], ["94%", "Retention"], ["2 wk", "Launch"]].map(([val, lbl]) => (
-                <div key={lbl} className="flex flex-col gap-0.5">
-                  <span className="text-[11px] font-bold text-gray-900">{val}</span>
-                  <span className="text-[8px] text-neutral-400 font-medium">{lbl}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Bottom footer row */}
-      <div className="flex justify-between items-end border-t border-neutral-100 pt-4">
-        <span className="text-[10px] text-neutral-400 font-mono">
-          STRATEGY / DESIGN / BUILD
-        </span>
-        <span className="text-[10px] text-neutral-300 font-mono">
-          CREDYR®
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function OurServices() {
-  const brandServices = [
-    "Brand Strategy",
-    "Positioning",
-    "Brand architecture",
-    "Naming",
-    "Visual identity",
-    "Verbal identity",
-    "Design Systems",
-    "Brand Guidelines",
+  const service2Tabs = [
+    {
+      icon: Calendar,
+      title: "Live Schedule Synchronization",
+      description:
+        "Clients select confirmed consultation slots directly on your website, with calendar invites and intake links dispatched automatically.",
+    },
+    {
+      icon: Users,
+      title: "Clinician & Room Routing",
+      description:
+        "Route appointments intelligently based on practitioner specialties, consultation rooms, and bespoke treatment times.",
+    },
+    {
+      icon: Bell,
+      title: "Automated SMS & Email Reminders",
+      description:
+        "Eliminate costly no-shows with timed pre-visit reminders, location directions, and calendar updates (.ics, Google, Outlook).",
+    },
+    {
+      icon: CheckCircle,
+      title: "Two-Way Calendar Synchronization",
+      description:
+        "Direct two-way synchronization with your existing calendar keeps your schedule accurate without manual checks.",
+    },
   ];
 
-  const digitalServices = [
-    "Digital strategy",
-    "Website UX",
-    "Website UI",
-    "Platform & Product UI",
-    "Website development",
-    "Ongoing optimisation",
+  const service3Tabs = [
+    {
+      icon: Zap,
+      title: "Instant Multi-Channel Dispatch",
+      description:
+        "Acknowledge every consultation enquiry within seconds via branded SMS confirmation and pre-visit intake details.",
+    },
+    {
+      icon: Database,
+      title: "Direct Practice CRM Integration",
+      description:
+        "Sync patient records, consultation notes, and intake documents directly into HubSpot, Cliniko, or your custom CRM.",
+    },
+    {
+      icon: FileText,
+      title: "Automated Intake Questionnaires",
+      description:
+        "Collect patient medical background, symptoms, and consent securely prior to the appointment without paper forms.",
+    },
+    {
+      icon: CheckSquare,
+      title: "Complete Interaction Audit Trail",
+      description:
+        "Every SMS sent, link opened, and confirmation dispatched is logged with exact timestamps in your client activity feed.",
+    },
   ];
 
   return (
     <section
       id="services"
-      data-testid="our-services-section"
-      className="w-full bg-[#fbfaf7] py-20 md:py-32 px-5 sm:px-8 md:px-10 border-t border-neutral-100"
+      data-testid="services-section"
+      className="w-full bg-white py-28 md:py-36 px-6 sm:px-8 md:px-12 border-b border-neutral-200/60"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-left">
+      <div className="max-w-6xl mx-auto w-full">
         {/* Section Header */}
-        <div className="max-w-4xl mb-20 md:mb-28">
-          <p className="font-serif italic text-[17px] md:text-[19px] text-[#8c887d] mb-4">
-            Our Services
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-[60px] font-normal tracking-tight text-gray-950 leading-[1.05] max-w-3xl">
-            Blending brand and digital we turn <span className="font-serif italic">emotional connection</span> into <span className="font-serif italic text-neutral-700">meaningful growth</span>.
+        <div className="max-w-3xl mb-24 md:mb-32 text-left">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-normal tracking-[-0.04em] text-[#222221] leading-[1.12] mb-5">
+            Three services. One complete conversion system.
           </h2>
-        </div>
-
-        {/* Services Columns */}
-        <div className="flex flex-col gap-24 md:gap-32">
-          
-          {/* Row 1: Brand */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
-            {/* Visual block */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <BrandVisual />
-            </motion.div>
-
-            {/* Info block */}
-            <div className="flex flex-col items-start">
-              {/* Category Header */}
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-2xl font-bold font-serif text-gray-950">Brand</h3>
-              </div>
-
-              {/* Description */}
-              <p className="text-[16px] md:text-[17px] text-neutral-600 leading-relaxed font-normal mb-8">
-                Brand is how your business shows up in the world. It shapes perception, builds trust, and gives people a reason to believe in what you do. We define the strategy, narrative and identity that bring your brand into focus.
-              </p>
-
-              {/* Sub-services list */}
-              <ul className="flex flex-col gap-3">
-                {brandServices.map((service, idx) => (
-                  <motion.li
-                    key={service}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.05 }}
-                    className="text-[17px] md:text-[18px] text-gray-750 hover:text-gray-950 font-serif italic cursor-pointer transition-colors duration-150 relative group w-fit"
-                  >
-                    {service}
-                    <span className="absolute bottom-0 left-0 w-0 h-px bg-gray-400 group-hover:w-full transition-all duration-200" />
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Row 2: Digital */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
-            {/* Visual block (order-last on large screens to offset) */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:order-last"
-            >
-              <DigitalVisual />
-            </motion.div>
-
-            {/* Info block */}
-            <div className="flex flex-col items-start">
-              {/* Category Header */}
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-2xl font-bold font-serif text-gray-950">Digital</h3>
-              </div>
-
-              {/* Description */}
-              <p className="text-[16px] md:text-[17px] text-neutral-600 leading-relaxed font-normal mb-8">
-                Digital is where your brand is experienced. It’s how people engage, interact, and decide. We design and build digital experiences that turn a single, defining feeling into seamless journeys – from strategy and UX to design and development.
-              </p>
-
-              {/* Sub-services list */}
-              <ul className="flex flex-col gap-3 mb-8">
-                {digitalServices.map((service, idx) => (
-                  <motion.li
-                    key={service}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.05 }}
-                    className="text-[17px] md:text-[18px] text-gray-750 hover:text-gray-950 font-serif italic cursor-pointer transition-colors duration-150 relative group w-fit"
-                  >
-                    {service}
-                    <span className="absolute bottom-0 left-0 w-0 h-px bg-gray-400 group-hover:w-full transition-all duration-200" />
-                  </motion.li>
-                ))}
-              </ul>
-
-              {/* Project links under Digital */}
-              <div className="flex items-center gap-4 flex-wrap border-t border-neutral-200/60 pt-6 w-full">
-                <span className="text-xs font-semibold text-neutral-400 uppercase tracking-widest mr-2 font-mono">Featured Projects:</span>
-                {["Charlie Oscar", "Vertical", "Venga"].map((proj) => (
-                  <a
-                    key={proj}
-                    href="#"
-                    className="text-[13px] font-semibold text-neutral-700 hover:text-black flex items-center gap-0.5 group transition-colors font-mono"
-                  >
-                    {proj}
-                    <span className="inline-block transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150">↘</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Feature Highlight ────────────────────────────────────────────────────────
-
-type FeatureItem = {
-  id: string;
-  icon: React.ElementType;
-  title: string;
-  description: string;
-};
-
-type DashboardItem = {
-  label: string;
-  count: number | null;
-  active: boolean;
-};
-
-type DashboardState = {
-  title: string;
-  items: DashboardItem[];
-};
-
-const FEATURE_ITEMS: FeatureItem[] = [
-  {
-    id: "automated",
-    icon: CheckSquare,
-    title: "Full-Cycle Websites",
-    description:
-      "Turn attention into action with a fast, clear site that sells your offer before the buyer loses interest.",
-  },
-  {
-    id: "efficiency",
-    icon: Zap,
-    title: "Landing pages at scale",
-    description:
-      "Build focused pages per offer, campaign, and audience so every visitor lands on the argument they need.",
-  },
-  {
-    id: "messaging",
-    icon: MessageSquare,
-    title: "Trust-first messaging",
-    description:
-      "Make proof, positioning, and next steps obvious enough for decision-ready visitors to act quickly.",
-  },
-  {
-    id: "audit",
-    icon: SlidersHorizontal,
-    title: "Clear performance view",
-    description:
-      "See which pages, offers, and proof points create action so the site keeps improving over time.",
-  },
-];
-
-const DASHBOARD_STATES: Record<string, DashboardState> = {
-  automated: {
-    title: "Launch Checklist",
-    items: [
-      { label: "Mobile speed optimization", count: 99, active: true },
-      { label: "SEO schema structure", count: 1, active: false },
-      { label: "Trust system synchronization", count: 4, active: false },
-      { label: "Form fields friction cut", count: 2, active: false },
-      { label: "All tasks completed", count: null, active: false },
-    ],
-  },
-  efficiency: {
-    title: "Campaign Pages",
-    items: [
-      { label: "Dental Implants Offer", count: 8, active: true },
-      { label: "Emergency Care Page", count: 3, active: false },
-      { label: "Teeth Whitening Special", count: 4, active: false },
-      { label: "Local Cleaning Campaign", count: 2, active: false },
-      { label: "All active campaigns", count: null, active: false },
-    ],
-  },
-  messaging: {
-    title: "Collect Trust Signals",
-    items: [],
-  },
-  audit: {
-    title: "Performance Logs",
-    items: [
-      { label: "Daily conversion check", count: 8, active: true },
-      { label: "Active A/B tests", count: 3, active: false },
-      { label: "Page Speed auto scans", count: 12, active: false },
-      { label: "Analytics exports ready", count: 2, active: false },
-      { label: "All records normal", count: null, active: false },
-    ],
-  },
-};
-
-function MessagingPreview() {
-  return (
-    <div className="relative mx-auto flex min-h-[360px] max-w-[560px] items-center justify-center overflow-hidden rounded-[28px] bg-[#ebe9e5] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_70px_rgba(0,0,0,0.08)] md:min-h-[460px] md:p-12">
-      {/* Stacked ghost cards behind */}
-      <div className="absolute left-1/2 top-[22%] h-24 w-[72%] -translate-x-1/2 rounded-2xl bg-white/45 shadow-[0_12px_40px_rgba(0,0,0,0.04)]" />
-      <div className="absolute left-1/2 top-[18%] h-24 w-[64%] -translate-x-1/2 rounded-2xl bg-white/30 shadow-[0_12px_40px_rgba(0,0,0,0.03)]" />
-
-      {/* Main modal card */}
-      <div className="relative w-full max-w-[420px] rounded-2xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden">
-        {/* Card header */}
-        <div className="flex items-center gap-3 px-6 py-5 border-b border-neutral-100">
-          <MessageSquare size={16} strokeWidth={1.6} className="text-gray-500" />
-          <span className="text-[17px] font-semibold text-gray-900">Request Page Content</span>
-        </div>
-
-        {/* Message body */}
-        <div className="px-6 py-5">
-          <p className="text-[13px] text-gray-500 leading-relaxed mb-5">
-            Send a structured brief to your client to collect copy, images &amp; assets for the build.
+          <p className="text-[19px] md:text-[21px] text-neutral-600 leading-relaxed font-normal">
+            We handle the design, build the booking flows, and connect the automated follow-up that turns visitors into confirmed appointments.
           </p>
-
-          {/* Textarea mockup */}
-          <div className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 min-h-[80px] flex items-start">
-            <span className="text-[13px] text-neutral-300 leading-relaxed select-none">
-              Write your message to the client…
-            </span>
-          </div>
         </div>
 
-        {/* Action row */}
-        <div className="flex items-center justify-between gap-4 px-6 pb-5">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 text-[13px] font-semibold text-gray-400 hover:text-gray-700 transition-colors"
-          >
-            <X size={14} strokeWidth={1.8} />
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-[13px] font-semibold text-white hover:bg-gray-700 transition-colors"
-          >
-            <ChevronRight size={14} strokeWidth={1.8} className="rotate-180" />
-            Send request
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const PERFORMANCE_METRICS = [
-  { label: "Site visitors", value: "3,842", change: "+18%" },
-  { label: "Booked calls", value: "126", change: "+31%" },
-  { label: "Conversion", value: "8.4%", change: "+2.1%" },
-];
-
-const PERFORMANCE_PAGES = [
-  { label: "Dental implants", value: "12.8%", width: "92%" },
-  { label: "Emergency dentist", value: "9.6%", width: "74%" },
-  { label: "Whitening offer", value: "6.1%", width: "52%" },
-];
-
-function PerformancePreview() {
-  return (
-    <div className="relative mx-auto flex min-h-[360px] max-w-[560px] items-center justify-center overflow-hidden rounded-[28px] bg-[#ebe9e5] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_70px_rgba(0,0,0,0.08)] md:min-h-[460px] md:p-10">
-      <div className="w-full max-w-[430px] rounded-2xl bg-white p-5 shadow-[0_20px_60px_rgba(0,0,0,0.1)]">
-        <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
-          <div>
-            <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-neutral-400">
-              Performance
-            </p>
-            <h3 className="mt-1 text-[22px] font-semibold leading-tight text-neutral-900">
-              Conversion overview
-            </h3>
-          </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-700">
-            <LineChart size={20} strokeWidth={1.7} aria-hidden="true" />
-          </div>
-        </div>
-
-        <div className="mt-5 grid grid-cols-3 gap-3">
-          {PERFORMANCE_METRICS.map((metric) => (
-            <div key={metric.label} className="rounded-xl bg-neutral-50 p-3">
-              <p className="text-[11px] leading-tight text-neutral-400">
-                {metric.label}
-              </p>
-              <p className="mt-2 text-[20px] font-semibold leading-none text-neutral-900">
-                {metric.value}
-              </p>
-              <p className="mt-2 text-[11px] font-semibold text-emerald-600">
-                {metric.change}
-              </p>
+        {/* 3 Duna-Style Feature Blocks */}
+        <div className="flex flex-col gap-28 md:gap-36">
+          {/* ── Feature 1: Websites & Landing Pages ── */}
+          <div className="flex flex-col gap-10">
+            {/* Header row: Title + Subtitle on Left, Explore CTA on Right */}
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-2 text-left">
+              <div className="max-w-2xl">
+                <h3 className="text-2xl sm:text-3xl md:text-[40px] font-normal tracking-[-0.04em] text-[#222221] leading-[1.14] mb-3">
+                  Bespoke websites that establish clinical authority
+                </h3>
+                <p className="text-[18px] md:text-[19.5px] text-neutral-600 leading-[1.5] font-normal">
+                  Digital front doors crafted specifically for high-trust specialist practices and private clinics.
+                </p>
+              </div>
+              <Link href="/product/websites" asChild>
+                <a className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-neutral-300 text-[14.5px] font-medium text-neutral-900 hover:border-neutral-900 transition-colors shrink-0 self-start sm:self-auto">
+                  Explore websites <ChevronRight className="w-4 h-4" />
+                </a>
+              </Link>
             </div>
-          ))}
-        </div>
 
-        <div className="mt-6">
-          <div className="mb-3 flex items-center justify-between">
-            <p className="text-[13px] font-semibold text-neutral-900">
-              Top converting pages
-            </p>
-            <p className="text-[12px] text-neutral-400">Last 30 days</p>
-          </div>
-
-          <div className="space-y-4">
-            {PERFORMANCE_PAGES.map((page) => (
-              <div key={page.label}>
-                <div className="mb-1.5 flex items-center justify-between gap-4">
-                  <span className="text-[13px] font-medium text-neutral-700">
-                    {page.label}
-                  </span>
-                  <span className="text-[13px] font-semibold text-neutral-900">
-                    {page.value}
-                  </span>
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-neutral-100">
-                  <div
-                    className="h-full rounded-full bg-neutral-900"
-                    style={{ width: page.width }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2 text-center">
-            {["Visit", "Lead", "Booked"].map((step, index) => (
-              <div key={step} className="contents">
-                <div className="rounded-lg bg-[#ebe9e5] px-3 py-2 text-[12px] font-semibold text-neutral-700">
-                  {step}
-                </div>
-                {index < 2 && (
-                  <ChevronRight
-                    size={16}
-                    strokeWidth={1.8}
-                    className="text-neutral-300"
-                    aria-hidden="true"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FeatureHighlight() {
-  const [activeId, setActiveId] = useState<string>("automated");
-  const activeDashboard = DASHBOARD_STATES[activeId];
-
-  return (
-    <section
-      data-testid="feature-highlight-section"
-      className="w-full bg-[#faf9f6] py-16 md:py-24 px-5 sm:px-8 md:px-10"
-    >
-      {/* Header row */}
-      <div className="flex flex-col md:flex-row items-start justify-between gap-8 mb-12 md:mb-16">
-        <div>
-          {/* Pill label */}
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-block border border-gray-200 rounded-full px-3 py-1 text-[12px] text-gray-600 font-medium mb-5"
-          >
-            Decide
-          </motion.span>
-
-          {/* H2 */}
-          <motion.h2
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-            className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-950 leading-[1.1] max-w-lg"
-          >
-            Save time with automated lead management
-          </motion.h2>
-
-          {/* Sub-headline */}
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="font-sans text-lg text-gray-600 mt-4 leading-relaxed max-w-md font-normal"
-          >
-            Increase booking quality and cut costs by removing manual
-            follow-up from your team's plate.
-          </motion.p>
-        </div>
-
-        {/* Explore link */}
-        <motion.a
-          href="#"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-          className="hidden md:flex items-center gap-1.5 border border-gray-300 rounded-full px-4 py-2 text-[13px] text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap shrink-0 mt-1"
-        >
-          Explore <ArrowUpRight size={12} strokeWidth={1.5} />
-        </motion.a>
-      </div>
-
-      {/* Two-column body */}
-      <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start">
-        {/* Left — feature list */}
-        <div className="flex-1 flex flex-col gap-1">
-          {FEATURE_ITEMS.map((item, i) => {
-            const Icon = item.icon;
-            const isActive = activeId === item.id;
-            return (
-              <motion.button
-                key={item.id}
-                type="button"
-                initial={{ opacity: 0, x: -12 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: i * 0.07,
-                }}
-                onClick={() => setActiveId(item.id)}
-                className={`w-full rounded-[20px] px-5 py-5 text-left cursor-pointer transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 border ${
-                  isActive
-                    ? "bg-[#ebe9e5] border-transparent"
-                    : "bg-transparent border-transparent hover:bg-[#ebe9e5]/35"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <Icon
-                    size={16}
-                    strokeWidth={1.5}
-                    className={isActive ? "text-gray-950" : "text-gray-800"}
-                  />
-                  <span
-                    className="text-[15px] font-semibold text-gray-950"
-                  >
-                    {item.title}
-                  </span>
-                </div>
-                <AnimatePresence initial={false}>
-                  {isActive && (
-                    <motion.p
-                      key="desc"
-                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                      animate={{ opacity: 1, height: "auto", marginTop: 8 }}
-                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                      className="font-sans text-[13px] text-gray-600 leading-[1.65] pl-7 overflow-hidden"
-                    >
-                      {item.description}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            );
-          })}
-
-          {/* Bottom explore link — mobile only */}
-          <a
-            href="#"
-            className="md:hidden flex items-center gap-1.5 text-[13px] text-gray-500 mt-4 pl-4 hover:text-gray-800 transition-colors"
-          >
-            Explore <ArrowUpRight size={12} strokeWidth={1.5} />
-          </a>
-        </div>
-
-        {/* Right — dashboard card */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="flex-1 md:flex-[1.1]"
-        >
-          <AnimatePresence mode="wait">
-            {activeId === "messaging" ? (
-              <motion.div
-                key="messaging-preview"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <MessagingPreview />
-              </motion.div>
-            ) : activeId === "audit" ? (
-              <motion.div
-                key="performance-preview"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <PerformancePreview />
-              </motion.div>
-            ) : (
-              <motion.div
-                key={activeId}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                className="relative overflow-hidden rounded-[28px] bg-[#ebe9e5] shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_70px_rgba(0,0,0,0.08)] min-h-[360px] md:min-h-[420px]"
-              >
-                {/* Credyr-style stacked row list */}
-                <div className="absolute inset-0 flex flex-col justify-center gap-0 px-8 md:px-10 py-10">
-                  {activeDashboard.items.map((item, i) => {
-                    const isMiddle = item.active;
-                    const distFromCenter = Math.abs(i - activeDashboard.items.findIndex(x => x.active));
-                    const opacity = distFromCenter === 0 ? 1 : distFromCenter === 1 ? 0.55 : 0.25;
-                    const scale = distFromCenter === 0 ? 1 : distFromCenter === 1 ? 0.97 : 0.94;
-                    return (
-                      <motion.div
-                        key={item.label}
-                        animate={{ opacity, scale }}
-                        transition={{ duration: 0.3 }}
-                        className={`flex items-center gap-4 rounded-2xl px-5 py-4 mb-1 ${
-                          isMiddle ? "bg-white shadow-[0_4px_24px_rgba(0,0,0,0.08)]" : "bg-white/60"
-                        }`}
-                      >
-                        {/* Circle icon */}
-                        <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center border ${
-                          isMiddle
-                            ? "bg-gray-950 border-gray-950"
-                            : "bg-transparent border-neutral-300"
-                        }`}>
-                          {isMiddle && (
-                            <div className="w-2 h-2 rounded-full bg-white" />
-                          )}
+            {/* 2-Column Body: Visual Left, 4 Interactive Tabs Right (Duna 6:6 proportion) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Visual Card (Left) — Dual-card blueprint matching Duna Feature 1 */}
+              <div className="lg:col-span-7">
+                <div className="bg-[#eae7e1] rounded-[32px] p-6 sm:p-8 md:p-9 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.02)] min-h-[460px] flex flex-col justify-center relative overflow-hidden">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-5">
+                    {/* Architecture Specs Card */}
+                    <div className="bg-white rounded-2xl p-5 shadow-[0_8px_28px_rgba(0,0,0,0.04)] border border-neutral-200/70 sm:w-[195px] shrink-0 text-left flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-[13.5px] font-semibold text-neutral-950">Settings</span>
+                          <span className="w-2 h-2 rounded-full bg-emerald-500" />
                         </div>
-                        <span className={`text-[15px] md:text-[16px] ${
-                          isMiddle ? "font-semibold text-gray-950" : "text-gray-400 font-normal"
-                        }`}>
-                          {item.label}
+                        <div className="flex flex-col gap-2">
+                          <div className="bg-[#f6f5f0] rounded-xl px-3 py-2 text-[12px] font-medium text-neutral-700 border border-neutral-200/50">
+                            Core Vitals: <span className="text-emerald-700 font-semibold">99</span>
+                          </div>
+                          <div className="bg-[#f6f5f0] rounded-xl px-3 py-2 text-[12px] font-medium text-neutral-700 border border-neutral-200/50">
+                            Trust: <span className="text-neutral-950 font-semibold">GMC Specialist</span>
+                          </div>
+                          <div className="bg-[#f6f5f0] rounded-xl px-3 py-2 text-[12px] font-medium text-neutral-700 border border-neutral-200/50">
+                            Booking: <span className="text-neutral-950 font-semibold">Frictionless</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center gap-1.5 text-[11px] text-neutral-400">
+                        <Lock className="w-3 h-3 text-emerald-600" />
+                        <span>Private Clinic Standard</span>
+                      </div>
+                    </div>
+
+                    {/* Curved SVG Connector matching Duna Feature 1 bracket */}
+                    <div className="hidden sm:flex items-center justify-center shrink-0 w-8">
+                      <svg width="32" height="72" viewBox="0 0 32 72" fill="none">
+                        <path d="M 0 16 C 16 16, 16 36, 28 36" stroke="#a39f93" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                        <path d="M 0 36 L 28 36" stroke="#a39f93" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                        <path d="M 0 56 C 16 56, 16 36, 28 36" stroke="#a39f93" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                        <path d="M 24 32 L 28 36 L 24 40" stroke="#a39f93" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      </svg>
+                    </div>
+
+                    {/* Flagship Website Preview Card */}
+                    <div className="bg-white rounded-2xl p-6 sm:p-7 shadow-[0_16px_40px_rgba(0,0,0,0.06)] border border-neutral-200/80 flex-1 text-left min-w-0">
+                      {/* Browser address bar */}
+                      <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-neutral-100 text-[11.5px] text-neutral-500">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-neutral-200" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-neutral-200" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-neutral-200" />
+                        </div>
+                        <div className="flex items-center gap-1.5 px-2.5 py-0.5 bg-neutral-50 rounded-md border border-neutral-200/60 text-neutral-600 font-mono text-[11px]">
+                          <Lock className="w-2.5 h-2.5 text-emerald-600" />
+                          drharrisonclinic.co.uk
+                        </div>
+                        <span className="text-[10.5px] text-emerald-700 font-medium bg-emerald-50 px-2 py-0.5 rounded-full">Live Flagship</span>
+                      </div>
+
+                      <span className="inline-block text-[11.5px] font-semibold tracking-wider uppercase text-neutral-500 mb-2">
+                        Harley Street · Dermatology
+                      </span>
+                      <h4 className="text-[18px] sm:text-[20px] font-medium text-neutral-950 leading-snug mb-3">
+                        World-class dermatological care with dedicated private consultations.
+                      </h4>
+                      <div className="flex items-center gap-2 text-[12.5px] text-neutral-600 mb-5 flex-wrap">
+                        <span className="text-amber-500 font-medium">★ Highly Rated</span>
+                        <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                        <span className="font-medium text-neutral-800">GMC Registered</span>
+                        <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                        <span className="text-neutral-500 text-[12px]">Direct Booking</span>
+                      </div>
+                      <div className="flex items-center gap-2.5">
+                        <span className="px-4 py-2 bg-neutral-950 text-white rounded-full text-[12.5px] font-medium">
+                          Book Consultation
                         </span>
-                        {item.count !== null && isMiddle && (
-                          <span className="ml-auto text-[14px] text-gray-400 tabular-nums">{item.count}</span>
-                        )}
-                      </motion.div>
-                    );
-                  })}
+                        <span className="px-3.5 py-2 bg-neutral-100 text-neutral-800 rounded-full text-[12.5px]">
+                          Treatment Guide
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
 
-                {/* Top fade gradient */}
-                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#ebe9e5] to-transparent pointer-events-none" />
-                {/* Bottom fade gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#ebe9e5] to-transparent pointer-events-none" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Security Trust ───────────────────────────────────────────────────────────
-
-function TrustBadge({
-  label,
-  sublabel,
-  variant = "plain",
-}: {
-  label: string;
-  sublabel?: string;
-  variant?: "plain" | "stars" | "ring";
-}) {
-  return (
-    <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 md:h-32 md:w-32">
-      {variant === "stars" ? (
-        <div className="relative h-full w-full">
-          {Array.from({ length: 12 }).map((_, index) => {
-            const angle = (index / 12) * Math.PI * 2;
-            const x = 50 + Math.cos(angle) * 34;
-            const y = 50 + Math.sin(angle) * 34;
-            return (
-              <span
-                key={index}
-                className="absolute text-[13px] font-semibold text-neutral-400"
-                style={{
-                  left: `${x}%`,
-                  top: `${y}%`,
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                ★
-              </span>
-            );
-          })}
-          <span className="absolute inset-0 flex items-center justify-center text-[20px] font-bold text-neutral-600">
-            {label}
-          </span>
-        </div>
-      ) : (
-        <div className="text-center">
-          {variant === "ring" && (
-            <div className="mx-auto mb-1 h-9 w-9 rounded-full border-2 border-neutral-400">
-              <div className="mx-auto mt-2 h-4 w-8 rounded-[50%] border border-neutral-400" />
+              {/* 4 Feature Items (Right) — Interactive Tabs */}
+              <div className="lg:col-span-5 flex flex-col gap-2 text-left">
+                {service1Tabs.map((tab, idx) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab1 === idx;
+                  return (
+                    <div
+                      key={tab.title}
+                      onClick={() => setActiveTab1(idx)}
+                      className={`cursor-pointer transition-all duration-200 rounded-2xl ${
+                        isActive
+                          ? "bg-[#eae7e1] p-5 sm:p-6 shadow-sm border border-black/[0.04]"
+                          : "py-3.5 px-4 hover:bg-neutral-100/60 text-neutral-800"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-5 h-5 ${isActive ? "text-neutral-950" : "text-neutral-600"}`} />
+                        <h5 className={`text-[17px] ${isActive ? "font-medium text-neutral-950" : "font-normal text-neutral-800"}`}>
+                          {tab.title}
+                        </h5>
+                      </div>
+                      {isActive && (
+                        <p className="text-[14.5px] text-neutral-600 mt-2.5 leading-relaxed font-normal">
+                          {tab.description}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          )}
-          <p className="text-[19px] font-bold leading-[1.05] text-neutral-600 md:text-[21px]">
-            {label}
-          </p>
-          {sublabel && (
-            <p className="mt-1 text-[11px] font-semibold uppercase tracking-normal text-neutral-400">
-              {sublabel}
-            </p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
+          </div>
 
-function SecurityTrust() {
-  return (
-    <section
-      data-testid="security-trust-section"
-      className="w-full bg-[#f5f4f2] px-5 py-20 sm:px-8 md:px-10 md:py-28"
-    >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 md:grid-cols-[1.05fr_0.95fr] md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <h2 className="text-[clamp(36px,5vw,64px)] font-normal leading-[1.08] tracking-normal text-gray-950">
-            Safe and secure
-          </h2>
-          <p className="mt-6 max-w-3xl text-[18px] leading-[1.55] text-neutral-500 md:text-[24px]">
-            Your trust is our foundation. Credyr is designed with a deep
-            commitment to data privacy and security. Visit our trust page and
-            security center to learn more.
-          </p>
+          {/* ── Feature 2: Appointment Scheduling ── */}
+          <div className="flex flex-col gap-10">
+            {/* Header row: Title + Subtitle on Left, Explore CTA on Right */}
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-2 text-left">
+              <div className="max-w-2xl">
+                <h3 className="text-2xl sm:text-3xl md:text-[40px] font-normal tracking-[-0.04em] text-[#222221] leading-[1.14] mb-3">
+                  Direct calendar booking without the back-and-forth
+                </h3>
+                <p className="text-[18px] md:text-[19.5px] text-neutral-600 leading-[1.5] font-normal">
+                  Eliminate phone tag and delayed emails with friction-free consultation reservation.
+                </p>
+              </div>
+              <Link href="/product/booking" asChild>
+                <a className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-neutral-300 text-[14.5px] font-medium text-neutral-900 hover:border-neutral-900 transition-colors shrink-0 self-start sm:self-auto">
+                  Explore scheduling <ChevronRight className="w-4 h-4" />
+                </a>
+              </Link>
+            </div>
 
-          <a
-            href="#"
-            className="mt-10 inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white/60 px-5 py-3 text-[15px] font-semibold text-neutral-900 transition-colors hover:bg-white"
-          >
-            Explore <ChevronRight size={17} strokeWidth={1.8} />
-          </a>
-        </motion.div>
+            {/* 2-Column Body: 4 Interactive Tabs Left, Visual Right (Duna Alternating Layout) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* 4 Feature Items (Left on desktop, first on mobile) */}
+              <div className="order-2 lg:order-1 lg:col-span-5 flex flex-col gap-2 text-left">
+                {service2Tabs.map((tab, idx) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab2 === idx;
+                  return (
+                    <div
+                      key={tab.title}
+                      onClick={() => setActiveTab2(idx)}
+                      className={`cursor-pointer transition-all duration-200 rounded-2xl ${
+                        isActive
+                          ? "bg-[#eae7e1] p-5 sm:p-6 shadow-sm border border-black/[0.04]"
+                          : "py-3.5 px-4 hover:bg-neutral-100/60 text-neutral-800"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-5 h-5 ${isActive ? "text-neutral-950" : "text-neutral-600"}`} />
+                        <h5 className={`text-[17px] ${isActive ? "font-medium text-neutral-950" : "font-normal text-neutral-800"}`}>
+                          {tab.title}
+                        </h5>
+                      </div>
+                      {isActive && (
+                        <p className="text-[14.5px] text-neutral-600 mt-2.5 leading-relaxed font-normal">
+                          {tab.description}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{
-            duration: 0.65,
-            ease: [0.16, 1, 0.3, 1],
-            delay: 0.08,
-          }}
-          className="flex flex-wrap items-center justify-start gap-5 md:justify-end md:gap-7"
-        >
-          <TrustBadge label="SSL/TLS" sublabel="Encrypted" />
-          <TrustBadge label="GDPR" variant="stars" />
-          <TrustBadge label="99.9%" sublabel="Uptime" variant="ring" />
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+              {/* Visual Card (Right on desktop, second on mobile) — Elevated perspective card stack */}
+              <div className="order-1 lg:order-2 lg:col-span-7">
+                <div className="bg-[#eae7e1] rounded-[32px] p-6 sm:p-8 md:p-10 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.02)] min-h-[460px] flex flex-col justify-center text-left relative overflow-hidden">
+                  <div className="w-full max-w-[460px] mx-auto relative">
+                    {/* Multi-layered backdrop cards for Duna Feature 2 depth */}
+                    <div className="absolute inset-0 translate-y-4 scale-[0.93] rounded-2xl bg-white/45 border border-neutral-300/30 shadow-sm pointer-events-none" />
+                    <div className="absolute inset-0 translate-y-2 scale-[0.97] rounded-2xl bg-white/75 border border-neutral-300/40 shadow-sm pointer-events-none" />
 
-// ─── News ─────────────────────────────────────────────────────────────────────
+                    {/* Main Booking Card */}
+                    <div className="relative bg-white rounded-2xl p-6 sm:p-7 shadow-[0_24px_55px_rgba(0,0,0,0.08)] border border-neutral-200/80">
+                      {/* Clinician Profile Row */}
+                      <div className="flex items-center justify-between pb-4 mb-5 border-b border-neutral-100">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-neutral-950 text-white flex items-center justify-center font-medium text-[13px] tracking-tight shrink-0">
+                            SV
+                          </div>
+                          <div>
+                            <h4 className="text-[16px] font-semibold text-neutral-950 leading-tight">
+                              Dr. Sarah Vance, MD
+                            </h4>
+                            <p className="text-[12.5px] text-neutral-500 mt-0.5">
+                              Consultant Dermatologist · 45-min Initial Consultation
+                            </p>
+                          </div>
+                        </div>
+                        <span className="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200/60 rounded-full text-[11.5px] font-medium flex items-center gap-1.5 shrink-0">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                          Live Availability
+                        </span>
+                      </div>
 
-type NewsCardData = {
-  id: string;
-  variant: "text-bg" | "logo-bg" | "portrait";
-  title: string;
-  category: string;
-  readTime: string;
-};
+                      {/* Day picker strip */}
+                      <div className="grid grid-cols-5 gap-2 text-center mb-4">
+                        <div className="p-2 rounded-xl border border-neutral-200/70 bg-neutral-50/50">
+                          <span className="block text-[11px] text-neutral-500">Mon</span>
+                          <span className="block text-[14.5px] font-medium text-neutral-800 mt-0.5">14</span>
+                        </div>
+                        <div className="p-2 rounded-xl border border-neutral-200/70 bg-neutral-50/50">
+                          <span className="block text-[11px] text-neutral-500">Tue</span>
+                          <span className="block text-[14.5px] font-medium text-neutral-800 mt-0.5">15</span>
+                        </div>
+                        <div className="p-2 rounded-xl bg-neutral-950 text-white shadow-sm">
+                          <span className="block text-[11px] text-neutral-300">Wed</span>
+                          <span className="block text-[14.5px] font-medium text-white mt-0.5">16</span>
+                        </div>
+                        <div className="p-2 rounded-xl border border-neutral-200/70 bg-neutral-50/50">
+                          <span className="block text-[11px] text-neutral-500">Thu</span>
+                          <span className="block text-[14.5px] font-medium text-neutral-800 mt-0.5">17</span>
+                        </div>
+                        <div className="p-2 rounded-xl border border-neutral-200/70 bg-neutral-50/50">
+                          <span className="block text-[11px] text-neutral-500">Fri</span>
+                          <span className="block text-[14.5px] font-medium text-neutral-800 mt-0.5">18</span>
+                        </div>
+                      </div>
 
-const NEWS_CARDS: NewsCardData[] = [
-  {
-    id: "founding",
-    variant: "text-bg",
-    title: "A note from our founding team",
-    category: "Company",
-    readTime: "4 min read",
-  },
-  {
-    id: "conversation",
-    variant: "logo-bg",
-    title: "Credyr in conversation with HomeServ CEO Sarah Chen",
-    category: "Conversations",
-    readTime: "12 min watch",
-  },
-  {
-    id: "casestudy",
-    variant: "portrait",
-    title: "How Apex Dental doubled bookings in 30 days",
-    category: "Case Study",
-    readTime: "8 min read",
-  },
-];
+                      {/* Slot pills */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                        <div className="px-3 py-2 text-center rounded-xl border border-neutral-200 text-neutral-700 text-[13px]">
+                          09:30 AM
+                        </div>
+                        <div className="px-3 py-2 text-center rounded-xl bg-neutral-950 text-white font-medium text-[13px] flex items-center justify-center gap-1.5">
+                          <Check className="w-3.5 h-3.5" /> 11:00 AM
+                        </div>
+                        <div className="px-3 py-2 text-center rounded-xl border border-neutral-200 text-neutral-700 text-[13px]">
+                          02:15 PM
+                        </div>
+                        <div className="px-3 py-2 text-center rounded-xl border border-neutral-200 text-neutral-700 text-[13px]">
+                          04:00 PM
+                        </div>
+                      </div>
 
-function NewsCardImage({ card }: { card: NewsCardData }) {
-  if (card.variant === "text-bg") {
-    return (
-      <div className="absolute inset-0 bg-gradient-to-b from-amber-100 via-orange-200 to-orange-300 flex items-center justify-center p-8">
-        {/* Cloud shapes */}
-        <div className="absolute bottom-[30%] left-[8%] w-24 h-10 bg-white/50 rounded-full blur-sm" />
-        <div className="absolute bottom-[24%] left-[16%] w-32 h-8 bg-white/40 rounded-full blur-sm" />
-        <div className="absolute top-[18%] right-[10%] w-20 h-8 bg-white/35 rounded-full blur-sm" />
-        <p className="relative text-[17px] font-semibold text-white text-center leading-snug">
-          {card.title}
-        </p>
-      </div>
-    );
-  }
+                      {/* Sync status */}
+                      <div className="pt-3.5 border-t border-neutral-100 flex items-center gap-2 text-[12px] text-neutral-600">
+                        <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Synchronized with practice schedule · Instant calendar invite dispatched</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  if (card.variant === "logo-bg") {
-    return (
-      <div className="absolute inset-0">
-        <img
-          src="/hero-landscape.png"
-          alt=""
-          className="w-full h-full object-cover object-[center_45%]"
-          style={{
-            filter:
-              "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
-          }}
-        />
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <span className="text-[36px] text-white font-bold leading-none select-none">
-              ✦
-            </span>
-            <p className="text-[15px] text-white/90 font-semibold tracking-wide mt-1 select-none">
-              Credyr
-            </p>
+          {/* ── Feature 3: Lead Response & CRM Sync ── */}
+          <div className="flex flex-col gap-10">
+            {/* Header row: Title + Subtitle on Left, Explore CTA on Right */}
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-2 text-left">
+              <div className="max-w-2xl">
+                <h3 className="text-2xl sm:text-3xl md:text-[40px] font-normal tracking-[-0.04em] text-[#222221] leading-[1.14] mb-3">
+                  Automated response connected directly to your CRM
+                </h3>
+                <p className="text-[18px] md:text-[19.5px] text-neutral-600 leading-[1.5] font-normal">
+                  Engage every enquiry automatically while interest is highest, syncing client records directly into your CRM.
+                </p>
+              </div>
+              <Link href="/product/conversion" asChild>
+                <a className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-neutral-300 text-[14.5px] font-medium text-neutral-900 hover:border-neutral-900 transition-colors shrink-0 self-start sm:self-auto">
+                  Explore automation <ChevronRight className="w-4 h-4" />
+                </a>
+              </Link>
+            </div>
+
+            {/* 2-Column Body: Visual Left, 4 Interactive Tabs Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Visual Card (Left) — Connected workflow pipeline matching Duna Feature 3 */}
+              <div className="lg:col-span-7">
+                <div className="bg-[#eae7e1] rounded-[32px] p-6 sm:p-8 md:p-9 border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.02)] min-h-[460px] flex flex-col justify-center text-left gap-3 relative overflow-hidden">
+                  {/* Step 1 */}
+                  <div className="bg-white rounded-2xl p-4 sm:p-4.5 border border-neutral-200/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 block">
+                        Stage 1 · Website Lead
+                      </span>
+                      <p className="text-[15px] font-medium text-neutral-950 mt-0.5">
+                        Enquiry received: Sarah Jenkins
+                      </p>
+                      <p className="text-[12.5px] text-neutral-600 mt-0.5">
+                        Consultation request · Harley Street Clinic
+                      </p>
+                    </div>
+                    <span className="text-[11.5px] font-mono text-neutral-500 bg-neutral-100 px-2.5 py-1 rounded-md">
+                      10:42 AM
+                    </span>
+                  </div>
+
+                  {/* Flow connector with curved SVG and badge */}
+                  <div className="flex items-center gap-3 pl-6 py-0.5">
+                    <div className="w-px h-5 bg-neutral-300" />
+                    <span className="text-[11.5px] font-medium text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/70 flex items-center gap-1.5">
+                      <Zap className="w-3 h-3 text-emerald-700" />
+                      Automated inquiry response dispatched
+                    </span>
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="bg-white rounded-2xl p-4 sm:p-4.5 border border-neutral-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.04)] flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 block">
+                        Stage 2 · Instant Response
+                      </span>
+                      <p className="text-[15px] font-medium text-neutral-950 mt-0.5">
+                        Branded SMS & booking link dispatched
+                      </p>
+                      <p className="text-[12.5px] text-neutral-600 mt-0.5">
+                        Direct consultation confirmation sent to client
+                      </p>
+                    </div>
+                    <span className="text-[11.5px] font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200/60">
+                      Delivered
+                    </span>
+                  </div>
+
+                  {/* Flow connector with curved SVG and badge */}
+                  <div className="flex items-center gap-3 pl-6 py-0.5">
+                    <div className="w-px h-5 bg-neutral-300" />
+                    <span className="text-[11.5px] font-medium text-neutral-700 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-200/70 flex items-center gap-1.5">
+                      <Check className="w-3 h-3 text-neutral-700" />
+                      Real-time synchronization
+                    </span>
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="bg-white rounded-2xl p-4 sm:p-4.5 border border-neutral-200/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 block">
+                        Stage 3 · Practice Management
+                      </span>
+                      <p className="text-[15px] font-medium text-neutral-950 mt-0.5">
+                        Practice CRM updated
+                      </p>
+                      <p className="text-[12.5px] text-neutral-600 mt-0.5">
+                        Client record, notes & consultation synchronized
+                      </p>
+                    </div>
+                    <span className="text-[11.5px] font-medium text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-md border border-neutral-200/60">
+                      HubSpot / Cliniko
+                    </span>
+                  </div>
+
+                  {/* Illustrative note */}
+                  <div className="pt-1 text-center">
+                    <span className="text-[11.5px] text-neutral-500 font-normal">
+                      Illustrative lead conversion workflow
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4 Feature Items (Right) — Interactive Tabs */}
+              <div className="lg:col-span-5 flex flex-col gap-2 text-left">
+                {service3Tabs.map((tab, idx) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab3 === idx;
+                  return (
+                    <div
+                      key={tab.title}
+                      onClick={() => setActiveTab3(idx)}
+                      className={`cursor-pointer transition-all duration-200 rounded-2xl ${
+                        isActive
+                          ? "bg-[#eae7e1] p-5 sm:p-6 shadow-sm border border-black/[0.04]"
+                          : "py-3.5 px-4 hover:bg-neutral-100/60 text-neutral-800"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-5 h-5 ${isActive ? "text-neutral-950" : "text-neutral-600"}`} />
+                        <h5 className={`text-[17px] ${isActive ? "font-medium text-neutral-950" : "font-normal text-neutral-800"}`}>
+                          {tab.title}
+                        </h5>
+                      </div>
+                      {isActive && (
+                        <p className="text-[14.5px] text-neutral-600 mt-2.5 leading-relaxed font-normal">
+                          {tab.description}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    );
-  }
-
-  // portrait
-  return (
-    <div
-      className="absolute inset-0 flex items-end"
-      style={{
-        background: "linear-gradient(135deg, #e8e0d8 0%, #d6ccbf 100%)",
-      }}
-    >
-      {/* Silhouette placeholder — large initials */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 w-28 h-28 rounded-full bg-stone-300/60 flex items-center justify-center">
-        <span className="text-[28px] font-bold text-stone-500 select-none">
-          AD
-        </span>
-      </div>
-      {/* Name bar at bottom */}
-      <div className="w-full px-5 pb-5 bg-gradient-to-t from-stone-200/80 to-transparent pt-12">
-        <p className="text-[13px] font-semibold text-stone-700">Apex Dental</p>
-        <p className="text-[11px] text-stone-500">
-          Multi-location dental group
-        </p>
-      </div>
-    </div>
+    </section>
   );
 }
 
-function NewsCard({ card, delay }: { card: NewsCardData; delay: number }) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay }}
-      className="flex flex-col cursor-pointer group"
-    >
-      {/* Image container */}
-      <div className="aspect-[4/5] rounded-3xl overflow-hidden relative mb-4 shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
-        <NewsCardImage card={card} />
-      </div>
+// ─── Section 4: Closing CTA ───────────────────────────────────────────────────
 
-      {/* Text */}
-      <p className="text-[15px] font-semibold text-gray-950 leading-snug mb-2">
-        {card.title}
-      </p>
-      <p className="text-sm text-gray-400 flex items-center gap-1.5">
-        <span>{card.category}</span>
-        <span className="text-gray-200">—</span>
-        <span>{card.readTime}</span>
-      </p>
-    </motion.article>
-  );
-}
-
-function NewsSection() {
+function ClosingCtaSection() {
   return (
     <section
-      data-testid="news-section"
-      className="w-full bg-white py-16 md:py-24 px-5 sm:px-8 md:px-10"
+      data-testid="closing-cta-section"
+      className="w-full bg-[#fbfaf7] py-32 md:py-40 px-6 sm:px-8 md:px-12 border-b border-neutral-200/60"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between mb-12 md:mb-16">
-        <motion.h2
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl md:text-4xl font-bold tracking-normal text-gray-950 leading-tight"
-        >
-          News
-        </motion.h2>
-        <motion.a
-          href="#"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="text-[14px] text-gray-500 hover:text-gray-900 transition-colors"
-        >
-          See more
-        </motion.a>
-      </div>
+      <div className="max-w-4xl mx-auto w-full text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-normal tracking-[-0.035em] text-neutral-950 leading-[1.1] mb-6">
+          Ready to turn visitors into booked clients?
+        </h2>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {NEWS_CARDS.map((card, i) => (
-          <NewsCard key={card.id} card={card} delay={i * 0.08} />
-        ))}
+        <p className="text-[19px] md:text-[21px] text-neutral-700 leading-relaxed font-normal max-w-2xl mx-auto mb-10">
+          Book a 20-minute website audit. We'll review your current website, show you where enquiries are dropping off, and give you a clear plan to fix it.
+        </p>
+
+        <div className="flex flex-col items-center">
+          <Link href="/get-started" asChild>
+            <a
+              className="inline-flex items-center gap-2.5 px-8 py-4 bg-neutral-950 text-white rounded-full font-medium text-[16px] md:text-[17px] hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer shadow-[0_12px_32px_rgba(0,0,0,0.16)]"
+              data-testid="button-closing-cta"
+            >
+              Book a website audit
+              <ChevronRight size={18} strokeWidth={2} />
+            </a>
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -2464,24 +1337,26 @@ const FOOTER_COLS = [
   {
     heading: "Services",
     links: [
-      "Brand Strategy",
-      "Visual Identity",
-      "Full-Cycle Websites",
-      "Landing Pages",
-      "Ongoing Optimisation",
+      { label: "Websites & Landing Pages", href: "/product/websites" },
+      { label: "Appointment Scheduling", href: "/product/booking" },
+      { label: "Lead Response & CRM Sync", href: "/product/conversion" },
     ],
   },
   {
-    heading: "Customers",
-    links: ["Case Studies", "Reviews", "Partners", "Community"],
+    heading: "Sectors",
+    links: [
+      { label: "Dental Practices", href: "/industries/dental" },
+      { label: "Medical & Clinics", href: "/industries/medical" },
+      { label: "Specialist Advisory", href: "/services/brand-strategy" },
+    ],
   },
   {
     heading: "Company",
-    links: ["About", "News", "Careers", "Contact"],
-  },
-  {
-    heading: "Resources",
-    links: ["Blog", "Documentation", "Trust", "Security", "Status"],
+    links: [
+      { label: "About Credyr", href: "/about" },
+      { label: "Book a Website Audit", href: "/get-started" },
+      { label: "System Status", href: "/status" },
+    ],
   },
 ];
 
@@ -2489,161 +1364,71 @@ export function SiteFooter() {
   return (
     <footer
       data-testid="site-footer"
-      className="relative w-full overflow-hidden"
-      style={{ minHeight: "60vh" }}
+      className="relative w-full overflow-hidden bg-[#111110] text-white"
     >
-      {/* Painterly background */}
+      {/* Background artwork with dark overlay */}
       <img
         src="/hero-landscape.png"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none"
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none opacity-25"
         style={{
-          filter: "sepia(15%) brightness(105%) saturate(120%) hue-rotate(5deg)",
+          filter: "sepia(20%) brightness(85%) contrast(110%)",
         }}
       />
-      {/* Dark overlay to ensure white text legibility */}
-      <div className="absolute inset-0 bg-black/35 pointer-events-none z-0" />
-      {/* Seamless top gradient fade */}
-      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#fbfaf7] via-[#fbfaf7]/70 to-transparent pointer-events-none z-10" />
-
-      {/* Content layer */}
+      {/* Rich dark gradient scrim ensuring effortless readability */}
       <div
-        className="relative z-10 flex flex-col justify-between px-5 pt-24 pb-12 sm:px-8 md:px-10 md:pt-32 md:pb-16 min-h-[inherit]"
-        style={{ minHeight: "60vh" }}
-      >
-        {/* Main centered content container - widened to match page boundaries */}
-        <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-between">
-          <div>
-            {/* Logo mark */}
-            <p className="text-[16px] font-bold text-white tracking-normal mb-10 select-none">
-              ✦ Credyr
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(17,17,16,0.95) 0%, rgba(17,17,16,0.85) 40%, rgba(17,17,16,0.98) 100%)",
+        }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 md:px-12 pt-20 pb-12 flex flex-col justify-between min-h-[420px]">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 pb-16 border-b border-white/10">
+          {/* Brand Column */}
+          <div className="max-w-xs text-left">
+            <BrandLogo tone="light" size="sm" className="mb-5 flex" />
+            <p className="text-[15px] text-neutral-400 leading-relaxed font-normal">
+              Premium websites and lead-conversion systems designed for specialist service businesses.
             </p>
-
-            {/* Link columns */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 w-full">
-              {FOOTER_COLS.map((col) => (
-                <div key={col.heading}>
-                  <p className="text-[13px] font-bold text-white mb-4 tracking-wide">
-                    {col.heading}
-                  </p>
-                  <ul className="flex flex-col gap-2.5">
-                    {col.links.map((link) => {
-                      const HREF_MAP: Record<string, string> = {
-                        "Brand Strategy": "/#services",
-                        "Visual Identity": "/#services",
-                        "Full-Cycle Websites": "/product/websites",
-                        "Landing Pages": "/product/landing-pages",
-                        "Ongoing Optimisation": "/#services",
-                        "Case Studies": "/resources-hub",
-                        "Reviews": "/customers/reviews",
-                        "Partners": "/customers/partners",
-                        "Community": "/customers/community",
-                        "About": "/about",
-                        "News": "/news",
-                        "Careers": "/careers",
-                        "Contact": "/get-started",
-                        "Blog": "/resources-hub",
-                        "Documentation": "/docs",
-                        "Trust": "/trust",
-                        "Security": "/security",
-                        "Status": "/status",
-                      };
-
-                      const hrefVal = HREF_MAP[link] ?? "#";
-                      const isHash = hrefVal.startsWith("#") || hrefVal.includes("/#");
-                      const isInternal = hrefVal.startsWith("/") && !isHash;
-
-                      const linkClass = "text-sm text-white/85 hover:text-white transition-colors duration-150 font-medium";
-
-                      if (isHash) {
-                        return (
-                          <li key={link}>
-                            <a href={hrefVal} className={linkClass}>{link}</a>
-                          </li>
-                        );
-                      }
-
-                      return (
-                        <li key={link}>
-                          {isInternal ? (
-                            <Link href={hrefVal}>
-                              <a className={linkClass}>{link}</a>
-                            </Link>
-                          ) : (
-                            <a href={hrefVal} className={linkClass}>{link}</a>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Legal strip */}
-          <div className="flex items-center justify-between gap-5 mt-16 w-full flex-wrap border-t border-white/10 pt-8">
-            <div className="flex items-center gap-5">
-              <span className="text-[12px] text-white/80 font-medium">© Credyr 2026</span>
-              <a
-                href="#"
-                className="text-[12px] text-white/80 hover:text-white transition-colors font-medium"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-[12px] text-white/80 hover:text-white transition-colors font-medium"
-              >
-                Security
-              </a>
-            </div>
-
-            {/* AI Summary Section with icons matching Credyr */}
-            <div className="flex items-center gap-3">
-              <span className="text-[12px] text-white/80 font-medium">Get an AI summary of Credyr:</span>
-              <div className="flex items-center gap-2.5">
-                {/* Claude icon link */}
-                <a
-                  href="https://claude.ai/new?q=Summarize+the+service+offering+of+the+website+https%3A%2F%2Fcredyr.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white transition-colors"
-                  title="Claude"
-                  aria-label="Get Claude AI summary of Credyr"
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z" />
-                  </svg>
-                </a>
-                {/* ChatGPT icon link */}
-                <a
-                  href="https://chatgpt.com/?q=Summarize+the+service+offering+of+the+website+https%3A%2F%2Fcredyr.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white transition-colors"
-                  title="ChatGPT"
-                  aria-label="Get ChatGPT AI summary of Credyr"
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9.205 8.658v-2.26c0-.19.072-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.566 0 .167 0 .357-.024.547l-4.71-2.759a.797.797 0 00-.856 0l-5.97 3.473zm10.609 8.8V12.06c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.433.433 0 01.476 0l4.543 2.617c1.309.76 2.189 2.378 2.189 3.948 0 1.808-1.07 3.473-2.76 4.163zM7.802 12.703l-1.95-1.142c-.167-.095-.239-.238-.239-.428V5.899c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.067c-.285.166-.428.404-.428.737v6.898zM12 15.128l-2.795-1.57v-3.33L12 8.658l2.795 1.57v3.33L12 15.128zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472zm-5.637-5.303l-4.544-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.482 4.482 0 014.21 6.327v5.423c0 .333.143.571.428.738l5.947 3.449-1.95 1.118a.432.432 0 01-.476 0zm-.262 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.71c.286.167.571.167.856 0l5.97-3.448v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.523-2.117.523zm5.899 2.83a5.947 5.947 0 005.827-4.756C22.287 18.339 24 15.84 24 13.296c0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.095-1.88.31A5.962 5.962 0 0010.205 0a5.947 5.947 0 00-5.827 4.757C1.713 5.447 0 7.945 0 10.49c0 1.666.713 3.283 1.998 4.448-.119.5-.19 1-.19 1.499 0 3.401 2.759 5.946 5.946 5.946.642 0 1.26-.095 1.88-.309a5.96 5.96 0 004.162 1.713z"/>
-                  </svg>
-                </a>
-                {/* Gemini icon link */}
-                <a
-                  href="https://gemini.google.com/app?q=Summarize+the+service+offering+of+the+website+https%3A%2F%2Fcredyr.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white transition-colors"
-                  title="Gemini"
-                  aria-label="Get Gemini AI summary of Credyr"
-                >
-                  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
-                  </svg>
-                </a>
+          {/* 3 Link Columns */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 md:gap-16 text-left">
+            {FOOTER_COLS.map((col) => (
+              <div key={col.heading}>
+                <p className="text-[13px] font-semibold text-neutral-300 tracking-wider uppercase mb-4">
+                  {col.heading}
+                </p>
+                <ul className="flex flex-col gap-3">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-[14.5px] text-neutral-400 hover:text-white transition-colors duration-150 font-normal"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Legal Strip */}
+        <div className="flex items-center justify-between gap-4 pt-8 text-[13px] text-neutral-500 font-normal flex-wrap">
+          <p>© Credyr 2026. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/trust" className="hover:text-neutral-300 transition-colors">
+              Trust & Privacy
+            </Link>
+            <Link href="/security" className="hover:text-neutral-300 transition-colors">
+              Security
+            </Link>
           </div>
         </div>
       </div>
@@ -2840,10 +1625,9 @@ function StatusPage() {
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <a
             href="/"
-            className="flex items-center gap-[10px] text-2xl font-bold tracking-normal text-white select-none"
+            className="select-none"
           >
-            <span className="text-2xl leading-none translate-y-[-1px]">✦</span>
-            <span>Credyr</span>
+            <BrandLogo tone="light" size="md" />
           </a>
 
           <div className="flex flex-wrap gap-3">
@@ -2964,42 +1748,47 @@ export default function App() {
   const showNavigation = location !== "/status";
 
   return (
-    <div className="min-h-screen bg-[#fbfaf7]">
-      {showNavigation && <Navigation />}
-      <Switch>
-        <Route path="/get-started" component={GetStartedPage} />
-        <Route path="/thanks" component={ThanksPage} />
-        <Route path="/status" component={StatusPage} />
-        <Route path="/resources-hub" component={ResourcesHubPage} />
-        <Route path="/resources-hub/identity-in-an-ai-world" component={ArticleDetailPage} />
-        <Route path="/about" component={AboutPage} />
-        <Route path="/trust" component={TrustPage} />
-        <Route path="/careers" component={CareersPage} />
-        <Route path="/product/:id" component={ProductPage} />
-        <Route path="/customers/reviews" component={ReviewsPage} />
-        <Route path="/customers/partners" component={PartnersPage} />
-        <Route path="/customers/community" component={CommunityPage} />
-        <Route path="/news" component={NewsPage} />
-        <Route path="/contact" component={ContactPage} />
-        <Route path="/docs" component={DocumentationPage} />
-        <Route path="/security" component={SecurityPage} />
-        <Route path="/">
-          <>
-            {/* Nav is fixed/transparent — hero image bleeds to page top */}
-            <Hero />
-            <SocialProof />
-            <StatsSection />
-            <ValueProposition />
-            <AwarenessCycle />
-            <OnboardHighlight />
-            <OurServices />
-            <FeatureHighlight />
-            <SecurityTrust />
-            <NewsSection />
-            <SiteFooter />
-          </>
-        </Route>
-      </Switch>
-    </div>
+    <BrandProvider>
+      <div className="min-h-screen bg-[#fbfaf7]">
+        {showNavigation && <Navigation />}
+        <Switch>
+          <Route path="/brand" component={BrandShowcasePage} />
+          <Route path="/get-started" component={GetStartedPage} />
+          <Route path="/thanks" component={ThanksPage} />
+          <Route path="/status" component={StatusPage} />
+          <Route path="/resources-hub" component={ResourcesHubPage} />
+          <Route path="/resources-hub/identity-in-an-ai-world" component={ArticleDetailPage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/trust" component={TrustPage} />
+          <Route path="/careers" component={CareersPage} />
+          <Route path="/product/:id" component={ProductPage} />
+          <Route path="/customers/reviews" component={ReviewsPage} />
+          <Route path="/customers/partners" component={PartnersPage} />
+          <Route path="/customers/community" component={CommunityPage} />
+          <Route path="/news" component={NewsPage} />
+          <Route path="/contact" component={ContactPage} />
+          <Route path="/docs" component={DocumentationPage} />
+          <Route path="/security" component={SecurityPage} />
+          <Route path="/industries/dental" component={DentalPage} />
+          <Route path="/industries/medical" component={MedicalPage} />
+          <Route path="/industries/spas" component={SpasPage} />
+          <Route path="/industries/home-services" component={HomeServicesPage} />
+          <Route path="/industries/real-estate" component={RealEstatePage} />
+          <Route path="/services/brand-strategy" component={BrandStrategyPage} />
+          <Route path="/services/visual-identity" component={VisualIdentityPage} />
+          <Route path="/services/optimisation" component={OptimisationPage} />
+          <Route path="/">
+            <>
+              {/* Nav is fixed/transparent — hero image bleeds to page top */}
+              <Hero />
+              <WhatWeDoSection />
+              <ServicesSection />
+              <ClosingCtaSection />
+              <SiteFooter />
+            </>
+          </Route>
+        </Switch>
+      </div>
+    </BrandProvider>
   );
 }

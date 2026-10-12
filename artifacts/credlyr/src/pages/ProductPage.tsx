@@ -54,8 +54,8 @@ interface ProductDetails {
 const PRODUCT_DATA: Record<string, ProductDetails> = {
   "websites": {
     badge: "Full-Cycle Websites",
-    title: "A full-service digital innovation partner",
-    subtitle: "Our rich design and technology expertise delivers top brands and digital experiences.",
+    title: "Websites that turn visitors into booked clients",
+    subtitle: "Strategy, design, copy, and engineering in one build - a fast, trust-first website that sells your offer before the back button wins.",
     needTitle: "Everything you need, and more",
     needSubtitle: "Stop losing customers to clunky templates. Access elite, hand-coded layout patterns designed for high performance.",
     needBullets: [
@@ -605,11 +605,9 @@ function WebsitesProductPage() {
                 Schedule a call
               </a>
             </Link>
-            <Link href="/get-started" asChild>
-              <a className="inline-flex items-center px-8 py-3.5 bg-[#efeeea] border border-neutral-200/80 text-gray-800 text-[15px] font-semibold rounded-full hover:bg-[#e4e3df] transition-colors duration-150 active:scale-[0.98]">
-                Watch demo <ArrowUpRight size={14} className="ml-1.5" />
-              </a>
-            </Link>
+            <a href="/#services" className="inline-flex items-center px-8 py-3.5 bg-[#efeeea] border border-neutral-200/80 text-gray-800 text-[15px] font-semibold rounded-full hover:bg-[#e4e3df] transition-colors duration-150 active:scale-[0.98]">
+              Explore services <ArrowUpRight size={14} className="ml-1.5" />
+            </a>
           </div>
         </div>
       </section>
@@ -1356,11 +1354,9 @@ export default function ProductPage() {
                 Schedule a call
               </a>
             </Link>
-            <Link href="/get-started" asChild>
-              <a className="inline-flex items-center px-8 py-3.5 bg-[#efeeea] border border-neutral-200/80 text-gray-800 text-[15px] font-semibold rounded-full hover:bg-[#e4e3df] transition-colors duration-150 active:scale-[0.98]">
-                Watch demo <ArrowUpRight size={14} className="ml-1.5" />
-              </a>
-            </Link>
+            <a href="/#services" className="inline-flex items-center px-8 py-3.5 bg-[#efeeea] border border-neutral-200/80 text-gray-800 text-[15px] font-semibold rounded-full hover:bg-[#e4e3df] transition-colors duration-150 active:scale-[0.98]">
+              Explore services <ArrowUpRight size={14} className="ml-1.5" />
+            </a>
           </div>
         </div>
       </section>

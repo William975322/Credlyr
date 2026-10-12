@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const DELIVERABLES = [
   "Logo System & Mark",
@@ -58,13 +59,7 @@ export default function VisualIdentityPage() {
           <div className="bg-white border border-neutral-200/70 rounded-3xl p-8 md:p-12 flex flex-col gap-8 shadow-sm">
             {/* Logo mock */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gray-950 flex items-center justify-center shrink-0">
-                <span className="text-white text-lg font-bold">✦</span>
-              </div>
-              <div>
-                <p className="text-[18px] font-bold text-gray-950 tracking-tight leading-none">Credyr</p>
-                <p className="text-[11px] text-neutral-400 font-medium mt-0.5">Brand System</p>
-              </div>
+              <BrandLogo size="md" tagline="Brand System" />
             </div>
             {/* Colour palette */}
             <div>
@@ -90,7 +85,7 @@ export default function VisualIdentityPage() {
               <div className="flex items-baseline gap-5">
                 <span className="text-[40px] font-bold text-gray-950 leading-none tracking-tight">Aa</span>
                 <div>
-                  <p className="text-[13px] font-semibold text-neutral-700">GT America</p>
+                  <p className="text-[13px] font-semibold text-neutral-700">Inter</p>
                   <p className="text-[11px] text-neutral-400">Regular · Medium · Bold</p>
                 </div>
               </div>
