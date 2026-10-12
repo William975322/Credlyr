@@ -14,7 +14,7 @@ const WHAT_TO_EXPECT = [
 ];
 
 export default function BookingPage() {
-  usePageTitle("Book a website audit");
+  usePageTitle("Book a website audit", "Book a website audit with Credyr. We’ll review your current website with you and show you what to improve first.");
   return (
     <>
       <main>
@@ -38,7 +38,7 @@ export default function BookingPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-[14px] leading-[1.6] text-[#8a8782]">
+              <p className="mt-6 text-[14px] leading-[1.6] text-[#6f6c66]">
                 Booking is handled by Cal.com. You’ll receive a confirmation email with a link to reschedule or cancel.
               </p>
             </div>

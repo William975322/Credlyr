@@ -131,7 +131,7 @@ export default function ServicePage() {
   const [, params] = useRoute("/product/:id");
   const id = params?.id;
   const service = id && id in SERVICES ? SERVICES[id as ServiceId] : undefined;
-  usePageTitle(service?.name);
+  usePageTitle(service?.name, service?.lead);
   if (!service) return <Redirect to="/product/websites" replace />;
   const others = ORDER.filter((o) => o !== id);
 

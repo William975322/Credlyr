@@ -1,13 +1,15 @@
 import { useSearch } from "wouter";
-import { ART, PageHero, PrimaryButton, usePageTitle } from "../components/site";
+import { ART, PageHero, PrimaryButton, usePageTitle, useNoIndex } from "../components/site";
 import { SiteFooter } from "../components/SiteFooter";
 
-// Confirmation page. Cal.com can redirect here after a booking with
-// `?booked=1` (set in the event's "Redirect on booking" setting); without the
-// parameter it acknowledges a message instead.
+// Landing page after a booking (Cal.com "Redirect on booking" →
+// /thanks?booked=1) or a message. The URL alone proves nothing, so the copy
+// never asserts that a booking exists: Cal.com's confirmation email is the
+// source of truth.
 export default function ThanksPage() {
-  const booked = new URLSearchParams(useSearch()).get("booked") === "1";
-  usePageTitle(booked ? "Booking confirmed" : "Thank you");
+  const fromBooking = new URLSearchParams(useSearch()).get("booked") === "1";
+  usePageTitle("Thank you");
+  useNoIndex();
 
   return (
     <>
@@ -15,12 +17,12 @@ export default function ThanksPage() {
         <PageHero
           art={ART.hero}
           position="50% 30%"
-          eyebrow={booked ? "Booking confirmed" : "Thank you"}
-          title={booked ? "Your website audit is booked." : "Thank you for getting in touch."}
+          eyebrow={fromBooking ? "Website audit" : "Thank you"}
+          title={fromBooking ? "Thank you." : "Thank you for getting in touch."}
           lead={
-            booked
-              ? "You’ll receive a confirmation email with the details and a link to reschedule if you need to. We look forward to speaking with you."
-              : "We’ve received your details and will reply by email."
+            fromBooking
+              ? "If you’ve just booked a website audit, your confirmation email from Cal.com has the date, time and a link to reschedule. If it hasn’t arrived within a few minutes, please check your spam folder or contact us."
+              : "We’ll reply by email."
           }
         >
           <PrimaryButton href="/">Back to the homepage</PrimaryButton>

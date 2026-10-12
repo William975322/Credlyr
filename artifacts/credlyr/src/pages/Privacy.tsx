@@ -15,7 +15,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 }
 
 export default function PrivacyPage() {
-  usePageTitle("Privacy");
+  usePageTitle("Privacy", "How Credyr handles the information you share through this website.");
   return (
     <>
       <main>
@@ -47,10 +47,23 @@ export default function PrivacyPage() {
                   applies to that processing.
                 </p>
               </Block>
+              <Block title="Emailing us">
+                <p>
+                  Email sent to hello@credyr.com is handled by Google Workspace, which we use for our business email.
+                </p>
+              </Block>
+              <Block title="Hosting">
+                <p>
+                  This website is hosted by Vercel. Like most hosting providers, Vercel processes technical
+                  information such as your IP address to deliver pages and keep the service secure.
+                </p>
+              </Block>
               <Block title="Cookies and analytics">
                 <p>
-                  This website does not use analytics or advertising cookies. Fonts are loaded from Google Fonts,
-                  which means your browser connects to Google’s servers when a page loads.
+                  This website itself does not set cookies and does not use analytics or advertising tracking.
+                  The booking calendar on the website audit page is provided by Cal.com, which may set its own
+                  cookies when it loads. Fonts are loaded from Google Fonts, which means your browser connects to
+                  Google’s servers when a page loads.
                 </p>
               </Block>
               <Block title="Your choices">
@@ -60,7 +73,7 @@ export default function PrivacyPage() {
                   <a href="mailto:hello@credyr.com" className="text-[#222221] underline">hello@credyr.com</a>.
                 </p>
               </Block>
-              <p className="border-t border-[#ece9e3] pt-8 text-[14px] text-[#8a8782]">Last updated 12 October 2026.</p>
+              <p className="border-t border-[#ece9e3] pt-8 text-[14px] text-[#6f6c66]">Last updated 12 October 2026.</p>
             </div>
           </div>
         </section>

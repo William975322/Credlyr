@@ -73,7 +73,7 @@ export function ConceptWebsite() {
           <span className="h-2.5 w-2.5 rounded-full bg-[#e6e1d9]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#e6e1d9]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#e6e1d9]" />
-          <span className="mx-auto rounded-md bg-[#f4f1ec] px-3 py-1 text-[12px] text-[#8a8782]">Concept design</span>
+          <span className="mx-auto rounded-md bg-[#f4f1ec] px-3 py-1 text-[12px] text-[#6f6c66]">Concept design</span>
           <span className="w-[42px]" />
         </div>
 
@@ -125,7 +125,7 @@ export function ConceptWebsite() {
           ))}
         </div>
       </div>
-      <figcaption className="mt-3 text-[13px] text-[#8a8782]">
+      <figcaption className="mt-3 text-[13px] text-[#6f6c66]">
         Concept design for a fictional practice. Not a client project.
       </figcaption>
     </figure>
@@ -144,7 +144,7 @@ export function PaintedStage({ art, position, caption, children }: { art: string
         </div>
         {children}
       </div>
-      <figcaption className="mt-3 text-[13px] text-[#8a8782]">{caption}</figcaption>
+      <figcaption className="mt-3 text-[13px] text-[#6f6c66]">{caption}</figcaption>
     </figure>
   );
 }
@@ -174,7 +174,7 @@ export function BookingVisual() {
                 className={`rounded-xl py-2 ${i === 2 ? "text-white" : "bg-[#f6f3ee] text-[#222221]"}`}
                 style={i === 2 ? { background: CONCEPT_GREEN } : undefined}
               >
-                <span className={`block text-[11px] ${i === 2 ? "text-white/70" : "text-[#8a8782]"}`}>{d}</span>
+                <span className={`block text-[11px] ${i === 2 ? "text-white/70" : "text-[#6f6c66]"}`}>{d}</span>
                 <span className="block text-[15px]">{n}</span>
               </div>
             ))}
@@ -221,7 +221,7 @@ export function FollowUpVisual() {
             <p className="text-[14px]" style={{ ...CONCEPT_SERIF, color: CONCEPT_GREEN }}>
               Hartley <span className="italic">Dental</span>
             </p>
-            <p className="text-[12px] text-[#8a8782]">Sent automatically</p>
+            <p className="text-[12px] text-[#6f6c66]">Sent automatically</p>
           </div>
           <p className="mt-3 text-[16px] text-[#222221]">Thank you for getting in touch, Emma</p>
           <p className="mt-1.5 text-[14px] leading-[1.55] text-[#5d5a55]">
@@ -357,7 +357,7 @@ export function Steps({ steps }: { steps: { title: string; body: string }[] }) {
     <ol className="grid grid-cols-1 gap-x-8 md:grid-cols-2 lg:grid-cols-4">
       {steps.map((s, i) => (
         <li key={s.title} className="border-t border-[#222221] py-7">
-          <span className="text-[15px] text-[#8a8782]">{String(i + 1).padStart(2, "0")}</span>
+          <span className="text-[15px] text-[#6f6c66]">{String(i + 1).padStart(2, "0")}</span>
           <h3 className="mt-3 text-[19px] tracking-[-0.03em] text-[#222221]">{s.title}</h3>
           <p className="mt-2 text-[15.5px] leading-[1.55] text-[#6b6864]">{s.body}</p>
         </li>
@@ -368,10 +368,36 @@ export function Steps({ steps }: { steps: { title: string; body: string }[] }) {
 
 const SITE_TITLE = "Credyr — Premium Websites & Lead-Conversion Systems";
 
-// Sets the browser tab title for a page ("<page> — Credyr"); the homepage uses
-// the full site title.
-export function usePageTitle(page?: string) {
+const SITE_URL = "https://www.credyr.com";
+const SITE_DESCRIPTION =
+  "Credyr designs premium websites for clinics, practices and advisory firms, with appointment booking and lead follow-up built in.";
+
+function setHeadTag(selector: string, create: () => HTMLElement, attr: string, value: string) {
+  let el = document.head.querySelector(selector) as HTMLElement | null;
+  if (!el) {
+    el = create();
+    document.head.appendChild(el);
+  }
+  el.setAttribute(attr, value);
+}
+
+// Sets the page's title ("<page> — Credyr"; the homepage uses the full site
+// title), meta description and canonical URL.
+export function usePageTitle(page?: string, description = SITE_DESCRIPTION) {
   useEffect(() => {
     document.title = page ? `${page} — Credyr` : SITE_TITLE;
-  }, [page]);
+    setHeadTag('meta[name="description"]', () => Object.assign(document.createElement("meta"), { name: "description" }), "content", description);
+    const canonical = SITE_URL + (window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/$/, ""));
+    setHeadTag('link[rel="canonical"]', () => Object.assign(document.createElement("link"), { rel: "canonical" }), "href", canonical);
+  }, [page, description]);
+}
+
+// Keeps utility pages (confirmation, 404) out of search results.
+export function useNoIndex() {
+  useEffect(() => {
+    const meta = document.head.querySelector('meta[name="robots"]');
+    const previous = meta?.getAttribute("content") ?? "index, follow";
+    meta?.setAttribute("content", "noindex, follow");
+    return () => meta?.setAttribute("content", previous);
+  }, []);
 }

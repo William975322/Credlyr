@@ -104,7 +104,7 @@ const SECTORS: Record<string, Sector> = {
 export default function SectorPage() {
   const [, params] = useRoute("/industries/:id");
   const sector = params?.id ? SECTORS[params.id] : undefined;
-  usePageTitle(sector?.name);
+  usePageTitle(sector?.name, sector?.lead);
   if (!sector) return <Redirect to="/" replace />;
 
   return (

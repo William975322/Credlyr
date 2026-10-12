@@ -1,8 +1,9 @@
-import { ART, PageHero, PrimaryButton, usePageTitle } from "../components/site";
+import { ART, PageHero, PrimaryButton, usePageTitle, useNoIndex } from "../components/site";
 import { SiteFooter } from "../components/SiteFooter";
 
 export default function NotFound() {
   usePageTitle("Page not found");
+  useNoIndex();
   return (
     <>
       <main>

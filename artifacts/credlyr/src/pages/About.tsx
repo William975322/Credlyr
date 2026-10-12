@@ -10,7 +10,7 @@ const PRINCIPLES = [
 ];
 
 export default function AboutPage() {
-  usePageTitle("About");
+  usePageTitle("About", "Credyr designs websites and lead-conversion systems for clinics, practices and advisory firms. Founder-led, with a clear, defined service.");
   return (
     <>
       <main>
@@ -67,7 +67,7 @@ export default function AboutPage() {
               </span>
               <div>
                 <h3 className="text-[20px] tracking-[-0.03em] text-[#222221]">William Vanderplaetse</h3>
-                <p className="text-[15px] text-[#8a8782]">Founder</p>
+                <p className="text-[15px] text-[#6f6c66]">Founder</p>
                 <p className="mt-4 text-[16px] leading-[1.6] text-[#4f4c48]">
                   Former managing consultant in IBM Benelux’s Data, AI &amp; Automation practice, with a background
                   in data engineering, positioning and technology delivery.

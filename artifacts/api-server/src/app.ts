@@ -25,9 +25,19 @@ app.use(
     },
   }),
 );
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// The site and API share an origin; only Credyr's own domains (and local
+// development) may call the API from a browser.
+app.use(
+  cors({
+    origin: [
+      "https://credyr.com",
+      "https://www.credyr.com",
+      /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/,
+    ],
+  }),
+);
+app.use(express.urlencoded({ extended: true, limit: "20kb" }));
+app.use(express.json({ limit: "20kb" }));
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -40,7 +50,16 @@ app.use("/api", router);
 
 app.use(express.static(publicDir));
 
-app.get("*", (_req: any, res: any) => {
+// Single-page app fallback. Express 5 no longer accepts "*" as a path, so
+// this is middleware; unknown /api routes still return a JSON 404.
+app.use("/api", (_req: any, res: any) => {
+  res.status(404).json({ error: "Not found" });
+});
+app.use((req: any, res: any) => {
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    res.status(404).end();
+    return;
+  }
   res.sendFile(path.join(publicDir, "index.html"));
 });
 

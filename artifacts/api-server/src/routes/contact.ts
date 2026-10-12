@@ -6,24 +6,59 @@ const router = Router();
 const escapeHtml = (value: unknown) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
-router.post("/contact", async (req, res) => {
-  const { name, email, phone, message, service } = req.body;
+// Best-effort rate limit: 5 submissions per IP per 10 minutes. On serverless
+// hosting this is per warm instance, so it slows bursts rather than
+// guaranteeing a global limit.
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+const recent = new Map<string, number[]>();
 
-  if (!name || !email) {
-    res.status(400).json({ error: "Name and email are required" });
+function rateLimited(ip: string) {
+  const now = Date.now();
+  const hits = (recent.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  hits.push(now);
+  recent.set(ip, hits);
+  if (recent.size > 5000) recent.clear();
+  return hits.length > MAX_PER_WINDOW;
+}
+
+const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/;
+const clean = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+
+router.post("/contact", async (req, res) => {
+  const body = req.body ?? {};
+
+  // Honeypot: real visitors never see or fill the "website" field. Pretend
+  // success so bots get no signal, but deliver nothing.
+  if (clean(body.website, 200)) {
+    res.json({ success: true });
+    return;
+  }
+
+  const ip = String(req.headers["x-forwarded-for"] ?? req.socket.remoteAddress ?? "unknown").split(",")[0].trim();
+  if (rateLimited(ip)) {
+    res.status(429).json({ success: false, error: "Too many submissions. Please try again later." });
+    return;
+  }
+
+  const name = clean(body.name, 120);
+  const email = clean(body.email, 200);
+  if (!name || !EMAIL_RE.test(email)) {
+    res.status(400).json({ success: false, error: "A name and a valid email address are required." });
     return;
   }
 
   const payload = {
-    name: String(name).slice(0, 200),
-    email: String(email).slice(0, 200),
-    phone: phone || "",
-    message: message || "",
-    service: service || "General Inquiry",
+    name,
+    email,
+    phone: clean(body.phone, 40),
+    message: clean(body.message, 5000),
+    service: clean(body.service, 80) || "General Inquiry",
     submittedAt: new Date().toISOString(),
   };
 
-  console.log("New contact form submission:", payload);
+  // Log without personal data; the lead itself goes to the delivery channels.
+  console.log("New contact form submission:", { service: payload.service, submittedAt: payload.submittedAt });
 
   const results: Record<string, any> = {
     supabase: "skipped",

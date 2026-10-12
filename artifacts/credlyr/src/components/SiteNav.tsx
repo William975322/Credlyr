@@ -197,7 +197,7 @@ export function SiteNav() {
                       <ChevronDown
                         size={18}
                         aria-hidden="true"
-                        className={`text-[#8a8782] transition-transform duration-200 ${expanded === item.label ? "rotate-180" : ""}`}
+                        className={`text-[#6f6c66] transition-transform duration-200 ${expanded === item.label ? "rotate-180" : ""}`}
                       />
                     </button>
                     <AnimatePresence initial={false}>
