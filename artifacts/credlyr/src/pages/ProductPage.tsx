@@ -531,7 +531,7 @@ function WebsitesProductPage() {
     },
     {
       title: "SEO Audit",
-      desc: "We analyze search visibility, page speed, crawl paths, and indexing errors to guarantee your platform ranks as a primary source for search and answer engines."
+      desc: "We analyze search visibility, page speed, crawl paths, and indexing errors so search and answer engines can understand and surface your services."
     }
   ];
 
@@ -1157,43 +1157,6 @@ function WebsitesProductPage() {
                 <p className="text-sm sm:text-[14.5px] text-neutral-500 leading-relaxed">
                   We use AI to build faster, and better.
                 </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── 9. Testimonials ─── */}
-      <section className="bg-white py-16 md:py-24 px-5 sm:px-8 md:px-10 border-b border-neutral-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1 */}
-          <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
-            <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
-              "Credyr built our new site in under two weeks and appointment bookings went up noticeably in the first month. It just works."
-            </p>
-            <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
-              <div className="w-11 h-11 rounded-full bg-stone-300/70 flex items-center justify-center text-[13px] font-bold text-stone-600 select-none">
-                JR
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-gray-950 font-sans">James R.</h4>
-                <p className="text-xs text-neutral-500 font-sans">Dental Practice Owner</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-[#f5f3ec] rounded-3xl p-8 md:p-10 flex flex-col justify-between border border-neutral-200/60 shadow-sm min-h-[260px]">
-            <p className="text-base sm:text-lg md:text-xl font-normal leading-relaxed text-gray-900 font-sans italic">
-              "Our website used to be a cost centre. Now it's a revenue driver - custom layouts, serious speed, and a booking flow our clients actually use."
-            </p>
-            <div className="flex items-center gap-4 mt-8 border-t border-neutral-200/60 pt-6">
-              <div className="w-11 h-11 rounded-full bg-stone-300/70 flex items-center justify-center text-[13px] font-bold text-stone-600 select-none">
-                SM
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-gray-950 font-sans">Sarah M.</h4>
-                <p className="text-xs text-neutral-500 font-sans">Spa Director</p>
               </div>
             </div>
           </div>

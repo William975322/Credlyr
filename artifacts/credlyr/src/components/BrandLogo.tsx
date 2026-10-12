@@ -116,7 +116,9 @@ const BrandDirectionContext = React.createContext<BrandContextType>({
 
 export function BrandProvider({ children }: { children: React.ReactNode }) {
   const [direction, setDirectionState] = useState<LogoDirection>(() => {
-    if (typeof window !== "undefined") {
+    // A1 is the working identity. Alternative directions are only selectable
+    // in development (via /brand), never for public visitors.
+    if (import.meta.env.DEV && typeof window !== "undefined") {
       const saved = localStorage.getItem("credyr_logo_direction") as LogoDirection | null;
       if (saved === "A1" || saved === "A2" || saved === "A3" || saved === "A" || saved === "B" || saved === "C") {
         return saved === "A" ? "A1" : saved;
