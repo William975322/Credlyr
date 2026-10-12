@@ -2,25 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://credyr.com/</loc><priority>1.0</priority></url>
   <url><loc>https://credyr.com/product/websites</loc><priority>0.9</priority></url>
-  <url><loc>https://credyr.com/product/landing-pages</loc><priority>0.9</priority></url>
   <url><loc>https://credyr.com/product/booking</loc><priority>0.9</priority></url>
   <url><loc>https://credyr.com/product/conversion</loc><priority>0.9</priority></url>
-  <url><loc>https://credyr.com/product/ai-search</loc><priority>0.9</priority></url>
-  <url><loc>https://credyr.com/product/trust-systems</loc><priority>0.9</priority></url>
+  <url><loc>https://credyr.com/get-started</loc><priority>0.8</priority></url>
   <url><loc>https://credyr.com/industries/dental</loc><priority>0.8</priority></url>
   <url><loc>https://credyr.com/industries/medical</loc><priority>0.8</priority></url>
-  <url><loc>https://credyr.com/industries/spas</loc><priority>0.8</priority></url>
-  <url><loc>https://credyr.com/industries/home-services</loc><priority>0.8</priority></url>
-  <url><loc>https://credyr.com/industries/real-estate</loc><priority>0.8</priority></url>
-  <url><loc>https://credyr.com/services/brand-strategy</loc><priority>0.7</priority></url>
-  <url><loc>https://credyr.com/services/visual-identity</loc><priority>0.7</priority></url>
-  <url><loc>https://credyr.com/services/optimisation</loc><priority>0.7</priority></url>
+  <url><loc>https://credyr.com/industries/aesthetics</loc><priority>0.8</priority></url>
+  <url><loc>https://credyr.com/industries/advisory</loc><priority>0.8</priority></url>
   <url><loc>https://credyr.com/about</loc><priority>0.6</priority></url>
-  <url><loc>https://credyr.com/resources-hub</loc><priority>0.6</priority></url>
-  <url><loc>https://credyr.com/resources-hub/identity-in-an-ai-world</loc><priority>0.6</priority></url>
-  <url><loc>https://credyr.com/customers/reviews</loc><priority>0.6</priority></url>
-  <url><loc>https://credyr.com/trust</loc><priority>0.5</priority></url>
-  <url><loc>https://credyr.com/security</loc><priority>0.5</priority></url>
   <url><loc>https://credyr.com/contact</loc><priority>0.5</priority></url>
-  <url><loc>https://credyr.com/get-started</loc><priority>0.8</priority></url>
+  <url><loc>https://credyr.com/privacy</loc><priority>0.3</priority></url>
 </urlset>

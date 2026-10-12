@@ -15,7 +15,7 @@ const FOOTER_COLS = [
     links: [
       { label: "Dental practices", href: "/industries/dental" },
       { label: "Medical & clinics", href: "/industries/medical" },
-      { label: "Advisory firms", href: "/services/brand-strategy" },
+      { label: "Advisory firms", href: "/industries/advisory" },
     ],
   },
   {
@@ -63,7 +63,7 @@ export function SiteFooter() {
 
         <div className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] text-white/45">
           <p>© {new Date().getFullYear()} Credyr</p>
-          <Link href="/trust" className="transition-colors hover:text-white/80">
+          <Link href="/privacy" className="transition-colors hover:text-white/80">
             Privacy
           </Link>
         </div>

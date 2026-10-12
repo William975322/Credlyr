@@ -2,6 +2,10 @@ import { Router } from "express";
 
 const router = Router();
 
+// Escape user input before it is placed in email HTML.
+const escapeHtml = (value: unknown) =>
+  String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
 router.post("/contact", async (req, res) => {
   const { name, email, phone, message, service } = req.body;
 
@@ -11,8 +15,8 @@ router.post("/contact", async (req, res) => {
   }
 
   const payload = {
-    name,
-    email,
+    name: String(name).slice(0, 200),
+    email: String(email).slice(0, 200),
     phone: phone || "",
     message: message || "",
     service: service || "General Inquiry",
@@ -86,12 +90,12 @@ router.post("/contact", async (req, res) => {
             <h2>New Contact Form Submission</h2>
             <p>A new lead has submitted the contact form on Credyr.</p>
             <ul>
-              <li><strong>Name:</strong> ${payload.name}</li>
-              <li><strong>Email:</strong> ${payload.email}</li>
-              <li><strong>Phone:</strong> ${payload.phone}</li>
-              <li><strong>Interested Service:</strong> ${payload.service}</li>
-              <li><strong>Message:</strong> ${payload.message || "None provided"}</li>
-              <li><strong>Submitted At:</strong> ${payload.submittedAt}</li>
+              <li><strong>Name:</strong> ${escapeHtml(payload.name)}</li>
+              <li><strong>Email:</strong> ${escapeHtml(payload.email)}</li>
+              <li><strong>Phone:</strong> ${escapeHtml(payload.phone)}</li>
+              <li><strong>Interested Service:</strong> ${escapeHtml(payload.service)}</li>
+              <li><strong>Message:</strong> ${escapeHtml(payload.message || "None provided")}</li>
+              <li><strong>Submitted At:</strong> ${escapeHtml(payload.submittedAt)}</li>
             </ul>
           `,
         }),
@@ -100,6 +104,9 @@ router.post("/contact", async (req, res) => {
       if (!adminEmailRes.ok) {
         const text = await adminEmailRes.text();
         console.error("Resend admin notification failed:", text);
+        results.resend = `failed: ${adminEmailRes.status}`;
+      } else {
+        results.resend = "success";
       }
 
       // Send auto-response confirmation to the lead/customer
@@ -114,7 +121,7 @@ router.post("/contact", async (req, res) => {
           to: [payload.email],
           subject: "Thank you for reaching out to Credyr",
           html: `
-            <p>Hi ${payload.name},</p>
+            <p>Hi ${escapeHtml(payload.name)},</p>
             <p>Thanks for your interest in Credyr! We've received your information and we'll reach out to you shortly.</p>
             <p>If you'd like to book a call with us right away, you can schedule one anytime on our calendar:</p>
             <p><a href="https://credyr.com/get-started" style="display:inline-block;padding:10px 20px;background-color:#000000;color:#ffffff;text-decoration:none;border-radius:999px;font-weight:bold;">Schedule a call now</a></p>
@@ -127,8 +134,6 @@ router.post("/contact", async (req, res) => {
         const text = await customerEmailRes.text();
         console.error("Resend auto-response failed:", text);
       }
-
-      results.resend = "success";
     } catch (err: any) {
       console.error("Resend email error:", err);
       results.resend = `error: ${err.message || err}`;
@@ -166,6 +171,14 @@ router.post("/contact", async (req, res) => {
     }
   }
 
+  // Only report success if at least one channel actually delivered the lead,
+  // so the website never tells a visitor their message arrived when it didn't.
+  const delivered = Object.values(results).some((r) => r === "success");
+  if (!delivered) {
+    console.error("Contact submission not delivered to any channel:", results);
+    res.status(503).json({ success: false, results });
+    return;
+  }
   res.json({ success: true, results });
 });
 

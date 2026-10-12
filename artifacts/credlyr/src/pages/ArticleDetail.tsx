@@ -1,3 +1,6 @@
+// ARCHIVED — not routed (12 Oct 2026). Kept for review: may contain reusable
+// writing, but not yet aligned with Credyr's positioning or design system.
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
@@ -315,18 +318,6 @@ export default function ArticleDetail() {
                 </p>
 
                 {/* Embedded Cartoon */}
-                <div className="flex flex-col items-center my-10 select-none">
-                  <div className="max-w-xl border border-neutral-200 bg-white p-6 rounded-2xl shadow-sm">
-                    <img
-                      src="/nobody-knows-youre-a-dog.png"
-                      alt="New Yorker Dog Cartoon: On the Internet, nobody knows you're a dog"
-                      className="w-full h-auto object-contain"
-                    />
-                    <p className="text-center font-serif text-[15px] italic text-neutral-700 mt-4">
-                      "On the Internet, nobody knows you're a dog."
-                    </p>
-                  </div>
-                </div>
               </div>
             </section>
 

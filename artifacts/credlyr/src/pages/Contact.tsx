@@ -1,141 +1,146 @@
-import { motion } from "framer-motion";
-import { Link } from "wouter";
-import { ArrowLeft, ArrowRight, Mail, Clock } from "lucide-react";
 import { useState } from "react";
+import { Link } from "wouter";
+import { ArrowRight, Check } from "lucide-react";
+import { ART, CONTAINER, PageHero, usePageTitle } from "../components/site";
+import { SiteFooter } from "../components/SiteFooter";
+
+const CONTACT_EMAIL = "hello@credyr.com";
+
+const TOPICS = [
+  "Website or landing page",
+  "Appointment scheduling",
+  "Lead response and CRM",
+  "Website audit",
+  "Something else",
+];
+
+type Status = "idle" | "sending" | "sent" | "error";
+
+const FIELD =
+  "w-full rounded-xl border border-[#e3dfd8] bg-white px-4 py-3 text-[16px] text-[#222221] placeholder:text-[#a19d96] transition focus:border-[#222221] focus:outline-none focus:ring-2 focus:ring-[#222221]/10 disabled:opacity-60";
+const LABEL = "mb-2 block text-[14px] font-medium text-[#222221]";
 
 export default function ContactPage() {
-  const [sent, setSent] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [service, setService] = useState("Brand Strategy");
-  const [message, setMessage] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  usePageTitle("Contact");
+  const [status, setStatus] = useState<Status>("idle");
+  const [form, setForm] = useState({ name: "", email: "", phone: "", service: TOPICS[0], message: "" });
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (submitting) return;
-    setSubmitting(true);
-
+    if (status === "sending") return;
+    setStatus("sending");
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          service,
-          message,
-        }),
+        body: JSON.stringify(form),
       });
-      setSent(true);
-    } catch (err) {
-      console.error("Failed to send message:", err);
-      setSent(true);
-    } finally {
-      setSubmitting(false);
+      const data = await res.json().catch(() => null);
+      // Only confirm when the server says the message was actually delivered.
+      setStatus(res.ok && data?.success ? "sent" : "error");
+    } catch {
+      setStatus("error");
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#faf9f6]">
-      <div className="px-5 sm:px-8 md:px-10 pt-28 pb-0">
-        <Link href="/"><a className="inline-flex items-center gap-2 text-[13px] font-medium text-neutral-500 hover:text-gray-950 transition-colors">
-          <ArrowLeft size={14} strokeWidth={1.8} /> Back to home
-        </a></Link>
-      </div>
+    <>
+      <main>
+        <PageHero
+          art={ART.riverbank}
+          position="50% 35%"
+          eyebrow="Contact"
+          title="Let’s talk about your website."
+          lead="Tell us a little about your practice and what you’d like to improve. For a structured review of your current site, book a website audit instead."
+        />
 
-      <div className="px-5 sm:px-8 md:px-10 pt-12 pb-24 max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-        {/* Left */}
-        <div>
-          <motion.span initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="inline-block border border-gray-200 rounded-full px-3 py-1 text-[12px] text-gray-600 font-medium mb-6">
-            Company
-          </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.05 }}
-            className="text-5xl md:text-5xl font-semibold tracking-tight text-gray-950 leading-[1.1] mb-6">
-            Let's talk.
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-lg text-gray-500 leading-relaxed font-normal mb-10">
-            Whether you have a project in mind or just want to explore what's possible — we'd love to hear from you.
-          </motion.p>
-
-          <div className="flex flex-col gap-5">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white border border-neutral-200/60 flex items-center justify-center shrink-0">
-                <Mail size={15} strokeWidth={1.8} className="text-gray-500" />
+        <section className="bg-white pb-24 md:pb-32">
+          <div className={`${CONTAINER} grid grid-cols-1 gap-12 md:grid-cols-[1fr_1.4fr] md:gap-16`}>
+            <div className="flex flex-col gap-8">
+              <div className="border-t border-[#222221] pt-6">
+                <p className="text-[14px] text-[#8a8782]">Email</p>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="mt-1 inline-block text-[20px] tracking-[-0.02em] text-[#222221] underline-offset-4 hover:underline">
+                  {CONTACT_EMAIL}
+                </a>
               </div>
-              <div>
-                <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Email</p>
-                <a href="mailto:hello@credyr.com" className="text-[15px] font-semibold text-gray-900 hover:text-gray-500 transition-colors">hello@credyr.com</a>
+              <div className="border-t border-[#ece9e3] pt-6">
+                <p className="text-[14px] text-[#8a8782]">Prefer to talk it through?</p>
+                <Link href="/get-started" className="mt-2 inline-flex items-center gap-1.5 text-[17px] text-[#222221] underline-offset-4 hover:underline">
+                  Book a website audit <ArrowRight size={16} aria-hidden="true" />
+                </Link>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white border border-neutral-200/60 flex items-center justify-center shrink-0">
-                <Clock size={15} strokeWidth={1.8} className="text-gray-500" />
-              </div>
-              <div>
-                <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Response time</p>
-                <p className="text-[15px] font-semibold text-gray-900">Within 24 hours</p>
-              </div>
+
+            <div className="rounded-[24px] bg-[#f7f4ef] p-6 sm:p-10">
+              {status === "sent" ? (
+                <div role="status" className="flex flex-col items-start gap-4 py-6">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#222221] text-white">
+                    <Check size={20} aria-hidden="true" />
+                  </span>
+                  <h2 className="text-[28px] tracking-[-0.04em] text-[#222221]">Thank you, we’ve received your message.</h2>
+                  <p className="text-[16px] leading-[1.6] text-[#5f5c58]">We’ll reply by email.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate={false}>
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="c-name" className={LABEL}>Name</label>
+                      <input id="c-name" required autoComplete="name" value={form.name} onChange={set("name")} disabled={status === "sending"} className={FIELD} />
+                    </div>
+                    <div>
+                      <label htmlFor="c-email" className={LABEL}>Email</label>
+                      <input id="c-email" type="email" required autoComplete="email" value={form.email} onChange={set("email")} disabled={status === "sending"} className={FIELD} />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="c-phone" className={LABEL}>
+                        Phone <span className="font-normal text-[#8a8782]">(optional)</span>
+                      </label>
+                      <input id="c-phone" type="tel" autoComplete="tel" value={form.phone} onChange={set("phone")} disabled={status === "sending"} className={FIELD} />
+                    </div>
+                    <div>
+                      <label htmlFor="c-topic" className={LABEL}>What can we help with?</label>
+                      <select id="c-topic" value={form.service} onChange={set("service")} disabled={status === "sending"} className={FIELD}>
+                        {TOPICS.map((t) => (
+                          <option key={t}>{t}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="c-message" className={LABEL}>Message</label>
+                    <textarea id="c-message" rows={5} value={form.message} onChange={set("message")} disabled={status === "sending"} className={`${FIELD} resize-y`} />
+                  </div>
+
+                  {status === "error" && (
+                    <p role="alert" className="rounded-xl bg-[#fbeae6] px-4 py-3 text-[15px] leading-[1.5] text-[#8a2f1d]">
+                      Sorry, we couldn’t send your message. Please email us at{" "}
+                      <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a> or book a website audit instead.
+                    </p>
+                  )}
+
+                  <div className="flex flex-wrap items-center gap-4 pt-1">
+                    <button
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-[#16100c] px-6 py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-neutral-800 disabled:opacity-60"
+                    >
+                      {status === "sending" ? "Sending…" : "Send message"}
+                    </button>
+                    <p className="text-[13.5px] leading-[1.5] text-[#8a8782]">
+                      We use your details only to reply. See our <Link href="/privacy" className="underline">privacy notice</Link>.
+                    </p>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
-
-          <div className="mt-10 border-t border-neutral-200/60 pt-8">
-            <p className="text-[13px] text-gray-500 mb-4">Prefer to book directly?</p>
-            <Link href="/get-started">
-              <a className="inline-flex items-center gap-2 bg-gray-950 text-white rounded-full px-5 py-2.5 text-[13px] font-semibold hover:bg-gray-800 transition-colors">
-                Schedule a call <ArrowRight size={13} strokeWidth={2} />
-              </a>
-            </Link>
-          </div>
-        </div>
-
-        {/* Right — form */}
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white border border-neutral-200/70 rounded-3xl p-8 shadow-sm">
-          {sent ? (
-            <div className="flex flex-col items-center justify-center text-center py-10 gap-4">
-              <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                <span className="text-xl">✓</span>
-              </div>
-              <h3 className="text-[19px] font-semibold text-gray-950">Message sent</h3>
-              <p className="text-[14px] text-gray-500">We'll be in touch within 24 hours.</p>
-            </div>
-          ) : (
-            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Name</label>
-                  <input required type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition disabled:opacity-50" />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Email</label>
-                  <input required type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition disabled:opacity-50" />
-                </div>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">What do you need?</label>
-                <select value={service} onChange={(e) => setService(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition text-gray-700 disabled:opacity-50">
-                  <option>Brand Strategy</option>
-                  <option>Visual Identity</option>
-                  <option>Full-Cycle Website</option>
-                  <option>Landing Pages</option>
-                  <option>Ongoing Optimisation</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Message</label>
-                <textarea required rows={4} placeholder="Tell us about your project..." value={message} onChange={(e) => setMessage(e.target.value)} disabled={submitting} className="border border-neutral-200 rounded-xl px-4 py-3 text-[14px] bg-[#faf9f6] focus:outline-none focus:ring-2 focus:ring-gray-300 transition resize-none disabled:opacity-50" />
-              </div>
-              <button type="submit" disabled={submitting} className="w-full bg-gray-950 text-white rounded-xl py-3 text-[14px] font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50">
-                {submitting ? "Sending..." : "Send message"}
-              </button>
-            </form>
-          )}
-        </motion.div>
-      </div>
-    </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
   );
 }

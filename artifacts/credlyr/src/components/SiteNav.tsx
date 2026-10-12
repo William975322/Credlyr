@@ -25,8 +25,8 @@ const NAV: NavItem[] = [
     items: [
       { label: "Dental practices", sub: "General, cosmetic and specialist", href: "/industries/dental" },
       { label: "Medical & clinics", sub: "Private consultants and clinics", href: "/industries/medical" },
-      { label: "Aesthetics", sub: "Aesthetic and wellness studios", href: "/industries/spas" },
-      { label: "Advisory firms", sub: "Legal, wealth and consultancy", href: "/services/brand-strategy" },
+      { label: "Aesthetics", sub: "Aesthetic and wellness studios", href: "/industries/aesthetics" },
+      { label: "Advisory firms", sub: "Legal, wealth and consultancy", href: "/industries/advisory" },
     ],
   },
   { label: "About", href: "/about" },

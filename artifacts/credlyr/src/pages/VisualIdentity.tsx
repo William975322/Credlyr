@@ -1,3 +1,6 @@
+// ARCHIVED — not routed (12 Oct 2026). Kept for review: may contain reusable
+// writing, but not yet aligned with Credyr's positioning or design system.
+
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
