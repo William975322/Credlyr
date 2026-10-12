@@ -53,6 +53,11 @@ export default defineConfig({
     fs: {
       strict: true,
     },
+    // In development, /api is served by scripts/dev-api.mjs (the same
+    // handlers Vercel runs in production).
+    proxy: {
+      "/api": "http://127.0.0.1:3901",
+    },
   },
   preview: {
     port,

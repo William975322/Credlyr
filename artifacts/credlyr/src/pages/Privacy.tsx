@@ -36,8 +36,8 @@ export default function PrivacyPage() {
                   you and to discuss working together.
                 </p>
                 <p>
-                  Submissions are stored in our lead database and sent to us by email. We use service providers for
-                  this (Supabase for storage and Resend for email delivery).
+                  Your message is delivered to our business inbox as an email, sent through our email delivery
+                  provider, Resend. We don’t send automatic emails to the address you enter.
                 </p>
               </Block>
               <Block title="Booking a website audit">
@@ -60,10 +60,10 @@ export default function PrivacyPage() {
               </Block>
               <Block title="Cookies and analytics">
                 <p>
-                  This website itself does not set cookies and does not use analytics or advertising tracking.
+                  This website itself does not set cookies and does not use analytics or advertising tracking. Our
+                  fonts are hosted on this website, so loading a page does not contact third-party font services.
                   The booking calendar on the website audit page is provided by Cal.com, which may set its own
-                  cookies when it loads. Fonts are loaded from Google Fonts, which means your browser connects to
-                  Google’s servers when a page loads.
+                  cookies when it loads.
                 </p>
               </Block>
               <Block title="Your choices">

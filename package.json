@@ -4,10 +4,12 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "rm -f package-lock.json yarn.lock",
-    "postinstall": "if [ \"$VERCEL\" = \"1\" ]; then pnpm --filter @workspace/credlyr run build && pnpm --filter @workspace/api-server run build; fi",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
-    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "test": "node --test tests/api.test.mjs",
+    "typecheck:api": "tsc -p api/tsconfig.json",
+    "dev:api": "node scripts/dev-api.mjs"
   },
   "private": true,
   "packageManager": "pnpm@9.15.9",
