@@ -49,7 +49,7 @@ export function SiteFooter() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-[14.5px] text-white/55 transition-colors hover:text-white"
+                        className="-my-1.5 block py-1.5 text-[14.5px] text-white/55 transition-colors hover:text-white"
                       >
                         {link.label}
                       </Link>
@@ -63,7 +63,7 @@ export function SiteFooter() {
 
         <div className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] text-white/45">
           <p>© {new Date().getFullYear()} Credyr</p>
-          <Link href="/privacy" className="transition-colors hover:text-white/80">
+          <Link href="/privacy" className="-my-2 py-2 transition-colors hover:text-white/80">
             Privacy
           </Link>
         </div>

@@ -20,6 +20,8 @@ export { SiteFooter };
 // Retired URLs and where they now lead. Pages with invented content (reviews,
 // status, news, partners, community, docs, security claims) were removed;
 // off-positioning pages point to their closest current equivalent.
+// Keep in sync with the permanent redirects in vercel.json, which handle these
+// on Vercel before the app loads; this list covers local development.
 const REDIRECTS: [string, string][] = [
   ["/status", "/"],
   ["/customers/reviews", "/"],
@@ -31,7 +33,7 @@ const REDIRECTS: [string, string][] = [
   ["/security", "/privacy"],
   ["/trust", "/privacy"],
   ["/resources-hub", "/"],
-  ["/resources-hub/:rest*", "/"],
+  ["/resources-hub/*", "/"],
   ["/services/brand-strategy", "/industries/advisory"],
   ["/services/visual-identity", "/product/websites"],
   ["/services/optimisation", "/product/websites"],

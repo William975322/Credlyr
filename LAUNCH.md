@@ -91,7 +91,7 @@ Then set `VITE_CAL_URL` (above) and redeploy; it is read at build time.
 On the preview URL Vercel creates for the branch:
 
 1. `GET /api/healthz` → JSON with `contactConfigured: true`.
-2. `GET /api/nope` → JSON 404 (not HTML). `/product/websites` and `/nope` → website pages.
+2. `GET /api/nope` → Vercel 404 (not the website). `/product/websites` and `/nope` → website pages.
 3. Every page renders; no requests to fonts.googleapis.com (browser network tab).
 4. Contact form: **one approved test submission** → it arrives at
    `hello@credyr.com` from `website@credyr.com`, and replying goes to the
@@ -99,7 +99,7 @@ On the preview URL Vercel creates for the branch:
    message appears when the API is unavailable.
 5. Booking: the embed shows the Website Audit event. **One approved test
    booking**, then cancel it; the redirect lands on `/thanks?booked=1`.
-6. Old URLs redirect: `/customers/reviews`, `/status`, `/careers` → current pages.
+6. Old URLs return a 308 redirect: `/customers/reviews`, `/status`, `/careers`, `/resources-hub/anything` → current pages.
 7. Share-preview check: `https://www.opengraph.xyz/` with the preview URL shows `og-image.jpg`.
 
 ## 6. Rollback
