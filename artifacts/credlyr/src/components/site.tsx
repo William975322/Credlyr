@@ -19,6 +19,26 @@ export const ART = {
   riverbank: "/art/valley-riverbank.jpg",
 };
 
+// Colour along the top edge of each painting as it is cropped in the heroes.
+// macOS and iOS paint this above the page when it is pulled down at the top
+// (rubber-band overscroll), so the sky continues instead of revealing white.
+const ART_TOP_EDGE: Record<string, string> = {
+  [ART.hero]: "#f9d2b5",
+  [ART.sky]: "#fbeacf",
+  [ART.riverbank]: "#f6e1c8",
+};
+
+/** Sets the overscroll colour above the page to match the hero painting. */
+export function useOverscrollTop(art: string) {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty("--overscroll-top", ART_TOP_EDGE[art] ?? "#ffffff");
+    return () => {
+      root.style.removeProperty("--overscroll-top");
+    };
+  }, [art]);
+}
+
 // Colours of the fictional concept-practice brand shown in the examples.
 export const CONCEPT_GREEN = "#26372e";
 
@@ -301,6 +321,7 @@ export function PageHero({
   lead?: ReactNode;
   children?: ReactNode;
 }) {
+  useOverscrollTop(art);
   return (
     <section data-testid="page-hero" className="relative isolate overflow-x-clip bg-white">
       <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-[560px] md:h-[640px]">

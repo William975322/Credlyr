@@ -171,7 +171,14 @@ body {
   body {
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
+  }
+  /* Shown only during rubber-band overscroll past the top or bottom of the
+     page; the body itself stays white. */
+  html {
+    background-color: var(--overscroll-top, #ffffff);
+  }
+  html[data-overscroll="bottom"] {
+    background-color: #161a1e;
   }
   body {
     font-family: var(--app-font-sans);

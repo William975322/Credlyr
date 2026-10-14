@@ -25,7 +25,7 @@ import {
   H2,
   LEAD,
   PrimaryButton,
-  SectionHeader, usePageTitle } from "../components/site";
+  SectionHeader, useOverscrollTop, usePageTitle } from "../components/site";
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
 // The painting fills the top of the viewport and dissolves into the page; the
@@ -34,6 +34,7 @@ import {
 // the section instead of clipping its content.
 
 function Hero() {
+  useOverscrollTop(ART.hero);
   return (
     <section
       data-testid="hero-section"

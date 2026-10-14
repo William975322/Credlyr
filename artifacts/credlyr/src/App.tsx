@@ -50,6 +50,24 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
+  // The root background is what macOS and iOS show when the page is pulled
+  // past either end. Match the hero near the top and the footer near the
+  // bottom (see index.css).
+  useEffect(() => {
+    const root = document.documentElement;
+    const update = () => {
+      const middle = (root.scrollHeight - window.innerHeight) / 2;
+      root.dataset.overscroll = middle > 0 && window.scrollY > middle ? "bottom" : "top";
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [location]);
+
   return (
     <BrandProvider>
       <div className="min-h-screen bg-white">
