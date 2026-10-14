@@ -85,7 +85,7 @@ function Statement() {
     <section data-testid="statement-section" className="bg-white pb-4 pt-20 md:pb-6 md:pt-28">
       <div className={CONTAINER}>
         <div className="max-w-[660px]">
-          <h2 className="text-balance text-[32px] font-normal leading-[1.1] tracking-[-0.05em] text-[#222221] md:text-[44px]">
+          <h2 className="text-balance text-[34px] font-normal leading-[1.1] tracking-[-0.05em] text-[#222221] md:text-[44px]">
             Your work deserves a better first impression.
           </h2>
           <p className="mt-6 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#6b6864] md:text-[22px]">
