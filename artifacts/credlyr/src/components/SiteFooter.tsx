@@ -49,7 +49,7 @@ export function SiteFooter() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="-my-1.5 block py-1.5 text-[14.5px] text-white/55 transition-colors hover:text-white"
+                        className="-my-1.5 block py-1.5 text-[14.5px] leading-6 text-white/55 transition-colors hover:text-white"
                       >
                         {link.label}
                       </Link>
