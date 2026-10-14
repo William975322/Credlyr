@@ -1,9 +1,6 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import {
-  ShieldCheck,
-  CalendarCheck,
-  MessageSquareReply,
   PenTool,
   MousePointerClick,
   Gauge,
@@ -79,49 +76,25 @@ function Hero() {
   );
 }
 
-// ─── Positioning ─────────────────────────────────────────────────────────────
+// ─── Statement ───────────────────────────────────────────────────────────────
+// A short editorial statement between the hero and the work. Type only; the
+// Websites section follows closely so the page flows straight into examples.
 
-const PRINCIPLES = [
-  {
-    icon: ShieldCheck,
-    title: "Earn trust at first glance",
-    body: "Considered design, clear information and visible credentials help visitors feel confident before they call.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Make booking effortless",
-    body: "Clients choose a time that suits them, on any device, without phone tag or forms that go nowhere.",
-  },
-  {
-    icon: MessageSquareReply,
-    title: "Never let an enquiry go cold",
-    body: "Every enquiry gets a prompt, personal reply and lands where your team can follow it up.",
-  },
-];
-
-function Positioning() {
+function Statement() {
   return (
-    <section data-testid="positioning-section" className="bg-white pb-8 pt-20 md:pb-12 md:pt-28">
+    <section data-testid="statement-section" className="bg-white pb-4 pt-20 md:pb-6 md:pt-28">
       <div className={CONTAINER}>
-        <div className="max-w-[640px]">
-          <h2 className={H2}>Your website is your first consultation.</h2>
-          <p className={`${LEAD} mt-5`}>
-            People choosing a dentist, a specialist or an adviser decide quickly who to trust. Most
-            service websites make that decision harder than it should be.
+        <div className="max-w-[660px]">
+          <h2 className="text-balance text-[32px] font-normal leading-[1.1] tracking-[-0.05em] text-[#222221] md:text-[44px]">
+            Your work deserves a better first impression.
+          </h2>
+          <p className="mt-6 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#6b6864] md:text-[22px]">
+            People often visit your website before they ever speak to you. It should reflect the
+            quality of your work, explain what you offer, and make it easy to take the next step.
           </p>
-        </div>
-
-        <div className="mt-16 grid grid-cols-1 border-t border-[#e8e5df] md:mt-20 md:grid-cols-3">
-          {PRINCIPLES.map(({ icon: Icon, title, body }, i) => (
-            <div
-              key={title}
-              className={`py-9 md:py-10 ${i > 0 ? "border-t border-[#e8e5df] md:border-l md:border-t-0 md:pl-8" : ""} ${i < 2 ? "md:pr-8" : ""}`}
-            >
-              <Icon size={22} strokeWidth={1.5} className="text-[#222221]" aria-hidden="true" />
-              <h3 className="mt-6 text-[18px] font-medium tracking-[-0.02em] text-[#222221]">{title}</h3>
-              <p className="mt-2 text-[16px] leading-[1.55] text-[#6b6864]">{body}</p>
-            </div>
-          ))}
+          <p className="mt-5 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#222221] md:text-[22px]">
+            That’s what we build.
+          </p>
         </div>
       </div>
     </section>
@@ -130,14 +103,14 @@ function Positioning() {
 
 const WEBSITE_POINTS = [
   { icon: PenTool, title: "Designed around your practice", body: "Original art direction and copy shaped around your services, team and clients." },
-  { icon: MousePointerClick, title: "Built to convert", body: "Clear pages, confident calls to action and a route to booking from every page." },
+  { icon: MousePointerClick, title: "A clear next step", body: "Clear pages, each with an obvious way to book." },
   { icon: Gauge, title: "Fast and accessible", body: "Responsive on every device, quick to load and comfortable to read." },
   { icon: Search, title: "Easy to find", body: "Clean structure and metadata, so search engines understand what you offer." },
 ];
 
 function WebsitesSection() {
   return (
-    <section id="services" data-testid="services-section" className="bg-white py-20 md:py-28">
+    <section id="services" data-testid="services-section" className="bg-white pb-20 pt-14 md:pb-28 md:pt-20">
       <div className={CONTAINER}>
         <SectionHeader
           title="Websites and landing pages"
@@ -251,7 +224,7 @@ function FollowThroughSection() {
           points={[
             { icon: Send, title: "Immediate acknowledgement", body: "Enquirers get a thoughtful reply straight away, with a simple way to book." },
             { icon: Database, title: "Connected to your CRM", body: "New enquiries are added to your CRM with their details and where they came from." },
-            { icon: ListChecks, title: "Clear follow-up", body: "Your team can see who needs a call back, so nothing slips through." },
+            { icon: ListChecks, title: "Clear follow-up", body: "Your team can see who still needs a call back." },
           ]}
         />
       </div>
@@ -264,7 +237,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <Positioning />
+      <Statement />
       <WebsitesSection />
       <Interlude />
       <FollowThroughSection />
