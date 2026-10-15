@@ -37,7 +37,7 @@ export default function AboutPage() {
               </p>
               <p>
                 Design, booking and follow-up are usually handled by different people with different tools.
-                We bring them together as one service, so nothing gets lost between them.
+                We bring them together as one service, so one person is responsible for all of it.
               </p>
             </div>
           </div>

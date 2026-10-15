@@ -153,7 +153,7 @@ function Interlude() {
       />
       <div className="max-w-[680px]">
         <h2 className="text-balance text-[36px] font-normal leading-[1.08] tracking-[-0.045em] text-[#222221] md:text-[52px]">
-          A beautiful website is only the beginning.
+          A good website is only half the job.
         </h2>
         <p className="mx-auto mt-5 max-w-[540px] text-balance text-[18px] leading-[1.5] text-[#4f4c48] md:text-[20px]">
           We connect it to booking and follow-up, so the interest your website creates becomes

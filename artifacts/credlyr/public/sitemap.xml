@@ -12,4 +12,5 @@
   <url><loc>https://www.credyr.com/about</loc><priority>0.6</priority></url>
   <url><loc>https://www.credyr.com/contact</loc><priority>0.5</priority></url>
   <url><loc>https://www.credyr.com/privacy</loc><priority>0.3</priority></url>
+  <url><loc>https://www.credyr.com/legal</loc><priority>0.2</priority></url>
 </urlset>

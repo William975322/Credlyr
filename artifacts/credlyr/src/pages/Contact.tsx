@@ -3,8 +3,10 @@ import { Link } from "wouter";
 import { ArrowRight, Check } from "lucide-react";
 import { ART, CONTAINER, PageHero, usePageTitle } from "../components/site";
 import { SiteFooter } from "../components/SiteFooter";
+import { BUSINESS } from "../lib/business";
 
-const CONTACT_EMAIL = "hello@credyr.com";
+// Shown only once business.json has a mailbox that actually receives mail.
+const CONTACT_EMAIL = BUSINESS.publicEmail;
 
 const TOPICS = [
   "Website or landing page",
@@ -59,13 +61,15 @@ export default function ContactPage() {
         <section className="bg-white pb-24 md:pb-32">
           <div className={`${CONTAINER} grid grid-cols-1 gap-12 md:grid-cols-[1fr_1.4fr] md:gap-16`}>
             <div className="flex flex-col gap-8">
-              <div className="border-t border-[#222221] pt-6">
-                <p className="text-[14px] text-[#6f6c66]">Email</p>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="mt-1 inline-block text-[20px] tracking-[-0.02em] text-[#222221] underline-offset-4 hover:underline">
-                  {CONTACT_EMAIL}
-                </a>
-              </div>
-              <div className="border-t border-[#ece9e3] pt-6">
+              {CONTACT_EMAIL && (
+                <div className="border-t border-[#222221] pt-6">
+                  <p className="text-[14px] text-[#6f6c66]">Email</p>
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="mt-1 inline-block text-[20px] tracking-[-0.02em] text-[#222221] underline-offset-4 hover:underline">
+                    {CONTACT_EMAIL}
+                  </a>
+                </div>
+              )}
+              <div className={`border-t pt-6 ${CONTACT_EMAIL ? "border-[#ece9e3]" : "border-[#222221]"}`}>
                 <p className="text-[14px] text-[#6f6c66]">Prefer to talk it through?</p>
                 <Link href="/get-started" className="mt-2 inline-flex items-center gap-1.5 text-[17px] text-[#222221] underline-offset-4 hover:underline">
                   Book a website audit <ArrowRight size={16} aria-hidden="true" />
@@ -122,14 +126,23 @@ export default function ContactPage() {
 
                   {status === "limited" && (
                     <p role="alert" className="rounded-xl bg-[#fbeae6] px-4 py-3 text-[15px] leading-[1.5] text-[#8a2f1d]">
-                      You’ve sent several messages in a short time. Please try again later, or email us at{" "}
-                      <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>.
+                      You’ve sent several messages in a short time. Please try again later
+                      {CONTACT_EMAIL ? (
+                        <>, or email us at <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>.</>
+                      ) : (
+                        <>, or <Link href="/get-started" className="underline">book a website audit</Link> instead.</>
+                      )}
                     </p>
                   )}
                   {status === "error" && (
                     <p role="alert" className="rounded-xl bg-[#fbeae6] px-4 py-3 text-[15px] leading-[1.5] text-[#8a2f1d]">
-                      Sorry, we couldn’t send your message. Please email us at{" "}
-                      <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a> or book a website audit instead.
+                      Sorry, we couldn’t send your message.{" "}
+                      {CONTACT_EMAIL ? (
+                        <>Please email us at <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a> or </>
+                      ) : (
+                        <>Please try again later, or </>
+                      )}
+                      <Link href="/get-started" className="underline">book a website audit</Link> instead.
                     </p>
                   )}
 

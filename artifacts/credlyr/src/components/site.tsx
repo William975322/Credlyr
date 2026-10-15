@@ -115,7 +115,7 @@ export function ConceptWebsite() {
         {/* Site hero */}
         <div className="grid grid-cols-1 items-center gap-6 px-5 pb-6 pt-2 @3xl:grid-cols-[1fr_1.1fr] @3xl:gap-10 @3xl:px-10 @3xl:pb-10">
           <div>
-            <p className="text-[12px] uppercase tracking-[0.14em] text-[#7d7a71]">Private dental practice · Bath</p>
+            <p className="text-[12px] uppercase tracking-[0.14em] text-[#6b6864]">Private dental practice · Bath</p>
             <p
               className="mt-3 text-[30px] leading-[1.05] tracking-[-0.025em] @3xl:text-[44px] @5xl:text-[52px]"
               style={{ ...CONCEPT_SERIF, color: CONCEPT_GREEN }}
@@ -186,7 +186,7 @@ export function BookingVisual() {
             Hartley <span className="italic">Dental</span>
           </p>
           <p className="mt-4 text-[20px] tracking-[-0.03em] text-[#222221]">Choose a time</p>
-          <p className="mt-0.5 text-[14px] text-[#7a776f]">New patient consultation · 30 minutes</p>
+          <p className="mt-0.5 text-[14px] text-[#6b6864]">New patient consultation · 30 minutes</p>
           <div className="mt-5 grid grid-cols-5 gap-1.5 text-center">
             {days.map(([d, n], i) => (
               <div
@@ -230,7 +230,7 @@ export function FollowUpVisual() {
     <PaintedStage art={ART.hero} position="50% 60%" caption="Illustrative example for a fictional practice and enquiry.">
       <div className="flex w-full max-w-[400px] flex-col gap-3">
         <div className="rounded-[16px] bg-white/85 p-5 shadow-[0_14px_36px_-20px_rgba(60,40,20,0.4)] backdrop-blur-sm">
-          <p className="text-[13px] text-[#7a776f]">New enquiry from your website</p>
+          <p className="text-[13px] text-[#6b6864]">New enquiry from your website</p>
           <p className="mt-1 text-[16px] text-[#222221]">Emma R. · Implant consultation</p>
           <p className="mt-1.5 text-[14px] leading-[1.5] text-[#5d5a55]">
             “Do you have availability in the next couple of weeks?”

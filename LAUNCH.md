@@ -1,137 +1,146 @@
-# Credyr launch checklist
+# Launch checklist
 
-Branch: `feature/premium-homepage-rebuild`. Nothing here has been deployed.
+Branch: `feature/premium-homepage-rebuild`. Production (www.credyr.com) still
+serves the old site from `main` (`1663f6f`, June 2026). Nothing from this
+branch is in production.
 
-## Why the live contact form doesn't work (root cause)
+Run `pnpm run check:launch` at any time: it lists what is still missing.
 
-The GitHub repo deploys to **two separate Vercel projects** on every push to
-`main` (see the repo's GitHub "Environments"):
+## Current setup (October 2026)
 
-| Vercel project | Serves | Problem |
-| --- | --- | --- |
-| `credyr-website` | credyr.com / www.credyr.com | Static site only. `/api/*` falls through to the single-page-app catch-all and returns `index.html`. |
-| `credlyr-api-server-izla` | its own `*.vercel.app` URL (behind Vercel deployment protection) | The Express API. The website never calls it, and on Express 5 it crashes at start-up. |
+| Vercel project | Git | Serves | Notes |
+| --- | --- | --- | --- |
+| `credyr-website` | `main` | www.credyr.com (`credyr.com` → `www`) | Still configured for the old Express app: Root Directory `artifacts/api-server`, framework Express, Node 24, no environment variables. Branch previews here fail until the settings in step 3 are applied. |
+| `credyr-website-staging` | none | protected `*.vercel.app` previews | Review builds of this branch, deployed by hand. Correct settings, no environment variables yet. |
+| `credlyr-api-server-izla` | `main` | its own `*.vercel.app` URL | Old Express API. Returns 500 and nothing calls it. Remove after launch. |
 
-Older environments `credlyr-website` and `credlyr-api-server` are leftovers.
+The new site needs one project: `vercel.json` builds the Vite site to
+`artifacts/credlyr/dist/public` and Vercel runs the functions in `api/`
+(`/api/contact`, `/api/healthz`).
 
-**Fix in this branch:** one project serves both. `vercel.json` builds the Vite
-site to `artifacts/credlyr/dist/public` and Vercel runs the functions in
-`api/` (`/api/contact`, `/api/healthz`). Express is no longer deployed.
+## 1. Information needed before launch
 
-## 1. Infrastructure (Vercel dashboard, project `credyr-website`)
+- **Business details** in `artifacts/credlyr/src/business.json`: legal name,
+  legal form, registered address, enterprise number (KBO/BCE), VAT number, a
+  public email address that receives mail, and how long enquiries are kept.
+  They appear on `/legal`, `/privacy`, `/contact` and in the footer. Empty values
+  are hidden on the site; never fill in guesses.
+- **Cal.com:** the public link of the existing Website Audit event
+  (Cal.com → Event Types → the event → Copy link). Confirm it is free and 30
+  minutes, as `/get-started` now says.
+- **About page:** confirm the founder biography is accurate.
+- **Legal review** of `/privacy` and `/legal` (not provided by this repository).
 
-1. **Settings → Build & Deployment → Root Directory: leave empty (repository root).**
-   This is required so Vercel reads `vercel.json` and finds `api/`.
-2. Framework preset: **Other**. Leave Build Command, Output Directory and Install
-   Command **without overrides** (they come from `vercel.json`).
-3. Node.js version: **22.x**.
-4. Keep the domains `credyr.com` and `www.credyr.com` on this project
-   (`credyr.com` redirects to `www`, the canonical host).
-5. After the new deployment is live and verified: in `credlyr-api-server-izla`,
-   `credlyr-api-server` and `credlyr-website`, disconnect the Git repository or
-   delete the projects so pushes stop deploying them.
-6. Optional hard rate limit: **Firewall → Rate limiting**, e.g. 10 requests per
-   10 minutes per IP on `/api/contact`. The function has its own best-effort limit.
+## 2. Email
 
-## 2. Email (Resend) and environment variables
+The old Google Workspace subscription is not accessible, so `credyr.com` has
+no working mailbox, although its MX records still point to Google. Do not
+configure the contact form against it.
 
-Receiving mail at credyr.com uses Google Workspace. That does **not** authorise
-Resend to send, so outbound needs its own records.
+1. Choose a mailbox provider and set up the address that will receive
+   enquiries. Update the domain's MX (and root SPF) records to that provider.
+2. In Resend, add the sending domain in region **EU (Ireland, eu-west-1)** and
+   add the DKIM, `send` MX and `send` SPF records it shows at GoDaddy. DMARC is
+   already `p=quarantine`, so wait until Resend shows **Verified**.
+3. Create a Resend API key with sending access restricted to that domain.
+4. Put the public address in `business.json` (`publicEmail`, and optionally
+   `emailProvider`).
 
-1. In Resend: **Domains → Add domain → `credyr.com`**, region **EU (Ireland,
-   eu-west-1)**.
-2. Add the records Resend shows at **GoDaddy** (DNS for credyr.com is at
-   `domaincontrol.com`). They follow this pattern; copy the exact values from
-   Resend, especially the DKIM key:
+If the business is renamed first, do this for the new domain only.
 
-   | Type | Name (host) | Value | Priority |
-   | --- | --- | --- | --- |
-   | TXT | `resend._domainkey` | `p=MIGfMA0G…` (unique DKIM key from Resend) | — |
-   | MX | `send` | `feedback-smtp.eu-west-1.amazonses.com` | 10 |
-   | TXT | `send` | `v=spf1 include:amazonses.com ~all` | — |
+## 3. Vercel configuration (`credyr-website`, needs approval)
 
-   Leave the existing root SPF (`v=spf1 include:dc-aa8e722993._spfm.credyr.com ~all`)
-   and DMARC (`p=quarantine`) records unchanged. DKIM on `credyr.com` keeps DMARC
-   aligned.
-3. Wait until Resend shows the domain as **Verified**.
-4. Create an API key with **Sending access**, restricted to `credyr.com`.
-5. In Vercel (`credyr-website` → Settings → Environment Variables), for
-   **Production and Preview**:
+| Setting | Value |
+| --- | --- |
+| Root Directory | empty (repository root) |
+| Framework preset | Other; leave build, install and output commands unset (they come from `vercel.json`) |
+| Node.js | 22.x |
+| Domains → auto-assign custom domains | **off** during the release, back on afterwards |
 
-   | Variable | Value |
-   | --- | --- |
-   | `RESEND_API_KEY` | the key from step 4 |
-   | `CONTACT_EMAIL_TO` | `hello@credyr.com` (confirm this mailbox exists) |
-   | `CONTACT_EMAIL_FROM` | `Credyr Website <website@credyr.com>` |
-   | `VITE_CAL_URL` | after the Cal.com event exists: `https://cal.com/william-vanderpl/website-audit` |
+Environment variables, for **Production and Preview**:
 
-   Remove obsolete variables if present: `SUPABASE_*`, `EMAIL_TO`, `EMAIL_FROM`,
-   `WEBHOOK_URL`, `SLACK_WEBHOOK_URL`, `DISCORD_WEBHOOK_URL`.
-6. `GET /api/healthz` must return `{"status":"ok","contactConfigured":true}`.
+| Variable | Value |
+| --- | --- |
+| `RESEND_API_KEY` | the key from step 2 |
+| `CONTACT_EMAIL_TO` | the mailbox that receives enquiries |
+| `CONTACT_EMAIL_FROM` | e.g. `Website <website@your-domain>` on the Resend-verified domain |
+| `VITE_CAL_URL` | the Website Audit event link (read at build time) |
 
-## 3. Cal.com
+Optional: **Firewall → Rate limiting**, e.g. 10 requests per 10 minutes per IP
+on `/api/contact`. The function only has a best-effort limit of its own.
 
-Create **Event Types → New**: title `Credyr — Website Audit`, URL slug
-`website-audit`, 30 minutes, location Cal Video or Google Meet. Under
-**Advanced → Redirect on booking**: `https://www.credyr.com/thanks?booked=1`.
-Then set `VITE_CAL_URL` (above) and redeploy; it is read at build time.
+## 4. Staging tests (before production)
 
-## 4. Business and legal details needed
+Add the same variables to `credyr-website-staging` (Preview), redeploy it, then:
 
-- Legal entity name, registered address, enterprise number (KBO/BCE) and VAT
-  number, for the footer and the privacy notice.
-- Confirmation that `hello@credyr.com` is a working mailbox.
-- Approval of the founder biography on `/about`.
-- Legal review of `/privacy`, including whether the Cal.com embed (third-party
-  cookies) needs consent or click-to-load, and whether the business is
-  correctly described as Belgium-based.
+1. `GET /api/healthz` → `{"status":"ok","contactConfigured":true}`.
+2. `GET /api/nope` → Vercel 404. `/product/websites` and `/nope` → website pages.
+3. Old URLs return a 308: `/customers/reviews`, `/status`, `/careers`,
+   `/resources-hub/anything`.
+4. `/get-started`: nothing from cal.com loads until **Show available times** is
+   pressed; the calendar then shows the Website Audit event with no empty
+   space below it.
+5. **One approved test booking**, then cancel it: it ends on `/thanks?booked=1`.
+6. **One approved contact-form submission**: it arrives at the inbox, and
+   replying goes to the visitor. Invalid email is rejected; the error message
+   appears when the API is unavailable.
+7. `pnpm run check:launch` passes, and with production values loaded
+   (`vercel env pull`, then `node --env-file=.env.local scripts/check-launch.mjs --env`)
+   it passes with `--env` too.
 
-## 5. Preview testing (before production)
+## 5. Privacy and consent launch checks
 
-On the preview URL Vercel creates for the branch:
+- No cookies or third-party requests on any page until the visitor asks for the
+  booking calendar (check the browser's network tab and cookie storage).
+- `/privacy` names the responsible business, purposes and legal bases,
+  processors (Vercel, Resend, Cal.com, the email provider), transfers outside
+  the EEA, the retention period, the visitor's rights and the Belgian Data
+  Protection Authority.
+- `/legal` shows the business name, legal form, address, enterprise number,
+  VAT number and email.
 
-1. `GET /api/healthz` → JSON with `contactConfigured: true`.
-2. `GET /api/nope` → Vercel 404 (not the website). `/product/websites` and `/nope` → website pages.
-3. Every page renders; no requests to fonts.googleapis.com (browser network tab).
-4. Contact form: **one approved test submission** → it arrives at
-   `hello@credyr.com` from `website@credyr.com`, and replying goes to the
-   visitor's address. Then check an invalid email is rejected and the error
-   message appears when the API is unavailable.
-5. Booking: the embed shows the Website Audit event. **One approved test
-   booking**, then cancel it; the redirect lands on `/thanks?booked=1`.
-6. Old URLs return a 308 redirect: `/customers/reviews`, `/status`, `/careers`, `/resources-hub/anything` → current pages.
-7. Share-preview check: `https://www.opengraph.xyz/` with the preview URL shows `og-image.jpg`.
+## 6. Release and rollback
 
-## 6. Rollback
+1. Note the current production deployment for rollback:
+   `credyr-website-9wvwp7630` (`1663f6f`).
+2. Turn **auto-assign custom domains** off, apply step 3, then immediately open
+   and merge the pull request into `main`. (Once the settings change, any push
+   to `main` builds with them.)
+3. Check the new production deployment on its own URL: `/api/healthz`, the
+   pages, redirects and booking.
+4. **Promote to Production.** On www.credyr.com check `/api/healthz`,
+   `/customers/reviews` → `/`, the new homepage, and that the old cartoon image
+   is gone.
+5. Turn auto-assign custom domains back on.
+6. Optionally submit `https://www.credyr.com/sitemap.xml` in Google Search Console.
 
-Vercel keeps every deployment. If anything fails after release:
-**Deployments → the previous production deployment → ⋯ → Promote to Production**
-(instant, no rebuild). Revert the dashboard Root Directory setting only if you
-roll back to a deployment built before this branch.
+**Rollback:** Deployments → `credyr-website-9wvwp7630` → ⋯ → **Promote to
+Production** (instant, no rebuild, no need to revert settings). Then revert
+the merge on `main` so the next push does not redeploy the new site.
 
-## 7. Replacing the outdated live site safely
+## 7. After launch
 
-The current live site publicly shows fabricated testimonials, a fake status
-page, text copied from duna.com and a third-party cartoon. Replace it as soon as
-the preview passes:
+- Disconnect Git from `credlyr-api-server-izla` and delete it once its logs
+  show no traffic.
+- Delete the leftover GitHub environments `credlyr-website` and
+  `credlyr-api-server`.
+- Keep or delete `credyr-website-staging`.
 
-1. Apply the dashboard settings (section 1) and environment variables (section 2).
-2. Push `feature/premium-homepage-rebuild` and let Vercel build a **preview**.
-3. Run the preview tests (section 5).
-4. Merge into `main` (or promote the verified preview) to release to production.
-5. Immediately verify on www.credyr.com: `/api/healthz` JSON, `/customers/reviews`
-   redirects to `/`, `/nobody-knows-youre-a-dog.png` no longer exists, and the
-   homepage shows the new design.
-6. Retire the extra Vercel projects (section 1, step 5).
-7. Optionally, in Google Search Console, request recrawling of `/` and submit
-   `https://www.credyr.com/sitemap.xml`.
+## Rename
+
+The brand name and domain are not part of the launch fixes. When a new name is
+chosen, these change together: page titles and metadata (`index.html`,
+`usePageTitle` in `src/components/site.tsx`), structured data, logo and
+favicon, footer, About and Privacy wording, `og-image.jpg`, canonical URLs and
+`sitemap.xml`/`robots.txt`, `business.json`, the Resend domain and
+`CONTACT_EMAIL_FROM`, the Cal.com event title, and the Vercel project and
+domains (keep `credyr.com` redirecting to the new domain).
 
 ## Repository
 
 The GitHub repo is **public**. It still contains third-party screenshots
 (including full-page captures of duna.com), early planning prompts in
 `attached_assets/`, and, in older commits, a personal email address and text
-copied from duna.com. Making the repo **private** removes public access to all of
-it, including history. Vercel's GitHub integration keeps deploying private repos
-it has been granted access to. Check **GitHub → Settings → Applications →
-Vercel** includes this repository before switching.
+copied from duna.com. Making the repo **private** removes public access to all
+of it, including history. Check **GitHub → Settings → Applications → Vercel**
+includes this repository before switching.

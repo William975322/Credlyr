@@ -1,0 +1,16 @@
+{
+  "_readme": "Legal and contact details shown on /legal, /privacy, /contact and in the footer. Fill in the real values; never invent them. Empty values are hidden on the site, and `pnpm run check:launch` fails until the required ones are filled in. Brand name and domain changes are separate (see LAUNCH.md, Rename).",
+  "legalName": "",
+  "legalForm": "",
+  "street": "",
+  "postcode": "",
+  "city": "",
+  "country": "Belgium",
+  "enterpriseNumber": "",
+  "vatNumber": "",
+  "publicEmail": "",
+  "privacyEmail": "",
+  "phone": "",
+  "emailProvider": "",
+  "enquiryRetention": ""
+}

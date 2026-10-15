@@ -11,6 +11,7 @@ import ContactPage from "./pages/Contact";
 import BookingPage from "./pages/Booking";
 import ThanksPage from "./pages/Thanks";
 import PrivacyPage from "./pages/Privacy";
+import LegalPage from "./pages/Legal";
 import NotFound from "./pages/not-found";
 import BrandShowcasePage from "./pages/BrandShowcase";
 
@@ -71,30 +72,39 @@ export default function App() {
   return (
     <BrandProvider>
       <div className="min-h-screen bg-white">
+        <a
+          href="#content"
+          className="sr-only z-[110] rounded-full bg-[#16100c] px-5 py-3 text-[15px] font-medium text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Skip to content
+        </a>
         <SiteNav />
-        <Switch>
-          <Route path="/">
-            <>
-              <HomePage />
-              <SiteFooter />
-            </>
-          </Route>
-          {/* Redirects come before dynamic routes so they take precedence. */}
-          {REDIRECTS.map(([from, to]) => (
-            <Route key={from} path={from}>
-              <Redirect to={to} replace />
+        <div id="content" tabIndex={-1} className="outline-none">
+          <Switch>
+            <Route path="/">
+              <>
+                <HomePage />
+                <SiteFooter />
+              </>
             </Route>
-          ))}
-          <Route path="/product/:id" component={ServicePage} />
-          <Route path="/industries/:id" component={SectorPage} />
-          <Route path="/about" component={AboutPage} />
-          <Route path="/contact" component={ContactPage} />
-          <Route path="/get-started" component={BookingPage} />
-          <Route path="/thanks" component={ThanksPage} />
-          <Route path="/privacy" component={PrivacyPage} />
-          {import.meta.env.DEV && <Route path="/brand" component={BrandShowcasePage} />}
-          <Route component={NotFound} />
-        </Switch>
+            {/* Redirects come before dynamic routes so they take precedence. */}
+            {REDIRECTS.map(([from, to]) => (
+              <Route key={from} path={from}>
+                <Redirect to={to} replace />
+              </Route>
+            ))}
+            <Route path="/product/:id" component={ServicePage} />
+            <Route path="/industries/:id" component={SectorPage} />
+            <Route path="/about" component={AboutPage} />
+            <Route path="/contact" component={ContactPage} />
+            <Route path="/get-started" component={BookingPage} />
+            <Route path="/thanks" component={ThanksPage} />
+            <Route path="/privacy" component={PrivacyPage} />
+            <Route path="/legal" component={LegalPage} />
+            {import.meta.env.DEV && <Route path="/brand" component={BrandShowcasePage} />}
+            <Route component={NotFound} />
+          </Switch>
+        </div>
       </div>
     </BrandProvider>
   );

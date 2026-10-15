@@ -63,9 +63,14 @@ export function SiteFooter() {
 
         <div className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] text-white/45">
           <p>© {new Date().getFullYear()} Credyr</p>
-          <Link href="/privacy" className="-my-2 py-2 transition-colors hover:text-white/80">
-            Privacy
-          </Link>
+          <div className="flex gap-6">
+            <Link href="/legal" className="-my-2 py-2 transition-colors hover:text-white/80">
+              Legal
+            </Link>
+            <Link href="/privacy" className="-my-2 py-2 transition-colors hover:text-white/80">
+              Privacy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

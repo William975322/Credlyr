@@ -9,7 +9,8 @@
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
     "test": "node --test tests/api.test.mjs",
     "typecheck:api": "tsc -p tsconfig.api.json",
-    "dev:api": "node scripts/dev-api.mjs"
+    "dev:api": "node scripts/dev-api.mjs",
+    "check:launch": "node scripts/check-launch.mjs"
   },
   "private": true,
   "packageManager": "pnpm@9.15.9",

@@ -62,7 +62,7 @@ const SECTORS: Record<string, Sector> = {
     art: ART.sky,
     artPosition: "50% 30%",
     title: "Websites for aesthetic clinics that feel as refined as your treatments.",
-    lead: "Present your treatments and practitioners with care, and make booking a consultation effortless.",
+    lead: "Present your treatments and practitioners with care, and make it simple to book a consultation.",
     audience: "clients",
     needs: [
       "Clear, responsible information about each treatment",

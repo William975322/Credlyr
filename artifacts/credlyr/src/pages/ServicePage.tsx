@@ -119,7 +119,7 @@ const SERVICES: Record<ServiceId, Service> = {
       { title: "Map your enquiries", body: "We look at where enquiries come from today and what happens to them next." },
       { title: "Write the responses", body: "We draft acknowledgements and follow-ups with you, in your voice." },
       { title: "Connect your tools", body: "We connect your forms, email and CRM so every enquiry is captured." },
-      { title: "Test and monitor", body: "We test the whole journey and check it keeps working after launch." },
+      { title: "Test and monitor", body: "We test every step, from enquiry to reply, and check it keeps working after launch." },
     ],
     note: "We connect to CRMs that offer an API or automation integrations. During the audit we’ll confirm what’s possible with the tools you use.",
   },
