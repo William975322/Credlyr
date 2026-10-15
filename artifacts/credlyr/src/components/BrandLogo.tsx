@@ -9,7 +9,7 @@ interface LogoMarkProps extends React.SVGProps<SVGSVGElement> {
   direction?: LogoDirection;
 }
 
-// ── Refinement A1: Architectural Geometric C Glyph (Modern Grotesque) ──
+// ── Refinement A1: Architectural ring "O" (Modern Grotesque) ──
 export function LogoMarkA1({ tone = "dark", className, ...props }: LogoMarkProps) {
   const strokeColor = tone === "light" ? "#FFFFFF" : "#111110";
   return (
@@ -17,16 +17,11 @@ export function LogoMarkA1({ tone = "dark", className, ...props }: LogoMarkProps
       viewBox="0 0 32 32"
       fill="none"
       role="img"
-      aria-label="Credyr Refinement A1 mark"
+      aria-label="Olerivo Refinement A1 mark"
       className={cn("h-6 w-6 shrink-0", className)}
       {...props}
     >
-      <path
-        d="M23 10.5C21.2 8.5 18.7 7 16 7C11 7 7 11 7 16C7 21 11 25 16 25C18.7 25 21.2 23.5 23 21.5"
-        stroke={strokeColor}
-        strokeWidth="3.2"
-        strokeLinecap="square"
-      />
+      <circle cx="16" cy="16" r="8.6" stroke={strokeColor} strokeWidth="3.2" />
     </svg>
   );
 }
@@ -39,7 +34,7 @@ export function LogoMarkA2({ tone = "dark", className, ...props }: LogoMarkProps
       viewBox="0 0 32 32"
       fill="none"
       role="img"
-      aria-label="Credyr Refinement A2 mark"
+      aria-label="Olerivo Refinement A2 mark"
       className={cn("h-6 w-6 shrink-0", className)}
       {...props}
     >
@@ -62,7 +57,7 @@ export function LogoMarkA3({ tone = "dark", className, ...props }: LogoMarkProps
       viewBox="0 0 32 32"
       fill="none"
       role="img"
-      aria-label="Credyr Refinement A3 mark"
+      aria-label="Olerivo Refinement A3 mark"
       className={cn("h-6 w-6 shrink-0", className)}
       {...props}
     >
@@ -119,7 +114,7 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
     // A1 is the working identity. Alternative directions are only selectable
     // in development (via /brand), never for public visitors.
     if (import.meta.env.DEV && typeof window !== "undefined") {
-      const saved = localStorage.getItem("credyr_logo_direction") as LogoDirection | null;
+      const saved = localStorage.getItem("logo_direction") as LogoDirection | null;
       if (saved === "A1" || saved === "A2" || saved === "A3" || saved === "A" || saved === "B" || saved === "C") {
         return saved === "A" ? "A1" : saved;
       }
@@ -131,7 +126,7 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
   const setDirection = (d: LogoDirection) => {
     setDirectionState(d);
     if (typeof window !== "undefined") {
-      localStorage.setItem("credyr_logo_direction", d);
+      localStorage.setItem("logo_direction", d);
     }
   };
 
@@ -193,7 +188,7 @@ export function BrandLogo({
     </span>
   ) : null;
 
-  // ── Option A1: Modern Sculptural Grotesque (Title Case "Credyr") ──
+  // ── Option A1: Modern Sculptural Grotesque (Title Case "Olerivo") ──
   if (direction === "A1") {
     const shouldShowMark = showMark ?? false;
     return (
@@ -212,14 +207,14 @@ export function BrandLogo({
             wordmarkClassName
           )}
         >
-          Credyr
+          Olerivo
         </span>
         {taglineEl}
       </span>
     );
   }
 
-  // ── Option A2: Contemporary Editorial Antiqua (Title Case "Credyr") ──
+  // ── Option A2: Contemporary Editorial Antiqua (Title Case "Olerivo") ──
   if (direction === "A2") {
     const shouldShowMark = showMark ?? false;
     return (
@@ -238,14 +233,14 @@ export function BrandLogo({
             wordmarkClassName
           )}
         >
-          Credyr
+          Olerivo
         </span>
         {taglineEl}
       </span>
     );
   }
 
-  // ── Option A3: Humanist Geometric Arch (Title Case "Credyr") ──
+  // ── Option A3: Humanist Geometric Arch (Title Case "Olerivo") ──
   if (direction === "A3") {
     const shouldShowMark = showMark ?? false;
     return (
@@ -264,7 +259,7 @@ export function BrandLogo({
             wordmarkClassName
           )}
         >
-          Credyr
+          Olerivo
         </span>
         {taglineEl}
       </span>
@@ -277,7 +272,7 @@ export function BrandLogo({
       <span className={cn("inline-flex items-center gap-2.5 tracking-normal select-none font-sans", className)}>
         {(showMark ?? true) && <LogoMarkB tone={tone} className={cn("h-5 w-5", markClassName)} />}
         <span className={cn("font-semibold tracking-[0.16em] uppercase leading-none text-[17px] sm:text-[18px]", textColor, wordmarkClassName)}>
-          Credyr
+          Olerivo
         </span>
         {taglineEl}
       </span>
@@ -288,7 +283,7 @@ export function BrandLogo({
     <span className={cn("inline-flex items-center gap-2.5 tracking-normal select-none font-sans", className)}>
       {(showMark ?? true) && <LogoMarkC tone={tone} className={cn("h-5 w-5", markClassName)} />}
       <span className={cn("font-normal tracking-[-0.035em] leading-none text-[21px] sm:text-[22px]", textColor, wordmarkClassName)}>
-        Credyr
+        Olerivo
       </span>
       {taglineEl}
     </span>
@@ -325,7 +320,7 @@ export function BrandShowcaseModal({
       description:
         "Pure typographic confidence in title case. Balanced neo-grotesque letterforms with precision optical kerning and an architectural circular C monogram.",
       characteristics: [
-        "Title case 'Credyr' with calibrated x-height and tight kerning",
+        "Title case 'Olerivo' with calibrated x-height and tight kerning",
         "Architectural geometric C glyph optimized for 16px to 64px",
         "Pure Swiss/Nordic modernism without decorative crutches",
       ],
@@ -337,7 +332,7 @@ export function BrandShowcaseModal({
       description:
         "Haute editorial luxury in title case. High-contrast Roman letterforms with subtle teardrop terminals, conveying clinical lineage and partner-level prestige.",
       characteristics: [
-        "Title case 'Credyr' with high-contrast vertical stress",
+        "Title case 'Olerivo' with high-contrast vertical stress",
         "Editorial Serif C monogram with teardrop finial",
         "Ideal for high-trust specialist clinics and advisory practices",
       ],
@@ -349,7 +344,7 @@ export function BrandShowcaseModal({
       description:
         "Architectural clarity meets humanist warmth. Pure circular bowls, open apertures, and a distinctive heavy-gauge geometric C arch monogram.",
       characteristics: [
-        "Title case 'Credyr' with open geometric proportions",
+        "Title case 'Olerivo' with open geometric proportions",
         "Clean geometric C arch with rounded terminals",
         "Modern productized service clarity and high legibility",
       ],
@@ -365,10 +360,10 @@ export function BrandShowcaseModal({
               Direction A Refinements · Title Case
             </span>
             <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.03em] text-neutral-950 mt-1">
-              Credyr Typography-First Directions
+              Olerivo Typography-First Directions
             </h2>
             <p className="text-[15px] text-neutral-600 mt-1.5 max-w-2xl">
-              Three genuinely different typographic executions of &ldquo;Credyr&rdquo; in title case, tested across realistic header size, light/dark canvases, and micro-favicons.
+              Three genuinely different typographic executions of &ldquo;Olerivo&rdquo; in title case, tested across realistic header size, light/dark canvases, and micro-favicons.
             </p>
           </div>
           <button

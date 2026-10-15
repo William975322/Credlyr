@@ -38,7 +38,7 @@ const REFINEMENTS: RefinementItem[] = [
     description:
       "Pure typographic discipline in title case. Calibrated neo-grotesque letterforms with precision optical kerning (-0.035em), a circular C with horizontal terminal cut, and an architectural square-cut C monogram for favicon density.",
     opticalDetails: {
-      letterCase: "Title Case (Credyr)",
+      letterCase: "Title Case (Olerivo)",
       tracking: "-0.035em (tight-knit optical rhythm)",
       weight: "500 Medium (sculptural stance)",
       monogram: "Architectural square-terminal geometric C",
@@ -60,7 +60,7 @@ const REFINEMENTS: RefinementItem[] = [
     description:
       "Literary prestige and clinical lineage in title case. Features high-contrast vertical stress, a sweeping capital C with delicate teardrop terminal, and elegant serif footings, evoking Harley Street clinics and established advisory partners.",
     opticalDetails: {
-      letterCase: "Title Case (Credyr)",
+      letterCase: "Title Case (Olerivo)",
       tracking: "-0.015em (delicate editorial spacing)",
       weight: "400 Regular (high-contrast contrast)",
       monogram: "Editorial Serif C with teardrop finial",
@@ -82,7 +82,7 @@ const REFINEMENTS: RefinementItem[] = [
     description:
       "Engineered clarity meets organic warmth in title case. Circular bowls, open geometric apertures, and an authoritative geometric C arch monogram with rounded terminals for maximum digital readability.",
     opticalDetails: {
-      letterCase: "Title Case (Credyr)",
+      letterCase: "Title Case (Olerivo)",
       tracking: "-0.025em (balanced horizontal pace)",
       weight: "600 Semibold (high-impact presence)",
       monogram: "Heavy-gauge geometric C arch with rounded terminals",
@@ -122,10 +122,10 @@ export default function BrandShowcasePage() {
             Direction A Refinements · Title Case Typography
           </span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-[-0.04em] text-[#111110] leading-[1.08]">
-            Credyr Brand Identity: Three Title-Case Refinements
+            Olerivo Brand Identity: Three Title-Case Refinements
           </h1>
           <p className="mt-4 text-[17px] sm:text-[19px] text-neutral-600 max-w-3xl leading-relaxed font-normal">
-            Building upon Direction A as our starting foundation, we have engineered three genuinely different typography-first refinements of <strong className="font-semibold text-neutral-900">&ldquo;Credyr&rdquo; in title case</strong> (replacing widely spaced uppercase). All options use appropriately licensed fonts (Google Fonts OFL), omit generic decorative symbols, and are tested at realistic header size, light/dark canvases, and micro-favicons.
+            Building upon Direction A as our starting foundation, we have engineered three genuinely different typography-first refinements of <strong className="font-semibold text-neutral-900">&ldquo;Olerivo&rdquo; in title case</strong> (replacing widely spaced uppercase). All options use appropriately licensed fonts (Google Fonts OFL), omit generic decorative symbols, and are tested at realistic header size, light/dark canvases, and micro-favicons.
           </p>
         </div>
 
@@ -278,7 +278,7 @@ export default function BrandShowcasePage() {
                   <div className="mt-5 pt-3.5 border-t border-neutral-200/80 flex items-center justify-between gap-3">
                     <a
                       href={ref.svgFile}
-                      download={`credyr-${ref.id.toLowerCase()}-favicon.svg`}
+                      download={`olerivo-${ref.id.toLowerCase()}-favicon.svg`}
                       className="inline-flex items-center gap-1.5 text-[12px] font-medium text-neutral-700 hover:text-neutral-950 transition-colors"
                     >
                       <Download size={12} /> SVG
@@ -332,7 +332,7 @@ export default function BrandShowcasePage() {
                   <div className="flex items-center gap-3 shrink-0">
                     <a
                       href={ref.svgFile}
-                      download={`credyr-${ref.id.toLowerCase()}-favicon.svg`}
+                      download={`olerivo-${ref.id.toLowerCase()}-favicon.svg`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 text-[13px] font-medium text-neutral-800 hover:border-neutral-900 bg-white"
                     >
                       <Download size={14} /> Download Favicon SVG

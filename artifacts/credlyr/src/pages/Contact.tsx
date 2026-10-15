@@ -23,7 +23,7 @@ const FIELD =
 const LABEL = "mb-2 block text-[14px] font-medium text-[#222221]";
 
 export default function ContactPage() {
-  usePageTitle("Contact", "Get in touch with Credyr about your website, appointment scheduling or lead response.");
+  usePageTitle("Contact", "Get in touch with Olerivo about your website, appointment scheduling or lead response.");
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: TOPICS[0], message: "", website: "" });
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>

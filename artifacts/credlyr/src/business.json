@@ -1,5 +1,5 @@
 {
-  "_readme": "Legal and contact details shown on /legal, /privacy, /contact and in the footer. Fill in the real values; never invent them. Empty values are hidden on the site, and `pnpm run check:launch` fails until the required ones are filled in. Brand name and domain changes are separate (see LAUNCH.md, Rename).",
+  "_readme": "Legal and contact details shown on /legal, /privacy, /contact and in the footer. Fill in the real values; never invent them. Empty values are hidden on the site, and `pnpm run check:launch` fails until the required ones are filled in. The brand name is BRAND in src/components/site.tsx.",
   "legalName": "",
   "legalForm": "",
   "street": "",
@@ -8,9 +8,9 @@
   "country": "Belgium",
   "enterpriseNumber": "",
   "vatNumber": "",
-  "publicEmail": "",
+  "publicEmail": "hello@olerivo.com",
   "privacyEmail": "",
   "phone": "",
-  "emailProvider": "",
+  "emailProvider": "Google Workspace",
   "enquiryRetention": ""
 }

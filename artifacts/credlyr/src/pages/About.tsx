@@ -10,16 +10,16 @@ const PRINCIPLES = [
 ];
 
 export default function AboutPage() {
-  usePageTitle("About", "Credyr designs websites and lead-conversion systems for clinics, practices and advisory firms. Founder-led, with a clear, defined service.");
+  usePageTitle("About", "Olerivo designs websites and lead-conversion systems for clinics, practices and advisory firms. Founder-led, with a clear, defined service.");
   return (
     <>
       <main>
         <PageHero
           art={ART.sky}
           position="50% 20%"
-          eyebrow="About Credyr"
+          eyebrow="About Olerivo"
           title="Good practices deserve websites that earn trust."
-          lead="Credyr designs websites and lead-conversion systems for clinics, practices and advisory firms."
+          lead="Olerivo designs websites and lead-conversion systems for clinics, practices and advisory firms."
         />
 
         <section className="bg-white pb-20 md:pb-28">
@@ -31,7 +31,7 @@ export default function AboutPage() {
                 dated, hides the information people need, makes booking awkward, or leaves enquiries waiting.
               </p>
               <p>
-                We started Credyr to close that gap. We design websites that reflect the quality of the care
+                We started Olerivo to close that gap. We design websites that reflect the quality of the care
                 and advice behind them, then connect them to the systems that turn interest into appointments:
                 online booking, prompt replies to every enquiry, and a clear record in your CRM.
               </p>
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <div className={`${CONTAINER} grid grid-cols-1 gap-10 md:grid-cols-[1fr_1.3fr] md:gap-16`}>
             <div>
               <h2 className={H2}>Who you’ll work with</h2>
-              <p className={`${LEAD} mt-4`}>Credyr is founder-led. You work directly with the person responsible for your project.</p>
+              <p className={`${LEAD} mt-4`}>Olerivo is founder-led. You work directly with the person responsible for your project.</p>
             </div>
             <div className="flex items-start gap-5 border-t border-[#222221] pt-7">
               <span

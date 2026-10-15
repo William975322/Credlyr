@@ -387,11 +387,12 @@ export function Steps({ steps }: { steps: { title: string; body: string }[] }) {
   );
 }
 
-const SITE_TITLE = "Credyr — Premium Websites & Lead-Conversion Systems";
+export const BRAND = "Olerivo";
+const SITE_TITLE = `${BRAND} — Premium Websites & Lead-Conversion Systems`;
 
-const SITE_URL = "https://www.credyr.com";
+const SITE_URL = "https://www.olerivo.com";
 const SITE_DESCRIPTION =
-  "Credyr designs premium websites for clinics, practices and advisory firms, with appointment booking and lead follow-up built in.";
+  `${BRAND} designs premium websites for clinics, practices and advisory firms, with appointment booking and lead follow-up built in.`;
 
 function setHeadTag(selector: string, create: () => HTMLElement, attr: string, value: string) {
   let el = document.head.querySelector(selector) as HTMLElement | null;
@@ -402,11 +403,11 @@ function setHeadTag(selector: string, create: () => HTMLElement, attr: string, v
   el.setAttribute(attr, value);
 }
 
-// Sets the page's title ("<page> — Credyr"; the homepage uses the full site
+// Sets the page's title ("<page> — Olerivo"; the homepage uses the full site
 // title), meta description and canonical URL.
 export function usePageTitle(page?: string, description = SITE_DESCRIPTION) {
   useEffect(() => {
-    document.title = page ? `${page} — Credyr` : SITE_TITLE;
+    document.title = page ? `${page} — ${BRAND}` : SITE_TITLE;
     setHeadTag('meta[name="description"]', () => Object.assign(document.createElement("meta"), { name: "description" }), "content", description);
     const canonical = SITE_URL + (window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/$/, ""));
     setHeadTag('link[rel="canonical"]', () => Object.assign(document.createElement("link"), { rel: "canonical" }), "href", canonical);

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
+import { BRAND } from "./site";
 
 interface NavItem {
   label: string;
@@ -71,7 +72,7 @@ export function SiteNav() {
       }`}
     >
       <div className="mx-auto flex h-[68px] w-full max-w-[1440px] items-center justify-between px-6 md:h-[76px] md:px-10">
-        <Link href="/" data-testid="link-logo" aria-label="Credyr home" className="relative z-10">
+        <Link href="/" data-testid="link-logo" aria-label={`${BRAND} home`} className="relative z-10">
           <BrandLogo />
         </Link>
 
@@ -170,7 +171,7 @@ export function SiteNav() {
             aria-label="Menu"
           >
             <div className="flex h-[68px] shrink-0 items-center justify-between">
-              <Link href="/" aria-label="Credyr home">
+              <Link href="/" aria-label={`${BRAND} home`}>
                 <BrandLogo />
               </Link>
               <button

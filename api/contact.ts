@@ -1,14 +1,14 @@
 // Vercel Function: POST /api/contact
 //
-// Delivers website enquiries to Credyr's inbox through Resend. The response
+// Delivers website enquiries to the business inbox through Resend. The response
 // reports `success: true` only when Resend has accepted the email, so the
 // website never confirms a message that was not delivered.
 //
 // Required environment variables (see /api/healthz and LAUNCH.md):
 //   RESEND_API_KEY      Resend API key with sending access
-//   CONTACT_EMAIL_TO    Inbox that receives enquiries, e.g. hello@credyr.com
+//   CONTACT_EMAIL_TO    Inbox that receives enquiries, e.g. hello@olerivo.com
 //   CONTACT_EMAIL_FROM  Sender on a Resend-verified domain,
-//                       e.g. "Credyr Website <website@credyr.com>"
+//                       e.g. "Olerivo Website <website@notify.olerivo.com>"
 //
 // No email is ever sent to the visitor's address.
 
@@ -127,7 +127,7 @@ export async function handleContact(
     ["Message", lead.message || "—"],
     ["Submitted", lead.submittedAt],
   ];
-  const html = `<h2>New enquiry from credyr.com</h2><table cellpadding="6">${rows
+  const html = `<h2>New enquiry from the website</h2><table cellpadding="6">${rows
     .map(([k, v]) => `<tr><td valign="top"><strong>${k}</strong></td><td>${escapeHtml(v).replace(/\n/g, "<br>")}</td></tr>`)
     .join("")}</table>`;
   const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n");

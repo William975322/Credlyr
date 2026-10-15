@@ -60,7 +60,7 @@ function Hero() {
         className="mx-auto flex w-full max-w-[860px] flex-col items-center px-6 pb-[clamp(56px,10vh,112px)] pt-[42svh] text-center"
       >
         <h1 className="text-balance text-[clamp(42px,min(6.2vw,9.5svh),76px)] font-normal leading-[1.02] tracking-[-0.05em] text-[#222221]">
-          Websites that turn visitors into customers.
+          Turn website visitors into booked consultations.
         </h1>
         <p className="mt-6 max-w-[640px] text-balance text-[18px] leading-[1.45] tracking-[-0.02em] text-[#5f5c58] md:text-[22px]">
           We design premium websites for clinics, practices and advisory firms, with booking and

@@ -7,8 +7,8 @@ import { GET as health } from "../api/healthz.ts";
 
 const ENV = {
   RESEND_API_KEY: "re_test_key",
-  CONTACT_EMAIL_TO: "hello@credyr.com",
-  CONTACT_EMAIL_FROM: "Credyr Website <website@credyr.com>",
+  CONTACT_EMAIL_TO: "hello@olerivo.com",
+  CONTACT_EMAIL_FROM: "Olerivo Website <website@notify.olerivo.com>",
 };
 
 let ip = 0;
@@ -86,9 +86,9 @@ test("delivers to the inbox only, with reply-to the visitor and escaped HTML", a
   assert.deepEqual(await res.json(), { success: true });
   assert.equal(m.calls.length, 1, "exactly one email: no auto-reply to the visitor");
   const sent = m.calls[0].body;
-  assert.deepEqual(sent.to, ["hello@credyr.com"]);
+  assert.deepEqual(sent.to, ["hello@olerivo.com"]);
   assert.equal(sent.reply_to, "visitor@example.test");
-  assert.equal(sent.from, "Credyr Website <website@credyr.com>");
+  assert.equal(sent.from, "Olerivo Website <website@notify.olerivo.com>");
   assert.ok(!sent.html.includes("<script>"));
   assert.ok(sent.html.includes("&lt;script&gt;"));
   assert.equal(m.calls[0].init.headers.Authorization, "Bearer re_test_key");
@@ -126,7 +126,7 @@ test("rate limits repeated submissions from one client", async () => {
 });
 
 test("readConfig flags invalid settings without exposing values", () => {
-  const c = readConfig({ RESEND_API_KEY: "", CONTACT_EMAIL_TO: "x", CONTACT_EMAIL_FROM: "Credyr <bad>" });
+  const c = readConfig({ RESEND_API_KEY: "", CONTACT_EMAIL_TO: "x", CONTACT_EMAIL_FROM: "Olerivo <bad>" });
   assert.equal(c.ok, false);
   assert.equal(c.problems.length, 3);
   assert.ok(readConfig(ENV).ok);
