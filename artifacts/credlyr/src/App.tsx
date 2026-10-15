@@ -74,7 +74,7 @@ export default function App() {
       <div className="min-h-screen bg-white">
         <a
           href="#content"
-          className="sr-only z-[110] rounded-full bg-[#16100c] px-5 py-3 text-[15px] font-medium text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-[110] rounded-full bg-[#16100c] text-[15px] font-medium text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:px-5 focus:py-3"
         >
           Skip to content
         </a>
