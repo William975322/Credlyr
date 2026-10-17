@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -68,6 +68,27 @@ export function SiteNav() {
 
   const active = NAV.find((n) => n.label === open);
 
+  // Desktop dropdowns open on click only (never on hover or focus) and close
+  // on an outside click, Escape (returning focus to their button) or navigation.
+  const headerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) setOpen(null);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      headerRef.current?.querySelector<HTMLButtonElement>(`[data-menu="${open}"]`)?.focus();
+      setOpen(null);
+    };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   // On the homepage the logo scrolls back to the top instead of re-opening
   // the same page (which would add a duplicate history entry and not move).
   // Modified clicks keep their usual meaning, e.g. open in a new tab.
@@ -84,10 +105,10 @@ export function SiteNav() {
 
   return (
     <header
+      ref={headerRef}
       data-testid="navigation"
-      onMouseLeave={() => setOpen(null)}
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-300 ${
-        scrolled || open ? "bg-white/85 backdrop-blur-md" : "bg-transparent"
+        scrolled ? "bg-white/85 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-[68px] w-full max-w-[1440px] items-center justify-between px-6 md:h-[76px] md:px-10">
@@ -103,8 +124,8 @@ export function SiteNav() {
                 type="button"
                 aria-expanded={open === item.label}
                 aria-haspopup="true"
-                onMouseEnter={() => setOpen(item.label)}
-                onFocus={() => setOpen(item.label)}
+                aria-controls="nav-dropdown"
+                data-menu={item.label}
                 onClick={() => setOpen(open === item.label ? null : item.label)}
                 data-testid={`nav-link-${item.label.toLowerCase()}`}
                 className="inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[14.5px] text-[#222221] transition-colors hover:text-[#6b6864]"
@@ -120,7 +141,6 @@ export function SiteNav() {
               <Link
                 key={item.label}
                 href={item.href!}
-                onMouseEnter={() => setOpen(null)}
                 data-testid={`nav-link-${item.label.toLowerCase()}`}
                 className="rounded-full px-3.5 py-2 text-[14.5px] text-[#222221] transition-colors hover:text-[#6b6864]"
               >
@@ -153,6 +173,7 @@ export function SiteNav() {
         {active?.items && (
           <motion.div
             key={active.label}
+            id="nav-dropdown"
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
