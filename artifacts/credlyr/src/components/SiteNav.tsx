@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -68,6 +68,20 @@ export function SiteNav() {
 
   const active = NAV.find((n) => n.label === open);
 
+  // On the homepage the logo scrolls back to the top instead of re-opening
+  // the same page (which would add a duplicate history entry and not move).
+  // Modified clicks keep their usual meaning, e.g. open in a new tab.
+  const onLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (location !== "/" || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const toTop = () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    if (!mobileOpen) return toTop();
+    // From the open menu: close it first so the scroll lock is released.
+    setMobileOpen(false);
+    requestAnimationFrame(() => requestAnimationFrame(toTop));
+  };
+
   return (
     <header
       data-testid="navigation"
@@ -77,7 +91,7 @@ export function SiteNav() {
       }`}
     >
       <div className="mx-auto flex h-[68px] w-full max-w-[1440px] items-center justify-between px-6 md:h-[76px] md:px-10">
-        <Link href="/" data-testid="link-logo" aria-label={`${BRAND} home`} className="relative z-10">
+        <Link href="/" onClick={onLogoClick} data-testid="link-logo" aria-label={`${BRAND} home`} className="relative z-10">
           <BrandLogo />
         </Link>
 
@@ -176,7 +190,7 @@ export function SiteNav() {
             aria-label="Menu"
           >
             <div className="flex h-[68px] shrink-0 items-center justify-between">
-              <Link href="/" aria-label={`${BRAND} home`}>
+              <Link href="/" onClick={onLogoClick} aria-label={`${BRAND} home`}>
                 <BrandLogo />
               </Link>
               <button

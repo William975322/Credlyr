@@ -73,7 +73,8 @@ export function Reveal({ children, className = "", as: Tag = "div" }: { children
           io.disconnect();
         }
       },
-      { rootMargin: "0px 0px -8% 0px" },
+      // Reveal as soon as any part is on screen, so nothing visible stays hidden.
+      { threshold: 0 },
     );
     io.observe(el);
     return () => io.disconnect();
