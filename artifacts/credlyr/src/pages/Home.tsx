@@ -22,6 +22,9 @@ import {
   H2,
   LEAD,
   PrimaryButton,
+  ArtImage,
+  artTone,
+  Reveal,
   SectionHeader, useOverscrollTop, usePageTitle } from "../components/site";
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
@@ -37,8 +40,8 @@ function Hero() {
       data-testid="hero-section"
       className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-x-clip bg-white"
     >
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-[92%] md:h-[90%]">
-        <img
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-[92%] md:h-[90%]" style={{ backgroundColor: artTone(ART.hero) }}>
+        <ArtImage
           src={ART.hero}
           alt=""
           className="h-full w-full select-none object-cover object-[50%_30%]"
@@ -56,7 +59,7 @@ function Hero() {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="mx-auto flex w-full max-w-[860px] flex-col items-center px-6 pb-[clamp(56px,10vh,112px)] pt-[42svh] text-center"
       >
         <h1 className="text-balance text-[clamp(42px,min(6.2vw,9.5svh),76px)] font-normal leading-[1.02] tracking-[-0.05em] text-[#222221]">
@@ -84,7 +87,7 @@ function Statement() {
   return (
     <section data-testid="statement-section" className="bg-white pb-4 pt-20 md:pb-6 md:pt-28">
       <div className={CONTAINER}>
-        <div className="max-w-[660px]">
+        <Reveal className="max-w-[660px]">
           <h2 className="text-balance text-[34px] font-normal leading-[1.1] tracking-[-0.05em] text-[#222221] md:text-[44px]">
             Your work deserves a better first impression.
           </h2>
@@ -95,7 +98,7 @@ function Statement() {
           <p className="mt-5 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#222221] md:text-[22px]">
             That’s what we build.
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -112,15 +115,17 @@ function WebsitesSection() {
   return (
     <section id="services" data-testid="services-section" className="bg-white pb-20 pt-14 md:pb-28 md:pt-20">
       <div className={CONTAINER}>
+        <Reveal>
         <SectionHeader
           title="Websites and landing pages"
           lead="Bespoke websites that show the quality of your work and guide visitors towards booking."
           href="/product/websites"
           linkLabel="Websites"
         />
-        <div className="mt-12 md:mt-16">
+        </Reveal>
+        <Reveal className="mt-12 md:mt-16">
           <ConceptWebsite />
-        </div>
+        </Reveal>
         <ul className="mt-14 grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
           {WEBSITE_POINTS.map(({ icon: Icon, title, body }) => (
             <li key={title} className="border-t border-[#ece9e3] py-6">
@@ -151,7 +156,7 @@ function Interlude() {
             "linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0) 18%, rgba(255,255,255,0) 82%, #fff 100%)",
         }}
       />
-      <div className="max-w-[680px]">
+      <Reveal className="max-w-[680px]">
         <h2 className="text-balance text-[36px] font-normal leading-[1.08] tracking-[-0.045em] text-[#222221] md:text-[52px]">
           A good website is only half the job.
         </h2>
@@ -159,7 +164,7 @@ function Interlude() {
           We connect it to booking and follow-up, so the interest your website creates becomes
           appointments in your calendar.
         </p>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -179,8 +184,10 @@ interface SplitBlockProps {
 function SplitBlock({ title, lead, href, linkLabel, points, visual, reverse }: SplitBlockProps) {
   return (
     <div className="py-20 md:py-28">
-      <SectionHeader title={title} lead={lead} href={href} linkLabel={linkLabel} />
-      <div className="mt-12 grid grid-cols-1 items-center gap-10 md:mt-16 lg:grid-cols-2 lg:gap-16">
+      <Reveal>
+        <SectionHeader title={title} lead={lead} href={href} linkLabel={linkLabel} />
+      </Reveal>
+      <Reveal className="mt-12 grid grid-cols-1 items-center gap-10 md:mt-16 lg:grid-cols-2 lg:gap-16">
         <div className={reverse ? "lg:order-2" : ""}>{visual}</div>
         <ul className={`flex flex-col ${reverse ? "lg:order-1" : ""}`}>
           {points.map(({ icon: Icon, title: t, body }, i) => (
@@ -193,7 +200,7 @@ function SplitBlock({ title, lead, href, linkLabel, points, visual, reverse }: S
             </li>
           ))}
         </ul>
-      </div>
+      </Reveal>
     </div>
   );
 }

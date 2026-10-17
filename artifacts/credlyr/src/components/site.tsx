@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ImgHTMLAttributes, type ReactNode } from "react";
 import { Link } from "wouter";
 import { ChevronRight, Check, ArrowRight, Database, type LucideIcon } from "lucide-react";
 
@@ -27,6 +27,64 @@ const ART_TOP_EDGE: Record<string, string> = {
   [ART.sky]: "#fbeacf",
   [ART.riverbank]: "#f6e1c8",
 };
+
+/** Placeholder tone shown under a hero painting while it loads. */
+export const artTone = (art: string) => ART_TOP_EDGE[art] ?? "#f4ece2";
+
+/**
+ * A painting that fades in once decoded instead of popping in. Cached images
+ * are shown immediately.
+ */
+export function ArtImage({ className = "", ...props }: ImgHTMLAttributes<HTMLImageElement>) {
+  const ref = useRef<HTMLImageElement>(null);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (ref.current?.complete && ref.current.naturalWidth > 0) setLoaded(true);
+  }, []);
+  return (
+    <img
+      ref={ref}
+      {...props}
+      data-loaded={loaded}
+      onLoad={() => setLoaded(true)}
+      onError={() => setLoaded(true)}
+      className={`art-img ${className}`}
+    />
+  );
+}
+
+/**
+ * Fades and lifts its content once, as it enters the viewport. Content that is
+ * already on screen when the page loads is shown without animation, and the
+ * CSS respects prefers-reduced-motion.
+ */
+export function Reveal({ children, className = "", as: Tag = "div" }: { children: ReactNode; className?: string; as?: "div" | "section" }) {
+  const ref = useRef<HTMLElement>(null);
+  const [state, setState] = useState<"pending" | "hidden" | "visible">("pending");
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return setState("visible");
+    if (el.getBoundingClientRect().top < window.innerHeight) return setState("visible");
+    setState("hidden");
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setState("visible");
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  const cls = state === "pending" ? "" : `reveal${state === "visible" ? " is-visible" : ""}`;
+  return (
+    <Tag ref={ref as never} className={`${cls} ${className}`.trim()}>
+      {children}
+    </Tag>
+  );
+}
 
 /** Sets the overscroll colour above the page to match the hero painting. */
 export function useOverscrollTop(art: string) {
@@ -281,7 +339,7 @@ export function ClosingCta({
             "linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0) 14%, rgba(22,26,30,0) 60%, rgba(22,26,30,0.6) 82%, #161a1e 100%)",
         }}
       />
-      <div className="max-w-[640px]">
+      <Reveal className="max-w-[640px]">
         <h2 className="text-balance text-[36px] font-normal leading-[1.08] tracking-[-0.045em] text-white md:text-[52px]">
           {title}
         </h2>
@@ -296,7 +354,7 @@ export function ClosingCta({
           Book a website audit
           <ChevronRight size={16} strokeWidth={2} aria-hidden="true" />
         </Link>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -324,8 +382,8 @@ export function PageHero({
   useOverscrollTop(art);
   return (
     <section data-testid="page-hero" className="relative isolate overflow-x-clip bg-white">
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-[560px] md:h-[640px]">
-        <img src={art} alt="" className="h-full w-full select-none object-cover" style={{ objectPosition: position }} fetchPriority="high" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-[560px] md:h-[640px]" style={{ backgroundColor: artTone(art) }}>
+        <ArtImage src={art} alt="" className="h-full w-full select-none object-cover" style={{ objectPosition: position }} fetchPriority="high" />
         <div
           className="absolute -inset-y-[2px] inset-x-0"
           style={{

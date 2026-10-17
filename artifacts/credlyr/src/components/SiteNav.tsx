@@ -55,8 +55,13 @@ export function SiteNav() {
   }, [location]);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    // Lock both: iOS Safari only stops background scrolling reliably when
+    // the root element is locked too.
+    const lock = mobileOpen ? "hidden" : "";
+    document.documentElement.style.overflow = lock;
+    document.body.style.overflow = lock;
     return () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
@@ -165,7 +170,7 @@ export function SiteNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex flex-col overflow-y-auto bg-white px-6 md:hidden"
+            className="fixed inset-0 z-[100] flex flex-col overflow-y-auto overscroll-contain bg-white px-6 md:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
@@ -233,7 +238,7 @@ export function SiteNav() {
               )}
             </div>
 
-            <div className="shrink-0 pb-8 pt-6">
+            <div className="shrink-0 pb-[max(2rem,env(safe-area-inset-bottom))] pt-6">
               <Link
                 href="/get-started"
                 className="flex w-full items-center justify-center rounded-full bg-[#16100c] py-4 text-[16px] font-medium text-white"

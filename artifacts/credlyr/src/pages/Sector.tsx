@@ -1,4 +1,4 @@
-import { Link, Redirect, useRoute } from "wouter";
+import { Link, Redirect, useParams } from "wouter";
 import { ArrowRight, Check } from "lucide-react";
 import { ART, ClosingCta, CONTAINER, H2, LEAD, PageHero, PrimaryButton, usePageTitle } from "../components/site";
 import { SiteFooter } from "../components/SiteFooter";
@@ -102,8 +102,9 @@ const SECTORS: Record<string, Sector> = {
 };
 
 export default function SectorPage() {
-  const [, params] = useRoute("/industries/:id");
-  const sector = params?.id ? SECTORS[params.id] : undefined;
+  // Params from the matched <Route> (see ServicePage for why not useRoute).
+  const { id } = useParams<{ id: string }>();
+  const sector = id ? SECTORS[id] : undefined;
   usePageTitle(sector?.name, sector?.lead);
   if (!sector) return <Redirect to="/" replace />;
 

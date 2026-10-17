@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Link, Redirect, useRoute } from "wouter";
+import { Link, Redirect, useParams } from "wouter";
 import {
   ArrowRight,
   BellRing,
@@ -128,8 +128,10 @@ const SERVICES: Record<ServiceId, Service> = {
 const ORDER: ServiceId[] = ["websites", "booking", "conversion"];
 
 export default function ServicePage() {
-  const [, params] = useRoute("/product/:id");
-  const id = params?.id;
+  // Params from the matched <Route>, not useRoute(): useRoute re-reads the
+  // live location, so during Back/Forward this page briefly sees the next
+  // URL, finds no service and its Redirect overwrites that history entry.
+  const { id } = useParams<{ id: string }>();
   const service = id && id in SERVICES ? SERVICES[id as ServiceId] : undefined;
   usePageTitle(service?.name, service?.lead);
   if (!service) return <Redirect to="/product/websites" replace />;
