@@ -1,34 +1,56 @@
 # Olerivo launch checklist
 
-Brand: **Olerivo**. Production URL: **https://www.olerivo.com** (the apex
-`olerivo.com` redirects to `www`). Branch: `feature/premium-homepage-rebuild`.
+Brand: **Olerivo**. Production URL: **https://www.olerivo.com**, with the apex
+`olerivo.com` redirecting to `www`. Code: branch
+`feature/premium-homepage-rebuild` (not yet merged into `main`).
 
-Production (www.credyr.com) still serves the old Credyr site from `main`
-(`1663f6f`, June 2026). Nothing from this branch is in production.
+Nothing is public yet: every deployment requires Vercel sign-in until the
+public launch is approved.
 
 Run `pnpm run check:launch` at any time: it lists what is still missing
-(business details, mailbox DNS, and old branding in the build). With
-production environment variables loaded, `--env` also checks Vercel and
-Resend settings (see step 6).
+(business details, mailbox DNS, old branding in the build). With production
+environment variables loaded, `--env` also checks the Vercel and Resend
+settings (step 5).
 
 Technical names keep the old spelling on purpose: the repository
 (`Credlyr`), the `artifacts/credlyr` folder, the `@workspace/credlyr` package
-and the Vercel project names. Renaming them would break builds and
-deployments, and visitors never see them.
+and the `credyr-website-staging` project. Visitors never see them.
 
-## Current setup
+## Vercel projects
 
-| Vercel project | Git | Serves | Notes |
+| Project | Git | Role | Settings |
 | --- | --- | --- | --- |
-| `credyr-website` | `main` | www.credyr.com (`credyr.com` → `www`) | The production project. Still configured for the old Express app: Root Directory `artifacts/api-server`, framework Express, Node 24, no environment variables. Branch previews here fail until step 5 is applied. |
-| `credyr-website-staging` | none | protected `*.vercel.app` previews | Review builds of this branch, deployed by hand. Correct settings, no environment variables yet. |
-| `credlyr-api-server-izla` | `main` | its own `*.vercel.app` URL | Old Express API. Returns 500 and nothing calls it. Remove after launch. |
+| **`olerivo-website`** | `William975322/Credlyr`, production branch `feature/premium-homepage-rebuild` | **Production.** Temporary URL https://olerivo-website.vercel.app | Root Directory empty, framework Other, Node 22.x, functions in `fra1` (Frankfurt). Protection: **All Deployments** until launch. |
+| `credyr-website-staging` | none (deployed by hand) | Protected staging/review builds | Same build settings, no environment variables. |
 
-One project serves the whole site: `vercel.json` builds the Vite site to
-`artifacts/credlyr/dist/public`, and Vercel runs the functions in `api/`
-(`/api/contact`, `/api/healthz`).
+`vercel.json` builds the Vite site to `artifacts/credlyr/dist/public`, and
+Vercel runs the functions in `api/` (`/api/contact`, `/api/healthz`). Build,
+install and output commands come from `vercel.json`; leave them unset in the
+dashboard.
 
-## 1. Business details (needed from you)
+Every push to `feature/premium-homepage-rebuild` now builds a production
+deployment of `olerivo-website`. That is safe while it has no public domain.
+After launch, merge into `main` and set the production branch to `main`
+(step 8).
+
+The old projects `credyr-website`, `credlyr-api-server-izla`, `foresea` and
+`v0-saa-s-landing-page-design` were deleted on 17 October 2026.
+`credyr.com` no longer serves a website.
+
+### Environment variables (`olerivo-website`, Production and Preview)
+
+| Variable | Value | Status |
+| --- | --- | --- |
+| `CONTACT_EMAIL_TO` | `hello@olerivo.com` | set |
+| `CONTACT_EMAIL_FROM` | `Olerivo Website <website@notify.olerivo.com>` | set |
+| `RESEND_API_KEY` | Resend key restricted to `notify.olerivo.com` | set as a Sensitive shared variable |
+| `VITE_CAL_URL` | the Website Audit event link | **missing** |
+
+`VITE_CAL_URL` is read at build time: redeploy after changing it. Secrets are
+added only in the Vercel dashboard (Settings → Environment Variables, marked
+Sensitive), never in the repository or in chat.
+
+## 1. Business details
 
 Fill in `artifacts/credlyr/src/business.json` with the real values; never
 guesses. They appear on `/legal`, `/privacy`, `/contact` and in the footer,
@@ -41,156 +63,98 @@ and empty values are hidden:
 
 `publicEmail` is `hello@olerivo.com` and `emailProvider` is `Google Workspace`.
 Also confirm the founder biography on `/about`, and have `/privacy` and
-`/legal` reviewed.
+`/legal` reviewed (Belgian Code of Economic Law book XII; GDPR article 13).
 
-## 2. Google Workspace (olerivo.com)
+## 2. Email (done)
 
-- Primary account: `william.vanderplaetse@olerivo.com`, for administration and
-  personal business mail.
-- Public address: `hello@olerivo.com`, an **alias** of the primary account.
-  It is used on the website, in the contact form, the privacy notice and all
-  customer-facing mail.
+- Google Workspace: primary account `william.vanderplaetse@olerivo.com`;
+  `hello@olerivo.com` is an alias used on the website and for customers.
+  `olerivo.com` has MX `smtp.google.com`, Google SPF, DKIM
+  (`google._domainkey`) and DMARC (`p=quarantine`).
+- Resend: `notify.olerivo.com` verified in the EU region
+  (`resend._domainkey.notify`, `send.notify` MX and SPF).
 
-In GoDaddy DNS for `olerivo.com`, add what the Workspace setup asks for:
+Contact-form notifications go **to** `hello@olerivo.com` **from**
+`website@notify.olerivo.com`, with the visitor as Reply-To. Nothing is sent to
+the visitor. Do not change any of these DNS records during the launch.
 
-| Type | Name | Value |
-| --- | --- | --- |
-| TXT | `@` | `google-site-verification=…` (domain verification) |
-| MX | `@` | `smtp.google.com`, priority 1 (Google's current single-record setup) |
-| TXT | `@` | `v=spf1 include:_spf.google.com ~all` |
-| TXT | `google._domainkey` | the DKIM key from Admin console → Apps → Gmail → Authenticate email |
-| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:william.vanderplaetse@olerivo.com` (tighten to `p=quarantine` once reports are clean) |
-
-Send a test message from an outside address to `hello@olerivo.com` and
-confirm it arrives in the primary inbox.
-
-## 3. Resend (website notifications)
-
-Resend sends from its own subdomain, `notify.olerivo.com`, so Google's MX
-and SPF records for `olerivo.com` stay untouched.
-
-1. Resend → Domains → Add `notify.olerivo.com`, region **EU (Ireland)**.
-2. Add the records Resend shows in GoDaddy. They follow this pattern; copy the
-   exact values, especially the DKIM key:
-
-   | Type | Name (host in GoDaddy) | Value | Priority |
-   | --- | --- | --- | --- |
-   | TXT | `resend._domainkey.notify` | `p=MIGfMA0G…` (from Resend) | |
-   | MX | `send.notify` | `feedback-smtp.eu-west-1.amazonses.com` | 10 |
-   | TXT | `send.notify` | `v=spf1 include:amazonses.com ~all` | |
-
-3. Wait for **Verified**, then create an API key with sending access to
-   `notify.olerivo.com` only. Put it in Vercel only, never in the repository.
-
-Notifications go **to** `hello@olerivo.com` **from**
-`Olerivo Website <website@notify.olerivo.com>`, with the visitor as Reply-To.
-Nothing is sent to the visitor.
-
-## 4. Cal.com
+## 3. Cal.com
 
 - Use the existing Website Audit event. Its page must match the site: free,
   30 minutes, by video call. Title it e.g. `Olerivo — Website Audit`.
-- Copy its public link (Event Types → the event → Copy link) for
-  `VITE_CAL_URL`.
+- Its public link (Event Types → the event → Copy link) is `VITE_CAL_URL`.
 - Optional: Advanced → Redirect on booking →
   `https://www.olerivo.com/thanks?booked=1`. The embedded calendar already
   sends visitors there after booking.
 
-## 5. Vercel configuration (`credyr-website`, needs approval)
-
-| Setting | Value |
-| --- | --- |
-| Root Directory | empty (repository root) |
-| Framework preset | Other; leave build, install and output commands unset (they come from `vercel.json`) |
-| Node.js | 22.x |
-| Domains → auto-assign custom domains | **off** during the release, back on afterwards |
-
-Environment variables, for **Production and Preview** (and Preview on
-`credyr-website-staging` for testing):
-
-| Variable | Value |
-| --- | --- |
-| `RESEND_API_KEY` | the key from step 3 |
-| `CONTACT_EMAIL_TO` | `hello@olerivo.com` |
-| `CONTACT_EMAIL_FROM` | `Olerivo Website <website@notify.olerivo.com>` |
-| `VITE_CAL_URL` | the Website Audit event link (read at build time) |
-
-Domains, added at release time (step 7):
-
-| Domain | Setting |
-| --- | --- |
-| `www.olerivo.com` | primary production domain |
-| `olerivo.com` | redirect (308) to `www.olerivo.com` |
-| `www.credyr.com`, `credyr.com` | redirect (308) to `www.olerivo.com`, once Olerivo is live |
-
-Vercel shows the DNS records each domain needs (typically an `A` record for
-`@` and a `CNAME` for `www`). Add them in GoDaddy only when releasing.
-
-Optional: Firewall → Rate limiting, e.g. 10 requests per 10 minutes per IP on
-`/api/contact`. The function only has a best-effort limit of its own.
-
-## 6. Staging tests (before production)
-
-After setting the variables on `credyr-website-staging` and redeploying:
+## 4. Pre-launch tests (on https://olerivo-website.vercel.app, signed in)
 
 1. `GET /api/healthz` → `{"status":"ok","contactConfigured":true}`.
-2. `GET /api/nope` → Vercel 404. `/product/websites` and `/nope` → website pages.
-3. Old URLs return a 308: `/customers/reviews`, `/status`, `/careers`,
-   `/resources-hub/anything`.
-4. `/get-started`: nothing from cal.com loads until **Show available times**
-   is pressed; the calendar then shows the Website Audit event, without empty
-   space below it.
-5. **One approved test booking**, then cancel it: it ends on `/thanks?booked=1`.
-6. **One approved contact-form submission**: it arrives at `hello@olerivo.com`
-   from `website@notify.olerivo.com`, and replying goes to the visitor.
-7. `pnpm run check:launch` passes, and with production values loaded
-   (`vercel env pull`, then `node --env-file=.env.local scripts/check-launch.mjs --env`)
-   it passes with `--env` too.
+2. `GET /api/nope` → 404. Every page renders; old URLs (`/customers/reviews`,
+   `/status`, `/careers`, `/resources-hub/anything`) return a 308.
+3. `/get-started`: nothing from cal.com loads until **Show available times**
+   is pressed; the calendar then shows the Website Audit event.
+4. **One approved test booking**, then cancel it: it ends on `/thanks?booked=1`.
+5. **One approved contact-form submission**: it arrives at `hello@olerivo.com`
+   from `website@notify.olerivo.com`; replying goes to the visitor.
+6. No cookies or third-party requests on any page before the calendar is
+   opened (browser network tab and cookie storage).
 
-## 7. Privacy and consent checks (Belgium / GDPR)
+## 5. Launch checks
 
-- No cookies or third-party requests on any page until the visitor asks for
-  the booking calendar (browser network tab and cookie storage).
-- `/legal` shows the business name, legal form, registered address,
-  enterprise number, VAT number and email (Code of Economic Law, book XII).
-- `/privacy` names the responsible business, purposes and legal bases,
-  processors (Vercel, Resend, Cal.com, Google Workspace), transfers outside
-  the EEA, the retention period, the visitor's rights and the Belgian Data
-  Protection Authority.
+- `pnpm run check:launch` passes.
+- With production values loaded it passes with `--env` too:
+  `vercel env pull .env.local --environment=production`, then
+  `node --env-file=.env.local scripts/check-launch.mjs --env`, then delete
+  `.env.local` (it is git-ignored; never commit it).
 
-## 8. Release and rollback
+## 6. Connecting olerivo.com (after steps 1–5 and explicit approval)
 
-1. Note the current production deployment for rollback:
-   `credyr-website-9wvwp7630` (`1663f6f`).
-2. Turn **auto-assign custom domains** off, apply step 5 (settings and
-   variables), then open and merge the pull request into `main` straight
-   away. Once the settings change, any push to `main` builds with them.
-3. Check the new production deployment on its own `*.vercel.app` URL:
-   `/api/healthz`, the pages, the redirects and booking.
-4. Add `www.olerivo.com` and `olerivo.com` to the project and their DNS
-   records in GoDaddy. **Promote** the new deployment to production, then turn
-   auto-assign back on.
-5. On https://www.olerivo.com check `/api/healthz`, the homepage, the booking
-   page and the share preview (e.g. opengraph.xyz). Confirm `olerivo.com`
-   redirects to `www`.
-6. Set `credyr.com` and `www.credyr.com` to redirect to `www.olerivo.com`.
-   This takes the old Credyr site offline while keeping old links working.
-7. Submit `https://www.olerivo.com/sitemap.xml` in Google Search Console.
+**In Vercel** (`olerivo-website` → Settings → Domains):
 
-**Rollback:** Deployments → `credyr-website-9wvwp7630` → ⋯ → **Promote to
-Production** (instant, no rebuild, no need to revert settings). Undo the
-credyr.com redirects if they were already set, then revert the merge on
-`main` so the next push does not redeploy the new site.
+1. Add `www.olerivo.com` (production).
+2. Add `olerivo.com` and set it to **Redirect to `www.olerivo.com`, 308**.
+3. Note the DNS values Vercel shows for each domain.
+4. Settings → Deployment Protection → Vercel Authentication → **Standard
+   Protection** (custom domains public, `*.vercel.app` URLs stay protected).
 
-## 9. After launch
+**In GoDaddy** (DNS for `olerivo.com`), change only these two records:
 
-- Disconnect Git from `credlyr-api-server-izla` and delete it once its logs
-  show no traffic.
-- Delete the leftover GitHub environments `credlyr-website` and
-  `credlyr-api-server`.
+| Type | Name | Current (GoDaddy parking) | New |
+| --- | --- | --- | --- |
+| A | `@` | `15.197.148.33` and `3.33.130.190` (delete both) | the A value Vercel shows, currently `216.198.79.1` |
+| CNAME | `www` | `olerivo.com` | the CNAME Vercel shows, e.g. `<id>.vercel-dns-017.com` or `cname.vercel-dns.com` |
+
+Use TTL 600 (10 minutes). Also make sure GoDaddy **Forwarding** is off for
+the domain. Leave every other record unchanged: MX `smtp.google.com`, the SPF
+and `google-site-verification` TXT records, `google._domainkey`, `_dmarc`,
+`resend._domainkey.notify`, and the `send.notify` MX and TXT. There are no CAA
+records, so Vercel can issue the certificate.
+
+**Then verify:** Vercel shows both domains as Valid with certificates;
+https://www.olerivo.com loads; `http://olerivo.com` and `https://olerivo.com`
+redirect to `https://www.olerivo.com`; `/api/healthz` reports
+`contactConfigured: true`; the share preview (e.g. opengraph.xyz) shows the
+Olerivo image. Submit `https://www.olerivo.com/sitemap.xml` in Google Search
+Console.
+
+## 7. Rollback
+
+- **Hide the site immediately:** Deployment Protection → **All Deployments**.
+  The domain stays connected but requires sign-in.
+- **Bad release:** Deployments → previous good deployment → ⋯ → **Promote to
+  Production** (instant, no rebuild).
+- **Undo the domain switch:** restore the two GoDaddy records in step 6
+  (A `@` → `15.197.148.33` and `3.33.130.190`; CNAME `www` → `olerivo.com`)
+  and remove the domains from the project.
+
+## 8. After launch
+
+- Merge `feature/premium-homepage-rebuild` into `main`, then set the
+  `olerivo-website` production branch to `main`.
 - Keep or delete `credyr-website-staging`.
-- Optional: rename the Vercel projects to Olerivo names (domains and
-  deployments stay attached).
+- Optional: Firewall → Rate limiting on `/api/contact` (e.g. 10 requests per
+  10 minutes per IP); the function only has a best-effort limit of its own.
 
 ## Share image
 
