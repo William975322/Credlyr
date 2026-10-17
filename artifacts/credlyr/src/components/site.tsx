@@ -448,7 +448,7 @@ export function Steps({ steps }: { steps: { title: string; body: string }[] }) {
 export const BRAND = "Olerivo";
 const SITE_TITLE = `${BRAND} — Premium Websites & Lead-Conversion Systems`;
 
-const SITE_URL = "https://www.olerivo.com";
+export const SITE_URL = "https://www.olerivo.com";
 const SITE_DESCRIPTION =
   `${BRAND} designs premium websites for clinics, practices and advisory firms, with appointment booking and lead follow-up built in.`;
 

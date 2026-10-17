@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { BrandLogo } from "./BrandLogo";
 import { BRAND } from "./site";
+import { AiSummary } from "./AiSummary";
 
 const FOOTER_COLS = [
   {
@@ -62,7 +63,11 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] text-white/45">
+        <div className="mt-14">
+          <AiSummary />
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] text-white/45">
           <p>© {new Date().getFullYear()} {BRAND}</p>
           <div className="flex gap-6">
             <Link href="/legal" className="-my-2 py-2 transition-colors hover:text-white/80">
