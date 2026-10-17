@@ -14,6 +14,7 @@ export const BUSINESS = {
   country: value(raw.country),
   enterpriseNumber: value(raw.enterpriseNumber),
   vatNumber: value(raw.vatNumber),
+  vatActive: raw.vatActive === true,
   publicEmail: value(raw.publicEmail),
   privacyEmail: value(raw.privacyEmail) ?? value(raw.publicEmail),
   phone: value(raw.phone),

@@ -14,7 +14,7 @@ export default function LegalPage() {
     ["Legal form", BUSINESS.legalForm],
     ["Registered address", businessAddress()],
     ["Enterprise number (KBO/BCE)", BUSINESS.enterpriseNumber],
-    ["VAT number", BUSINESS.vatNumber],
+    ["VAT number", BUSINESS.vatNumber && (BUSINESS.vatActive ? BUSINESS.vatNumber : `${BUSINESS.vatNumber} (not active)`)],
     ["Email", BUSINESS.publicEmail],
     ["Phone", BUSINESS.phone],
   ];

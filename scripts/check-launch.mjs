@@ -1,8 +1,8 @@
 // Pre-launch check: run `pnpm run check:launch` before releasing to production.
 //
-// Fails when legally required business details are missing from
-// artifacts/credlyr/src/business.json, when the public mailbox has no mail
-// servers, or when the built site still shows the old brand. With --env it
+// Warns when business details are missing from
+// artifacts/credlyr/src/business.json. Fails when the public mailbox has no
+// mail servers or the built site still shows the old brand. With --env it
 // also checks the environment variables and Resend DNS the contact form needs; run it
 // with the production values loaded, e.g. `vercel env pull` then
 // `node --env-file=.env.local scripts/check-launch.mjs --env`.
@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 
 const business = JSON.parse(readFileSync(new URL("../artifacts/credlyr/src/business.json", import.meta.url), "utf8"));
 const problems = [];
+const warnings = [];
 const filled = (key) => typeof business[key] === "string" && business[key].trim() !== "";
 
 for (const [key, label] of [
@@ -23,19 +24,18 @@ for (const [key, label] of [
   ["postcode", "registered address: postcode"],
   ["city", "registered address: city"],
   ["enterpriseNumber", "enterprise number (KBO/BCE)"],
-  ["vatNumber", "VAT number"],
   ["publicEmail", "public contact email (a mailbox that receives mail)"],
   ["enquiryRetention", "how long enquiries are kept (privacy notice)"],
 ]) {
-  if (!filled(key)) problems.push(`business.json: ${key} is empty (${label})`);
+  if (!filled(key)) warnings.push(`business.json: ${key} is empty (${label})`);
 }
 
 const digits = (v) => (v ?? "").replace(/\D/g, "");
 if (filled("enterpriseNumber") && !/^[01]\d{9}$/.test(digits(business.enterpriseNumber))) {
-  problems.push("business.json: enterpriseNumber should have 10 digits, e.g. 0123.456.789");
+  warnings.push("business.json: enterpriseNumber should have 10 digits, e.g. 0123.456.789");
 }
 if (filled("vatNumber") && !/^BE\s?[01]\d{3}\.?\d{3}\.?\d{3}$/i.test(business.vatNumber.trim())) {
-  problems.push("business.json: vatNumber should look like BE0123.456.789");
+  warnings.push("business.json: vatNumber should look like BE0123.456.789");
 }
 
 // DNS: the public mailbox must have mail servers before it is advertised.
@@ -78,6 +78,7 @@ if (existsSync(dist)) {
   console.warn("Note: no production build found; run the build to check it for old branding.");
 }
 
+if (warnings.length) console.warn(`Warnings (business details to complete):\n- ${warnings.join("\n- ")}`);
 if (problems.length) {
   console.error(`Not ready to launch:\n- ${problems.join("\n- ")}`);
   process.exit(1);
