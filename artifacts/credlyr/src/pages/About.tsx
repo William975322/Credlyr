@@ -10,7 +10,7 @@ const PRINCIPLES = [
 ];
 
 export default function AboutPage() {
-  usePageTitle("About", "Olerivo designs websites and lead-conversion systems for clinics, practices and advisory firms. Founder-led, with a clear, defined service.");
+  usePageTitle();
   return (
     <>
       <main>

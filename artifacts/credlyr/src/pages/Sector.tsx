@@ -105,7 +105,7 @@ export default function SectorPage() {
   // Params from the matched <Route> (see ServicePage for why not useRoute).
   const { id } = useParams<{ id: string }>();
   const sector = id ? SECTORS[id] : undefined;
-  usePageTitle(sector?.name, sector?.lead);
+  usePageTitle();
   if (!sector) return <Redirect to="/" replace />;
 
   return (

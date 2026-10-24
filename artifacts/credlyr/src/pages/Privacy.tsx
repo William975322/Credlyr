@@ -31,7 +31,7 @@ function ContactRoute() {
 }
 
 export default function PrivacyPage() {
-  usePageTitle("Privacy", "How we handle the information you share through this website.");
+  usePageTitle();
   const address = businessAddress();
   return (
     <>

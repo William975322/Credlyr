@@ -2,7 +2,7 @@ import { ART, PageHero, PrimaryButton, usePageTitle, useNoIndex } from "../compo
 import { SiteFooter } from "../components/SiteFooter";
 
 export default function NotFound() {
-  usePageTitle("Page not found");
+  usePageTitle();
   useNoIndex();
   return (
     <>

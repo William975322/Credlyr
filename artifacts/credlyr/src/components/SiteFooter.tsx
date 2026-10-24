@@ -68,7 +68,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] text-white/45">
-          <p>© {new Date().getFullYear()} {BRAND}</p>
+          <p suppressHydrationWarning>© {new Date().getFullYear()} {BRAND}</p>
           <div className="flex gap-6">
             <Link href="/legal" className="-my-2 py-2 transition-colors hover:text-white/80">
               Legal

@@ -8,7 +8,7 @@ import { BUSINESS, businessAddress } from "../lib/business";
 // are still empty are left out, and `pnpm run check:launch` reports them.
 
 export default function LegalPage() {
-  usePageTitle("Legal information", "Business and contact details.");
+  usePageTitle();
   const rows: [string, string | null][] = [
     ["Business name", BUSINESS.legalName],
     ["Legal form", BUSINESS.legalForm],

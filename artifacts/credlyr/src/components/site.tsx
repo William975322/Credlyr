@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState, type ImgHTMLAttributes, type ReactNode } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { ChevronRight, Check, ArrowRight, Database, type LucideIcon } from "lucide-react";
+import { canonicalUrl, pageSeo, BRAND, SITE_URL } from "../seo";
+
+export { BRAND, SITE_URL };
 
 // Layout tokens shared by every homepage section (measured from the Duna
 // reference: 1120px content column, 44px section headings).
@@ -446,13 +449,6 @@ export function Steps({ steps }: { steps: { title: string; body: string }[] }) {
   );
 }
 
-export const BRAND = "Olerivo";
-const SITE_TITLE = `${BRAND} — Premium Websites & Lead-Conversion Systems`;
-
-export const SITE_URL = "https://www.olerivo.com";
-const SITE_DESCRIPTION =
-  `${BRAND} designs premium websites for clinics, practices and advisory firms, with appointment booking and lead follow-up built in.`;
-
 function setHeadTag(selector: string, create: () => HTMLElement, attr: string, value: string) {
   let el = document.head.querySelector(selector) as HTMLElement | null;
   if (!el) {
@@ -462,15 +458,27 @@ function setHeadTag(selector: string, create: () => HTMLElement, attr: string, v
   el.setAttribute(attr, value);
 }
 
-// Sets the page's title ("<page> — Olerivo"; the homepage uses the full site
-// title), meta description and canonical URL.
-export function usePageTitle(page?: string, description = SITE_DESCRIPTION) {
+function setMeta(attr: "name" | "property", key: string, content: string) {
+  setHeadTag(`meta[${attr}="${key}"]`, () => Object.assign(document.createElement("meta"), { [attr]: key }), "content", content);
+}
+
+// Keeps the document head in step with the route. The same data is written
+// into each page's HTML at build time (see scripts/prerender.mjs).
+export function usePageTitle() {
+  const [location] = useLocation();
   useEffect(() => {
-    document.title = page ? `${page} — ${BRAND}` : SITE_TITLE;
-    setHeadTag('meta[name="description"]', () => Object.assign(document.createElement("meta"), { name: "description" }), "content", description);
-    const canonical = SITE_URL + (window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/$/, ""));
+    const seo = pageSeo(location);
+    const canonical = canonicalUrl(location);
+    document.title = seo.title;
+    setMeta("name", "description", seo.description);
+    setMeta("name", "robots", seo.robots);
+    setMeta("property", "og:title", seo.ogTitle);
+    setMeta("property", "og:description", seo.description);
+    setMeta("property", "og:url", canonical);
+    setMeta("name", "twitter:title", seo.ogTitle);
+    setMeta("name", "twitter:description", seo.description);
     setHeadTag('link[rel="canonical"]', () => Object.assign(document.createElement("link"), { rel: "canonical" }), "href", canonical);
-  }, [page, description]);
+  }, [location]);
 }
 
 // Keeps utility pages (confirmation, 404) out of search results.

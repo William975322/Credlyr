@@ -133,7 +133,7 @@ export default function ServicePage() {
   // URL, finds no service and its Redirect overwrites that history entry.
   const { id } = useParams<{ id: string }>();
   const service = id && id in SERVICES ? SERVICES[id as ServiceId] : undefined;
-  usePageTitle(service?.name, service?.lead);
+  usePageTitle();
   if (!service) return <Redirect to="/product/websites" replace />;
   const others = ORDER.filter((o) => o !== id);
 

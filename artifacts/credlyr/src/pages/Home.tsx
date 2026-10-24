@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
 import {
   PenTool,
   MousePointerClick,
@@ -56,12 +55,7 @@ function Hero() {
         />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto flex w-full max-w-[860px] flex-col items-center px-6 pb-[clamp(56px,10vh,112px)] pt-[42svh] text-center"
-      >
+      <div className="hero-in mx-auto flex w-full max-w-[860px] flex-col items-center px-6 pb-[clamp(56px,10vh,112px)] pt-[42svh] text-center">
         <h1 className="text-balance text-[clamp(42px,min(6.2vw,9.5svh),76px)] font-normal leading-[1.02] tracking-[-0.05em] text-[#222221]">
           Turn website visitors into booked consultations.
         </h1>
@@ -74,7 +68,7 @@ function Hero() {
             Book a website audit
           </PrimaryButton>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

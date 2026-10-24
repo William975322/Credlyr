@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.olerivo.com/sitemap.xml
+
+# Summary for AI assistants: https://www.olerivo.com/llms.txt

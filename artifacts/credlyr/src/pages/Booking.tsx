@@ -109,10 +109,7 @@ function safeParse(s: string) {
 }
 
 export default function BookingPage() {
-  usePageTitle(
-    "Book a free website audit",
-    "Book a free 30-minute website audit. We review your current website with you and show you what to improve first.",
-  );
+  usePageTitle();
   return (
     <>
       <main>

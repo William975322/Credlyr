@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSearch } from "wouter";
 import { ART, PageHero, PrimaryButton, usePageTitle, useNoIndex } from "../components/site";
 import { SiteFooter } from "../components/SiteFooter";
@@ -7,8 +8,14 @@ import { SiteFooter } from "../components/SiteFooter";
 // never asserts that a booking exists: Cal.com's confirmation email is the
 // source of truth.
 export default function ThanksPage() {
-  const fromBooking = new URLSearchParams(useSearch()).get("booked") === "1";
-  usePageTitle("Thank you");
+  const search = useSearch();
+  // The pre-rendered page has no query string. Read ?booked=1 after mount so
+  // the first render matches the HTML, then show the booking confirmation.
+  const [fromBooking, setFromBooking] = useState(false);
+  useEffect(() => {
+    setFromBooking(new URLSearchParams(search).get("booked") === "1");
+  }, [search]);
+  usePageTitle();
   useNoIndex();
 
   return (

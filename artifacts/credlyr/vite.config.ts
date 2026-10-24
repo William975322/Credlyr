@@ -12,6 +12,7 @@ if (Number.isNaN(port) || port <= 0) {
 }
 
 const basePath = process.env.BASE_PATH || "/";
+const isSsrBuild = process.argv.includes("--ssr");
 
 export default defineConfig({
   base: basePath,
@@ -42,8 +43,13 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(import.meta.dirname, isSsrBuild ? "dist/server" : "dist/public"),
     emptyOutDir: true,
+  },
+  ssr: {
+    // One self-contained bundle for the prerender script. This only affects
+    // the server build, not the browser bundle.
+    noExternal: true,
   },
   server: {
     port,
