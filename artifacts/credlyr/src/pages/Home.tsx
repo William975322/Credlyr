@@ -56,7 +56,7 @@ function Hero() {
       </div>
 
       <div className="hero-in mx-auto flex w-full max-w-[860px] flex-col items-center px-6 pb-[clamp(56px,10vh,112px)] pt-[42svh] text-center">
-        <h1 className="text-balance text-[clamp(42px,min(6.2vw,9.5svh),76px)] font-normal leading-[1.02] tracking-[-0.05em] text-[#222221]">
+        <h1 className="text-balance text-[clamp(42px,min(6.2vw,9.5svh),76px)] font-normal leading-[1.04] tracking-[-0.02em] text-[#222221]">
           Turn website visitors into booked consultations.
         </h1>
         <p className="mt-6 max-w-[640px] text-balance text-[18px] leading-[1.45] tracking-[-0.02em] text-[#5f5c58] md:text-[22px]">
@@ -82,7 +82,7 @@ function Statement() {
     <section data-testid="statement-section" className="bg-white pb-4 pt-20 md:pb-6 md:pt-28">
       <div className={CONTAINER}>
         <Reveal className="max-w-[660px]">
-          <h2 className="text-balance text-[34px] font-normal leading-[1.1] tracking-[-0.05em] text-[#222221] md:text-[44px]">
+          <h2 className="text-balance text-[34px] font-normal leading-[1.1] tracking-[-0.02em] text-[#222221] md:text-[44px]">
             Your work deserves a better first impression.
           </h2>
           <p className="mt-6 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#6b6864] md:text-[22px]">
@@ -151,7 +151,7 @@ function Interlude() {
         }}
       />
       <Reveal className="max-w-[680px]">
-        <h2 className="text-balance text-[36px] font-normal leading-[1.08] tracking-[-0.045em] text-[#222221] md:text-[52px]">
+        <h2 className="text-balance text-[36px] font-normal leading-[1.08] tracking-[-0.02em] text-[#222221] md:text-[52px]">
           A good website is only half the job.
         </h2>
         <p className="mx-auto mt-5 max-w-[540px] text-balance text-[18px] leading-[1.5] text-[#4f4c48] md:text-[20px]">

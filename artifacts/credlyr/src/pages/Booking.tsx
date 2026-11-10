@@ -52,7 +52,7 @@ function Calendar() {
   if (!show) {
     return (
       <div className="flex flex-col items-start rounded-[24px] bg-[#f7f4ef] p-8 sm:p-10">
-        <h2 className="text-[24px] tracking-[-0.035em] text-[#222221]">Choose a time</h2>
+        <h2 className="text-[24px] tracking-[-0.01em] text-[#222221]">Choose a time</h2>
         <p className="mt-3 max-w-[460px] text-[16px] leading-[1.55] text-[#4f4c48]">
           Available times are shown in a calendar provided by Cal.com. It loads when you choose to see it, and
           Cal.com may then set its own cookies.
@@ -124,7 +124,7 @@ export default function BookingPage() {
         <section className="bg-white pb-24 md:pb-32">
           <div className={`${CONTAINER} grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-16`}>
             <div>
-              <h2 className="text-[24px] tracking-[-0.035em] text-[#222221]">What you’ll get</h2>
+              <h2 className="text-[24px] tracking-[-0.01em] text-[#222221]">What you’ll get</h2>
               <ul className="mt-6 flex flex-col">
                 {WHAT_YOU_GET.map((item) => (
                   <li key={item} className="flex gap-3 border-t border-[#ece9e3] py-4 text-[16px] leading-[1.5] text-[#4f4c48]">

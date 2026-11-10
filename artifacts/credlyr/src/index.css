@@ -65,6 +65,7 @@ body {
 
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
+  --font-display: var(--app-font-display);
   --font-mono: var(--app-font-mono);
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -118,6 +119,7 @@ body {
   --app-font-sans:
     "Inter", "Helvetica Neue", "Arial", sans-serif;
   --app-font-serif: "Fraunces", "Georgia", serif;
+  --app-font-display: "Newsreader", "Georgia", serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.5rem;
 
@@ -184,6 +186,12 @@ body {
   }
   html[data-overscroll="bottom"] {
     background-color: #161a1e;
+  }
+  /* Headlines (h1/h2) are set in Newsreader; everything else stays Inter. */
+  h1,
+  h2 {
+    font-family: var(--app-font-display);
+    font-optical-sizing: auto;
   }
   body {
     font-family: var(--app-font-sans);

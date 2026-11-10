@@ -10,7 +10,7 @@ export { BRAND, SITE_URL };
 export const CONTAINER = "mx-auto w-full max-w-[1120px] px-6 md:px-10 xl:px-0";
 
 export const H2 =
-  "text-[34px] md:text-[44px] leading-[1.1] tracking-[-0.045em] font-normal text-[#222221]";
+  "text-[34px] md:text-[44px] leading-[1.1] tracking-[-0.02em] font-normal text-[#222221]";
 
 export const LEAD = "text-[18px] md:text-[20px] leading-[1.45] tracking-[-0.02em] text-[#6b6864]";
 
@@ -198,9 +198,9 @@ export function ConceptWebsite() {
         </div>
 
         {/* Treatments row */}
-        <div className="grid grid-cols-1 gap-3 border-t border-black/[0.05] bg-white px-5 py-5 @3xl:grid-cols-3 @3xl:gap-5 @3xl:px-10 @3xl:py-8">
+        <div className="grid grid-cols-1 divide-y divide-black/[0.06] border-t border-black/[0.05] bg-white px-5 @3xl:grid-cols-3 @3xl:divide-x @3xl:divide-y-0 @3xl:px-10">
           {treatments.map(([t, d]) => (
-            <div key={t} className="rounded-[12px] bg-[#fbf8f2] p-4 @3xl:p-5">
+            <div key={t} className="py-5 @3xl:px-6 @3xl:py-8 @3xl:first:pl-0 @3xl:last:pr-0">
               <p className="text-[17px] tracking-[-0.01em]" style={{ ...CONCEPT_SERIF, color: CONCEPT_GREEN }}>{t}</p>
               <p className="mt-1.5 text-[13.5px] leading-[1.5] text-[#6b6d66]">{d}</p>
             </div>
@@ -344,7 +344,7 @@ export function ClosingCta({
         }}
       />
       <Reveal className="max-w-[640px]">
-        <h2 className="text-balance text-[36px] font-normal leading-[1.08] tracking-[-0.045em] text-white md:text-[52px]">
+        <h2 className="text-balance text-[36px] font-normal leading-[1.08] tracking-[-0.02em] text-white md:text-[52px]">
           {title}
         </h2>
         <p className="mx-auto mt-5 max-w-[520px] text-balance text-[18px] leading-[1.5] text-white/85 md:text-[20px]">
@@ -399,7 +399,7 @@ export function PageHero({
       <div className={`${CONTAINER} pb-14 pt-[300px] md:pb-20 md:pt-[360px]`}>
         <div className="max-w-[760px]">
           {eyebrow && <p className="mb-4 text-[15px] text-[#5f5c58]">{eyebrow}</p>}
-          <h1 className="text-balance text-[40px] font-normal leading-[1.04] tracking-[-0.05em] text-[#222221] md:text-[64px]">
+          <h1 className="text-balance text-[40px] font-normal leading-[1.04] tracking-[-0.02em] text-[#222221] md:text-[64px]">
             {title}
           </h1>
           {lead && (

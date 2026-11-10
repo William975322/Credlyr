@@ -14,7 +14,7 @@ const LAST_UPDATED = "15 October 2026";
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="border-t border-[#ece9e3] py-8">
-      <h2 className="text-[22px] tracking-[-0.035em] text-[#222221]">{title}</h2>
+      <h2 className="text-[22px] tracking-[-0.01em] text-[#222221]">{title}</h2>
       <div className="mt-3 space-y-3 text-[16.5px] leading-[1.65] text-[#4f4c48]">{children}</div>
     </div>
   );

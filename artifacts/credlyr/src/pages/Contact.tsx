@@ -83,7 +83,7 @@ export default function ContactPage() {
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#222221] text-white">
                     <Check size={20} aria-hidden="true" />
                   </span>
-                  <h2 className="text-[28px] tracking-[-0.04em] text-[#222221]">Thank you, we’ve received your message.</h2>
+                  <h2 className="text-[28px] tracking-[-0.01em] text-[#222221]">Thank you, we’ve received your message.</h2>
                   <p className="text-[16px] leading-[1.6] text-[#5f5c58]">We’ll reply by email.</p>
                 </div>
               ) : (
