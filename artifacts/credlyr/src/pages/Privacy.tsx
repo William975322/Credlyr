@@ -9,11 +9,11 @@ import { BUSINESS, businessAddress } from "../lib/business";
 // Business details come from business.json and are left out while empty.
 // It is not a substitute for review by a professional.
 
-const LAST_UPDATED = "15 October 2026";
+const LAST_UPDATED = "14 November 2026";
 
-function Block({ title, children }: { title: string; children: ReactNode }) {
+function Block({ title, id, children }: { title: string; id?: string; children: ReactNode }) {
   return (
-    <div className="border-t border-[#ece9e3] py-8">
+    <div id={id} className="scroll-mt-24 border-t border-[#ece9e3] py-8">
       <h2 className="text-[22px] tracking-[-0.035em] text-[#222221]">{title}</h2>
       <div className="mt-3 space-y-3 text-[16.5px] leading-[1.65] text-[#4f4c48]">{children}</div>
     </div>
@@ -100,7 +100,8 @@ export default function PrivacyPage() {
               <Block title="Who else receives it">
                 <p>
                   Only the service providers named above, who process it on our behalf: Vercel (hosting), Resend
-                  (email delivery), Cal.com (scheduling){BUSINESS.emailProvider ? ` and ${BUSINESS.emailProvider} (email)` : ""}.
+                  (email delivery), Cal.com (scheduling){BUSINESS.emailProvider ? `, ${BUSINESS.emailProvider} (email)` : ""} and, if
+                  you accept analytics cookies, Vector (visitor analytics).
                   We don’t sell your information or share it for advertising.
                 </p>
                 <p>
@@ -116,10 +117,21 @@ export default function PrivacyPage() {
                 </Block>
               )}
 
-              <Block title="Cookies and analytics">
+              <Block title="Cookies and analytics" id="cookies">
                 <p>
-                  This website itself does not set cookies and does not use analytics or advertising tracking. Our
-                  fonts are hosted on this website, so loading a page does not contact third-party font services.
+                  With your consent, we use Vector (vector.co), a visitor analytics service based in the United States.
+                  It sets cookies and uses your IP address, the pages you view and data from its partners to tell us
+                  which companies, and sometimes which professionals, visit this website. We use this to understand who
+                  is interested in our services, based on your consent (Article 6(1)(a)). Vector loads only after you choose Accept in the cookie banner; if
+                  you choose Reject, or make no choice, it does not load.
+                </p>
+                <p>
+                  Your choice is saved in your browser’s local storage so we don’t ask on every page. You can change
+                  it at any time with <strong className="font-medium">Cookie settings</strong> at the bottom of every
+                  page. Withdrawing consent stops Vector from loading from then on.
+                </p>
+                <p>
+                  Our fonts are hosted on this website, so loading a page does not contact third-party font services.
                 </p>
                 <p>
                   The booking calendar on the website audit page is provided by Cal.com. It loads only when you choose

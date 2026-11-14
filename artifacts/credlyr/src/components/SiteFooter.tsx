@@ -1,3 +1,4 @@
+import { openCookieSettings } from "./CookieConsent";
 import { Link } from "wouter";
 import { BrandLogo } from "./BrandLogo";
 import { BRAND } from "./site";
@@ -76,6 +77,9 @@ export function SiteFooter() {
             <Link href="/privacy" className="-my-2 py-2 transition-colors hover:text-white/80">
               Privacy
             </Link>
+            <button type="button" onClick={openCookieSettings} className="-my-2 py-2 transition-colors hover:text-white/80">
+              Cookie settings
+            </button>
           </div>
         </div>
       </div>

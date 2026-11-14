@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, useLocation } from "wouter";
 import { BrandProvider } from "./components/BrandLogo";
 import { SiteNav } from "./components/SiteNav";
 import { SiteFooter } from "./components/SiteFooter";
+import { CookieConsent } from "./components/CookieConsent";
 import HomePage from "./pages/Home";
 import ServicePage from "./pages/ServicePage";
 import SectorPage from "./pages/Sector";
@@ -129,6 +130,7 @@ export default function App() {
               <Route component={NotFound} />
             </Switch>
           </div>
+          <CookieConsent />
         </div>
       </BrandProvider>
     </MotionConfig>
